@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 interface EventAttrs {
-    title: string;
+    name: string;
     banner_url?: string;
     start_date: string;
     end_date: string;
@@ -11,15 +11,30 @@ interface EventAttrs {
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
-    is_online: boolean;
+    type: string;
     organizer: string;
-    domain?: string;
+    filter?: string[];
+    privacy?: string;
+    mailList?: string[];
+    ticket_price?: number;
 }
 
 interface EventDoc extends mongoose.Document {
-    title: string;
-    price: string;
-    userId: string;
+    name: string;
+    banner_url?: string;
+    start_date: string;
+    end_date: string;
+    tags?: string[];
+    description: string;
+    rating?: number;
+    parent_id?: string;
+    sub_events?: string[];
+    type: string;
+    organizer: string;
+    filter?: string[];
+    privacy?: string;
+    mailList?: string[];
+    ticket_price?: number;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -43,8 +58,8 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    is_online: {
-        type: Boolean,
+    type: {
+        type: String,
         required: false
     },
     description: {
@@ -63,6 +78,10 @@ const eventSchema = new mongoose.Schema({
         type: [String],
         required: false
     },
+    mailList: {
+        type: [String],
+        required: false
+    },
     rating: {
         type: Number,
         required: false
@@ -77,6 +96,11 @@ const eventSchema = new mongoose.Schema({
         ref: 'Event',
         required: false
     }],
+    ticket_price: {
+        type: Number,
+        required: false
+
+    }
 
     //TODO: Add Venue
 
@@ -92,10 +116,10 @@ const eventSchema = new mongoose.Schema({
 })
 
 eventSchema.statics.build = (attrs: EventAttrs) => {
-    return new event(attrs);
+    return new Event(attrs);
 }
 
-const event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);
+const Event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);
 
 
-export { event };
+export { Event };
