@@ -5,16 +5,16 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import EventList from './screens/EventList';
-import CreateEvent1 from './screens/CreateEvent1';
-import CreateEvent2 from './screens/CreateEvent2';
 import PopularEvents from './screens/PopularEvents';
 import EventFeed from './components/EventFeed';
 import EventStatistics from './components/EventStatistics';
-import EventMembers from './components/EventMembers';
-import CreateEvent3 from './screens/CreateEvent3';
+import EventStaff from './components/EventStaff';
+
+import CreateEvent from './screens/CreateEvent';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
+import EventProfile from './components/EventProfile';
 
 
 // Your web app's Firebase configuration
@@ -41,16 +41,18 @@ function App() {
                 <Route path="/" element={<EventList />} />
                 <Route path="/popular" element={<PopularEvents />} />
                 {/* <Route path="/detail" element={<EventDetail />} /> */}
-                <Route path="/create/1" element={<CreateEvent1 />} />
-                <Route path="/create/2" element={<CreateEvent2 />} />
-                <Route path="/create/3" element={<CreateEvent3 />} />
+
+                <Route path="/create" element={<CreateEvent />} />
+
+
                 {/* <Route path="product">
                   <Route path=":id" element={<ProductScreen />}/>
                 </Route> */}
 
+                <Route path="/detail/profile" element={<EventProfile />}/>
                 <Route path="/detail/discussion" element={<EventFeed />}/>
                 <Route path="/detail/statistics" element={<EventStatistics />}/>
-                <Route path="/detail/members" element={<EventMembers />}/>
+                <Route path="/detail/staff" element={<EventStaff />}/>
 
 
              </Routes>
