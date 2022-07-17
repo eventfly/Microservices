@@ -1,0 +1,42 @@
+.event_container{
+    margin-top: 100px;
+}
+
+.eventCard{
+    width: 50%;
+    /* margin-left: 15%; */
+    /* margin-right: 15%; */
+    margin: 0 auto;
+    margin-bottom: 75px;
+    margin-top: 75px;
+}
+
+.eventBanner{
+    height: 300px;
+    opacity: 0.15;
+    object-fit: cover;
+}
+
+.title{
+    font-size: 1.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+.title:hover{
+    color: rgb(60, 60, 227);
+}
+
+.overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.description{
+    font-size: 1rem;
+}
+
+
+
+

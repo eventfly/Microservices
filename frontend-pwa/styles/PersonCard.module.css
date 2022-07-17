@@ -1,0 +1,122 @@
+.team_container{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.team_card{
+    /* height: 530px; */
+    height: auto;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    padding-right: 15px;
+    user-select: none;
+    overflow: hidden;
+    box-shadow: 0 0 0 rgb(0 0 0 / 8%);
+    transition: all 0.4s ease-in-out;
+    /* background-color: #f0f2f6; */
+}
+
+
+.profile_pic{
+    position: relative;
+    height: 250px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+.name h5{
+    color: #18181c;
+    font-size: 22px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.designation{
+    color: #2c343c;
+    font-size: 16px;
+    margin-bottom: 20px;
+    font-weight: 450;
+}
+
+.description{
+    font-size: 15px;
+    color: #2c343c;
+    margin-bottom: 20px;
+}
+
+.media_link{
+    height: 5%;
+    margin-bottom: 20px;
+}
+
+.media_link a{
+    text-decoration: none;
+    color: #9d1f60;
+    font-weight: bold;
+}
+
+
+
+
+@media only screen and (min-width: 300px){
+    .team_container{
+      justify-content: center;
+    }
+}
+    
+@media only screen and (min-width: 600px){
+    .team_container{
+        /* justify-content: space-between; */
+        justify-content: flex-start
+    }
+}
+
+
+@media only screen and (min-width: 270px){
+    .team_card{
+        width: 100%;
+        text-align: center;
+    }
+
+    .profile_pic{
+        margin-left: 50%;
+        transform: translate(-50%,0%); 
+    }
+}
+@media only screen and (min-width: 600px){
+    .team_card{
+        width: 48%;
+        text-align: left;
+    }
+    .profile_pic{
+        margin-left: 0%;
+        transform: translate(0%,0%); 
+    }
+}
+@media only screen and (min-width: 1000px){
+    .team_card{
+        width: 32%;
+        text-align: left;
+    }
+    .profile_pic{
+        margin-left: 0%;
+        transform: translate(0%,0%); 
+    }
+}
+@media only screen and (min-width: 1200px){
+    .team_card{
+        width: 24%;
+        text-align: left;
+    }
+    .profile_pic{
+        margin-left: 0%;
+        transform: translate(0%,0%); 
+    }
+}
+
+
+
+

@@ -1,0 +1,25 @@
+.nav_style{
+    background-color: #18181c;
+    max-height: 80px;
+}
+.nav_item_style{
+    padding: 20px 12px !important;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    display: block;
+    text-transform: uppercase;
+    color: #ffffff
+}
+.nav_item_style:hover{
+    color: #D31074;
+}
+.logo_style{
+    width: 65px;
+    height: 65px;
+}
+.nav_style:after{
+    content: "";
+    display: block;
+    clear: both;
+}

@@ -16,8 +16,8 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: r0m3l/client
-      context: client
+    - image: r0m3l/frontend-pwa
+      context: frontend-pwa
       docker:
         dockerfile: Dockerfile
       sync:

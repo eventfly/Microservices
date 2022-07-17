@@ -1,0 +1,135 @@
+.img_header{
+    background-color: #ef3054;
+    position: relative;
+    /* margin-top: 80px; */
+    max-height: 450px;
+}
+
+
+.bg_img{
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+    opacity: 0.15;
+}
+
+
+.content{
+    position: absolute;
+    z-index: 10;
+    left: 50%; 
+    top: 30%;
+    transform: translate(-50%,-30%);
+}
+
+.content h1{
+    color: white;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 1.25em 0 0.5em;
+    font-size: 2.66667em;
+    text-align: center;
+}
+
+.subtitle{
+    color: white;
+    font-size: 1.35em;
+    margin: 0 0 1em;
+    text-align: center;
+    font-weight: 450;
+}
+
+.date{
+    color: white;
+    font-size: 1.25em;
+    margin: 0 0 1em;
+    text-align: center;
+    font-weight: 450;
+    margin-top: 1.75em;
+}
+
+.button_section{
+    text-align: center;
+    margin-top: 2.5em;
+}
+.button{
+    font-weight: 450;
+    border-radius:30px/24px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.button:hover{
+    background-color: #e1dddd;
+}
+
+
+
+@media only screen and (min-width: 280px){
+    .content{
+        left: 15%;
+        right: -15%; 
+        top: 30%;
+        transform: translate(-15%,-30%); 
+    }
+    .content h1{
+        font-size: 1.7em;
+    }
+    .subtitle{
+        font-size: 1em;
+    }
+    .date{
+        font-size: 0.9em;
+    }
+}
+
+@media only screen and (min-width: 390px){
+    .content{
+        left: 15%;
+        right: -15%; 
+        top: 30%;
+        transform: translate(-15%,-30%); 
+    }
+    .content h1{
+        font-size: 2em;
+    }
+    .subtitle{
+        font-size: 1.2em;
+    }
+    .date{
+        font-size: 1.1em;
+    }
+}
+@media only screen and (min-width: 600px){
+    .content{
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%,-30%); 
+    }
+    .content h1{
+        font-size: 2.6667em;
+    }
+    .subtitle{
+        font-size: 1.35em;
+    }
+    .date{
+        font-size: 1.25em;
+    }
+}
+/* @media only screen and (min-width: 800px){
+    .img_header{
+        max-height: 500px;
+    }
+    .bg_img{
+        height: 500px;
+    }
+} */
+
+
+
+
+
+
+

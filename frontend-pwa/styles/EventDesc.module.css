@@ -1,0 +1,19 @@
+
+.desc_container{
+    margin-top: 70px;
+    margin-bottom: 50px;
+    padding-right: 1.67rem;
+    padding-left: 1.67rem;
+    text-align: center;
+}
+
+.title{
+    font-weight: 700;
+    margin-bottom: 1.5em;
+}
+
+.content{
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: justify;
+}

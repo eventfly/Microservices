@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-pwa-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-pwa
+  template:
+    metadata:
+      labels:
+        app: frontend-pwa
+    spec:
+      containers:
+        - name: frontend-pwa
+          image: r0m3l/frontend-pwa
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-pwa-srv
+spec:
+  selector:
+    app: frontend-pwa
+  ports:
+    - name: frontend-pwa
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
