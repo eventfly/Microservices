@@ -8,7 +8,6 @@ import { errorHandler } from './middlewares/error-handler';
 import { currentUser } from './middlewares/current-user';
 
 import { NotFoundError } from './errors/not-found-error';
-import { orgSignupRouter } from './routes/org-signup';
 
 const app = express()
 app.set('trust proxy', true) // trust first proxy
@@ -20,7 +19,6 @@ app.use(
     })
 )
 app.use(currentUser)
-app.use(orgSignupRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

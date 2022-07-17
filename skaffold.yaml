@@ -24,6 +24,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: r0m3l/events
+      context: events
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     - image: r0m3l/frontend-pwa
       context: frontend-pwa
       docker:

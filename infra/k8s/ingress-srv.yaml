@@ -25,6 +25,13 @@ spec:
                 port:
                   number: 3000
           - pathType: Prefix
+            path: /api/events/?(.*)
+            backend:
+              service:
+                name: events-srv
+                port:
+                  number: 3000
+          - pathType: Prefix
             path: /org/?(.*)
             backend:
               service:
