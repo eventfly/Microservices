@@ -1,0 +1,39 @@
+.stats-container{
+    /* background-color: white; */
+    min-height: inherit;
+    margin: 1rem 1rem;
+    /* border-radius: 0.7rem;   */
+    padding: 1rem 2rem;
+    width: 100%;
+}
+
+.info-container{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0;
+    margin-top: 0.8rem;
+}
+
+.info-container li{
+    width: 23%;
+    text-align: center;
+    padding: 0.4rem;
+    background-color: white; 
+    border-radius: 0.7rem;  
+    height: 6rem;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+.info-container li h4{
+    font-size: 0.9rem;
+}
+
+.info-container li h4:last-child{
+    font-size: 1.4rem;
+}

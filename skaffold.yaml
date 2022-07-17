@@ -32,3 +32,11 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
+    - image: r0m3l/frontend-org
+      context: frontend-org
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .

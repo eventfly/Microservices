@@ -25,6 +25,13 @@ spec:
                 port:
                   number: 3000
           - pathType: Prefix
+            path: /org/?(.*)
+            backend:
+              service:
+                name: frontend-org-srv
+                port:
+                  number: 3000
+          - pathType: Prefix
             path: /?(.*)
             backend:
               service:

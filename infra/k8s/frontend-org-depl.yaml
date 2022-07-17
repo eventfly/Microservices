@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-org-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-org
+  template:
+    metadata:
+      labels:
+        app: frontend-org
+    spec:
+      containers:
+        - name: frontend-org
+          image: r0m3l/frontend-org
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-org-srv
+spec:
+  selector:
+    app: frontend-org
+  ports:
+    - name: frontend-org
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
