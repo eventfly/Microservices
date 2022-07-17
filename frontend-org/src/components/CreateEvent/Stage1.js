@@ -6,7 +6,7 @@ import EventTag from './EventTag'
 import CoverImage from './CoverImage'
 
 
-const CreateEventStage1 = ({nextStage}) => {
+const CreateEventStage1 = ({uploadImage, nextStage}) => {
     return ( 
 
         <>
@@ -20,7 +20,7 @@ const CreateEventStage1 = ({nextStage}) => {
                 <EventName />
                 <br />
 
-                <CoverImage />
+                <CoverImage uploadImage={uploadImage} />
                 <br />
 
                 <EventTag />

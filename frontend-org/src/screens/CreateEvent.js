@@ -1,13 +1,39 @@
 import { useState } from "react";
-
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import CreateEventStage1 from "../components/CreateEvent/Stage1";
 import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
 
 
+
 const CreateEvent = () => {
 
     const [stage, setStage] = useState(1);
+    const [bannerImage, setBannerImage] = useState(null);
+
+    const uploadImage = (e) => {
+        const file = e.target.files[0];
+        const storage = getStorage();
+        const storageRef = ref(storage, file.name);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+    
+        uploadTask.on("state_changed",
+            (snapshot) => {
+                console.log("Loading");
+            },
+            (error) => {
+                console.log("Error");
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+                    console.log(downloadUrl);
+                    setBannerImage(downloadUrl);
+                    sessionStorage.setItem("event_banner", downloadUrl);
+                    document.getElementById("banner").style.backgroundImage = `url(${downloadUrl})`;
+                })
+            }
+        );
+    }
 
     const saveDataOfStage1 = () => {
         sessionStorage.setItem("event_name", document.getElementById("eventName").value);
@@ -29,6 +55,8 @@ const CreateEvent = () => {
         sessionStorage.setItem("event_maillist", document.getElementById("mailing_list").value);
 
         setStage(1)
+
+        createEvent()
     }
 
     const backStage = () => {
@@ -53,11 +81,39 @@ const CreateEvent = () => {
         setStage(stage+1);
     }
 
+    const createEvent = () => {
+
+        let event = {
+            type: sessionStorage.getItem('event_type'),
+            start: sessionStorage.getItem('event_start'),
+            privacy: sessionStorage.getItem('event_privacy'),
+            name: sessionStorage.getItem('event_name'),
+            banner_url: bannerImage,
+            end: sessionStorage.getItem('event_end'),
+            desc: sessionStorage.getItem('event_desc'),
+            tags: [
+                sessionStorage.getItem('event_tags')
+            ],
+            ticket: parseInt(sessionStorage.getItem('event_ticket')),
+            mailList: [
+                sessionStorage.getItem('event_maillist')
+            ],
+            filter: [
+                sessionStorage.getItem('event_filter')
+            ]
+        }
+
+        event.start = new Date(event.start).toISOString()
+        event.end = new Date(event.end).toISOString()
+
+        console.log(event)
+    }
+
 
     if(stage === 1){
         return (
             <>  
-                <CreateEventStage1 nextStage={nextStage} />
+                <CreateEventStage1 uploadImage={uploadImage} nextStage={nextStage} />
             </>
         );
     }

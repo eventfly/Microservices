@@ -8,13 +8,13 @@ import EventList from './screens/EventList';
 import PopularEvents from './screens/PopularEvents';
 import EventFeed from './components/EventFeed';
 import EventStatistics from './components/EventStatistics';
-import EventStaff from './components/EventStaff';
+// import EventStaff from './components/EventStaff';
 
 import CreateEvent from './screens/CreateEvent';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
-import EventProfile from './components/EventProfile';
+// import EventProfile from './components/EventProfile';
 
 
 // Your web app's Firebase configuration
@@ -49,10 +49,10 @@ function App() {
                   <Route path=":id" element={<ProductScreen />}/>
                 </Route> */}
 
-                <Route path="/detail/profile" element={<EventProfile />}/>
+                {/* <Route path="/detail/profile" element={<EventProfile />}/> */}
                 <Route path="/detail/discussion" element={<EventFeed />}/>
                 <Route path="/detail/statistics" element={<EventStatistics />}/>
-                <Route path="/detail/staff" element={<EventStaff />}/>
+                {/* <Route path="/detail/staff" element={<EventStaff />}/> */}
 
 
              </Routes>
