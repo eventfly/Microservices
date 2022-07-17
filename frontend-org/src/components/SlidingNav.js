@@ -45,7 +45,7 @@ const handler = (x) => {
                         color: `${fontColor[3]}`
                     }}> All </li>
                 <li>
-                    <Link to={`/create/1`}>
+                    <Link to={`/create`}>
                         <button  style={{
                             width: '90%',
                             color: 'white',

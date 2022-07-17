@@ -1,5 +1,6 @@
 import mongoose, { Types } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { Password } from '../services/password';
 
 interface EventDoc {
     eventId: string;
@@ -62,6 +63,9 @@ const orgSchema = new mongoose.Schema(
             type: Date,
             default: Date.now()
         },
+        role: {
+            type: String,
+        }
 
     },
     {
@@ -73,6 +77,14 @@ const orgSchema = new mongoose.Schema(
         },
     }
 );
+
+orgSchema.pre('save', async function (done) {
+    if (this.isModified('password')) {
+        const hashed = await Password.toHash(this.get('password'))
+        this.set('password', hashed)
+    }
+    done()
+})
 
 orgSchema.set('versionKey', 'version');
 orgSchema.plugin(updateIfCurrentPlugin);
