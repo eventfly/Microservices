@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { json } from 'body-parser'
 import { body } from 'express-validator'
-import { User } from '../models/user'
+import { participant } from '../models/participant'
 import { validateRequest } from '../middlewares/validate-request'
 import { BadRequestError } from '../errors/bad-request-error'
 import { Password } from '../services/password'
@@ -22,7 +22,7 @@ router.post('/api/users/signin',
     async (req: Request, res: Response) => {
         const { email, password } = req.body
 
-        const existingUser = await User.findOne({ email })
+        const existingUser = await participant.findOne({ email })
 
         if (!existingUser) {
             throw new BadRequestError('User doesn\'t exist')
@@ -37,7 +37,10 @@ router.post('/api/users/signin',
         //Generate JWT
         const userJwt = jwt.sign({
             id: existingUser.id,
-            email: existingUser.email
+            email: existingUser.email,
+            dob: existingUser.dob,
+            gender: existingUser.gender,
+            name: existingUser.name
         }, process.env.JWT_KEY!)
 
         //Store it on session object

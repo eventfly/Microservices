@@ -1,8 +1,11 @@
+import { useState } from 'react'
+import Router from "next/router";
+
 import FormInput from "../components/Form/FormInput";
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 
-import {useState} from 'react'
+import useRequest from "../hooks/use-request";
 
 
 const Login = () => {
@@ -10,16 +13,24 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) =>{
+    const { doRequest, errors } = useRequest({
+        url: "/api/users/signin",
+        method: "post",
+        body: {
+            email, password
+        }, onSuccess: () => Router.push("/")
+    })
+
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log("email: ", email);
         console.log("password: ", password);
 
-        setEmail('')
-        setPassword('')
+        doRequest()
     }
 
-    return ( 
+    return (
 
         <div className="no_auth_page_style">
 
@@ -27,20 +38,20 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
 
-                <FormInput id="email" 
-                    inputType="email" 
-                    label="Email" 
+                <FormInput id="email"
+                    inputType="email"
+                    label="Email"
                     placeholder="Enter email"
                     value={email}
-                    onChange={setEmail} 
+                    onChange={setEmail}
                 />
-                
-                <FormInput id="password" 
-                    inputType="password" 
-                    label="Password" 
+
+                <FormInput id="password"
+                    inputType="password"
+                    label="Password"
                     placeholder="Enter password"
                     value={password}
-                    onChange={setPassword} 
+                    onChange={setPassword}
                 />
 
                 <FormButton type="submit" buttonText="Log in" />
@@ -52,5 +63,5 @@ const Login = () => {
 
     );
 }
- 
+
 export default Login;

@@ -5,7 +5,7 @@ import { body } from 'express-validator'
 
 import { validateRequest } from '../middlewares/validate-request'
 
-import { User } from '../models/user'
+import { participant } from '../models/participant'
 import { BadRequestError } from '../errors/bad-request-error'
 
 const router = express.Router()
@@ -23,21 +23,24 @@ router.post('/api/users/signup', [
     async (req: Request, res: Response) => {
 
 
-        const { email, password } = req.body
+        const { email, password, gender, dob, name } = req.body
 
-        const existingUser = await User.findOne({ email })
+        const existingUser = await participant.findOne({ email })
         if (existingUser) {
             throw new BadRequestError(
                 'Email in use'
             )
         } else {
-            const user = User.build({ email, password })
+            const user = participant.build({ email, password, name, dob, gender })
             await user.save()
 
             //Generate JWT
             const userJwt = jwt.sign({
                 id: user.id,
-                email: user.email
+                email: user.email,
+                name: user.name,
+                dob: user.dob,
+                gender: user.gender
             }, process.env.JWT_KEY!)
 
             //Store it on session object

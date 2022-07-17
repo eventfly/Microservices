@@ -46,7 +46,7 @@ const LinkItems = [
   { name: 'Settings', icon: FiSettings },
 ];
 
-export default function SideNavBar ( {children} ) {
+export default function SideNavBar({ children, currentUser }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -67,9 +67,9 @@ export default function SideNavBar ( {children} ) {
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      <MobileNav onOpen={onOpen} />
+      <MobileNav onOpen={onOpen} currentUser={currentUser} />
       <Box ml={{ base: 0, md: 60 }} p="0">
-        { children }
+        {children}
       </Box>
     </Box>
   );
@@ -135,7 +135,7 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 
-const MobileNav = ({ onOpen, ...rest }) => {
+const MobileNav = ({ onOpen, currentUser, ...rest }) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -188,9 +188,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Dennis Reynolds</Text>
+                  <Text fontSize="sm">{currentUser.name}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    dennis@eventfly.com
+                    {currentUser.email}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -216,13 +216,13 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   <a>Billing</a>
                 </Link>
               </MenuItem>
-              <MenuDivider/>
+              <MenuDivider />
 
               <MenuItem style={{ color: "red" }}>
                 <Link href="/signout">
                   <a>Sign Out</a>
                 </Link>
-              </MenuItem>              
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

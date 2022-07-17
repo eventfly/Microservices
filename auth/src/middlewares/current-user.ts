@@ -5,6 +5,9 @@ import { NotAuthorizedError } from "../errors/not-authorized-error";
 interface UserPayload {
     id: string;
     email: string;
+    name?: string;
+    dob?: string;
+    gender?: string;
 }
 
 declare global {
