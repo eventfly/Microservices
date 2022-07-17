@@ -10,11 +10,12 @@ import CreateEvent2 from './screens/CreateEvent2';
 import PopularEvents from './screens/PopularEvents';
 import EventFeed from './components/EventFeed';
 import EventStatistics from './components/EventStatistics';
-import EventMembers from './components/EventMembers';
+import EventStaff from './components/EventStaff';
 import CreateEvent3 from './screens/CreateEvent3';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
+import EventProfile from './components/EventProfile';
 
 
 // Your web app's Firebase configuration
@@ -48,9 +49,10 @@ function App() {
                   <Route path=":id" element={<ProductScreen />}/>
                 </Route> */}
 
+                <Route path="/detail/profile" element={<EventProfile />}/>
                 <Route path="/detail/discussion" element={<EventFeed />}/>
                 <Route path="/detail/statistics" element={<EventStatistics />}/>
-                <Route path="/detail/members" element={<EventMembers />}/>
+                <Route path="/detail/staff" element={<EventStaff />}/>
 
 
              </Routes>
