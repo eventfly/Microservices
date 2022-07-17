@@ -4,14 +4,14 @@ import Router from "next/router";
 
 export default () => {
     const { doRequest } = useRequest({
-        url: "/api/users/signout",
+        url: "/api/auth/users/signout",
         method: "post",
         body: {},
         onSuccess: () => Router.push("/")
     })
 
     useEffect(() => {
-        doRequest()
+        doRequest();
     })
 
     return <div>

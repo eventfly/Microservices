@@ -9,7 +9,7 @@ export default () => {
 
 
     const { doRequest, errors } = useRequest({
-        url: "/api/users/signup",
+        url: "/api/auth/users/signup",
         method: "post",
         body: {
             email, password

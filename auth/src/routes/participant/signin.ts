@@ -1,14 +1,14 @@
 import express, { Request, Response } from 'express'
 import { json } from 'body-parser'
 import { body } from 'express-validator'
-import { participant } from '../models/participant'
-import { validateRequest } from '../middlewares/validate-request'
-import { BadRequestError } from '../errors/bad-request-error'
-import { Password } from '../services/password'
+import { participant } from '../../models/participant'
+import { validateRequest } from '../../middlewares/validate-request'
+import { BadRequestError } from '../../errors/bad-request-error'
+import { Password } from '../../services/password'
 import jwt from 'jsonwebtoken'
 const router = express.Router()
 
-router.post('/api/users/signin',
+router.post('/api/auth/users/signin',
     [
         body('email').
             isEmail().

@@ -3,14 +3,13 @@ import { json } from 'body-parser'
 import jwt from 'jsonwebtoken'
 import { body } from 'express-validator'
 
-import { validateRequest } from '../middlewares/validate-request'
-
-import { participant } from '../models/participant'
-import { BadRequestError } from '../errors/bad-request-error'
+import { validateRequest } from '../../middlewares/validate-request'
+import { BadRequestError } from '../../errors/bad-request-error'
+import { Organizer } from '../../models/org'
 
 const router = express.Router()
 
-router.post('/api/users/signup', [
+router.post('/api/auth/org/signup', [
     body('email').
         isEmail().
         withMessage('Email must be valid'),
@@ -23,15 +22,15 @@ router.post('/api/users/signup', [
     async (req: Request, res: Response) => {
 
 
-        const { email, password, gender, dob, name } = req.body
+        const { email, password, name, role } = req.body
 
-        const existingUser = await participant.findOne({ email })
+        const existingUser = await Organizer.findOne({ email })
         if (existingUser) {
             throw new BadRequestError(
                 'Email in use'
             )
         } else {
-            const user = participant.build({ email, password, name, dob, gender })
+            const user = Organizer.build({ email, password, name, role })
             await user.save()
 
             //Generate JWT
@@ -39,8 +38,7 @@ router.post('/api/users/signup', [
                 id: user.id,
                 email: user.email,
                 name: user.name,
-                dob: user.dob,
-                gender: user.gender
+                role: user.role
             }, process.env.JWT_KEY!)
 
             //Store it on session object
@@ -54,4 +52,4 @@ router.post('/api/users/signup', [
 
     })
 
-export { router as signupRouter }
+export { router as OrgSignupRouter }

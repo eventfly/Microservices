@@ -5,10 +5,6 @@ import { NotAuthorizedError } from "../errors/not-authorized-error";
 interface UserPayload {
     id: string;
     email: string;
-    name?: string;
-    dob?: string;
-    gender?: string;
-    role?: string;
 }
 
 declare global {
@@ -28,6 +24,8 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
     try {
         const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!) as UserPayload
         req.currentUser = payload
+        console.log('payload ', payload)
+        console.log('req.currentUser = ', req.currentUser)
 
         if (!req.currentUser) {
             throw new NotAuthorizedError()
