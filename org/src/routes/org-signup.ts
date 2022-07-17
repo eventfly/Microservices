@@ -5,6 +5,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { natsWrapper } from '../nats-wrapper';
 import { BadRequestError } from '../errors/bad-request-error';
 import { Organizer } from '../models/organizer';
+// import { OrgCreatedPublisher } from '../events/publishers/org-created-publisher';
 
 const router = express.Router();
 
@@ -29,9 +30,22 @@ router.post('/api/org', [
 
         await user.save()
 
-        // TODO: Publish an event to the NATS Streaming server
+        // Publish an event to the NATS Streaming server
 
-        //Generate JWT
+        natsWrapper.client.publish('org:created', JSON.stringify(
+            {
+                email: user.email,
+                name: user.name,
+                password: user.password,
+                role: user.role
+            }
+        ), () => {
+            console.log('Event published')
+        })
+
+
+
+        //Generate JWT Token
         const userJwt = jwt.sign({
             id: user.id,
             email: user.email,
@@ -39,7 +53,7 @@ router.post('/api/org', [
             role: user.role
         }, process.env.JWT_KEY!)
 
-        //Store it on session object
+        //Store it on session object (in the cookie)
 
         req.session = {
             jwt: userJwt

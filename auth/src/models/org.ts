@@ -60,6 +60,8 @@ const OrgSchema = new mongoose.Schema({
         }
     })
 
+
+
 OrgSchema.statics.build = (attrs: OrgAttrs) => {
     return new Organizer(attrs)
 }
