@@ -12,7 +12,8 @@ interface OrgAttrs {
     email: string;
     password: string;
     name: string;
-    events: Types.DocumentArray<EventDoc>;
+    events?: Types.DocumentArray<EventDoc>;
+    role?: string;
 
 }
 
@@ -20,7 +21,8 @@ interface OrgDoc extends mongoose.Document {
     email: string;
     password: string;
     name: string;
-    events: Types.DocumentArray<EventDoc>;
+    events?: Types.DocumentArray<EventDoc>;
+    role?: string;
 
 }
 
@@ -76,9 +78,9 @@ orgSchema.set('versionKey', 'version');
 orgSchema.plugin(updateIfCurrentPlugin);
 
 orgSchema.statics.build = (attrs: OrgAttrs) => {
-    return new Org(attrs);
+    return new Organizer(attrs);
 };
 
-const Org = mongoose.model<OrgDoc, OrgModel>('Org', orgSchema);
+const Organizer = mongoose.model<OrgDoc, OrgModel>('Organizer', orgSchema);
 
-export { Org };
+export { Organizer };
