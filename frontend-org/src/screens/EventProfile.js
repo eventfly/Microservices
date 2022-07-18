@@ -54,8 +54,8 @@ const EventProfile = () => {
     const [endDate, setEndDate] = useState(dateFormatter("2018-06-12T19:30:00.000Z"));
 
     const [ticketPrice, setTicketPrice] = useState(110);
-    const [eventType, setEventType] = useState(eventTypeOptions[1]);
-    const [eventPrivacy, setEventPrivacy] = useState(eventTypeOptions[1]);
+    const [eventType, setEventType] = useState(eventTypeOptions[1].name);
+    const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[1].name);
 
 
     const handleSubmit = (e) => {
@@ -69,6 +69,27 @@ const EventProfile = () => {
         console.log("location:", location)
         console.log(eventType);
         console.log(eventPrivacy);
+
+        let event = {
+            type: eventType,
+            start: new Date(startDate).toISOString(),
+            privacy: eventPrivacy,
+            name: name,
+            // banner_url: bannerImage,
+            end: new Date(endDate).toISOString(),
+            desc: description,
+            tags: [
+                tag
+            ],
+            ticket: parseInt(ticketPrice),
+            // mailList: [
+            //     sessionStorage.getItem('event_maillist')
+            // ],
+            // filter: [
+            //     sessionStorage.getItem('event_filter')
+            // ]
+        }
+        console.log(event);
     }
 
     return ( 

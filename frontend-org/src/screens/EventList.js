@@ -7,7 +7,20 @@ import axios from 'axios';
 
 const EventList = () => {
 
-    const [events, setEvents] = useState('');
+    let ev = [
+        {
+            'name': 'Event 1',
+            'banner_url': 'https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg',
+            'id': 1
+        },
+
+        {
+            'name': 'Event 2',
+            'banner_url': 'https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg',
+            'id': 2
+        }
+    ]
+    const [events, setEvents] = useState(ev);
     const [alldata, setAlldata] = useState('');
 
     useEffect(() => {
