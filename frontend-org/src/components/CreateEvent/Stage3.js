@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import "../../styles/CreateEvent.css"
+// import "../../styles/CreateEvent.css"
 
 import PromoteEvent from './PromoteEvent'
 import MailingList from './MailingList'

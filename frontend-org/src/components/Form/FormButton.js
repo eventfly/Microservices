@@ -1,11 +1,16 @@
-// import '../../styles/Form.module.css'
+import '../../styles/Form.css'
 
-const FormButton = ({type, buttonText}) => {
+const FormButton = ({type, buttonText, onClick}) => {
     return ( 
 
         <>
-            <button type={type} className={"btn btn-primary btn-block " + "button_style"}> 
+            <button type={type}
+                onClick={onClick} 
+                className={"btn btn-primary btn-block btn-md " + "button_style"}
+            >
+
                 {buttonText} 
+            
             </button>
         
         </>

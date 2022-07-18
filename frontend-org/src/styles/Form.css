@@ -8,28 +8,30 @@
 
 .inputfield{
     margin-top: 20px;
-    margin-left: 30%;
-    margin-right: 30%;
+    /* margin-left: 30%;
+    margin-right: 30%; */
 }
 
 .label{
     margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .button_style{
-    width: 10%;
+    /* width: 10%; */
     height: 50px;
     margin-top: 40px;
-    margin-left: 45%;
-    margin-right: 45%;
+    /* margin-left: 45%;
+    margin-right: 45%; */
     color: white;
     background-color: blue;
 }
 
 .selectfield{
     margin-top: 20px;
-    margin-left: 30%;
-    margin-right: 30%;
+    /* margin-left: 30%;
+    margin-right: 30%; */
 }
 
 .datepickerfield{

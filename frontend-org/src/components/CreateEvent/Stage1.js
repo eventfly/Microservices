@@ -1,12 +1,14 @@
 // import {Link} from 'react-router-dom'
-import "../../styles/CreateEvent.css"
 
-import EventName from './EventName'
-import EventTag from './EventTag'
+// import EventName from './EventName'
+// import EventTag from './EventTag'
 import CoverImage from './CoverImage'
 
+import FormInput from '../Form/FormInput'
+import FormButton from '../Form/FormButton';
 
-const CreateEventStage1 = ({uploadImage, nextStage}) => {
+
+const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage}) => {
     return ( 
 
         <>
@@ -17,19 +19,38 @@ const CreateEventStage1 = ({uploadImage, nextStage}) => {
 
             <div className='CreateEvent1'>
 
-                <EventName />
+                {/* <EventName /> */}
+
+                <FormInput id="name"
+                    inputType="text"
+                    label="Event Name"
+                    placeholder="Event Name"
+                    value={name}
+                    onChange={setName}
+                />
+
                 <br />
 
                 <CoverImage uploadImage={uploadImage} />
                 <br />
 
-                <EventTag />
+                {/* <EventTag /> */}
+
+                <FormInput id="tag"
+                    inputType="text"
+                    label="Event Tags"
+                    placeholder="Event Tags"
+                    value={tags}
+                    onChange={setTags}
+                />
 
                 <br /><br /><br />
 
-                <button className='Create1Button' onClick={nextStage}>
+                <FormButton type="submit" buttonText="Next" onClick={nextStage} />
+
+                {/* <button className='Create1Button' onClick={nextStage}>
                     Next
-                </button>
+                </button> */}
                 
                 
 

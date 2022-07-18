@@ -1,4 +1,4 @@
-// import '../../styles/Form.module.css'
+import '../../styles/Form.css'
 
 
 const FormInput = ({id, inputType, label, placeholder, value, onChange}) => {

@@ -5,7 +5,7 @@ import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
 import axios from 'axios';
 
-import useRequest from '../hooks/use-request';
+import "../styles/CreateEvent.css"
 
 
 const CreateEvent = () => {
@@ -52,23 +52,23 @@ const CreateEvent = () => {
     }
 
     const saveDataOfStage1 = () => {
-        sessionStorage.setItem("event_name", document.getElementById("eventName").value);
-        sessionStorage.setItem("event_tags", document.getElementById("eventTag").value);
+        // sessionStorage.setItem("event_name", document.getElementById("eventName").value);
+        // sessionStorage.setItem("event_tags", document.getElementById("eventTag").value);
     }
 
     const saveDataOfStage2 = () => {
-        sessionStorage.setItem("event_desc", document.getElementById("description").value);
-        sessionStorage.setItem("event_ticket", document.getElementById("price").value);
-        sessionStorage.setItem("event_start", document.getElementById("start_date").value);
-        sessionStorage.setItem("event_end", document.getElementById("end_date").value);
-        sessionStorage.setItem("event_type", document.getElementById("event_type").value);
-        sessionStorage.setItem("event_privacy", document.getElementById("event_privacy").value);
-        sessionStorage.setItem("event_filter", document.getElementById("email_filter").value);
+        // sessionStorage.setItem("event_desc", document.getElementById("description").value);
+        // sessionStorage.setItem("event_ticket", document.getElementById("price").value);
+        // sessionStorage.setItem("event_start", document.getElementById("start_date").value);
+        // sessionStorage.setItem("event_end", document.getElementById("end_date").value);
+        // sessionStorage.setItem("event_type", document.getElementById("event_type").value);
+        // sessionStorage.setItem("event_privacy", document.getElementById("event_privacy").value);
+        // sessionStorage.setItem("event_filter", document.getElementById("email_filter").value);
     }
 
     const saveDataOfStage3 = () => {
-        sessionStorage.setItem("event_promotion", document.getElementById("promotion").value);
-        sessionStorage.setItem("event_maillist", document.getElementById("mailing_list").value);
+        // sessionStorage.setItem("event_promotion", document.getElementById("promotion").value);
+        // sessionStorage.setItem("event_maillist", document.getElementById("mailing_list").value);
 
         setStage(1)
 
@@ -142,14 +142,29 @@ const CreateEvent = () => {
     if (stage === 1) {
         return (
             <>
-                <CreateEventStage1 uploadImage={uploadImage} nextStage={nextStage} />
+                <CreateEventStage1
+                    name={name}
+                    setName={setName}
+                    tags={tags}
+                    setTags={setTags} 
+                    uploadImage={uploadImage} 
+                    nextStage={nextStage} 
+                />
             </>
         );
     }
     else if (stage === 2) {
         return (
             <>
-                <CreateEventStage2 backStage={backStage} nextStage={nextStage} />
+                <CreateEventStage2
+                    desc={desc} setDesc={setDesc}
+                    ticketPrice={ticketPrice} setTicketPrice={setTicketPrice}
+                    setType={setType} setPrivacy={setPrivacy}
+                    filter={filter} setFilter={setFilter}
+                    setStartDate={setStartDate} setEndDate={setEndDate}
+                    backStage={backStage} 
+                    nextStage={nextStage} 
+                />
             </>
         );
     }

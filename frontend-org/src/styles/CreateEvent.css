@@ -1,12 +1,11 @@
 .CreateEvent1{
     background-color: white;
     min-height: inherit;
-    /* border: 1px solid firebrick; */
     margin: 2.5rem 3.5rem;
     border-radius: 0.7rem;  
     padding: 1rem 2rem;
+    padding-bottom: 3rem;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-    width: 100%;
 }
 
 
@@ -32,15 +31,41 @@
     margin: 2.5rem 3.5rem;
     border-radius: 0.7rem;  
     padding: 1rem 2rem;
+    padding-bottom: 3rem;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.Col-1{
+.left-column{
+  flex: 0 0 50%;
+  margin-bottom: 30px;
+}
+
+.right-column{
+  flex: 0 0 43%;
+}
+
+.btn-flexbox{
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-content: flex-start; */
+}
+.button_column{
+  flex: 0 0 12%;
+  margin-right: 2%;
+}
+
+/* .Col-1{
     float: left;
     width: 50%;
     padding: 1rem;
-}
+} */
 
 
 .Create2Button{
@@ -62,13 +87,11 @@
 
 .CreateEvent3{
     background-color: white;
-    /* min-height: inherit; */
     height: 500px;
     margin: 2.5rem 3.5rem;
     border-radius: 0.7rem;  
     padding: 1rem 2rem;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
-    width: 100%;
 }
 
 .CreateEvent3:after {
@@ -108,8 +131,9 @@
     font-size: 20px;
     font-weight: bold;
     
-  }
-  .EventName input[type='text']{
+}
+
+.EventName input[type='text']{
     flex-grow: 1;
     max-width: 100%;
     width: 100%;
@@ -123,9 +147,9 @@
     border-color: #e5e5e5;
     font-style: oblique;
   
-  }
+}
   
-  .EventLabelDescription{
+.EventLabelDescription{
     font-size: 20px;
     font-weight: bold;
     
