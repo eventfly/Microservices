@@ -42,10 +42,12 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-top: 1.2rem;
 }
 
 .person-info{
     border: 1px solid grey;
+    border-radius: 0.3rem;
     padding: 1rem 1rem;
     margin: 0 1rem;
     width: 27%;

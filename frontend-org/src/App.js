@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Routes, Outlet, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 
@@ -68,7 +68,6 @@ function App() {
       <Header />
       <Sidebar />
 
-      <Outlet />
       <main>
         <Routes>
           {/* <Route path="/" element={<EventList />} /> */}

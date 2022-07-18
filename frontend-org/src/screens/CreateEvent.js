@@ -105,6 +105,8 @@ const CreateEvent = () => {
             ]
         }
 
+        console.log(event)
+
         event.start = new Date(event.start).toISOString()
         event.end = new Date(event.end).toISOString()
 

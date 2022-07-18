@@ -10,6 +10,8 @@ import EmailFilter from './EmailFilter';
 
 
 const CreateEventStage2 = ({backStage, nextStage}) => {
+    const DefaultLocation = { lat: 10, lng: 106};
+
     return ( 
 
         <>
@@ -21,7 +23,7 @@ const CreateEventStage2 = ({backStage, nextStage}) => {
             <div className='CreateEvent2'>
                 <div className='Col-1'>
 
-                    <Map />
+                    <Map DefaultLocation={DefaultLocation}/>
                     <br />
                     <ShortDescription />
                     <br />
