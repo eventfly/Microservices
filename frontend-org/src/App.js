@@ -13,6 +13,7 @@ import EventProfile from './screens/EventProfile';
 import EventFeed from './screens/EventFeed';
 import EventStatistics from './screens/EventStatistics';
 import EventStaff from './screens/EventStaff';
+import AddStaff from './screens/AddStaff';
 
 import CreateEvent from './screens/CreateEvent';
 import Signup from './screens/signup';
@@ -87,6 +88,7 @@ function App() {
           <Route path="/detail/profile" element={<EventProfile />}/>
           <Route path="/detail/discussion" element={<EventFeed />}/>
           <Route path="/detail/statistics" element={<EventStatistics />}/>
+          <Route path="/detail/staff/add" element={<AddStaff />}/>
           <Route path="/detail/staff" element={<EventStaff />}/>
 
 

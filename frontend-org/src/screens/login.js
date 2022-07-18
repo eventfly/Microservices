@@ -3,7 +3,8 @@ import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 
-import {useState} from 'react'
+import { useState } from 'react'
+import axios from 'axios';
 
 
 const Login = () => {
@@ -11,11 +12,11 @@ const Login = () => {
     let accTypeOptions = [
         {
             'id': 1,
-            'name': 'Organizer'
+            'name': 'organizer'
         },
         {
             'id': 2,
-            'name': 'Staff'
+            'name': 'staff'
         }
     ]
 
@@ -23,7 +24,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [accType, setAccType] = useState('');
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log("email: ", email);
         console.log("password: ", password);
@@ -32,9 +33,19 @@ const Login = () => {
         setEmail('')
         setPassword('')
         setAccType('')
+
+        axios.post('/api/auth/org/signin', {
+            email,
+            password,
+            role: accType
+        }).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
     }
 
-    return ( 
+    return (
 
         <div className="no_auth_page_style">
 
@@ -42,24 +53,24 @@ const Login = () => {
 
             <form onSubmit={handleSubmit}>
 
-                <FormInput id="email" 
-                    inputType="email" 
-                    label="Email" 
+                <FormInput id="email"
+                    inputType="email"
+                    label="Email"
                     placeholder="Enter email"
                     value={email}
-                    onChange={setEmail} 
-                />
-                
-                <FormInput id="password" 
-                    inputType="password" 
-                    label="Password" 
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={setPassword} 
+                    onChange={setEmail}
                 />
 
-                <FormSelect id="account" 
-                    label="Account Type" 
+                <FormInput id="password"
+                    inputType="password"
+                    label="Password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={setPassword}
+                />
+
+                <FormSelect id="account"
+                    label="Account Type"
                     options={accTypeOptions}
                     onChange={setAccType}
                 />
@@ -73,5 +84,5 @@ const Login = () => {
 
     );
 }
- 
+
 export default Login;

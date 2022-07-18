@@ -4,6 +4,7 @@ import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 import { useState } from 'react'
 import axios from 'axios';
+import ErrorPopup from "../components/ErrorPopup";
 
 const Signup = () => {
 
@@ -22,6 +23,9 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [accType, setAccType] = useState('');
+
+    const [show, setShow] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,6 +46,9 @@ const Signup = () => {
             console.log(res)
         }).catch(err => {
             console.log(err)
+
+            setShow(true)
+            setError(err)
         })
 
         // setName('')
@@ -92,6 +99,8 @@ const Signup = () => {
                 <FormButton type="submit" buttonText="Sign up" />
 
             </form>
+
+            <ErrorPopup show={show} setShow={setShow} error={error} />
 
         </div>
 
