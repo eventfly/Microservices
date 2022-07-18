@@ -12,7 +12,7 @@ const FormSelect = ({id, label, options, onChange}) => {
 
                 <select id={id} className={"form-select"} onChange={e=> onChange(e.target.value)}>
                     
-                    <option defaultValue> Choose... </option>
+                    {/* <option defaultValue> Choose... </option> */}
 
                     {
                         options.map((item)=>(
