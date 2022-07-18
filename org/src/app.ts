@@ -10,6 +10,7 @@ import { currentUser } from './middlewares/current-user';
 import { NotFoundError } from './errors/not-found-error';
 import { orgSignupRouter } from './routes/org-signup';
 import { createEventRouter } from './routes/create-event';
+import { createStaffRouter } from './routes/create-staff';
 
 const app = express()
 app.set('trust proxy', true) // trust first proxy
@@ -23,6 +24,7 @@ app.use(
 app.use(currentUser)
 app.use(orgSignupRouter)
 app.use(createEventRouter)
+app.use(createStaffRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

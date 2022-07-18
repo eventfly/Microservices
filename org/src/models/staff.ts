@@ -11,11 +11,11 @@ interface StaffAttrs {
     email: string
     password: string
     name: string
-    otp: string
-    is_verified: boolean
+    otp?: string
+    is_verified?: boolean
     organizer: string
-    events: Types.DocumentArray<EventDoc>
-
+    events?: Types.DocumentArray<EventDoc>
+    role?: string
 }
 
 //An interface that describes the properties that a participant Model has
@@ -29,8 +29,11 @@ interface StaffDoc extends mongoose.Document {
     email: string
     password: string
     name: string
-    dob: string
-    gender: string
+    otp: string
+    is_verified: boolean
+    organizer: string
+    events?: Types.DocumentArray<EventDoc>
+    role?: string
 }
 
 const StaffSchema = new mongoose.Schema({
@@ -55,7 +58,7 @@ const StaffSchema = new mongoose.Schema({
     otp: {
         type: String,
         default: Math.random().toString(36).slice(-8),
-        required: true
+        required: false
     },
 
     is_verified: {
@@ -73,7 +76,12 @@ const StaffSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Event"
         },
-    }]
+    }],
+
+    role: {
+        type: String,
+        default: "staff"
+    }
 
     //TODO: Add the roles
 
@@ -110,6 +118,4 @@ const Staff = mongoose.model<StaffDoc, StaffModel>('Staff', StaffSchema)
 
 export { Staff }
 
-function randomBytes(arg0: number) {
-    throw new Error('Function not implemented.')
-}
+
