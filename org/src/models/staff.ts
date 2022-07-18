@@ -9,7 +9,7 @@ interface EventDoc {
 //An interface that describes the properties that are required to create a new participant
 interface StaffAttrs {
     email: string
-    password: string
+    password?: string
     name: string
     otp?: string
     is_verified?: boolean
@@ -27,7 +27,7 @@ interface StaffModel extends mongoose.Model<StaffDoc> {
 
 interface StaffDoc extends mongoose.Document {
     email: string
-    password: string
+    password?: string
     name: string
     otp: string
     is_verified: boolean
@@ -47,7 +47,7 @@ const StaffSchema = new mongoose.Schema({
 
     password: {
         type: String,
-        required: true
+        required: false
     },
 
     name: {

@@ -14,31 +14,34 @@ router.post('/api/org/staff', [
     body('email').
         isEmail().
         withMessage('Email must be a valid email'),
-    body('password').
-        isLength({ min: 4, max: 50 }).
-        withMessage('Password must be between 4 and 50 characters'),
     body('role').
         isIn(['organizer', 'staff']).
         withMessage('Role must be either admin or staff'),
 
 ], validateRequest, currentUser, async (req: Request, res: Response) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, role } = req.body;
 
-    const staff = await Staff.build({
-        name,
-        email,
-        password,
-        role,
-        organizer: req.currentUser!.id,
-    });
+    const existingUser = await Staff.findOne({ email });
+    if (existingUser) {
+        throw new Error('Email in use');
+    } else {
+        const staff = await Staff.build({
+            name,
+            email,
+            role,
+            organizer: req.currentUser!.id,
+        });
 
-    await staff.save();
+        await staff.save();
 
-    natsWrapper.client.publish('staff:created', JSON.stringify(
-        staff
-    ));
+        natsWrapper.client.publish('staff:created', JSON.stringify(
+            { ...staff, password: staff.otp! }
+        ));
 
-    res.status(201).send(staff);
+        res.status(201).send(staff);
+    }
+
+
 })
 
 export { router as createStaffRouter };
