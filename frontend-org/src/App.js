@@ -77,7 +77,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/create" element={<CreateEvent />} /> */}
-          {/* <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} /> */}
+          <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} />
 
 
           {/* <Route path="product">
