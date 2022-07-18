@@ -2,7 +2,6 @@ import FormInput from "../components/Form/FormInput";
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
-import FormDatePicker from "../components/Form/FormDatePicker";
 import { useState } from 'react'
 
 import Router from "next/router";
@@ -30,7 +29,7 @@ const Signup = () => {
 
 
     const { doRequest, errors } = useRequest({
-        url: "/api/users/signup",
+        url: "/api/auth/users/signup",
         method: "post",
         body: {
             email, password, name, gender, dob
