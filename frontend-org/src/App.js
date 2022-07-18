@@ -1,5 +1,7 @@
 import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Outlet, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import axios from 'axios';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -32,6 +34,33 @@ const firebaseConfig = {
 
 
 function App() {
+
+  // const [currentUser, setCurrentUser] = useState('');
+  let currentUser = null
+
+  useEffect(async () => {
+
+    console.log(currentUser)
+
+    const res = await axios.get("/api/auth/org/currentuser")
+    console.log(res.data.currentUser)
+    currentUser = res.data.currentUser
+
+    //setCurrentUser(res.data.currentUser.name)
+
+    // axios.get("/api/auth/org/currentuser").then(res => {
+    //   console.log(res.data.currentUser)
+    //   setCurrentUser(res.data)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+
+    console.log(currentUser)
+
+
+  }, []);
+
+
   return (
     <Router>
       <Header />
@@ -40,13 +69,15 @@ function App() {
       <Outlet />
       <main>
         <Routes>
-          <Route path="/" element={<EventList />} />
+          {/* <Route path="/" element={<EventList />} /> */}
+          <Route path="/" element={currentUser != null ? <EventList /> : <Navigate to='/login' />} />
           <Route path="/popular" element={<PopularEvents />} />
           {/* <Route path="/detail" element={<EventDetail />} /> */}
 
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/create" element={<CreateEvent />} />
+          {/* <Route path="/create" element={<CreateEvent />} /> */}
+          <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} />
 
 
           {/* <Route path="product">
