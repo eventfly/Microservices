@@ -6,49 +6,50 @@ import axios from 'axios';
 
 
 const EventList = () => {
-    
+
     const [events, setEvents] = useState('');
     const [alldata, setAlldata] = useState('');
 
-    useEffect( () => {
-        async function fetchEvent(){
-            const {data} = await axios.get('http://localhost:8000/events/test')
-            setEvents(data.data["all_events"]);
-            setAlldata(data)
-        }
-        fetchEvent()
-    },[])
+    useEffect(() => {
+        // async function fetchEvent(){
+        //     const {data} = await axios.get('http://localhost:8000/events/test')
+        //     setEvents(data.data["all_events"]);
+        //     setAlldata(data)
+        // }
+        // fetchEvent()
+        console.log('events: ', events);
+    }, [])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
-    function getTab(tab){
-        if(tab === 0) setEvents(alldata.data["ongoing_events"])
-        else if(tab === 1) setEvents(alldata.data["past_events"]);
-        else if(tab === 2) setEvents(alldata.data["upcoming_events"]);
+    function getTab(tab) {
+        if (tab === 0) setEvents(alldata.data["ongoing_events"])
+        else if (tab === 1) setEvents(alldata.data["past_events"]);
+        else if (tab === 2) setEvents(alldata.data["upcoming_events"]);
         else setEvents(alldata.data["all_events"]);
     }
-        
 
-    return ( 
+
+    return (
         <div className='EventList'>
             <Searchbar />
-            <SlidingNav getData={getTab}/>
+            <SlidingNav getData={getTab} />
             <h2>Event List</h2>
             <div className='event-container'>
-            {events.length > 0 ? (
-                events.map(event =>{
-                    console.log(event);
-                    return (
-                        <EventPreview key={event.id} event={event} />
+                {events.length > 0 ? (
+                    events.map(event => {
+                        console.log(event);
+                        return (
+                            <EventPreview key={event.id} event={event} />
 
-                      );
-                })
+                        );
+                    })
                 ) : (
-                <p>No events</p>
+                    <p>No events</p>
                 )}
-                
+
             </div>
         </div>
-     );
+    );
 }
- 
+
 export default EventList;

@@ -1,6 +1,7 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
+import { EventCreatedListener } from './listeners/event-created-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -37,6 +38,9 @@ const start = async () => {
 
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    // Listen for events from the NATS Streaming server
+    new EventCreatedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI}`, {
       useNewUrlParser: true,

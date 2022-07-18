@@ -32,32 +32,32 @@ const firebaseConfig = {
 function App() {
   return (
     <Router>
-        <Header />
-        <Sidebar />
+      <Header />
+      <Sidebar />
 
-        <Outlet />
-          <main>
-              <Routes>
-                <Route path="/" element={<EventList />} />
-                <Route path="/popular" element={<PopularEvents />} />
-                {/* <Route path="/detail" element={<EventDetail />} /> */}
+      <Outlet />
+      <main>
+        <Routes>
+          <Route path="/" element={<EventList />} />
+          <Route path="/popular" element={<PopularEvents />} />
+          {/* <Route path="/detail" element={<EventDetail />} /> */}
 
-                <Route path="/create" element={<CreateEvent />} />
+          <Route path="/create" element={<CreateEvent />} />
 
 
-                {/* <Route path="product">
+          {/* <Route path="product">
                   <Route path=":id" element={<ProductScreen />}/>
                 </Route> */}
 
-                {/* <Route path="/detail/profile" element={<EventProfile />}/> */}
-                <Route path="/detail/discussion" element={<EventFeed />}/>
-                <Route path="/detail/statistics" element={<EventStatistics />}/>
-                {/* <Route path="/detail/staff" element={<EventStaff />}/> */}
+          {/* <Route path="/detail/profile" element={<EventProfile />}/> */}
+          {/* <Route path="/detail/discussion" element={<EventFeed />}/> */}
+          {/* <Route path="/detail/statistics" element={<EventStatistics />}/> */}
+          {/* <Route path="/detail/staff" element={<EventStaff />}/> */}
 
 
-             </Routes>
-          </main>
-        <Footer />
+        </Routes>
+      </main>
+      <Footer />
     </Router>
   );
 }
