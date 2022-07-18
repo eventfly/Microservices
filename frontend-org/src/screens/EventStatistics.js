@@ -1,4 +1,4 @@
-import EventSidebar from "./EventSidebar";
+import EventSidebar from "../components/EventSidebar";
 import '../styles/EventStatistics.css'
 import { Table } from 'react-bootstrap';
 
@@ -78,7 +78,7 @@ const EventStatistics = () => {
                                     <td>Lordolorsitametconsectetuelit.</td>
                                     <td>Loremipsum@gmail.com</td>
                                 </tr>
-        
+
                                 );
                         })
                     ) 

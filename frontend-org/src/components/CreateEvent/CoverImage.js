@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect} from 'react';
+import "../../styles/CreateEvent.css"
 
 const CoverImage = ({uploadImage}) => {
 
@@ -20,10 +21,12 @@ const CoverImage = ({uploadImage}) => {
       justifyContent: "center"
   }}
   id={"banner"}>
-    <button className='CoverButton' onClick={clickInputButton} >
-    <input type={"file"} onChange={uploadImage} id={"uploadInput"} hidden></input>
-      Upload Banner
+
+      <button className='CoverButton' onClick={clickInputButton} >
+        <input type={"file"} onChange={uploadImage} id={"uploadInput"} hidden></input>
+          Upload Banner
       </button>
+    
     </div>
   )
 }
