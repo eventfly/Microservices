@@ -11,6 +11,8 @@ import EventStatistics from './components/EventStatistics';
 // import EventStaff from './components/EventStaff';
 
 import CreateEvent from './screens/CreateEvent';
+import Signup from './screens/signup';
+import Login from './screens/login';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
@@ -42,6 +44,8 @@ function App() {
                 <Route path="/popular" element={<PopularEvents />} />
                 {/* <Route path="/detail" element={<EventDetail />} /> */}
 
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/create" element={<CreateEvent />} />
 
 
