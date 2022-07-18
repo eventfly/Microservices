@@ -11,6 +11,7 @@ import { NotFoundError } from './errors/not-found-error';
 import { orgSignupRouter } from './routes/org-signup';
 import { createEventRouter } from './routes/create-event';
 import { createStaffRouter } from './routes/create-staff';
+import { getEventRouter } from './routes/get-event';
 
 const app = express()
 app.set('trust proxy', true) // trust first proxy
@@ -25,6 +26,7 @@ app.use(currentUser)
 app.use(orgSignupRouter)
 app.use(createEventRouter)
 app.use(createStaffRouter)
+app.use(getEventRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

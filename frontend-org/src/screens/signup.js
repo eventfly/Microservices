@@ -44,11 +44,12 @@ const Signup = () => {
 
         axios.post('/api/org/', account).then(res => {
             console.log(res)
+
         }).catch(err => {
             console.log(err)
 
-            setShow(true)
-            setError(err)
+            setShow(true);
+            setError(res.data.errors[0].message);
         })
 
         // setName('')
