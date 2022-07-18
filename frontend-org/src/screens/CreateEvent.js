@@ -13,6 +13,20 @@ const CreateEvent = () => {
     const [stage, setStage] = useState(1);
     const [bannerImage, setBannerImage] = useState(null);
 
+    const [name, setName] = useState('');
+    const [type, setType] = useState('');
+    const [privacy, setPrivacy] = useState('');
+    const [desc, setDesc] = useState('');
+    const [ticketPrice, setTicketPrice] = useState(0);
+
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+    const [tags, setTags] = useState([])
+    const [mailList, setMailList] = useState([])
+    const [filter, setFilter] = useState([])
+
+
     const uploadImage = (e) => {
         const file = e.target.files[0];
         const storage = getStorage();

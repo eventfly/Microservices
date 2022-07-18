@@ -1,0 +1,52 @@
+.container{
+    width: 100%;
+    min-height: 100%;
+    border: 1px solid #05a515;
+  }
+  
+  .EventList, .PopularEvents{
+    background-color: white;
+    min-height: inherit;
+    margin: 2.5rem 3.5rem;
+    border-radius: 0.7rem;  
+    padding: 1rem 2rem;
+    padding-bottom: 3rem;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+  }
+  
+  
+  .event-list-nav{
+    list-style: none;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0;
+    margin-top: 0.8rem;
+  }
+  
+  .event-list-nav li{
+    width: 18%;
+    text-align: center;
+    padding: 0.4rem;
+  }
+  
+  .event-list-nav li a{
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .event-list-nav li.event-tab-item:hover{
+    background-color: #e5e5e5;
+    border-radius: 0.3rem;
+    cursor: pointer;
+  }
+  
+  
+  .event-container{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;  
+  }

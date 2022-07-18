@@ -1,4 +1,4 @@
-import '../../styles/Form.module.css'
+// import '../../styles/Form.module.css'
 
 const FormButton = ({type, buttonText}) => {
     return ( 

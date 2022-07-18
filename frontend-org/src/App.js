@@ -66,19 +66,19 @@ function App() {
   return (
     <Router>
       <Header />
-      <Sidebar />
 
-      <main>
+      <div className='main_content'>
+
         <Routes>
-          {/* <Route path="/" element={<EventList />} /> */}
-          <Route path="/" element={currentUser != null ? <EventList /> : <Navigate to='/login' />} />
+          <Route path="/" element={<EventList />} />
+          {/* <Route path="/" element={currentUser != null ? <EventList /> : <Navigate to='/login' />} /> */}
           <Route path="/popular" element={<PopularEvents />} />
           {/* <Route path="/detail" element={<EventDetail />} /> */}
 
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/create" element={<CreateEvent />} /> */}
-          <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} />
+          <Route path="/create" element={<CreateEvent />} />
+          {/* <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} /> */}
 
 
           {/* <Route path="product">
@@ -93,7 +93,9 @@ function App() {
 
 
         </Routes>
-      </main>
+
+      </div>
+
       <Footer />
     </Router>
   );

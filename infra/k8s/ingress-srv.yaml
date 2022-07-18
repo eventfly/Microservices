@@ -31,17 +31,17 @@ spec:
                 name: events-srv
                 port:
                   number: 3000
-          - pathType: Prefix
-            path: /com(/|$)(.*)
-            backend:
-              service:
-                name: frontend-pwa-srv
-                port:
-                  number: 3000
+          # - pathType: Prefix
+          #   path: /com(/|$)(.*)
+          #   backend:
+          #     service:
+          #       name: frontend-pwa-srv
+          #       port:
+          #         number: 3000
           - pathType: Prefix
             path: /?(.*)
             backend:
               service:
-                name: frontend-org-srv
+                name: frontend-pwa-srv
                 port:
                   number: 3000

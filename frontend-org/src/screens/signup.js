@@ -6,6 +6,8 @@ import { useState } from 'react'
 import axios from 'axios';
 import ErrorPopup from "../components/ErrorPopup";
 
+import '../styles/Form.module.css'
+
 const Signup = () => {
 
     let accTypeOptions = [
@@ -49,7 +51,7 @@ const Signup = () => {
             console.log(err)
 
             setShow(true);
-            setError(res.data.errors[0].message);
+            //setError(res.data.errors[0].message);
         })
 
         // setName('')

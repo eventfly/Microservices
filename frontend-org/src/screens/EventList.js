@@ -3,19 +3,20 @@ import SlidingNav from '../components/SlidingNav';
 import EventPreview from '../components/EventPreview';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import "../styles/EventList.css"
 
 
 const EventList = () => {
 
     let ev = [
         {
-            'name': 'Event 1',
+            'name': 'Mountain Trekking',
             'banner_url': 'https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg',
             'id': 1
         },
 
         {
-            'name': 'Event 2',
+            'name': 'Mountain Trekking',
             'banner_url': 'https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg',
             'id': 2
         }
