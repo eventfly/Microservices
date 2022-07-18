@@ -22,10 +22,10 @@ const sidebarNavItems = [
         section: 'statistics'
     },
     {
-        display: 'Members',
+        display: 'Staff',
         icon: <i className='bx bx-user'></i>,
-        to: '/detail/members',
-        section: 'members'
+        to: '/detail/staff',
+        section: 'staff'
     },
 ]
 

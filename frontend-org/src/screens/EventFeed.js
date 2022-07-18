@@ -1,4 +1,4 @@
-import EventSidebar from "./EventSidebar";
+import EventSidebar from "../components/EventSidebar";
 
 const EventFeed = () => {
     return ( 
