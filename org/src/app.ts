@@ -23,7 +23,7 @@ app.use(
 app.use(currentUser)
 app.use(orgSignupRouter)
 app.use(createEventRouter)
-//
+
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
 })

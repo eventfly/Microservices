@@ -32,37 +32,39 @@ router.post('/api/org/event', [
         }
         return true;
     })
-], validateRequest, currentUser, requireAuth, async (req: Request, res: Response) => {
-    const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter } = req.body
+], validateRequest,
+    /*currentUser, requireAuth,*/
+    async (req: Request, res: Response) => {
+        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter } = req.body
 
 
-    const event = Event.build({
-        name,
-        description: desc,
-        start_date: start,
-        end_date: end,
-        banner_url,
-        type,
-        privacy,
-        ticket_price: ticket,
-        mailList,
-        filter,
-        organizer: req.currentUser!.id,
-    })
+        const event = Event.build({
+            name,
+            description: desc,
+            start_date: start,
+            end_date: end,
+            banner_url,
+            type,
+            privacy,
+            ticket_price: ticket,
+            mailList,
+            filter,
+            organizer: req.currentUser!.id,
+        })
 
-    // Save the event to the database
-    await event.save()
+        // Save the event to the database
+        await event.save()
 
-    // Publish an event to the NATS Streaming server
+        // Publish an event to the NATS Streaming server
 
-    natsWrapper.client.publish('event:created', JSON.stringify(
-        event
-    ), () => {
-        console.log('Event published')
-    })
-
-    res.status(201).send({ event })
-}
+        natsWrapper.client.publish('event:created', JSON.stringify(
+            event
+        ), () => {
+            console.log('Event published')
+        })
+        //
+        res.status(201).send({ event })
+    }
 )
 
 export { router as createEventRouter }

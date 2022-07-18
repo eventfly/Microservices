@@ -3,7 +3,9 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import CreateEventStage1 from "../components/CreateEvent/Stage1";
 import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
+import axios from 'axios';
 
+import useRequest from '../hooks/use-request';
 
 
 const CreateEvent = () => {
@@ -16,7 +18,7 @@ const CreateEvent = () => {
         const storage = getStorage();
         const storageRef = ref(storage, file.name);
         const uploadTask = uploadBytesResumable(storageRef, file);
-    
+
         uploadTask.on("state_changed",
             (snapshot) => {
                 console.log("Loading");
@@ -49,7 +51,7 @@ const CreateEvent = () => {
         sessionStorage.setItem("event_privacy", document.getElementById("event_privacy").value);
         sessionStorage.setItem("event_filter", document.getElementById("email_filter").value);
     }
-    
+
     const saveDataOfStage3 = () => {
         sessionStorage.setItem("event_promotion", document.getElementById("promotion").value);
         sessionStorage.setItem("event_maillist", document.getElementById("mailing_list").value);
@@ -60,25 +62,25 @@ const CreateEvent = () => {
     }
 
     const backStage = () => {
-        if(stage === 2){
+        if (stage === 2) {
             saveDataOfStage2()
         }
-        else if(stage === 3){
+        else if (stage === 3) {
             saveDataOfStage3()
         }
 
-        setStage(stage-1);
+        setStage(stage - 1);
     }
 
     const nextStage = () => {
-        if(stage === 1){
+        if (stage === 1) {
             saveDataOfStage1()
         }
-        else if(stage === 2){
+        else if (stage === 2) {
             saveDataOfStage2()
         }
 
-        setStage(stage+1);
+        setStage(stage + 1);
     }
 
     const createEvent = () => {
@@ -107,30 +109,41 @@ const CreateEvent = () => {
         event.end = new Date(event.end).toISOString()
 
         console.log(event)
+
+        axios.post('/api/org/event', event).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
+
+
+
+
+        //console.log(res)
     }
 
 
-    if(stage === 1){
+    if (stage === 1) {
         return (
-            <>  
+            <>
                 <CreateEventStage1 uploadImage={uploadImage} nextStage={nextStage} />
             </>
         );
     }
-    else if(stage === 2){
+    else if (stage === 2) {
         return (
-            <>  
+            <>
                 <CreateEventStage2 backStage={backStage} nextStage={nextStage} />
             </>
         );
     }
-    else{
+    else {
         return (
-            <>  
+            <>
                 <CreateEventStage3 backStage={backStage} createEvent={saveDataOfStage3} />
             </>
         );
     }
 }
- 
+
 export default CreateEvent;

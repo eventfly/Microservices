@@ -1,7 +1,7 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
-import { OrgCreatedListener } from './events/org-created-listener';
+import { OrgCreatedListener } from './listeners/org-created-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
