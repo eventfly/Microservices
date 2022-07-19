@@ -98,12 +98,14 @@ const Signup = () => {
                     options={accTypeOptions}
                     onChange={setAccType}
                 />
+                <br/>
 
                 <FormButton type="submit" buttonText="Sign up" />
 
             </form>
 
             <ErrorPopup show={show} setShow={setShow} error={error} />
+
 
         </div>
 

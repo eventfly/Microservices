@@ -1,16 +1,24 @@
 import EventSidebar from "../components/EventSidebar";
+import "../styles/EventFeed.css"
 
 const EventFeed = () => {
     return ( 
 
         <>
         
+            <div className="detail_flexbox">
 
-        <EventSidebar/>
+                <div className="left-column">
+                    <EventSidebar/>
+                </div>
 
-        <h1>
-            feed
-        </h1>
+                <div className="right-column">
+                    <h1>
+                        feed
+                    </h1>
+                </div>
+            
+            </div>
         
         </>
 

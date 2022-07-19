@@ -43,6 +43,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    transform: translate(-2%,0%);
 }
 
 .detail_flexbox .left-column{
@@ -53,4 +54,5 @@
 
 .detail_flexbox .right-column{
     flex: 0 0 80%;
+    padding-bottom: 75px;
 }

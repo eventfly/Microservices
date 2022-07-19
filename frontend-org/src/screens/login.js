@@ -75,10 +75,11 @@ const Login = () => {
                     onChange={setAccType}
                 />
 
+                <br/>
+
                 <FormButton type="submit" buttonText="Log in" />
 
             </form>
-
 
         </div>
 
