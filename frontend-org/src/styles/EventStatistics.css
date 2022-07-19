@@ -1,8 +1,6 @@
 .stats-container{
-    /* background-color: white; */
     min-height: inherit;
     margin: 1rem 1rem;
-    /* border-radius: 0.7rem;   */
     padding: 1rem 2rem;
     width: 100%;
 }
@@ -36,4 +34,23 @@
 
 .info-container li h4:last-child{
     font-size: 1.4rem;
+}
+
+
+
+.detail_flexbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.detail_flexbox .left-column{
+    flex: 0 0 15%;
+    padding-top: 2.5rem;
+    border-right: 1px solid #e5e5e5;
+}
+
+.detail_flexbox .right-column{
+    flex: 0 0 80%;
 }

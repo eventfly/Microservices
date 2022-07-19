@@ -94,70 +94,82 @@ const EventProfile = () => {
 
     return ( 
         <>
-            <EventSidebar/>
-            <div className="event-details-container">
-                <h2>Event Details</h2>
-                <div class="event-edit-form-container">
-                <FormTitle title="Edit Event " />
 
-                    <form onSubmit={handleSubmit}>
+            <div className="detail_flexbox">
 
-                        <FormInput id="name"
-                            inputType="text"
-                            label="Name"
-                            placeholder="Enter your name"
-                            value={name}
-                            onChange={setName}
-                        />
-
-                        <FormTextArea id="description"
-                            label="Edit Event Description"
-                            placeholder="Enter description"
-                            value={description}
-                            onChange={setDescription}
-                        />
-
-                        <FormInput id="tag"
-                            inputType="text"
-                            label="Edit Event Tags"
-                            placeholder="Enter tags"
-                            value={tag}
-                            onChange={setTag}
-                        />
-
-                        <Map DefaultLocation={location} onChange={setLocation}/>
-
-                        <DatePicker label="Edit Start Date" defaultDate={startDate} onChange={setStartDate}/>
-                        <DatePicker label="Edit End Date" defaultDate={endDate} onChange={setEndDate}/>
-
-
-
-                        <FormInput id="ticketPrice"
-                            inputType="text"
-                            label="Edit Ticket Price"
-                            placeholder="Enter Ticket Price"
-                            value={ticketPrice}
-                            onChange={setTicketPrice}
-                        />
-
-
-                        <FormSelect id="event-type"
-                            label="Edit Event Type"
-                            options={eventTypeOptions}
-                            onChange={setEventType}
-                        />
-
-
-                        <FormSelect id="event-privacy"
-                            label="Edit Event Privacy"
-                            options={eventPrivacyOptions}
-                            onChange={setEventPrivacy}
-                        />
-
-                        <FormButton type="submit" buttonText="Save" />
-
-                    </form>
+                <div className="left-column">
+                    <EventSidebar/>
                 </div>
+
+                <div className="right-column">
+
+                    <div className="event-details-container">
+                        <h2>Event Details</h2>
+                        <div class="event-edit-form-container">
+                        <FormTitle title="Edit Event " />
+
+                            <form onSubmit={handleSubmit}>
+
+                                <FormInput id="name"
+                                    inputType="text"
+                                    label="Name"
+                                    placeholder="Enter your name"
+                                    value={name}
+                                    onChange={setName}
+                                />
+
+                                <FormTextArea id="description"
+                                    label="Edit Event Description"
+                                    placeholder="Enter description"
+                                    value={description}
+                                    onChange={setDescription}
+                                />
+
+                                <FormInput id="tag"
+                                    inputType="text"
+                                    label="Edit Event Tags"
+                                    placeholder="Enter tags"
+                                    value={tag}
+                                    onChange={setTag}
+                                />
+
+                                <Map DefaultLocation={location} onChange={setLocation}/>
+
+                                <DatePicker label="Edit Start Date" defaultDate={startDate} onChange={setStartDate}/>
+                                <DatePicker label="Edit End Date" defaultDate={endDate} onChange={setEndDate}/>
+
+
+
+                                <FormInput id="ticketPrice"
+                                    inputType="text"
+                                    label="Edit Ticket Price"
+                                    placeholder="Enter Ticket Price"
+                                    value={ticketPrice}
+                                    onChange={setTicketPrice}
+                                />
+
+
+                                <FormSelect id="event-type"
+                                    label="Edit Event Type"
+                                    options={eventTypeOptions}
+                                    onChange={setEventType}
+                                />
+
+
+                                <FormSelect id="event-privacy"
+                                    label="Edit Event Privacy"
+                                    options={eventPrivacyOptions}
+                                    onChange={setEventPrivacy}
+                                />
+
+                                <FormButton type="submit" buttonText="Save" />
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </>
      );

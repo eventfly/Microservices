@@ -11,3 +11,22 @@
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
     width: 100%;
 }
+
+
+
+.detail_flexbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.detail_flexbox .left-column{
+    flex: 0 0 15%;
+    padding-top: 2.5rem;
+    border-right: 1px solid #e5e5e5;
+}
+
+.detail_flexbox .right-column{
+    flex: 0 0 80%;
+}
