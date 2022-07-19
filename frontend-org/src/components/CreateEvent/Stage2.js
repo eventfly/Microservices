@@ -18,7 +18,7 @@ import DatePicker from '../DatePicker';
 const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType, setPrivacy, 
     filter, setFilter, setStartDate, setEndDate, backStage, nextStage}) => {
     
-        const DefaultLocation = { lat: 10, lng: 106};
+        const DefaultLocation = { lat: 23.3, lng: 90.4};
 
     let eventType = [
         {
@@ -62,6 +62,7 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                         label="Event Description"
                         placeholder="Enter description"
                         height={'300px'}
+                        bgColor={'#e5e5e5'}
                         value={desc}
                         onChange={setDesc}
                     />
@@ -90,6 +91,7 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                         inputType="text"
                         label="Ticket Price(BDT)"
                         placeholder="Event Ticket Price"
+                        bgColor={'#e5e5e5'}
                         value={ticketPrice}
                         onChange={setTicketPrice}
                     />
@@ -109,6 +111,7 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
 
                     <FormSelect id="type"
                         label="Event Type"
+                        bgColor={'#e5e5e5'}
                         options={eventType}
                         onChange={setType}
                     />
@@ -117,6 +120,7 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
 
                     <FormSelect id="privacy"
                         label="Event Privacy"
+                        bgColor={'#e5e5e5'}
                         options={eventPrivacy}
                         onChange={setPrivacy}
                     />
@@ -129,6 +133,7 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                         inputType="text"
                         label="Email Filter"
                         placeholder="@gmail.com"
+                        bgColor={'#e5e5e5'}
                         value={filter}
                         onChange={setFilter}
                     />
@@ -138,15 +143,13 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                 </div>
                 
 
-                <div className='btn-flexbox'>
+                <div className='btn-group'>
                     
-                    <div className='button_column'>
-                    <FormButton type="submit" buttonText="Back" onClick={backStage} />
+                    <div className='left-button'>
+                        <FormButton type="button" buttonText="Back" onClick={backStage} />
                     </div>
 
-                    <div className='button_column'>
-                    <FormButton type="submit" buttonText="Next" onClick={nextStage} />
-                    </div>
+                    <FormButton type="button" buttonText="Next" onClick={nextStage} />
 
                 </div>
 

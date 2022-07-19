@@ -25,6 +25,7 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
                     inputType="text"
                     label="Event Name"
                     placeholder="Event Name"
+                    bgColor={'#e5e5e5'}
                     value={name}
                     onChange={setName}
                 />
@@ -40,11 +41,12 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
                     inputType="text"
                     label="Event Tags"
                     placeholder="Event Tags"
+                    bgColor={'#e5e5e5'}
                     value={tags}
                     onChange={setTags}
                 />
 
-                <br /><br /><br />
+                <br /><br />
 
                 <FormButton type="submit" buttonText="Next" onClick={nextStage} />
 

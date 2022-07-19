@@ -14,17 +14,18 @@ const CreateEvent = () => {
     const [bannerImage, setBannerImage] = useState(null);
 
     const [name, setName] = useState('');
-    const [type, setType] = useState('');
-    const [privacy, setPrivacy] = useState('');
+    const [type, setType] = useState('Offline');
+    const [privacy, setPrivacy] = useState('Public');
     const [desc, setDesc] = useState('');
     const [ticketPrice, setTicketPrice] = useState(0);
+    const [promote, setPromote] = useState('');
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
-    const [tags, setTags] = useState([])
-    const [mailList, setMailList] = useState([])
-    const [filter, setFilter] = useState([])
+    const [tags, setTags] = useState('')
+    const [mailList, setMailList] = useState('')
+    const [filter, setFilter] = useState('')
 
 
     const uploadImage = (e) => {
@@ -51,91 +52,41 @@ const CreateEvent = () => {
         );
     }
 
-    const saveDataOfStage1 = () => {
-        // sessionStorage.setItem("event_name", document.getElementById("eventName").value);
-        // sessionStorage.setItem("event_tags", document.getElementById("eventTag").value);
-    }
-
-    const saveDataOfStage2 = () => {
-        // sessionStorage.setItem("event_desc", document.getElementById("description").value);
-        // sessionStorage.setItem("event_ticket", document.getElementById("price").value);
-        // sessionStorage.setItem("event_start", document.getElementById("start_date").value);
-        // sessionStorage.setItem("event_end", document.getElementById("end_date").value);
-        // sessionStorage.setItem("event_type", document.getElementById("event_type").value);
-        // sessionStorage.setItem("event_privacy", document.getElementById("event_privacy").value);
-        // sessionStorage.setItem("event_filter", document.getElementById("email_filter").value);
-    }
-
-    const saveDataOfStage3 = () => {
-        // sessionStorage.setItem("event_promotion", document.getElementById("promotion").value);
-        // sessionStorage.setItem("event_maillist", document.getElementById("mailing_list").value);
-
-        setStage(1)
-
-        createEvent()
-    }
-
     const backStage = () => {
-        if (stage === 2) {
-            saveDataOfStage2()
-        }
-        else if (stage === 3) {
-            saveDataOfStage3()
-        }
-
         setStage(stage - 1);
     }
 
     const nextStage = () => {
-        if (stage === 1) {
-            saveDataOfStage1()
-        }
-        else if (stage === 2) {
-            saveDataOfStage2()
-        }
-
         setStage(stage + 1);
     }
 
     const createEvent = () => {
 
         let event = {
-            type: sessionStorage.getItem('event_type'),
-            start: sessionStorage.getItem('event_start'),
-            privacy: sessionStorage.getItem('event_privacy'),
-            name: sessionStorage.getItem('event_name'),
+            type: type,
+            start: startDate,
+            privacy: privacy,
+            name: name,
             banner_url: bannerImage,
-            end: sessionStorage.getItem('event_end'),
-            desc: sessionStorage.getItem('event_desc'),
-            tags: [
-                sessionStorage.getItem('event_tags')
-            ],
-            ticket: parseInt(sessionStorage.getItem('event_ticket')),
-            mailList: [
-                sessionStorage.getItem('event_maillist')
-            ],
-            filter: [
-                sessionStorage.getItem('event_filter')
-            ]
+            end: endDate,
+            desc: desc,
+            tags: tags,
+            ticket: ticketPrice,
+            mailList: mailList.split(/\r?\n/).filter(element => element),
+            filter: filter.split(/\r?\n/).filter(element => element)
         }
-
-        console.log(event)
 
         event.start = new Date(event.start).toISOString()
         event.end = new Date(event.end).toISOString()
 
         console.log(event)
 
-        axios.post('/api/org/event', event).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        })
+        // axios.post('/api/org/event', event).then(res => {
+        //     console.log(res)
+        // }).catch(err => {
+        //     console.log(err)
+        // })
 
-
-
-
-        //console.log(res)
     }
 
 
@@ -171,7 +122,12 @@ const CreateEvent = () => {
     else {
         return (
             <>
-                <CreateEventStage3 backStage={backStage} createEvent={saveDataOfStage3} />
+                <CreateEventStage3
+                    promote={promote} setPromote={setPromote}
+                    mailList={mailList} setMailList={setMailList} 
+                    backStage={backStage} 
+                    createEvent={createEvent} 
+                />
             </>
         );
     }

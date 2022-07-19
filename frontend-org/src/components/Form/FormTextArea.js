@@ -1,7 +1,7 @@
 import '../../styles/Form.css'
 
 
-const FormTextArea = ({id, label, placeholder, height, value, onChange}) => {
+const FormTextArea = ({id, label, placeholder, disabled, height, bgColor, value, onChange}) => {
     return ( 
         <>
 
@@ -9,9 +9,15 @@ const FormTextArea = ({id, label, placeholder, height, value, onChange}) => {
                 <label htmlFor={id} className={"label"}>{label}</label>
                 <textarea 
                     className={"form-control"}
-                    style={{ height: `${height}`, fontSize: "1rem"}}  
+                    style={{ 
+                        height: `${height}`, 
+                        fontSize: "1rem",
+                        backgroundColor: `${bgColor}`, 
+                        borderColor: `${bgColor}` 
+                    }}  
                     id={id} placeholder={placeholder}
                     value={value}
+                    disabled={disabled}
                     onChange={e=> onChange(e.target.value)} 
                 />
             </div>
