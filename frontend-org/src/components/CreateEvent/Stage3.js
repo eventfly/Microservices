@@ -1,8 +1,4 @@
 import { Link } from 'react-router-dom'
-// import "../../styles/CreateEvent.css"
-
-import PromoteEvent from './PromoteEvent'
-import MailingList from './MailingList'
 
 import FormTextArea from '../Form/FormTextArea';
 import FormButton from '../Form/FormButton';
@@ -58,7 +54,6 @@ const CreateEventStage3 = ({ promote, setPromote, mailList, setMailList, backSta
             <div className='CreateEvent3'>
 
                 <div className='left-column'>
-                    {/* <PromoteEvent /> */}
 
                     <FormSelect id="promote"
                         label="Promote Event?"
@@ -70,17 +65,11 @@ const CreateEventStage3 = ({ promote, setPromote, mailList, setMailList, backSta
                 </div>
 
                 <div className='right-column'>
-                    {/* <MailingList /> */}
 
                     {
                         promote === 'Yes' ? activeMailingList : inActiveMailingList
                     }
 
-
-
-
-                    {/* <br></br><br></br>
-                    <br></br><br></br> */}
                 </div>
 
 
@@ -95,19 +84,6 @@ const CreateEventStage3 = ({ promote, setPromote, mailList, setMailList, backSta
                     </Link>
 
                 </div>
-
-                {/* <div className='Create3ButtonClass'>
-                    <button className='Create3Button' onClick={backStage}>
-                        Back
-                    </button>
-
-                    <Link to={`/`}>
-                        <button className='Create3Button' onClick={() => createEvent()}>
-                            Create Event
-                        </button>
-                    </Link>
-
-                </div> */}
 
             </div>
 

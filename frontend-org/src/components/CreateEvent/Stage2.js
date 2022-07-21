@@ -1,12 +1,6 @@
 // import {Link} from 'react-router-dom'
-// import "../../styles/CreateEvent.css"
 
 import Map from './Map';
-import ShortDescription from './ShortDescription';
-import TicketPrice from './TicketPrice';
-import Date from './Date';
-import PrivacyType from './PrivacyType';
-import EmailFilter from './EmailFilter';
 
 import FormTextArea from '../Form/FormTextArea';
 import FormButton from '../Form/FormButton';
@@ -56,8 +50,6 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                     <Map DefaultLocation={DefaultLocation}/>
                     <br />
 
-                    {/* <ShortDescription /> */}
-
                     <FormTextArea id="description"
                         label="Event Description"
                         placeholder="Enter description"
@@ -67,25 +59,9 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                         onChange={setDesc}
                     />
 
-                    {/* <br /><br /><br /> */}
-
-                    
-                {/* 
-                    <button className='Create2Button' onClick={backStage}>
-                        Back
-                    </button>
-
-                    <button className='Create2Button' onClick={nextStage}>
-                        Next
-                    </button>
-
-                    <br /> */}
-
                 </div>
 
                 <div className='right-column'>
-
-                    {/* <TicketPrice /> */}
 
                     <FormInput id="ticket"
                         inputType="text"
@@ -97,9 +73,6 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                     />
                     
                     <br /><br />
-
-                    {/* <Date /> */}
-
 
                     <DatePicker label="Start Date" onChange={setStartDate}/>
 
@@ -125,8 +98,6 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                         onChange={setPrivacy}
                     />
 
-                    {/* <PrivacyType /> */}
-
                     <br /><br />
 
                     <FormInput id="filter"
@@ -137,8 +108,6 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                         value={filter}
                         onChange={setFilter}
                     />
-
-                    {/* <EmailFilter /> */}
 
                 </div>
                 

@@ -1,7 +1,4 @@
 // import {Link} from 'react-router-dom'
-
-// import EventName from './EventName'
-// import EventTag from './EventTag'
 import CoverImage from './CoverImage'
 
 import FormInput from '../Form/FormInput'
@@ -19,8 +16,6 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
 
             <div className='CreateEvent1'>
 
-                {/* <EventName /> */}
-
                 <FormInput id="name"
                     inputType="text"
                     label="Event Name"
@@ -35,8 +30,6 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
                 <CoverImage uploadImage={uploadImage} />
                 <br />
 
-                {/* <EventTag /> */}
-
                 <FormInput id="tag"
                     inputType="text"
                     label="Event Tags"
@@ -49,12 +42,6 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
                 <br /><br />
 
                 <FormButton type="submit" buttonText="Next" onClick={nextStage} />
-
-                {/* <button className='Create1Button' onClick={nextStage}>
-                    Next
-                </button> */}
-                
-                
 
             </div>
 
