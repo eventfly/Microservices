@@ -7,4 +7,6 @@ router.post('/api/auth/org/signout', (req, res) => {
     res.send({ message: 'Successfully signed out' })
 })
 
+//Haha vodox
+
 export { router as OrgSignoutRouter }
