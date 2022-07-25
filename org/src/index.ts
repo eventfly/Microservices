@@ -8,8 +8,8 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined')
   }
 
-  if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined')
+  if (!process.env.MONGO_URI_ORG) {
+    throw new Error('MONGO_URI_ORG must be defined')
   }
 
   if (!process.env.NATS_URL) {
@@ -38,7 +38,7 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    await mongoose.connect(`${process.env.MONGO_URI}`, {
+    await mongoose.connect(`${process.env.MONGO_URI_ORG}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     } as ConnectOptions);

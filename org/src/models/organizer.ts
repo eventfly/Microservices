@@ -14,7 +14,7 @@ interface OrgAttrs {
     password: string;
     name: string;
     events?: Types.DocumentArray<EventDoc>;
-    role?: string;
+    role: string;
 
 }
 
@@ -23,7 +23,7 @@ interface OrgDoc extends mongoose.Document {
     password: string;
     name: string;
     events?: Types.DocumentArray<EventDoc>;
-    role?: string;
+    role: string;
 
 }
 
@@ -65,6 +65,7 @@ const orgSchema = new mongoose.Schema(
         },
         role: {
             type: String,
+            required: true
         }
 
     },

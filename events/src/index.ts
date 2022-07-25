@@ -9,8 +9,8 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined')
   }
 
-  if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined')
+  if (!process.env.MONGO_URI_EVENT) {
+    throw new Error('MONGO_URI_EVENT must be defined')
   }
 
   if (!process.env.NATS_URL) {
@@ -42,7 +42,7 @@ const start = async () => {
     // Listen for events from the NATS Streaming server
     new EventCreatedListener(natsWrapper.client).listen();
 
-    await mongoose.connect(`${process.env.MONGO_URI}`, {
+    await mongoose.connect(`${process.env.MONGO_URI_EVENT}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     } as ConnectOptions);

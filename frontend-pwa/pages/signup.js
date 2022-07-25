@@ -2,7 +2,9 @@ import FormInput from "../components/Form/FormInput";
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
+import FormDatePicker from "../components/Form/FormDatePicker";
 import { useState } from 'react'
+import axios from 'axios'
 
 import Router from "next/router";
 import useRequest from '../hooks/use-request'
@@ -36,7 +38,7 @@ const Signup = () => {
         }, onSuccess: () => Router.push("/")
     })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log("name: ", name);
         console.log("email: ", email);
@@ -44,8 +46,31 @@ const Signup = () => {
         console.log("gender: ", gender);
         console.log("dob: ", dob.toISOString());
 
-        doRequest();
+        //doRequest();
 
+        // const headers = {
+        //     'Content-Type': 'application/json',
+        //     "Access-Control-Allow-Origin": "*",
+        //     "Access-Control-Allow-Methods": 'GET, POST, PUT, PATCH, DELETE',
+        //     "Access-Control-Allow-Headers": 'X-Requested-With,content-type',
+        //     "Access-Control-Allow-Credentials": true
+        // }
+
+        let signupData = {
+            email, password, name, gender, dob
+        }
+
+
+        const {data} = await axios.post('/api/get_signup_data', { 
+            param: signupData
+        });
+
+        console.log(data)
+        
+        /*axios.get('http://localhost:3000/api/auth/users/currentuser').then((data)=>
+        {
+            console.log(data)
+        });*/
 
         // setName('')
         // setEmail('')

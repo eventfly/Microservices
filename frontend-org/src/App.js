@@ -44,7 +44,7 @@ function App() {
 
     console.log(currentUser)
 
-    const res = await axios.get("/api/auth/org/currentuser")
+    const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
     console.log(res.data.currentUser)
     currentUser = res.data.currentUser
 

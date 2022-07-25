@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend-pwa
-          image: r0m3l/frontend-pwa
+          image: r0m3l/frontend-pwa    
 ---
 apiVersion: v1
 kind: Service

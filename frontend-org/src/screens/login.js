@@ -34,11 +34,16 @@ const Login = () => {
         setPassword('')
         setAccType('')
 
-        axios.post('/api/auth/org/signin', {
+        axios.post('http://localhost:3000/api/auth/org/signin', {
             email,
             password,
             role: accType
-        }).then(res => {
+        }, {
+            headers: {
+               authorization: ' xxxxxxxxxx' ,
+               'Content-Type': 'application/json'
+            } 
+         }).then(res => {
             console.log(res)
         }).catch(err => {
             console.log(err)

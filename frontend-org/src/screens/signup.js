@@ -43,21 +43,19 @@ const Signup = () => {
 
         console.log(account)
 
-
-        axios.post('/api/org/', account).then(res => {
+        axios.post('http://localhost:3001/api/org', account, {
+            headers: {
+               authorization: ' xxxxxxxxxx' ,
+               'Content-Type': 'application/json'
+            } 
+         }).then(res => {
             console.log(res)
-
         }).catch(err => {
             console.log(err)
-
             setShow(true);
-            //setError(res.data.errors[0].message);
         })
 
-        // setName('')
-        // setEmail('')
-        // setPassword('')
-        // setAccType('')
+
     }
 
 

@@ -5,6 +5,7 @@ import NoAuthLayout from '../layouts/NoAuth';
 import { useEffect } from "react";
 import buildClient from '../api/build-client';
 
+import axios from 'axios';
 
 
 function MyApp({ Component, pageProps, currentUser }) {
@@ -36,6 +37,8 @@ function MyApp({ Component, pageProps, currentUser }) {
 MyApp.getInitialProps = async (appContext) => {
 	const client = buildClient(appContext.ctx);
 	const { data } = await client.get("/api/auth/users/currentuser");
+
+	// const {data} = await axios.get('http://auth:3000/api/auth/users/currentuser');
 
 	let pageProps = {}
 
