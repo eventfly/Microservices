@@ -1,0 +1,118 @@
+version: "3.9"
+
+networks:
+    isolation-network:
+      driver: bridge
+  
+services: 
+    nats_server:
+      image: nats-streaming
+      container_name: nats_server
+      ports:
+        - "4222:4222"
+        - "8222:8222"
+      volumes:
+        - ./nats-server:/var/lib/nats
+      command:
+        - -p
+        - '4222'
+        - '-m'
+        - '8222'
+        - '-hbi'
+        - '5s'
+        - '-hbt'
+        - '5s'
+        - '-hbf'
+        - '2'
+        - '-SD'
+        - '-cid'
+        - 'event-management-nats-cluster'
+      networks:
+        - isolation-network
+      restart: always
+    auth:
+      build: ./auth
+      container_name: auth
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./auth:/var/lib/auth
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=auth
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
+    org:
+      build: ./org
+      container_name: org
+      ports:
+        - "3001:3000"
+      volumes:
+        - ./org:/var/lib/org
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=org
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
+    events:
+      build: ./events
+      container_name: events
+      ports:
+        - "3002:3000"
+      volumes:
+        - ./events:/var/lib/events
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=events
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
+    frontend-pwa:
+      build: ./frontend-pwa
+      container_name: frontend-pwa
+      ports:
+        - "3003:3000"
+      volumes:
+        - ./frontend-pwa:/var/lib/frontend-pwa
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=frontend-pwa
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
+        - auth
+        - org
+        - events
+    frontend-org:
+      build: ./frontend-org
+      container_name: frontend-org
+      ports:
+        - "3004:3000"
+      volumes:
+        - ./frontend-org:/var/lib/frontend-org
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=frontend-org
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
+        - auth
+        - org
+        - events
