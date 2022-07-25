@@ -53,6 +53,7 @@ const Signup = () => {
         }).catch(err => {
             console.log(err)
             setShow(true);
+            setError(err.response.data.errors[0].message);
         })
 
 
