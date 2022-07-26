@@ -29,6 +29,7 @@ const Signup = () => {
     const [show, setShow] = useState(false);
     const [error, setError] = useState('');
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("name: ", name);
@@ -46,7 +47,8 @@ const Signup = () => {
         axios.post('http://localhost:3001/api/org', account, {
             headers: {
                authorization: ' xxxxxxxxxx' ,
-               'Content-Type': 'application/json'
+               'Content-Type': 'application/json',
+               'withCredentials': true
             } 
          }).then(res => {
             console.log(res)

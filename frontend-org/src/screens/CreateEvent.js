@@ -81,11 +81,16 @@ const CreateEvent = () => {
 
         console.log(event)
 
-        // axios.post('/api/org/event', event).then(res => {
-        //     console.log(res)
-        // }).catch(err => {
-        //     console.log(err)
-        // })
+        axios.post('http://localhost:3001/api/org/event', event, {
+            headers: {
+               authorization: ' xxxxxxxxxx' ,
+               'Content-Type': 'application/json'
+            } 
+         }).then(res => {
+            console.log(res)
+        }).catch(err => {
+            console.log(err)
+        })
 
     }
 

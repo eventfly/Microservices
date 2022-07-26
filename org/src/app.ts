@@ -28,7 +28,7 @@ app.use((req,res,next)=>{
     next(); 
 })
 
-app.set('trust proxy', true) // trust first proxy
+// app.set('trust proxy', true)
 app.use(json())
 app.use(
     cookieSession({

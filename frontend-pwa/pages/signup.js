@@ -46,26 +46,12 @@ const Signup = () => {
         console.log("gender: ", gender);
         console.log("dob: ", dob.toISOString());
 
-        //doRequest();
-
-        // const headers = {
-        //     'Content-Type': 'application/json',
-        //     "Access-Control-Allow-Origin": "*",
-        //     "Access-Control-Allow-Methods": 'GET, POST, PUT, PATCH, DELETE',
-        //     "Access-Control-Allow-Headers": 'X-Requested-With,content-type',
-        //     "Access-Control-Allow-Credentials": true
-        // }
+        doRequest();
 
         let signupData = {
             email, password, name, gender, dob
         }
 
-
-        const {data} = await axios.post('/api/get_signup_data', { 
-            param: signupData
-        });
-
-        console.log(data)
         
         /*axios.get('http://localhost:3000/api/auth/users/currentuser').then((data)=>
         {

@@ -33,7 +33,7 @@ router.post('/api/org/event', [
         return true;
     })
 ], validateRequest,
-    /*currentUser, requireAuth,*/
+    currentUser, requireAuth,
     async (req: Request, res: Response) => {
         const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter } = req.body
 
