@@ -2,7 +2,6 @@ import Searchbar from '../components/Searchbar';
 import SlidingNav from '../components/SlidingNav';
 import EventPreview from '../components/EventPreview';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import "../styles/EventList.css"
 
 
@@ -22,7 +21,7 @@ const EventList = () => {
         }
     ]
     const [events, setEvents] = useState(ev);
-    const [alldata, setAlldata] = useState('');
+    let alldata = '';
 
     useEffect(() => {
         // async function fetchEvent(){
@@ -32,7 +31,7 @@ const EventList = () => {
         // }
         // fetchEvent()
         console.log('events: ', events);
-    }, [])
+    }, [events])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
     function getTab(tab) {

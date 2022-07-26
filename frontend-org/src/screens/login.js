@@ -1,13 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+
 import FormInput from "../components/Form/FormInput";
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
+import ErrorPopup from "../components/ErrorPopup";
 
 import { useState } from 'react'
-import axios from 'axios';
+import {authApi} from '../api/axiosHook'
 
 
 const Login = () => {
+
+    const navigate = useNavigate();
 
     let accTypeOptions = [
         {
@@ -24,30 +29,26 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [accType, setAccType] = useState('');
 
+    const [error, setError] = useState(null);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("email: ", email);
         console.log("password: ", password);
         console.log("accountType: ", accType);
 
-        setEmail('')
-        setPassword('')
-        setAccType('')
-
-        axios.post('http://localhost:3000/api/auth/org/signin', {
+        authApi.post('/org/signin', {
             email,
             password,
             role: accType
-        }, {
-            withCredentials: true,
-            headers: {
-               authorization: ' xxxxxxxxxx' ,
-               'Content-Type': 'application/json'
-            } 
-         }).then(res => {
+        }).then(res => {
             console.log(res)
+            console.log(res.headers)
+            navigate('/')
+
         }).catch(err => {
             console.log(err)
+            setError(err.response.data.errors[0].message);
         })
     }
 
@@ -86,6 +87,12 @@ const Login = () => {
                 <FormButton type="submit" buttonText="Log in" />
 
             </form>
+
+            {
+                error != null ? (
+                    <ErrorPopup error={error} setError={setError} />
+                ) : (<></>)
+            }
 
         </div>
 

@@ -5,7 +5,7 @@ const FormTextArea = ({id, label, placeholder, disabled, height, bgColor, value,
     return ( 
         <>
 
-            <div className={"form-group " + "inputfield"}>
+            <div className={"form-group inputfield"}>
                 <label htmlFor={id} className={"label"}>{label}</label>
                 <textarea 
                     className={"form-control"}

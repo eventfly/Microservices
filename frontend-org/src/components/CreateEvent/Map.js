@@ -6,19 +6,13 @@ import { useState } from 'react';
 const DefaultZoom = 10;
 
 const Map = ({DefaultLocation, onChange}) => {
-    const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
-    // const [location, setLocation] = useState(defaultLocation);
+    const defaultLocation = DefaultLocation;
     const [zoom, setZoom] = useState(DefaultZoom);
-    
-    function handleChangeLocation (lat, lng){
-        sessionStorage.setItem("event_lat", String(lat));
-        sessionStorage.setItem("event_long", String(lng));
-        //setLocation({lat:lat, lng:lng});
-      }
       
     function handleChangeZoom (newZoom){
-    setZoom(newZoom);
+        setZoom(newZoom);
     }
+    
     return (
         <div className={"Maps"}>
             <label htmlFor={"map"}>Select location</label>

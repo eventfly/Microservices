@@ -24,6 +24,7 @@ app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Expose-Headers', 'Access-Token, Uid')
 
     next(); 
 })
@@ -33,7 +34,8 @@ app.use(json())
 app.use(
     cookieSession({
         signed: false,
-        secure: true
+        sameSite: 'none',
+        secure: false
     })
 )
 app.use(currentUser)
