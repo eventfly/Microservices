@@ -49,7 +49,9 @@ const Signup = () => {
         console.log(account)
 
 
-        orgApi.post('/', account).then(res => {
+        orgApi.post('/', account, {
+            withCredentials: true,
+        }).then(res => {
             console.log(res)
             navigate('/')
         
