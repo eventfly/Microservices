@@ -10,8 +10,8 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined')
   }
 
-  if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined')
+  if (!process.env.MONGO_URI_AUTH) {
+    throw new Error('MONGO_URI_AUTH must be defined')
   }
 
   if (!process.env.NATS_CLIENT_ID) {
@@ -33,6 +33,7 @@ const start = async () => {
       process.env.NATS_URL
     );
 
+   
     natsWrapper.client.on('close', () => {
       console.log('NATS connection closed!');
       process.exit();
@@ -46,7 +47,7 @@ const start = async () => {
     new OrgCreatedListener(natsWrapper.client).listen();
     new StaffCreatedListener(natsWrapper.client).listen();
 
-    await mongoose.connect(`${process.env.MONGO_URI}`, {
+    await mongoose.connect(`${process.env.MONGO_URI_AUTH}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     } as ConnectOptions)

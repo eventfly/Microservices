@@ -14,14 +14,31 @@ import { OrgSigninRouter } from './routes/org/signin';
 import { OrgSignupRouter } from './routes/org/signup';
 import { OrgSignoutRouter } from './routes/org/signout';
 import { OrgcurrentUserRouter } from './routes/org/current-user';
+import cors from 'cors';
 
 const app = express()
-app.set('trust proxy', true) // trust first proxy
+
+app.use(cors({origin: '*'}));
+
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Expose-Headers', 'Access-Token, Uid')
+
+    next(); 
+})
+
+
+
+// app.set('trust proxy', true) // trust first proxy
 app.use(json())
 app.use(
     cookieSession({
         signed: false,
-        secure: true
+        sameSite: 'none',
+        secure: false
     })
 )
 app.use(currentUserRouter)

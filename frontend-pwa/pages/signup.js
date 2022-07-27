@@ -2,7 +2,9 @@ import FormInput from "../components/Form/FormInput";
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
+import FormDatePicker from "../components/Form/FormDatePicker";
 import { useState } from 'react'
+import axios from 'axios'
 
 import Router from "next/router";
 import useRequest from '../hooks/use-request'
@@ -36,7 +38,7 @@ const Signup = () => {
         }, onSuccess: () => Router.push("/")
     })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log("name: ", name);
         console.log("email: ", email);
@@ -46,6 +48,15 @@ const Signup = () => {
 
         doRequest();
 
+        let signupData = {
+            email, password, name, gender, dob
+        }
+
+        
+        /*axios.get('http://localhost:3000/api/auth/users/currentuser').then((data)=>
+        {
+            console.log(data)
+        });*/
 
         // setName('')
         // setEmail('')

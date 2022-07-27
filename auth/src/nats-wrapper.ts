@@ -4,6 +4,7 @@ import nats, { Stan } from 'node-nats-streaming';
 //Singleton pattern
 
 class NatsWrapper {
+    
     private _client?: Stan;
 
     get client() {

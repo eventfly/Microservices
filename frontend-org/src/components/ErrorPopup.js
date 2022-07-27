@@ -1,22 +1,38 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-const ErrorPopup = ({show, setShow, error}) => {
+const ErrorPopup = ({error, setError}) => {
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setError(null)
+    };
+
+    const showModal = (
+        <Modal show={true} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Ooops!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{error}</Modal.Body>
+        </Modal>
+    )
+
+    const hideModal = (
+        <Modal show={false} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Ooops!!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{error}</Modal.Body>
+        </Modal>
+    )
 
 
     return ( 
 
         <>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>Ooops!!</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{error}</Modal.Body>
-            </Modal>
+            
+            {
+                error != null ? showModal : hideModal
+            }
 
         </>
 

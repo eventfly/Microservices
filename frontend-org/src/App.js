@@ -1,11 +1,8 @@
-import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react'
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { useEffect, useState} from 'react'
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
 import EventList from './screens/EventList';
 import PopularEvents from './screens/PopularEvents';
 
@@ -21,6 +18,7 @@ import Login from './screens/login';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
+import {authApi} from './api/axiosHook'
 
 
 // Your web app's Firebase configuration
@@ -37,30 +35,35 @@ const firebaseConfig = {
 
 function App() {
 
-  // const [currentUser, setCurrentUser] = useState('');
-  let currentUser = null
+  const [currentUser, setCurrentUser] = useState('');
+  //let currentUser = null
 
-  useEffect(async () => {
+  // useEffect(async () => {
 
-    console.log(currentUser)
+  //   const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
+  //   console.log(res.data.currentUser)
+  //   currentUser = res.data.currentUser
 
-    const res = await axios.get("/api/auth/org/currentuser")
-    console.log(res.data.currentUser)
-    currentUser = res.data.currentUser
-
-    //setCurrentUser(res.data.currentUser.name)
-
-    // axios.get("/api/auth/org/currentuser").then(res => {
-    //   console.log(res.data.currentUser)
-    //   setCurrentUser(res.data)
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-
-    console.log(currentUser)
+  //   console.log(currentUser)
 
 
-  }, []);
+  // }, []);
+
+  useEffect(()=>{
+      async function fetchCurrentUser(){
+
+        authApi.get('/org/currentuser').then((res)=>{
+          console.log(res)
+          console.log(res.data.currentUser)
+          setCurrentUser(res.data.currentUser)
+        })
+
+        // const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
+        // currentUser = res.data.currentUser
+      }
+
+      fetchCurrentUser()
+  }, [currentUser])
 
 
   return (

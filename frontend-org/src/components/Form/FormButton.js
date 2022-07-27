@@ -6,7 +6,7 @@ const FormButton = ({type, buttonText, onClick}) => {
         <>
             <button type={type}
                 onClick={onClick} 
-                className={"btn btn-primary btn-block " + "button_style"}
+                className={"btn btn-primary btn-block button_style"}
             >
 
                 {buttonText} 

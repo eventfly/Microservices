@@ -33,7 +33,7 @@ router.post('/api/org/event', [
         return true;
     })
 ], validateRequest,
-    /*currentUser, requireAuth,*/
+    // currentUser, requireAuth,
     async (req: Request, res: Response) => {
         const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter } = req.body
 
@@ -49,7 +49,7 @@ router.post('/api/org/event', [
             ticket_price: ticket,
             mailList,
             filter,
-            organizer: req.currentUser!.id,
+            organizer: '62df99757020c0c26ae1bcc0',
         })
 
         // Save the event to the database

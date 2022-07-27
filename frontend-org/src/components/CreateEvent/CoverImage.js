@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState, useEffect} from 'react';
 import "../../styles/CreateEvent.css"
 
 const CoverImage = ({uploadImage}) => {

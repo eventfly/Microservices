@@ -6,7 +6,7 @@ const FormSelect = ({id, label, options, bgColor, onChange}) => {
 
         <>
         
-            <div className={"form-group " + "selectfield"}>
+            <div className="form-group selectfield">
 
                 <label htmlFor={id} className={"label"}>{label}</label>
 
@@ -16,7 +16,7 @@ const FormSelect = ({id, label, options, bgColor, onChange}) => {
                     onChange={e=> onChange(e.target.value)}
                 >
                     
-                    {/* <option defaultValue> Choose... </option> */}
+                    <option defaultValue disabled> Choose... </option>
 
                     {
                         options.map((item)=>(
