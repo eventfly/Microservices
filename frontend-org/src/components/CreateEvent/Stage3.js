@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 import FormTextArea from '../Form/FormTextArea';
 import FormButton from '../Form/FormButton';
@@ -79,9 +79,9 @@ const CreateEventStage3 = ({ promote, setPromote, mailList, setMailList, backSta
                         <FormButton type="button" buttonText="Back" onClick={backStage} />
                     </div>
 
-                    <Link to={`/`}>
+                    {/* <Link to={`/`}> */}
                         <FormButton type="button" buttonText="Create Event" onClick={() => createEvent()} />
-                    </Link>
+                    {/* </Link> */}
 
                 </div>
 
