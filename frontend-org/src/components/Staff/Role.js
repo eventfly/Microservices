@@ -7,7 +7,13 @@ const Role = ({roleType}) => {
 
     return ( 
         <>
-            <h3>{roleType}</h3>
+            <div className="role-container-header">
+                <h3>{roleType}</h3>
+
+                <Link to="/detail/staff/add">
+                    <button>+ Add Staff</button>
+                </Link>
+            </div>
             <div class="person-container">
             {
                 (
@@ -15,9 +21,9 @@ const Role = ({roleType}) => {
                         console.log(member);
                         return (
                                 <div class="person-info">
-                                <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
-                                <h5 style={{marginTop:"1rem"}}>John Smith</h5>
-                                <Link to='#'><h6 style={{fontSize:"small"}}>Details</h6></Link>
+                                    <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
+                                    <h5 style={{marginTop:"1rem"}}>John Smith</h5>
+                                    <Link to='#'><h6 style={{fontSize:"small"}}>Details</h6></Link>
                                 </div>
     
                             );

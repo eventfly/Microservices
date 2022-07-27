@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { useEffect, useState} from 'react'
-import axios from 'axios';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -19,6 +18,7 @@ import Login from './screens/login';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
+import {authApi} from './api/axiosHook'
 
 
 // Your web app's Firebase configuration
@@ -51,9 +51,14 @@ function App() {
 
   useEffect(()=>{
       async function fetchCurrentUser(){
-        const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
-        console.log(res.data.currentUser)
-        setCurrentUser(res.data.currentUser)
+
+        authApi.get('/org/currentuser').then((res)=>{
+          console.log(res)
+          console.log(res.data.currentUser)
+          setCurrentUser(res.data.currentUser)
+        })
+
+        // const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
         // currentUser = res.data.currentUser
       }
 

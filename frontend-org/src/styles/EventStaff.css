@@ -1,9 +1,3 @@
-.staff-container{
-    min-height: inherit;
-    margin: 1rem 1rem;
-    padding: 1rem 2rem;
-    width: 100%;
-}
 
 .staff-container-header{
     display: flex;
@@ -18,7 +12,7 @@
     margin: 0
 }
 
-.staff-container-header button{
+.staff-container-header button, .role-container-header button{
     color: white;
     background-color: #e41727;
     height: 40px;
@@ -32,10 +26,16 @@
 .role-container{
     background-color: white;
     min-height: inherit;
-    margin: 1rem 1rem;
+    margin-top: 1rem;
     border-radius: 0.7rem;  
     padding: 1rem 2rem;
     width: 100%;
+}
+
+.role-container-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .person-container{

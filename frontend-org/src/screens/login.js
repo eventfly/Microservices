@@ -41,9 +41,11 @@ const Login = () => {
             email,
             password,
             role: accType
-        }).then(res => {
+        })
+        .then(res => {
             console.log(res)
-            console.log(res.headers)
+            // console.log(res.headers)
+            // console.log(res.headers['Set-Cookie'])
             navigate('/')
 
         }).catch(err => {

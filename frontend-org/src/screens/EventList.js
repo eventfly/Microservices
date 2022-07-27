@@ -4,6 +4,8 @@ import EventPreview from '../components/EventPreview';
 import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
 
+import {orgApi} from '../api/axiosHook'
+
 
 const EventList = () => {
 
@@ -24,13 +26,17 @@ const EventList = () => {
     let alldata = '';
 
     useEffect(() => {
-        // async function fetchEvent(){
-        //     const {data} = await axios.get('http://localhost:8000/events/test')
-        //     setEvents(data.data["all_events"]);
-        //     setAlldata(data)
-        // }
-        // fetchEvent()
+        async function fetchEvent(){
+
+            orgApi.get('/event/62df99757020c0c26ae1bcc0').then((res)=>{
+                console.log(res.data)
+                setEvents(res.data)
+            })
+        }
+        fetchEvent()
+        
         console.log('events: ', events);
+    
     }, [events])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
@@ -48,17 +54,20 @@ const EventList = () => {
             <SlidingNav getData={getTab} />
             <h2>Event List</h2>
             <div className='event-container'>
-                {events.length > 0 ? (
-                    events.map(event => {
-                        console.log(event);
-                        return (
-                            <EventPreview key={event.id} event={event} />
+                {
+                    (events != null && events.length > 0) ? (
+                        events.map(event => {
+                            console.log(event);
+                            return (
+                                <EventPreview key={event.id} event={event} />
 
-                        );
-                    })
-                ) : (
-                    <p>No events</p>
-                )}
+                            );
+                        })
+                    ) : 
+                    (
+                        <p>No events</p>
+                    )
+                }
 
             </div>
         </div>

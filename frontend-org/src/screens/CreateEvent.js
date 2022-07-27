@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import CreateEventStage1 from "../components/CreateEvent/Stage1";
 import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
-import axios from 'axios';
 
 import "../styles/CreateEvent.css"
+import {orgApi} from '../api/axiosHook'
+import ErrorPopup from "../components/ErrorPopup";
 
 
 const CreateEvent = () => {
@@ -26,6 +28,10 @@ const CreateEvent = () => {
     const [tags, setTags] = useState('')
     const [mailList, setMailList] = useState('')
     const [filter, setFilter] = useState('')
+
+    const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
 
     const uploadImage = (e) => {
@@ -81,15 +87,13 @@ const CreateEvent = () => {
 
         console.log(event)
 
-        axios.post('http://localhost:3001/api/org/event', event, {
-            headers: {
-               authorization: ' xxxxxxxxxx' ,
-               'Content-Type': 'application/json'
-            } 
-         }).then(res => {
+        orgApi.post('/event', event).then(res => {
             console.log(res)
+            navigate('/')
+
         }).catch(err => {
             console.log(err)
+            setError(err.response.data.errors[0].message);
         })
 
     }
@@ -106,6 +110,7 @@ const CreateEvent = () => {
                     uploadImage={uploadImage} 
                     nextStage={nextStage} 
                 />
+
             </>
         );
     }
@@ -121,6 +126,7 @@ const CreateEvent = () => {
                     backStage={backStage} 
                     nextStage={nextStage} 
                 />
+
             </>
         );
     }
@@ -133,6 +139,13 @@ const CreateEvent = () => {
                     backStage={backStage} 
                     createEvent={createEvent} 
                 />
+
+                {
+                    error != null ? (
+                        <ErrorPopup error={error} setError={setError} />
+                    ) : (<></>)
+                }
+
             </>
         );
     }
