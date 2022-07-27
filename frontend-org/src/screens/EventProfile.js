@@ -55,7 +55,7 @@ const EventProfile = () => {
 
     const [ticketPrice, setTicketPrice] = useState(110);
     const [eventType, setEventType] = useState(eventTypeOptions[1].name);
-    const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[1].name);
+    const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[0].name);
 
 
     const handleSubmit = (e) => {
@@ -105,7 +105,7 @@ const EventProfile = () => {
 
                     <div className="event-details-container">
                         <h2>Event Details</h2>
-                        <div class="event-edit-form-container">
+                        <div className="event-edit-form-container">
                         <FormTitle title="Edit Event " />
 
                             <form onSubmit={handleSubmit}>

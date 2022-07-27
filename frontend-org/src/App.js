@@ -20,6 +20,8 @@ import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
 import {authApi} from './api/axiosHook'
 
+import Subscription from './screens/Subscription';
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -93,6 +95,8 @@ function App() {
           <Route path="/detail/statistics" element={<EventStatistics />}/>
           <Route path="/detail/staff/add" element={<AddStaff />}/>
           <Route path="/detail/staff" element={<EventStaff />}/>
+
+          <Route path="/sub" element={<Subscription />}/>
 
 
         </Routes>
