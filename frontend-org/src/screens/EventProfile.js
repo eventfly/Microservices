@@ -132,10 +132,13 @@ const EventProfile = () => {
                                     value={tag}
                                     onChange={setTag}
                                 />
-
+                                <br></br>
                                 <Map DefaultLocation={location} onChange={setLocation}/>
 
+                                <br></br>
                                 <DatePicker label="Edit Start Date" defaultDate={startDate} onChange={setStartDate}/>
+                                
+                                <br></br>
                                 <DatePicker label="Edit End Date" defaultDate={endDate} onChange={setEndDate}/>
 
 
