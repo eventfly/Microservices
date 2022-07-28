@@ -28,8 +28,8 @@ function HeaderAndFooterExample() {
         </Card.Text>
 
         
-        <Link to="#">
-            <Button variant="primary">Buy Package</Button>
+        <Link to="/">
+            <Button variant="success">Buy Package</Button>
         </Link>
       </Card.Body>
     </Card>
