@@ -45,6 +45,7 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 1.2rem;
+    padding: 1rem;
 }
 
 .person-info{
@@ -52,8 +53,16 @@
     border-radius: 0.3rem;
     padding: 1rem 1rem;
     margin: 0 1rem;
-    width: 27%;
+    flex: 0 0 20%;
     margin-bottom: 40px;
+}
+
+.person-info-body{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .person-info img{
@@ -61,8 +70,26 @@
     height: 5rem;
     border-radius: 50%;
     margin-right: 1rem;
+    background-size: contain;
 }
 
+.dropdown-toggle::after {
+    content: none;
+}
+
+.person-info button{
+    background-color: white;
+    color: black;
+    border: none;
+    position: absolute;
+    top: 0;
+    right: -10px;
+}
+
+.person-info button:hover, .person-info button:active{
+    background-color: white;
+    color: black;
+}
 
 .detail_flexbox{
     display: flex;

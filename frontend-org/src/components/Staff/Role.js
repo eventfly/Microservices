@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import StaffOptions from "./StaffOptions";
 
 const Role = ({roleType}) => {
     let members = []
@@ -14,16 +15,19 @@ const Role = ({roleType}) => {
                     <button>+ Add Staff</button>
                 </Link>
             </div>
-            <div class="person-container">
+            <div className="person-container">
             {
                 (
                     members.map(member =>{
                         console.log(member);
                         return (
-                                <div class="person-info">
-                                    <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
-                                    <h5 style={{marginTop:"1rem"}}>John Smith</h5>
-                                    <Link to='#'><h6 style={{fontSize:"small"}}>Details</h6></Link>
+                                <div className="person-info">
+                                    <StaffOptions />
+                                    <div className="person-info-body">
+                                        <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
+                                        <h5 style={{marginTop:"1rem"}}>John Smith</h5>
+                                        <Link to='#'><h6 style={{fontSize:"small"}}>Details</h6></Link>
+                                    </div>
                                 </div>
     
                             );

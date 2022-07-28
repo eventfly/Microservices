@@ -22,7 +22,7 @@ const EventStaff = () => {
                             <button>+ Add Role</button>
                         </div>
                     </div>
-                    <div class="role-container">
+                    <div className="role-container">
                         <Role roleType='Organizer'/>
                     </div>
                 </div>
