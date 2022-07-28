@@ -41,7 +41,9 @@ router.post('/api/auth/users/signin',
             dob: existingUser.dob,
             gender: existingUser.gender,
             name: existingUser.name
-        }, process.env.JWT_KEY!)
+        }, process.env.JWT_KEY!, {
+            expiresIn: 60*10
+        })
 
         //Store it on session object
 
@@ -49,7 +51,7 @@ router.post('/api/auth/users/signin',
             jwt: userJwt
         }
 
-        res.status(201).send({ existingUser })
+        res.status(201).send({ existingUser, token: userJwt })
 
 
     })

@@ -21,13 +21,17 @@ declare global {
 
 
 export const currentUser = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.session?.jwt) {
+    // if (!req.session?.jwt) {
+    //     return next()
+    // }
+
+    if (!req.headers.authorization) {
         return next()
     }
 
     try {
-        const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!) as UserPayload
-        req.currentUser = payload
+        const payload = jwt.verify(req.headers.authorization, process.env.JWT_KEY!) as UserPayload
+        req.currentUser = payload;
 
         if (!req.currentUser) {
             throw new NotAuthorizedError()

@@ -38,8 +38,11 @@ router.post('/api/auth/org/signin',
         const userJwt = jwt.sign({
             id: existingUser.id,
             email: existingUser.email,
-            name: existingUser.name
-        }, process.env.JWT_KEY!)
+            name: existingUser.name,
+            role: existingUser.role
+        }, process.env.JWT_KEY!, {
+            expiresIn: 60*10
+        })
 
         //Store it on session object
 
@@ -49,7 +52,7 @@ router.post('/api/auth/org/signin',
 
         console.log(req.session);
 
-        res.status(201).send({ existingUser })
+        res.status(201).send({ existingUser, token: userJwt })
 
 
     })

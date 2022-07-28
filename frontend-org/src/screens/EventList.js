@@ -37,7 +37,7 @@ const EventList = () => {
         
         console.log('events: ', events);
     
-    }, [events])
+    }, [])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
     function getTab(tab) {

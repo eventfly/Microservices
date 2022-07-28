@@ -66,14 +66,18 @@ const AddStaff = () => {
 
         console.log(allStaffs)
 
-        orgApi.post('/staff', allStaffs).then(res => {
-            console.log(res)
-            navigate('/detail/staff')
+        for(let i = 0; i < staffForms.length; i++){
+            orgApi.post('/staff', allStaffs[i]).then(res => {
+                console.log(res)
+                navigate('/detail/staff')
+    
+            }).catch(err => {
+                console.log(err)
+                setError(err.response.data.errors[0].message);
+            })
+        }
 
-        }).catch(err => {
-            console.log(err)
-            setError(err.response.data.errors[0].message);
-        })
+        
     }
 
 

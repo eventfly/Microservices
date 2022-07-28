@@ -44,8 +44,9 @@ const Login = () => {
         })
         .then(res => {
             console.log(res)
-            // console.log(res.headers)
-            // console.log(res.headers['Set-Cookie'])
+            
+            // Stores the JWT token in the browser's local storage
+            window.localStorage.setItem('token', res.data.token);
             navigate('/')
 
         }).catch(err => {

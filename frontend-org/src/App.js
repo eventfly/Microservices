@@ -38,18 +38,7 @@ const firebaseConfig = {
 function App() {
 
   const [currentUser, setCurrentUser] = useState('');
-  //let currentUser = null
-
-  // useEffect(async () => {
-
-  //   const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
-  //   console.log(res.data.currentUser)
-  //   currentUser = res.data.currentUser
-
-  //   console.log(currentUser)
-
-
-  // }, []);
+  
 
   useEffect(()=>{
       async function fetchCurrentUser(){
@@ -59,13 +48,11 @@ function App() {
           console.log(res.data.currentUser)
           setCurrentUser(res.data.currentUser)
         })
-
-        // const res = await axios.get("http://localhost:3000/api/auth/org/currentuser")
-        // currentUser = res.data.currentUser
+        
       }
 
       fetchCurrentUser()
-  }, [currentUser])
+  },[])
 
 
   return (

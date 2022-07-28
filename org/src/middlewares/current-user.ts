@@ -5,6 +5,10 @@ import { NotAuthorizedError } from "../errors/not-authorized-error";
 interface UserPayload {
     id: string;
     email: string;
+    name?: string;
+    dob?: string;
+    gender?: string;
+    role?: string;
 }
 
 declare global {
@@ -17,19 +21,21 @@ declare global {
 
 
 export const currentUser = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.session?.jwt) {
-        return next()
+    
+    if (!req.headers.authorization) {
+        console.log('No authorization header');
+        return next();
     }
 
     try {
-        const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!) as UserPayload
-        req.currentUser = payload
-        console.log('payload ', payload)
-        console.log('req.currentUser = ', req.currentUser)
+        const payload = jwt.verify(req.headers.authorization, process.env.JWT_KEY!) as UserPayload
+        req.currentUser = payload;
 
         if (!req.currentUser) {
             throw new NotAuthorizedError()
         }
+
+        console.log(req.currentUser);
 
     } catch (err) {
         console.log(err)
