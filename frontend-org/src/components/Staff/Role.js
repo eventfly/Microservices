@@ -25,8 +25,10 @@ const Role = ({roleType}) => {
                                     <StaffOptions />
                                     <div className="person-info-body">
                                         <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
-                                        <h5 style={{marginTop:"1rem"}}>John Smith</h5>
-                                        <Link to='#'><h6 style={{fontSize:"small"}}>Details</h6></Link>
+                                        <div className="person-info-text">
+                                            <h5 style={{marginTop:"1rem"}}>John Smith</h5>
+                                            <Link to='#'><h6 style={{fontSize:"small"}}>Details</h6></Link>
+                                        </div>
                                     </div>
                                 </div>
     

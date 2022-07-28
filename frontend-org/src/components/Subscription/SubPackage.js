@@ -3,14 +3,14 @@ import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
 
-function HeaderAndFooterExample() {
+function HeaderAndFooterExample({headerColor}) {
   return (
     <Card className="text-center">
-      <Card.Header>100 BDT/month</Card.Header>
+      <Card.Header style={{backgroundColor: `${headerColor}`}}>100 BDT/month</Card.Header>
       <Card.Body>
         <Card.Title>Gold Package</Card.Title>
         <Card.Text>
-            <ul style={{"listStyle":"none"}}>
+            <ul>
                 <li>
                     <i class="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
                 </li>
