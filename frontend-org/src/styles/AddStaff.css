@@ -15,6 +15,58 @@
     margin-bottom: 50px;
 }
 
-.button_style{
-    margin-top: 15px;
+.add_staff_button{
+    margin-top: 5px;
+}
+
+
+.add-more-btn{
+    padding-left: 80%;
+    margin-bottom: 20px;
+}
+
+.staff-header{
+    padding-left: 2%;
+}
+
+.icon-arrow{
+    transform: translate(0%, 50%);
+    cursor: pointer;
+}
+
+.icon_flexbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+
+.detail_flexbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    transform: translate(-2%,0%);
+}
+
+.detail_flexbox .left-column{
+    flex: 0 0 15%;
+    padding-top: 2.5rem;
+    border-right: 1px solid #e5e5e5;
+}
+
+.detail_flexbox .right-column{
+    flex: 0 0 80%;
+    padding-bottom: 75px;
+}
+
+.add-single-staff{
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-bottom: 30px;
+}
+
+.add_staff_button{
+    transform: translate(46%, -30%);
 }

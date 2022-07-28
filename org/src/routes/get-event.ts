@@ -17,6 +17,9 @@ router.get('/api/org/event/:orgId', [
 // currentUser, requireAuth,
  errorHandler, async (req: Request, res: Response) => {
     const { orgId } = req.params;
+
+    console.log('x-access-token:', req.headers['x-access-token']);
+
     const events = await Event.find({ organizer: orgId });
     res.send(events);
 })

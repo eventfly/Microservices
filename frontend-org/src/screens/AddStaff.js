@@ -1,101 +1,150 @@
 import EventSidebar from "../components/EventSidebar";
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FormTitle from "../components/Form/FormTitle";
+import FormButton from '../components/Form/FormButton';
 import '../styles/AddStaff.css'
-import FormButton from "../components/Form/FormButton";
-import FormInput from "../components/Form/FormInput";
-import axios from 'axios';
+import AddSingleStaff from "../components/Staff/AddSingleStaff";
+import {orgApi} from '../api/axiosHook'
+import ErrorPopup from "../components/ErrorPopup";
 
 const AddStaff = () => {
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [role, setRole] = useState('staff');
+    const [name, setName] = useState([''])
+    const [email, setEmail] = useState([''])
+    const [role, setRole] = useState(['staff'])
 
-    let result = null;
+    const navigate = useNavigate();
+    const [error, setError] = useState(null);
 
+    const [staffForms, setStaffForms] = useState([{'id' : 1}])
+
+    const updateNameByIndex = (idx, value) => {
+        name[idx] = value
+
+        setName([
+            ...name.slice(0, idx),
+            name[idx],
+            ...name.slice(idx + 1, name.length)
+        ]);
+    }
+
+    const updateEmailByIndex = (idx, value) => {
+        email[idx] = value
+
+        setEmail([
+            ...email.slice(0, idx),
+            email[idx],
+            ...email.slice(idx + 1, email.length)
+        ]);
+    }
+
+    const updateRoleByIndex = (idx, value) => {
+        role[idx] = value
+
+        setRole([
+            ...role.slice(0, idx),
+            role[idx],
+            ...role.slice(idx + 1, role.length)
+        ]);
+    }
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("name: ", name);
-        console.log("email: ", email);
-        console.log("role: ", role);
 
-        let staff = {
-            name, email, role
+        let allStaffs = []
+
+        for(let i = 0; i < staffForms.length; i++){
+            allStaffs.push({
+                'name': name[i],
+                'email': email[i],
+                'role': role[i]
+            })
         }
 
-        console.log(staff)
+        console.log(allStaffs)
 
-
-        axios.post('/api/org/staff', staff).then(res => {
+        orgApi.post('/staff', allStaffs).then(res => {
             console.log(res)
-            result = res.data;
+            navigate('/detail/staff')
 
         }).catch(err => {
             console.log(err)
+            setError(err.response.data.errors[0].message);
         })
-
-        console.log(result)
     }
 
-    if (result != null) {
-        return (
-            <Navigate to='/detail/staff' />
-        )
+
+    const onAddNewStaff = () => {
+        setStaffForms(staffForms => [...staffForms, {'id': staffForms.length+1}])
+        setName(name => [...name, ''])
+        setEmail(email => [...email, ''])
+        setRole(role => [...role, 'staff'])
     }
 
     return (
         <>
-            <EventSidebar />
 
-            <div className="content">
+            <div className="detail_flexbox">
 
-                <div className="title">
-                    <FormTitle title="Add New Staff" />
+                <div className="left-column">
+                    <EventSidebar/>
                 </div>
 
+                <div className="right-column">
 
-                <form onSubmit={handleSubmit}>
+                    <div className="content">
+                        <div className="title">
+                            <FormTitle title="Add New Staff" />
+                        </div>
 
-                    <FormInput id="name"
-                        inputType="text"
-                        label="Name"
-                        placeholder="Enter your name"
-                        value={name}
-                        onChange={setName}
-                    />
+                        <div className="add-more-btn">
 
-                    <br />
+                            <FormButton type="button" buttonText="+ Add New Staff" onClick={onAddNewStaff} />
 
-                    <FormInput id="email"
-                        inputType="email"
-                        label="Email"
-                        placeholder="Enter email"
-                        value={email}
-                        onChange={setEmail}
-                    />
+                        </div>
 
-                    <br />
 
-                    <FormInput id="role"
-                        inputType="text"
-                        label="Role"
-                        placeholder="Assign a role"
-                        value={role}
-                        onChange={setRole}
-                    />
+                        {staffForms.map((staffForm, index)=>{
+                            return(
+                                <div className="add-single-staff" key={index}>
+                                    <AddSingleStaff
+                                        staffNo={staffForm.id}  
+                                        name={name[staffForm.id-1]} 
+                                        setName={(value)=>updateNameByIndex(staffForm.id-1, value)}
+                                        email={email[staffForm.id-1]} 
+                                        setEmail={(value)=>updateEmailByIndex(staffForm.id-1, value)}
+                                        role={role[staffForm.id-1]} 
+                                        setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
+                                    />
+                                </div>
+                            )
+                        })}
 
-                    <div className="button_style">
-                        <FormButton type="submit" buttonText="Add" />
+                        <div className="add_staff_button">
+
+                            <FormButton 
+                                type="submit" 
+                                buttonText="Add" 
+                                bgColor={'#0E7617'}
+                                onClick={handleSubmit} 
+                            />
+
+                        </div>
+                    
                     </div>
 
-                </form>
-
+                </div>
+            
             </div>
+
+            {
+                error != null ? (
+                    <ErrorPopup error={error} setError={setError} />
+                ) : (<></>)
+            }
 
         </>
 

@@ -5,6 +5,14 @@ networks:
       driver: bridge
   
 services:
+    # ingress:
+    #   image: jwilder/nginx-proxy
+    #   ports:
+    #     - "80:80"
+    #   volumes:
+    #     - /var/run/docker.sock:/tmp/docker.sock:ro
+
+      
     nats_server:
       image: nats-streaming
       container_name: nats_server
@@ -42,6 +50,7 @@ services:
       restart: always
       environment:
         - NATS_CLIENT_ID=auth
+        - VIRTUAL_HOST=auth.test.com
       env_file:
         - variables.env
       depends_on:
@@ -58,6 +67,7 @@ services:
       restart: always
       environment:
         - NATS_CLIENT_ID=org
+        - VIRTUAL_HOST=org.test.com
       env_file:
         - variables.env
       depends_on:
