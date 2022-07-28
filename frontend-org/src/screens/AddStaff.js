@@ -16,7 +16,11 @@ const AddStaff = () => {
     const [role, setRole] = useState(['staff'])
 
     const navigate = useNavigate();
-    const [error, setError] = useState(null);
+    const [status, setStatus] = useState([
+        'unverified',
+        'success',
+        'error'
+    ]);
 
     const [staffForms, setStaffForms] = useState([{'id' : 1}])
 
@@ -72,7 +76,7 @@ const AddStaff = () => {
 
         }).catch(err => {
             console.log(err)
-            setError(err.response.data.errors[0].message);
+            //setError(err.response.data.errors[0].message);
         })
     }
 
@@ -118,6 +122,7 @@ const AddStaff = () => {
                                         setEmail={(value)=>updateEmailByIndex(staffForm.id-1, value)}
                                         role={role[staffForm.id-1]} 
                                         setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
+                                        status={status[[staffForm.id-1]]}
                                     />
                                 </div>
                             )
@@ -139,12 +144,6 @@ const AddStaff = () => {
                 </div>
             
             </div>
-
-            {
-                error != null ? (
-                    <ErrorPopup error={error} setError={setError} />
-                ) : (<></>)
-            }
 
         </>
 
