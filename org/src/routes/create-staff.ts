@@ -4,6 +4,8 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { validateRequest } from '../middlewares/validate-request';
 import { Staff } from '../models/staff';
+import { requireAuth } from '@thr_org/common';
+import { errorHandler } from '../middlewares/error-handler';
 
 const router = express.Router();
 
@@ -18,7 +20,7 @@ router.post('/api/org/staff', [
         isIn(['organizer', 'staff']).
         withMessage('Role must be either admin or staff'),
 
-], validateRequest, currentUser, async (req: Request, res: Response) => {
+], validateRequest, currentUser, requireAuth, errorHandler, async (req: Request, res: Response) => {
     const { name, email, role } = req.body;
 
     const existingUser = await Staff.findOne({ email });

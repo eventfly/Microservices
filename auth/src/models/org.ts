@@ -8,6 +8,7 @@ interface OrgAttrs {
     password: string
     name: string
     role: string
+    ref_id: string
 }
 
 //An interface that describes the properties that a participant Model has
@@ -22,6 +23,7 @@ interface OrgDoc extends mongoose.Document {
     password: string
     name: string
     role: string
+    ref_id: string
 }
 
 const OrgSchema = new mongoose.Schema({
@@ -44,6 +46,11 @@ const OrgSchema = new mongoose.Schema({
     },
 
     role: {
+        type: String,
+        required: true
+    },
+
+    ref_id: {
         type: String,
         required: true
     }

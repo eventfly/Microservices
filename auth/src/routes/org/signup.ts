@@ -22,7 +22,7 @@ router.post('/api/auth/org/signup', [
     async (req: Request, res: Response) => {
 
 
-        const { email, password, name, role } = req.body
+        const { email, password, name, role, id } = req.body
 
         const existingUser = await Organizer.findOne({ email })
         if (existingUser) {
@@ -30,7 +30,7 @@ router.post('/api/auth/org/signup', [
                 'Email in use'
             )
         } else {
-            const user = Organizer.build({ email, password, name, role })
+            const user = Organizer.build({ email, password, name, role, ref_id: id})
             await user.save()
 
             //Generate JWT

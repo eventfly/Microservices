@@ -8,6 +8,7 @@ import { errorHandler } from './middlewares/error-handler';
 import { currentUser } from './middlewares/current-user';
 
 import { NotFoundError } from './errors/not-found-error';
+import { getEventsRouter } from './routes/get-events';
 
 const app = express()
 app.set('trust proxy', true) // trust first proxy
@@ -18,7 +19,8 @@ app.use(
         secure: true
     })
 )
-app.use(currentUser)
+app.use(currentUser);
+app.use(getEventsRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

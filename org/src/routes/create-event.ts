@@ -6,7 +6,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
-// import { OrgCreatedPublisher } from '../events/publishers/org-created-publisher';
+
 
 const router = express.Router();
 
@@ -33,9 +33,9 @@ router.post('/api/org/event', [
         return true;
     })
 ], validateRequest,
-    // currentUser, requireAuth,
+    currentUser, requireAuth,
     async (req: Request, res: Response) => {
-        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter } = req.body
+        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter, tags } = req.body
 
 
         const event = Event.build({
@@ -49,7 +49,8 @@ router.post('/api/org/event', [
             ticket_price: ticket,
             mailList,
             filter,
-            organizer: '62df99757020c0c26ae1bcc0',
+            tags,
+            organizer: req.currentUser!.id,
         })
 
         // Save the event to the database

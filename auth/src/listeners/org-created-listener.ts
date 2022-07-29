@@ -12,7 +12,8 @@ export class OrgCreatedListener extends Listener {
             name: data.name,
             email: data.email,
             password: data.password,
-            role: data.role
+            role: data.role,
+            ref_id: data.id
         })
 
         await org.save();

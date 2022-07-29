@@ -12,7 +12,8 @@ export class StaffCreatedListener extends Listener {
             name: data.name,
             email: data.email,
             password: data.password,
-            role: data.role
+            role: data.role,
+            ref_id: data.id
         })
 
         await staff.save();

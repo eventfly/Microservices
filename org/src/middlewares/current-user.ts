@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from 'jsonwebtoken'
 import { NotAuthorizedError } from "../errors/not-authorized-error";
+import { SessionExpiredError } from "../errors/session-expired-error";
 
 interface UserPayload {
     id: string;
@@ -23,8 +24,7 @@ declare global {
 export const currentUser = (req: Request, res: Response, next: NextFunction) => {
     
     if (!req.headers.authorization) {
-        console.log('No authorization header');
-        return next();
+        return next()
     }
 
     try {
@@ -35,11 +35,9 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
             throw new NotAuthorizedError()
         }
 
-        console.log(req.currentUser);
-
     } catch (err) {
         console.log(err)
-        res.send({ currentUser: null })
+        throw new SessionExpiredError();
     }
 
     next()
