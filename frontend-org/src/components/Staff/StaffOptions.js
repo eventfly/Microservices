@@ -12,10 +12,9 @@ function BasicExample() {
 
   return (
 
-    <Dropdown >
-      <Dropdown.Toggle className="toggle-dropdown">
-        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-
+    <Dropdown>
+      <Dropdown.Toggle style={{backgroundColor: 'white'}}>
+        <i className="fa fa-ellipsis-v toggle-style" aria-hidden="true"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
@@ -23,6 +22,7 @@ function BasicExample() {
         <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
         {/* <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
       </Dropdown.Menu>
+      
     </Dropdown>
   );
 }

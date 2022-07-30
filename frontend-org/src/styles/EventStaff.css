@@ -92,11 +92,6 @@
     right: -15px;
 }
 
-.person-info button:hover, .person-info button:active{
-    background-color: white;
-    color: black;
-}
-
 .detail_flexbox{
     display: flex;
     flex-direction: row;
@@ -115,3 +110,12 @@
     flex: 0 0 80%;
     padding-bottom: 75px;
 }
+
+
+.toggle-style{
+    color: black;
+}
+.dropdown-style{
+    background-color: white;
+}
+
