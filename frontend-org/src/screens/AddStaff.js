@@ -77,7 +77,7 @@ const AddStaff = () => {
     
             }).catch(err => {
                 console.log(err)
-                setError(err.response.data.errors[0].message);
+                //setError(err.response.data.errors[0].message);
             })
         }
 
