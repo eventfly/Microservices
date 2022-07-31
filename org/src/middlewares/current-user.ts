@@ -36,7 +36,6 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
         }
 
     } catch (err) {
-        console.log(err)
         throw new SessionExpiredError();
     }
 
