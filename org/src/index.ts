@@ -1,6 +1,7 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
+import { EventEditedListener } from './listeners/event-edited-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -26,9 +27,11 @@ const start = async () => {
 
 
   try {
-    await natsWrapper.connect(process.env.NATS_CLUSTER_ID,
+    await natsWrapper.connect(
+      process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL)
+      process.env.NATS_URL
+    )
 
     natsWrapper.client.on('close', () => {
       // console.log('NATS connection closed');
@@ -37,6 +40,8 @@ const start = async () => {
 
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new EventEditedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_ORG}`, {
       useNewUrlParser: true,
