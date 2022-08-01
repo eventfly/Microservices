@@ -51,39 +51,43 @@ const CreateEventStage3 = ({ promote, setPromote, mailList, setMailList, backSta
                 <h2>Create New Event (3/3)</h2>
             </div>
 
-            <div className='CreateEvent3'>
+            <div className='stage3-content'>
 
-                <div className='left-column'>
+                <div className='CreateEvent3'>
 
-                    <FormSelect id="promote"
-                        label="Promote Event?"
-                        bgColor={'#e5e5e5'}
-                        options={promoteOptions}
-                        onChange={setPromote}
-                    />
+                    <div className='left-column'>
 
-                </div>
+                        <FormSelect id="promote"
+                            label="Promote Event?"
+                            bgColor={'#e5e5e5'}
+                            options={promoteOptions}
+                            onChange={setPromote}
+                        />
 
-                <div className='right-column'>
-
-                    {
-                        promote === 'Yes' ? activeMailingList : inActiveMailingList
-                    }
-
-                </div>
-
-
-                <div className='btn-group'>
-                    
-                    <div className='left-button'>
-                        <FormButton type="button" buttonText="Back" onClick={backStage} />
                     </div>
 
-                    {/* <Link to={`/`}> */}
-                        <FormButton type="button" buttonText="Create Event" onClick={() => createEvent()} />
-                    {/* </Link> */}
+                    <div className='right-column'>
+
+                        {
+                            promote === 'Yes' ? activeMailingList : inActiveMailingList
+                        }
+
+                    </div>
 
                 </div>
+
+                {/* <div className='btn-group'> */}
+                        
+                        {/* <div className='left-button'>
+                            <FormButton type="button" buttonText="Back" onClick={backStage} />
+                        </div> */}
+                        
+                        <div className="d-grid gap-4 d-md-flex justify-content-md-start">
+                            <FormButton type="button" buttonText="Back" onClick={backStage} />
+                            <FormButton type="button" buttonText="Create Event" onClick={() => createEvent()} />
+                        </div>
+
+                {/* </div> */}
 
             </div>
 

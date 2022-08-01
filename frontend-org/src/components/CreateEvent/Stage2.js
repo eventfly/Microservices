@@ -44,85 +44,83 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                 <h2>Create New Event (2/3)</h2>
             </div>
 
-            <div className='CreateEvent2'>
-                <div className='left-column'>
+            <div className='stage2-content'>
 
-                    <Map DefaultLocation={DefaultLocation}/>
-                    <br />
+                <div className='CreateEvent2'>
+                    <div className='left-column'>
 
-                    <FormTextArea id="description"
-                        label="Event Description"
-                        placeholder="Enter description"
-                        height={'300px'}
-                        bgColor={'#e5e5e5'}
-                        value={desc}
-                        onChange={setDesc}
-                    />
+                        <Map DefaultLocation={DefaultLocation}/>
+                        <br />
 
-                </div>
+                        <FormTextArea id="description"
+                            label="Event Description"
+                            placeholder="Enter description"
+                            height={'300px'}
+                            bgColor={'#e5e5e5'}
+                            value={desc}
+                            onChange={setDesc}
+                        />
 
-                <div className='right-column'>
-
-                    <FormInput id="ticket"
-                        inputType="text"
-                        label="Ticket Price(BDT)"
-                        placeholder="Event Ticket Price"
-                        bgColor={'#e5e5e5'}
-                        value={ticketPrice}
-                        onChange={setTicketPrice}
-                    />
-                    
-                    <br /><br />
-
-                    <DatePicker label="Start Date" onChange={setStartDate}/>
-
-                    <br /><br />
-                    
-                    <DatePicker label="End Date" onChange={setEndDate}/>
-
-                    <br /><br />
-
-                    <FormSelect id="type"
-                        label="Event Type"
-                        bgColor={'#e5e5e5'}
-                        options={eventType}
-                        onChange={setType}
-                    />
-
-                    <br /><br />
-
-                    <FormSelect id="privacy"
-                        label="Event Privacy"
-                        bgColor={'#e5e5e5'}
-                        options={eventPrivacy}
-                        onChange={setPrivacy}
-                    />
-
-                    <br /><br />
-
-                    <FormInput id="filter"
-                        inputType="text"
-                        label="Email Filter"
-                        placeholder="@gmail.com"
-                        bgColor={'#e5e5e5'}
-                        value={filter}
-                        onChange={setFilter}
-                    />
-
-                </div>
-                
-
-                <div className='btn-group'>
-                    
-                    <div className='left-button'>
-                        <FormButton type="button" buttonText="Back" onClick={backStage} />
                     </div>
 
-                    <FormButton type="button" buttonText="Next" onClick={nextStage} />
+                    <div className='right-column'>
 
+                        <FormInput id="ticket"
+                            inputType="text"
+                            label="Ticket Price(BDT)"
+                            placeholder="Event Ticket Price"
+                            bgColor={'#e5e5e5'}
+                            value={ticketPrice}
+                            onChange={setTicketPrice}
+                        />
+                        
+                        <br /><br />
+
+                        <DatePicker label="Start Date" onChange={setStartDate}/>
+
+                        <br /><br />
+                        
+                        <DatePicker label="End Date" onChange={setEndDate}/>
+
+                        <br /><br />
+
+                        <FormSelect id="type"
+                            label="Event Type"
+                            bgColor={'#e5e5e5'}
+                            options={eventType}
+                            onChange={setType}
+                        />
+
+                        <br /><br />
+
+                        <FormSelect id="privacy"
+                            label="Event Privacy"
+                            bgColor={'#e5e5e5'}
+                            options={eventPrivacy}
+                            onChange={setPrivacy}
+                        />
+
+                        <br /><br />
+
+                        <FormInput id="filter"
+                            inputType="text"
+                            label="Email Filter"
+                            placeholder="@gmail.com"
+                            bgColor={'#e5e5e5'}
+                            value={filter}
+                            onChange={setFilter}
+                        />
+
+                    </div>
+
+                    
                 </div>
 
-                
+                <div className="d-grid gap-4 d-md-flex justify-content-md-start">
+                    <FormButton type="button" buttonText="Back" onClick={backStage} />
+                    <FormButton type="button" buttonText="Next" onClick={nextStage} />
+                </div>
+
             </div>
         
         </>
