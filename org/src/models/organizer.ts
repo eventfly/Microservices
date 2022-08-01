@@ -97,4 +97,4 @@ orgSchema.statics.build = (attrs: OrgAttrs) => {
 
 const Organizer = mongoose.model<OrgDoc, OrgModel>('Organizer', orgSchema);
 
-export { Organizer };
+export { Organizer, OrgDoc };

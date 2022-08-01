@@ -7,6 +7,13 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
 
+import {Types} from 'mongoose';
+import { Organizer } from '../models/organizer';
+
+
+import {ObjectId} from 'bson';
+
+
 
 const router = express.Router();
 
@@ -37,7 +44,6 @@ router.post('/api/org/event', [
     async (req: Request, res: Response) => {
         const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter, tags } = req.body
 
-
         const event = Event.build({
             name,
             description: desc,
@@ -50,7 +56,7 @@ router.post('/api/org/event', [
             mailList,
             filter,
             tags,
-            organizer: req.currentUser!.id,
+            organizer: new ObjectId(req.currentUser!.id),
         })
 
         // Save the event to the database

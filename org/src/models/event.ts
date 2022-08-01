@@ -1,4 +1,8 @@
 import mongoose, {Types} from "mongoose";
+import {OrgDoc} from './organizer';
+
+import {ObjectId} from 'bson';
+
 
 interface TagDoc {
     name: string;
@@ -17,7 +21,7 @@ interface EventAttrs {
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
@@ -35,7 +39,7 @@ interface EventDoc extends mongoose.Document {
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];

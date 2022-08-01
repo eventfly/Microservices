@@ -8,6 +8,7 @@ import { Event } from '../models/event';
 import { errorHandler } from '../middlewares/error-handler';
 
 import mongoose, {Types} from 'mongoose';
+import { ObjectId } from 'bson';
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ currentUser, requireAuth,
  errorHandler, async (req: Request, res: Response) => {
     const { orgId } = req.params;
 
-    const events = await Event.find({ organizer: orgId });
+    const events = await Event.find({ organizer: new ObjectId(orgId) });
     res.send(events);
 })
 
