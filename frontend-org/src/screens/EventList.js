@@ -1,13 +1,17 @@
 import Searchbar from '../components/Searchbar';
 import SlidingNav from '../components/SlidingNav';
 import EventPreview from '../components/EventPreview';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import "../styles/EventList.css"
 
 import {orgApi} from '../api/axiosHook'
 
+import { AuthContext } from '../context/auth-context';
+
 
 const EventList = () => {
+
+    const auth = useContext(AuthContext);
 
     let ev = [
         {
@@ -28,7 +32,7 @@ const EventList = () => {
     useEffect(() => {
         async function fetchEvent(){
 
-            orgApi.get('/event/62df99757020c0c26ae1bcc0').then((res)=>{
+            orgApi.get(`/event/${auth.user.id}`).then((res)=>{
                 console.log(res.data)
                 setEvents(res.data)
             })

@@ -81,15 +81,15 @@ const eventSchema = new mongoose.Schema({
     },
     tags: [
         {
-        name: {
-            type: String,
-            required: false
-        },     
-        tagId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tag",
-        required: false
-        }   
+            name: {
+                type: String,
+                required: false
+            },     
+            tagId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Tag",
+                required: false
+            }   
         }
     ],
     mailList: {

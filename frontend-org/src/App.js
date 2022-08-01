@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import { useEffect, useState} from 'react'
+import { useEffect, useState, useCallback} from 'react'
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -22,6 +22,7 @@ import {authApi} from './api/axiosHook'
 
 import Subscription from './screens/Subscription';
 
+import { AuthContext } from './context/auth-context';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -37,8 +38,17 @@ const firebaseConfig = {
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
+  const [token, setToken] = useState('');
   
+
+
+  const login = useCallback((user, token) => {
+    setCurrentUser(user);
+    setToken(token);
+  }, []);
+
+
 
   useEffect(()=>{
       async function fetchCurrentUser(){
@@ -56,6 +66,8 @@ function App() {
 
 
   return (
+    <AuthContext.Provider value={{currentUser, login, token}}>
+    
     <Router>
       <Header />
 
@@ -92,6 +104,8 @@ function App() {
 
       <Footer />
     </Router>
+    
+    </AuthContext.Provider>
   );
 }
 
