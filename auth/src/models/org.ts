@@ -65,7 +65,8 @@ const OrgSchema = new mongoose.Schema({
                 delete ret.__v
             }
         }
-    })
+    }
+    )
 
 
 

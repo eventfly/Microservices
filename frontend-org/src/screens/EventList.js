@@ -31,8 +31,8 @@ const EventList = () => {
 
     useEffect(() => {
         async function fetchEvent(){
-
-            orgApi.get(`/event/${auth.user.id}`).then((res)=>{
+            console.log(auth)
+            orgApi.get(`/event/${auth.currentUser.ref_id}`).then((res)=>{
                 console.log(res.data)
                 setEvents(res.data)
             })

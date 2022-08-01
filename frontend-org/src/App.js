@@ -46,6 +46,7 @@ function App() {
   const login = useCallback((user, token) => {
     setCurrentUser(user);
     setToken(token);
+
   }, []);
 
 
@@ -66,7 +67,7 @@ function App() {
 
 
   return (
-    <AuthContext.Provider value={{currentUser, login, token}}>
+    <AuthContext.Provider value= {{currentUser: currentUser, login:login, token:token}}>
     
     <Router>
       <Header />

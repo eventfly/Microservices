@@ -7,6 +7,8 @@ import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
 import { errorHandler } from '../middlewares/error-handler';
 
+import mongoose, {Types} from 'mongoose';
+
 const router = express.Router();
 
 router.get('/api/org/event/:orgId', [
