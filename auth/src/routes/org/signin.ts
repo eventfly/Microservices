@@ -50,7 +50,6 @@ router.post('/api/auth/org/signin',
             jwt: userJwt
         }
 
-        console.log(req.session);
 
         res.status(201).send({ existingUser, token: userJwt })
 

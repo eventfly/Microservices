@@ -49,16 +49,19 @@ const Signup = () => {
         console.log(account)
 
 
-        orgApi.post('/', account, {
-            withCredentials: true,
-        }).then(res => {
-            console.log(res)
+        orgApi.post('/', account).then(res => {
+            localStorage.setItem('token', res.data.token);
             navigate('/')
         
         }).catch(err => {
             console.log(err)
             // setShow(true);
-            setError(err.response.data.errors[0].message);
+            if (err.response.data.errors) {
+                setError(err.response.data.errors[0].message);
+            } else {
+                setError('Unhandled Error!');
+            }
+                
         })
 
     }

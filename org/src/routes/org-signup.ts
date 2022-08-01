@@ -37,7 +37,8 @@ router.post('/api/org', [
                 email: user.email,
                 name: user.name,
                 password: user.password,
-                role: user.role
+                role: user.role,
+                ref_id: user.id
             }
         ), () => {
             console.log('Event published')
@@ -59,7 +60,7 @@ router.post('/api/org', [
             jwt: userJwt
         }
 
-        res.status(201).send({ user })
+        res.status(201).send({ user, token: userJwt });
     }
 })
 

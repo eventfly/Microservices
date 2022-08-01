@@ -34,13 +34,7 @@ app.use((req,res,next)=>{
 
 // app.set('trust proxy', true) // trust first proxy
 app.use(json())
-app.use(
-    cookieSession({
-        signed: false,
-        sameSite: 'none',
-        secure: false
-    })
-)
+
 app.use(currentUserRouter)
 app.use(signinRouter)
 app.use(signoutRouter)

@@ -33,14 +33,14 @@ app.use((req,res,next)=>{
 
 // app.set('trust proxy', true)
 app.use(json())
-app.use(
-    cookieSession({
-        signed: false,
-        sameSite: 'none',
-        secure: false
-    })
-)
-app.use(currentUser)
+// app.use(
+//     cookieSession({
+//         signed: false,
+//         sameSite: 'none',
+//         secure: false
+//     })
+// )
+// app.use(currentUser)
 app.use(orgSignupRouter)
 app.use(createEventRouter)
 app.use(createStaffRouter)
