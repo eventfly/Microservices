@@ -88,41 +88,41 @@ services:
         - variables.env
       depends_on:
         - nats_server
-    frontend-pwa:
-      build: ./frontend-pwa
-      container_name: frontend-pwa
-      ports:
-        - "3003:3000"
-      volumes:
-        - ./frontend-pwa:/var/lib/frontend-pwa
-      networks:
-        - isolation-network
-      restart: always
-      environment:
-        - NATS_CLIENT_ID=frontend-pwa
-      env_file:
-        - variables.env
-      depends_on:
-        - nats_server
-        - auth
-        - org
-        - events
-    frontend-org:
-      build: ./frontend-org
-      container_name: frontend-org
-      ports:
-        - "3004:3000"
-      volumes:
-        - ./frontend-org:/var/lib/frontend-org
-      networks:
-        - isolation-network
-      restart: always
-      environment:
-        - NATS_CLIENT_ID=frontend-org
-      env_file:
-        - variables.env
-      depends_on:
-        - nats_server
-        - auth
-        - org
-        - events
+    # frontend-pwa:
+    #   build: ./frontend-pwa
+    #   container_name: frontend-pwa
+    #   ports:
+    #     - "3003:3000"
+    #   volumes:
+    #     - ./frontend-pwa:/var/lib/frontend-pwa
+    #   networks:
+    #     - isolation-network
+    #   restart: always
+    #   environment:
+    #     - NATS_CLIENT_ID=frontend-pwa
+    #   env_file:
+    #     - variables.env
+    #   depends_on:
+    #     - nats_server
+    #     - auth
+    #     - org
+    #     - events
+    # frontend-org:
+    #   build: ./frontend-org
+    #   container_name: frontend-org
+    #   ports:
+    #     - "3004:3000"
+    #   volumes:
+    #     - ./frontend-org:/var/lib/frontend-org
+    #   networks:
+    #     - isolation-network
+    #   restart: always
+    #   environment:
+    #     - NATS_CLIENT_ID=frontend-org
+    #   env_file:
+    #     - variables.env
+    #   depends_on:
+    #     - nats_server
+    #     - auth
+    #     - org
+    #     - events
