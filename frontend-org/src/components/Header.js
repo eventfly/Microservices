@@ -12,6 +12,15 @@ const Header = () => {
                 <LinkContainer to="/">
                     <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
+
+                <LinkContainer to="/login" onClick={ () => {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                }}>
+                    <Nav.Link>Logout</Nav.Link>
+                </LinkContainer>
+
+
             </Nav>
         </header>
   );

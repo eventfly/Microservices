@@ -6,10 +6,12 @@ import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom'
 
 import Map from "../components/CreateEvent/Map";
 import DatePicker from "../components/DatePicker";
+import {eventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
@@ -38,6 +40,15 @@ const EventProfile = () => {
         }
     ]
 
+
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
+
+    const { eventId } = useParams();
+
+
     const dateFormatter = (date) => {
         return date.split(":")[0]+':'+date.split(":")[1];
     }
@@ -56,6 +67,33 @@ const EventProfile = () => {
     const [ticketPrice, setTicketPrice] = useState(110);
     const [eventType, setEventType] = useState(eventTypeOptions[1].name);
     const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[0].name);
+
+
+    useEffect(() => {
+        async function fetchEventData(){
+            if (auth.ref_id) {
+                console.log(eventId)
+                eventApi.get(`/${eventId}`).then((res)=>{
+                    console.log(res.data)
+
+                    setName(res.data.name);
+                    setDescription(res.data.description);
+                    //setTag(res.data.tag);
+
+                    setStartDate(dateFormatter(res.data.start_date));
+                    setEndDate(dateFormatter(res.data.end_date));
+
+                    setTicketPrice(res.data.ticket_price);
+                    setEventType(res.data.type);
+
+
+                })
+            }
+            
+        }
+        fetchEventData()
+    
+    }, [])
 
 
     const handleSubmit = (e) => {

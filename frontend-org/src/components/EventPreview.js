@@ -7,7 +7,7 @@ const EventPreview = ({event}) => {
     return (
        
         
-        <Link to="/"> 
+        <Link to={`/event/${event.id}/profile`}> 
             <div className="event-preview" style={{
                 backgroundImage:
                     `linear-gradient(

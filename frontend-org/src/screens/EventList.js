@@ -6,36 +6,27 @@ import "../styles/EventList.css"
 
 import {orgApi} from '../api/axiosHook'
 
-import { AuthContext } from '../context/auth-context';
 
 
 const EventList = () => {
 
-    const auth = useContext(AuthContext);
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
 
-    let ev = [
-        {
-            'name': 'Mountain Trekking',
-            'banner_url': 'https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg',
-            'id': 1
-        },
-
-        {
-            'name': 'Mountain Trekking',
-            'banner_url': 'https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg',
-            'id': 2
-        }
-    ]
-    const [events, setEvents] = useState(ev);
+    const [events, setEvents] = useState([]);
     let alldata = '';
 
     useEffect(() => {
         async function fetchEvent(){
-            console.log(auth)
-            orgApi.get(`/event/${auth.currentUser.ref_id}`).then((res)=>{
-                console.log(res.data)
-                setEvents(res.data)
-            })
+            if (auth.ref_id) {
+                orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
+                    console.log(res.data)
+                    setEvents(res.data)
+                })
+            }
+            
         }
         fetchEvent()
         
@@ -61,7 +52,6 @@ const EventList = () => {
                 {
                     (events != null && events.length > 0) ? (
                         events.map(event => {
-                            console.log(event);
                             return (
                                 <EventPreview key={event.id} event={event} />
 

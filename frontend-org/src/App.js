@@ -22,7 +22,6 @@ import {authApi} from './api/axiosHook'
 
 import Subscription from './screens/Subscription';
 
-import { AuthContext } from './context/auth-context';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -40,16 +39,6 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [token, setToken] = useState('');
-  
-
-
-  const login = useCallback((user, token) => {
-    setCurrentUser(user);
-    setToken(token);
-
-  }, []);
-
-
 
   useEffect(()=>{
       async function fetchCurrentUser(){
@@ -58,6 +47,7 @@ function App() {
           console.log(res)
           console.log(res.data.currentUser)
           setCurrentUser(res.data.currentUser)
+          // sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
         })
         
       }
@@ -67,7 +57,6 @@ function App() {
 
 
   return (
-    <AuthContext.Provider value= {{currentUser: currentUser, login:login, token:token}}>
     
     <Router>
       <Header />
@@ -90,11 +79,11 @@ function App() {
                   <Route path=":id" element={<ProductScreen />}/>
                 </Route> */}
 
-          <Route path="/detail/profile" element={<EventProfile />}/>
-          <Route path="/detail/discussion" element={<EventFeed />}/>
-          <Route path="/detail/statistics" element={<EventStatistics />}/>
-          <Route path="/detail/staff/add" element={<AddStaff />}/>
-          <Route path="/detail/staff" element={<EventStaff />}/>
+          <Route path="/event/:eventId/profile" element={<EventProfile />}/>
+          <Route path="/event/:eventId/discussion" element={<EventFeed />}/>
+          <Route path="/event/:eventId/statistics" element={<EventStatistics />}/>
+          <Route path="/event/:eventId/staff/add" element={<AddStaff />}/>
+          <Route path="/event/:eventId/staff" element={<EventStaff />}/>
 
           <Route path="/sub" element={<Subscription />}/>
 
@@ -106,7 +95,6 @@ function App() {
       <Footer />
     </Router>
     
-    </AuthContext.Provider>
   );
 }
 

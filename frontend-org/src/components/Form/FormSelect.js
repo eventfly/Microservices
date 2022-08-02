@@ -16,7 +16,7 @@ const FormSelect = ({id, label, options, bgColor, onChange}) => {
                     onChange={e=> onChange(e.target.value)}
                 >
                     
-                    <option defaultValue> Choose... </option>
+                    {/* <option defaultValue> Choose... </option> */}
 
                     {
                         options.map((item)=>(

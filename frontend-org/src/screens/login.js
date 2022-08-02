@@ -9,14 +9,7 @@ import ErrorPopup from "../components/ErrorPopup";
 import { useState, useContext } from 'react'
 import {authApi} from '../api/axiosHook'
 
-import { AuthContext } from '../context/auth-context';
-
-
 const Login = () => {
-
-    //AuthContext
-    const auth = useContext(AuthContext);
-
     const navigate = useNavigate();
 
     let accTypeOptions = [
@@ -52,7 +45,7 @@ const Login = () => {
             
             // Stores the JWT token in the browser's local storage
             window.localStorage.setItem('token', res.data.token);
-            auth.login(res.data.existingUser, res.data.token);
+            window.sessionStorage.setItem('auth', JSON.stringify(res.data.existingUser));
             navigate('/')
 
         }).catch(err => {
