@@ -51,7 +51,8 @@ router.post('/api/org', [
             id: user.id,
             email: user.email,
             name: user.name,
-            role: user.role
+            role: user.role,
+            ref_id: user.id
         }, process.env.JWT_KEY!)
 
         //Store it on session object (in the cookie)

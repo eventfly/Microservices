@@ -10,6 +10,7 @@ interface UserPayload {
     dob?: string;
     gender?: string;
     role?: string;
+    ref_id?: string;
 }
 
 declare global {

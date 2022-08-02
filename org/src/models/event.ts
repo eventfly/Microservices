@@ -6,7 +6,7 @@ import {ObjectId} from 'bson';
 
 interface TagDoc {
     name: string;
-    id: string;
+    id: ObjectId;
 }
 
 
@@ -15,7 +15,7 @@ interface EventAttrs {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: string[];
+    tags?: Types.DocumentArray<TagDoc>;
     description: string;
     rating?: number;
     parent_id?: string;
@@ -33,7 +33,7 @@ interface EventDoc extends mongoose.Document {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: string[];
+    tags?: Types.DocumentArray<TagDoc>;
     description: string;
     rating?: number;
     parent_id?: string;
@@ -83,23 +83,19 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    // tags: [
-    //     {
-    //         name: {
-    //             type: String,
-    //             required: false
-    //         },     
-    //         tagId: {
-    //             type: mongoose.Schema.Types.ObjectId,
-    //             ref: "Tag",
-    //             required: false
-    //         }   
-    //     }
-    // ],
-    tags: {
-        type: [String],
-        required: false
-    } ,
+    tags: [
+        {
+            name: {
+                type: String,
+                required: false
+            },     
+            tagId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Tag",
+                required: false
+            }   
+        }
+    ],
     mailList: {
         type: [String],
         required: false

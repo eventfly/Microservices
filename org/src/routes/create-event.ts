@@ -56,7 +56,7 @@ router.post('/api/org/event', [
             mailList,
             filter,
             tags,
-            organizer: new ObjectId(req.currentUser!.id),
+            organizer: new ObjectId(req.currentUser!.ref_id),
         })
 
         // Save the event to the database

@@ -6,17 +6,11 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
 import { errorHandler } from '../middlewares/error-handler';
-
-import mongoose, {Types} from 'mongoose';
 import { ObjectId } from 'bson';
 
 const router = express.Router();
 
-router.get('/api/org/event/:orgId', [
-    body('orgId').
-        isMongoId().
-        withMessage('Organization ID must be a valid ID'),
-], 
+router.get('/api/org/event/:orgId', 
 currentUser, requireAuth,
  errorHandler, async (req: Request, res: Response) => {
     const { orgId } = req.params;
