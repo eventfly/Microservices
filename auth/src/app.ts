@@ -11,7 +11,6 @@ import { currentUserRouter } from './routes/participant/current-user';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import { OrgSigninRouter } from './routes/org/signin';
-import { OrgSignupRouter } from './routes/org/signup';
 import { OrgSignoutRouter } from './routes/org/signout';
 import { OrgcurrentUserRouter } from './routes/org/current-user';
 import cors from 'cors';
@@ -41,7 +40,6 @@ app.use(signoutRouter)
 app.use(signupRouter)
 
 app.use(OrgSigninRouter)
-app.use(OrgSignupRouter)
 app.use(OrgSignoutRouter)
 app.use(OrgcurrentUserRouter)
 //

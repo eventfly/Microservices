@@ -39,7 +39,8 @@ router.post('/api/auth/org/signin',
             id: existingUser.id,
             email: existingUser.email,
             name: existingUser.name,
-            role: existingUser.role
+            role: existingUser.role,
+            ref_id: existingUser.ref_id
         }, process.env.JWT_KEY!, {
             expiresIn: 60*10
         })
