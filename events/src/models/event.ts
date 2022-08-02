@@ -1,5 +1,8 @@
 import mongoose, {Types} from "mongoose";
 
+import {ObjectId} from 'bson';
+
+
 interface TagDoc {
     name: string;
     id: string;
@@ -11,17 +14,18 @@ interface EventAttrs {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: Types.DocumentArray<TagDoc>;
+    tags?: string[];
     description: string;
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    ref_id: ObjectId;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -29,17 +33,18 @@ interface EventDoc extends mongoose.Document {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: Types.DocumentArray<TagDoc>;
+    tags?: string[];
     description: string;
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    ref_id: ObjectId;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -79,19 +84,10 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    tags: [
-        {
-        name: {
-            type: String,
-            required: false
-        },     
-        tagId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tag",
+    tags: {
+        type: [String],
         required: false
-        }   
-        }
-    ],
+    } ,
     mailList: {
         type: [String],
         required: false
@@ -114,6 +110,10 @@ const eventSchema = new mongoose.Schema({
         type: Number,
         required: false
 
+    },
+    ref_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 
     //TODO: Add Venue
@@ -137,3 +137,4 @@ const Event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);
 
 
 export { Event };
+

@@ -1,6 +1,7 @@
 import { Listener } from '@thr_org/common'
 import { Message } from 'node-nats-streaming'
 import { Event } from '../models/event';
+import { ObjectId } from 'bson';
 
 export class EventCreatedListener extends Listener {
     subject = 'event:created';
@@ -22,7 +23,8 @@ export class EventCreatedListener extends Listener {
             sub_events: data.sub_events,
             banner_url: data.banner_url,
             filter: data.filter,
-            ticket_price: data.ticket_price
+            ticket_price: data.ticket_price,
+            ref_id: new ObjectId(data.id),
         })
 
         await event.save();

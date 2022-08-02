@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import 'express-async-errors'
 import { json } from 'body-parser'
+import cors from 'cors'
 
 import cookieSession from 'cookie-session';
 
@@ -10,8 +11,22 @@ import { currentUser } from './middlewares/current-user';
 import { NotFoundError } from './errors/not-found-error';
 import { getEventsRouter } from './routes/get-events';
 import { editEventRouter } from './routes/edit-events';
+import { getEventDataRouter } from './routes/get-eventData';
 
 const app = express()
+app.use(cors({origin: '*'}));
+
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Expose-Headers', 'Access-Token, Uid')
+
+    next(); 
+})
+
+
 app.set('trust proxy', true) // trust first proxy
 app.use(json())
 app.use(
@@ -23,6 +38,7 @@ app.use(
 app.use(currentUser);
 app.use(getEventsRouter);
 app.use(editEventRouter);
+app.use(getEventDataRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
