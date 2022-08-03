@@ -33,13 +33,13 @@ const EventList = () => {
 
                     setEvents([...events])
                     setLoading(true)
+
+                    console.log('events: ', events);
                 })
             }
             
         }
         fetchEvent()
-        
-        console.log('events: ', events);
     
     }, [events, loading])
 
