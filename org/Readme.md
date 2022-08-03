@@ -222,22 +222,23 @@ Request Body:
         filter: [string],
         tags: [
             {
-                tagId: MongoID as string
+                tagId: string
                 name: string
             }
         ]
 }
 ```
-Response:
+Response status:
 
 If succesful request: statusCode = 201
 else statusCode = 400
 
-Data:
+Response:
+    Data:
 ```
     {
-        id: mongo _id (event ID)
-        organizer: mongo _id (organizer ID)
+        id: string (event ID)
+        organizer: string (organizer ID)
         ...
     }
 ```
@@ -246,13 +247,51 @@ Data:
 
 ###### GET /api/org/event/:orgId
 
-params: orgId
 
 Get all the events under orgId
+
+Request:
+     body: Not required
+     param: orgId
+
+Response:
+    Data:
+    ```
+    [
+        {
+            ...event
+        }
+    ]
+    ```
+
 
 ###### POST /api/org/tag/
 
 Create a new tag
+
+Request:
+    Body:
+    ```
+    {
+        name: string
+    }
+    ```
+
+###### GET /api/org/tag
+
+Get all the tags
+
+Request Body:
+    Not required
+
+Response:
+    Data:
+    ```
+    {
+        name: string,
+        id: string (tag_id)
+    }
+    ```
 
 ###### POST /api/org/staff/
 

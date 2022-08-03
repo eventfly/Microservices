@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import CreateEventStage1 from "../components/CreateEvent/Stage1";
@@ -11,6 +11,11 @@ import ErrorPopup from "../components/ErrorPopup";
 
 
 const CreateEvent = () => {
+
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
 
     const [stage, setStage] = useState(1);
     const [bannerImage, setBannerImage] = useState(null);
@@ -32,6 +37,21 @@ const CreateEvent = () => {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        async function fetchTags(){
+            if (auth.ref_id) {
+                orgApi.get('/tag').then((res)=>{
+                    console.log(res.data)
+                })
+            }
+            
+        }
+        fetchTags()
+        
+    
+    }, [])
 
 
     const uploadImage = (e) => {
