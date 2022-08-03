@@ -37,24 +37,32 @@ const CreateEvent = () => {
     const [filter, setFilter] = useState('')
 
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
 
     useEffect(() => {
         async function fetchTags(){
-            if (auth.ref_id) {
+            if (auth.ref_id && (loading == false || tags.length == 0)) {
+                
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
-                    setTags(res.data)
+
+                    for(let i = 0; i < res.data.length; i++){
+                        tags[i] = res.data[i]
+                    }
+
+                    setTags([...tags]);
+                    setLoading(true)
+                    console.log("parent: ",tags)
                 })
             }
             
         }
         fetchTags()
-        
     
-    }, [])
+    }, [tags, loading])
 
 
     const uploadImage = (e) => {

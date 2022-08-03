@@ -7,20 +7,27 @@ import AutoComplete from '../AutoComplete';
 import { useState, useEffect } from "react";
 
 
-const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage}) => {
+const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelections, uploadImage, nextStage}) => {
 
     const [tagOptions, setTagOptions] = useState([]);
-    let selectedValues = []
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        tags = tags.map((tag)=>{
-            return tag.name 
-         })
-     
-         console.log(tags)
-         setTagOptions(tags)
+
+        if(loading == false || tagOptions.length == 0){
+
+            for(let i = 0; i < tags.length; i++){
+                tagOptions[i] = tags[i].name
+            }
+
+            setTagOptions([...tagOptions])
+
+            setLoading(true)
+        }
+
+        console.log("tagoptions", tagOptions)
     
-    }, [])
+    }, [tagOptions, loading])
 
     return ( 
 
@@ -57,6 +64,8 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
 
                 <AutoComplete
                     options={tagOptions}
+                    multiSelections={multiSelections}
+                    setMultiSelections={setMultiSelections} 
                 />
 
                 <br /><br />

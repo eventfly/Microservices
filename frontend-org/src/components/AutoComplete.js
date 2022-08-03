@@ -1,12 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,useEffect } from "react";
 import { Typeahead } from "react-bootstrap-typeahead";
 import {Form} from 'react-bootstrap'
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
-const AutoComplete = ({options}) => {
-
-    const [multiSelections, setMultiSelections] = useState([]);
+const AutoComplete = ({options, multiSelections, setMultiSelections}) => {
 
     return ( 
         <>

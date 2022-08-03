@@ -16,14 +16,23 @@ const EventList = () => {
     }
 
     const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     let alldata = '';
 
     useEffect(() => {
         async function fetchEvent(){
-            if (auth.ref_id) {
+            if (auth.ref_id && (loading == false || events.length == 0)) {
+                
                 orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
-                    setEvents(res.data)
+
+                    for(let i = 0; i < res.data.length; i++){
+                        events[i] = res.data[i]
+                    }
+
+                    setEvents([...events])
+                    setLoading(true)
                 })
             }
             
@@ -32,7 +41,7 @@ const EventList = () => {
         
         console.log('events: ', events);
     
-    }, [])
+    }, [events, loading])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
     function getTab(tab) {
