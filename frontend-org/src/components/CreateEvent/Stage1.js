@@ -3,9 +3,25 @@ import CoverImage from './CoverImage'
 
 import FormInput from '../Form/FormInput'
 import FormButton from '../Form/FormButton';
+import AutoComplete from '../AutoComplete';
+import { useState, useEffect } from "react";
 
 
 const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage}) => {
+
+    const [tagOptions, setTagOptions] = useState([]);
+    let selectedValues = []
+
+    useEffect(() => {
+        tags = tags.map((tag)=>{
+            return tag.name 
+         })
+     
+         console.log(tags)
+         setTagOptions(tags)
+    
+    }, [])
+
     return ( 
 
         <>
@@ -30,13 +46,17 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
                 <CoverImage uploadImage={uploadImage} />
                 <br />
 
-                <FormInput id="tag"
+                {/* <FormInput id="tag"
                     inputType="text"
                     label="Event Tags"
                     placeholder="Event Tags"
                     bgColor={'#e5e5e5'}
                     value={tags}
                     onChange={setTags}
+                /> */}
+
+                <AutoComplete
+                    options={tagOptions}
                 />
 
                 <br /><br />

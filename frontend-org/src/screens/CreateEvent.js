@@ -30,7 +30,9 @@ const CreateEvent = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState([])
+    const [multiSelections, setMultiSelections] = useState([]);
+
     const [mailList, setMailList] = useState('')
     const [filter, setFilter] = useState('')
 
@@ -44,6 +46,7 @@ const CreateEvent = () => {
             if (auth.ref_id) {
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
+                    setTags(res.data)
                 })
             }
             
@@ -96,7 +99,7 @@ const CreateEvent = () => {
             banner_url: bannerImage,
             end: endDate,
             desc: desc,
-            tags: tags,
+            tags: multiSelections,
             ticket: ticketPrice,
             mailList: mailList.split(/\r?\n/).filter(element => element),
             filter: filter.split(/\r?\n/).filter(element => element)
@@ -125,8 +128,9 @@ const CreateEvent = () => {
                 <CreateEventStage1
                     name={name}
                     setName={setName}
-                    tags={tags}
-                    setTags={setTags} 
+                    tags={tags} setTags={setTags}
+                    multiSelections={multiSelections}
+                    setMultiSelections={setMultiSelections} 
                     uploadImage={uploadImage} 
                     nextStage={nextStage} 
                 />
