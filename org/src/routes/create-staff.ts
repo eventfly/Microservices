@@ -25,22 +25,26 @@ router.post('/api/org/staff', [
         withMessage('Events must be an array'),
 
 ], validateRequest, currentUser, requireAuth, errorHandler, async (req: Request, res: Response) => {
-    const { name, email, role, events } = req.body;
+    let { name, email, role, events } = req.body;
 
     const existingUser = await Staff.findOne({ email });
     if (existingUser) {
         throw new Error('Email in use');
     } else {
+
+        events = events.map((eventId: string) => {
+            return {eventId: new ObjectId(eventId)}
+        })
+
         const staff = await Staff.build({
             name,
             email,
             role,
             organizer: req.currentUser!.id,
-            events: events.map((id: string) => new ObjectId(id))
+            events
         });
 
         await staff.save();
-        console.log(staff);
 
         natsWrapper.client.publish('staff:created', JSON.stringify(
             { 
@@ -49,7 +53,8 @@ router.post('/api/org/staff', [
                 role: staff.role,
                 ref_id: staff.id, 
                 password: staff.otp!,
-                is_verified: staff.is_verified
+                is_verified: staff.is_verified,
+                events: staff.events
             }
         ));
 

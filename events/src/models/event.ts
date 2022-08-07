@@ -26,6 +26,7 @@ interface EventAttrs {
     mailList?: string[];
     ticket_price?: number;
     ref_id: ObjectId;
+    staffs?: Types.DocumentArray<any>;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -45,6 +46,7 @@ interface EventDoc extends mongoose.Document {
     mailList?: string[];
     ticket_price?: number;
     ref_id: ObjectId;
+    staffs?: Types.DocumentArray<any>;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -127,7 +129,30 @@ const eventSchema = new mongoose.Schema({
     ref_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
-    }
+    },
+
+    staffs: [{
+        email:{
+            type: String,
+            required: true
+        },
+        name:{
+            type: String,
+            required: true
+        },
+        otp:{
+            type: String,
+            required: false
+        },
+        role:{
+            type: String,
+            required: true
+        },
+        ref_id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Staff',
+        }
+    }]
 
     //TODO: Add Venue
 

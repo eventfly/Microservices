@@ -11,7 +11,6 @@ export class StaffCreatedListener extends Listener {
         let {name, email, password, role, ref_id} = data;
 
         password = await Password.toHash(password);
-    
 
         const staff = await Organizer.build({
             name, email, password, role, ref_id
