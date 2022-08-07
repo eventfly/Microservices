@@ -107,7 +107,9 @@ const CreateEvent = () => {
             banner_url: bannerImage,
             end: endDate,
             desc: desc,
-            tags: multiSelections,
+            tags: multiSelections.map((tag)=>{
+                return {'name': tag}
+            }),
             ticket: ticketPrice,
             mailList: mailList.split(/\r?\n/).filter(element => element),
             filter: filter.split(/\r?\n/).filter(element => element)

@@ -20,6 +20,10 @@ const EventList = () => {
 
     let alldata = '';
 
+    window.addEventListener('pageshow', (e)=>{
+        setLoading(false)
+    })
+
     useEffect(() => {
         async function fetchEvent(){
             if (auth.ref_id && (loading == false || events.length == 0)) {

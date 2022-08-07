@@ -17,9 +17,7 @@ const AddStaff = () => {
 
     const navigate = useNavigate();
     const [status, setStatus] = useState([
-        'unverified',
-        'success',
-        'error'
+        'unverified'
     ]);
 
     const [staffForms, setStaffForms] = useState([{'id' : 1}])
@@ -54,6 +52,45 @@ const AddStaff = () => {
         ]);
     }
 
+    const removeStaffByIndex = (idx) => {
+        console.log('removing staff ', idx)
+
+        setStaffForms([
+            ...staffForms.slice(0, idx),
+            ...staffForms.slice(idx+1, staffForms.length)
+        ])
+
+        //status[idx] = 'success'
+
+        // setStatus([
+        //     ...status.slice(0, idx),
+        //     ...status.slice(idx + 1, status.length)
+        // ]);
+
+        setName(name => 
+            name.filter((val, index) => {
+                console.log("index: ", index)
+                return val !== 'Bob'
+            })    
+        );
+
+        // setName([
+        //     ...name.slice(0, idx),
+        //     ...name.slice(idx + 1)
+        // ]);
+
+        // setEmail([
+        //     ...email.slice(0, idx),
+        //     ...email.slice(idx + 1, email.length)
+        // ]);
+
+        // setRole([
+        //     ...role.slice(0, idx),
+        //     ...role.slice(idx + 1, role.length)
+        // ]);
+
+        console.log(name)
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -64,7 +101,8 @@ const AddStaff = () => {
             allStaffs.push({
                 'name': name[i],
                 'email': email[i],
-                'role': role[i]
+                'role': role[i],
+                'events': []
             })
         }
 
@@ -73,28 +111,33 @@ const AddStaff = () => {
         for(let i = 0; i < staffForms.length; i++){
             orgApi.post('/staff', allStaffs[i]).then(res => {
                 console.log(res)
-                navigate('/detail/staff')
+                //navigate('/detail/staff')
+
+                status[i] = 'success'
+                setStatus([
+                    ...status.slice(0, i),
+                    status[i],
+                    ...status.slice(i + 1, status.length)
+                ]);
     
             }).catch(err => {
                 console.log(err)
+
+                status[i] = 'error'
+                setStatus([
+                    ...status.slice(0, i),
+                    status[i],
+                    ...status.slice(i + 1, status.length)
+                ]);
                 //setError(err.response.data.errors[0].message);
             })
         }
-
-        
-        orgApi.post('/staff', allStaffs).then(res => {
-            console.log(res)
-            navigate('/detail/staff')
-
-        }).catch(err => {
-            console.log(err)
-            //setError(err.response.data.errors[0].message);
-        })
     }
 
 
     const onAddNewStaff = () => {
         setStaffForms(staffForms => [...staffForms, {'id': staffForms.length+1}])
+        setStatus(status => [...status, 'unverified'])
         setName(name => [...name, ''])
         setEmail(email => [...email, ''])
         setRole(role => [...role, 'staff'])
@@ -135,6 +178,7 @@ const AddStaff = () => {
                                         role={role[staffForm.id-1]} 
                                         setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
                                         status={status[[staffForm.id-1]]}
+                                        removeStaff={()=>{removeStaffByIndex(staffForm.id-1)}}
                                     />
                                 </div>
                             )

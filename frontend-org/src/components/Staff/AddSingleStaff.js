@@ -6,8 +6,9 @@ import {FaAngleDown, FaAngleRight, FaRegCheckCircle, FaRegTimesCircle} from 'rea
 
 
 
-const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole, status}) => {
+const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole, status, removeStaff}) => {
     const [display, setDisplay] = useState('block');
+    //const [displayForm, setDisplayForm] = useState('block');
 
     const changeVisibility = () => {
         if(display == 'block'){
@@ -17,6 +18,15 @@ const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole,
             setDisplay('block')
         }
     }
+
+    // const hideEntireForm = () => {
+    //     if(displayForm == 'block'){
+    //         setDisplayForm('none')
+    //     }
+    //     else{
+    //         setDisplayForm('block')
+    //     }
+    // }
 
     const formHeader = (
         <>
@@ -33,6 +43,7 @@ const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole,
 
 
                 <h4 className='staff-header'> Staff {staffNo} </h4>
+                <FaRegTimesCircle className='icon-wrong-header' onClick={removeStaff}/>
 
             </div> 
         

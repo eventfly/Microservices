@@ -104,3 +104,11 @@
 .right-text{
     color: green;
 }
+
+.icon-wrong-header{
+    transform: translate(0%, 30%);
+    font-size: larger;
+    color: black;
+    margin-left: 5%;
+    cursor: pointer;
+}
