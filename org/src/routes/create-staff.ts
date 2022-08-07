@@ -6,6 +6,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { Staff } from '../models/staff';
 import { requireAuth } from '@thr_org/common';
 import { errorHandler } from '../middlewares/error-handler';
+import { ObjectId } from 'bson';
 
 const router = express.Router();
 
@@ -18,10 +19,13 @@ router.post('/api/org/staff', [
         withMessage('Email must be a valid email'),
     body('role').
         isIn(['organizer', 'staff']).
-        withMessage('Role must be either admin or staff'),
+        withMessage('Role must be either organizer or staff'),
+    body('events').
+        isArray().
+        withMessage('Events must be an array'),
 
 ], validateRequest, currentUser, requireAuth, errorHandler, async (req: Request, res: Response) => {
-    const { name, email, role } = req.body;
+    const { name, email, role, events } = req.body;
 
     const existingUser = await Staff.findOne({ email });
     if (existingUser) {
@@ -32,12 +36,21 @@ router.post('/api/org/staff', [
             email,
             role,
             organizer: req.currentUser!.id,
+            events: events.map((id: string) => new ObjectId(id))
         });
 
         await staff.save();
+        console.log(staff);
 
         natsWrapper.client.publish('staff:created', JSON.stringify(
-            { ...staff, password: staff.otp! }
+            { 
+                name: staff.name,
+                email: staff.email, 
+                role: staff.role,
+                ref_id: staff.id, 
+                password: staff.otp!,
+                is_verified: staff.is_verified
+            }
         ));
 
         res.status(201).send(staff);

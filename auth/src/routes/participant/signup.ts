@@ -43,11 +43,7 @@ router.post('/api/auth/users/signup', [
                 gender: user.gender
             }, process.env.JWT_KEY!)
 
-            //Store it on session object
 
-            req.session = {
-                jwt: userJwt
-            }
 
             res.status(201).send({ user, token: userJwt });
         }

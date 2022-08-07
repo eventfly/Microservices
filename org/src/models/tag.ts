@@ -34,4 +34,4 @@ TagSchema.statics.build = (attrs: TagAttrs) => {
 
 const Tag = mongoose.model<TagDoc, TagModel>('Tag', TagSchema);
 
-export { Tag };
+export { Tag, TagDoc, TagAttrs };

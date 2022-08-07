@@ -6,11 +6,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
-
-import {Types} from 'mongoose';
-import { Organizer } from '../models/organizer';
-
-
+import {Tag} from '../models/tag';
 import {ObjectId} from 'bson';
 
 
@@ -43,7 +39,20 @@ router.post('/api/org/event', [
     currentUser, requireAuth,
     async (req: Request, res: Response) => {
         const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter, tags } = req.body
+        
+        // Find the corresponding tag element from database and add it to the event
+        tags.forEach(async (element: {name: string | any, id: number;}) => {
+            let tag = await Tag.findOne({name: element.name});
+            
+            if (tag) {
+                element.id = tag.id;
+            } else {
+                throw new Error('Tag not found');
+            }  
+            
+        });
 
+        //
         const event = Event.build({
             name,
             description: desc,

@@ -24,9 +24,11 @@ router.post('/api/auth/org/signin',
 
         const existingUser = await Organizer.findOne({ email })
 
+
         if (!existingUser) {
             throw new BadRequestError('Organizer doesn\'t exist')
-        }
+        } 
+
 
         const passwordMatch = await Password.compare(existingUser.password, password)
 
@@ -42,7 +44,7 @@ router.post('/api/auth/org/signin',
             role: existingUser.role,
             ref_id: existingUser.ref_id
         }, process.env.JWT_KEY!, {
-            expiresIn: 60*10
+            expiresIn: 60*100
         })
 
         //Store it on session object

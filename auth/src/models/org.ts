@@ -9,6 +9,7 @@ interface OrgAttrs {
     name: string
     role: string
     ref_id: string
+    is_verified?: boolean
 }
 
 //An interface that describes the properties that a participant Model has
@@ -24,6 +25,8 @@ interface OrgDoc extends mongoose.Document {
     name: string
     role: string
     ref_id: string
+    is_verified?: boolean
+    otp?: string
 }
 
 const OrgSchema = new mongoose.Schema({
@@ -53,6 +56,11 @@ const OrgSchema = new mongoose.Schema({
     ref_id: {
         type: String,
         required: true
+    },
+
+    is_verified: {
+        type: Boolean,
+        default: false
     }
 
 },
