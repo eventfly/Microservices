@@ -3,7 +3,7 @@ import { Message } from 'node-nats-streaming'
 import { Event } from '../models/event';
 
 export class StaffCreatedListener extends Listener {
-    subject = 'staff:created';
+    subject = 'staff:created2';
     queueGroupName = 'staff-created';
     async onMessage(data: any, msg: Message) {
 

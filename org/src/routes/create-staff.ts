@@ -58,6 +58,18 @@ router.post('/api/org/staff', [
             }
         ));
 
+        natsWrapper.client.publish('staff:created2', JSON.stringify(
+            { 
+                name: staff.name,
+                email: staff.email, 
+                role: staff.role,
+                ref_id: staff.id, 
+                password: staff.otp!,
+                is_verified: staff.is_verified,
+                events: staff.events
+            }
+        ));
+
         res.status(201).send(staff);
     }
 
