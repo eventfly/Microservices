@@ -26,6 +26,8 @@ export class StaffCreatedListener extends Listener {
                 }
                 ).exec();
             console.log(updatedEvent);
+
+            
         })
 
         msg.ack();

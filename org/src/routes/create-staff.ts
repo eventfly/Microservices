@@ -7,6 +7,7 @@ import { Staff } from '../models/staff';
 import { requireAuth } from '@thr_org/common';
 import { errorHandler } from '../middlewares/error-handler';
 import { ObjectId } from 'bson';
+import { sendMail } from '../services/mail';
 
 const router = express.Router();
 
@@ -40,7 +41,7 @@ router.post('/api/org/staff', [
             name,
             email,
             role,
-            organizer: req.currentUser!.id,
+            organizer: req.currentUser!.ref_id,
             events
         });
 
@@ -69,6 +70,13 @@ router.post('/api/org/staff', [
                 events: staff.events
             }
         ));
+
+        sendMail({
+            from: 'eventfly@buetcsefest2022.com',
+            to: staff.email,
+            subject: 'Welcome to Eventfly',
+            html: `<h1>Welcome to Eventfly!</h1> <p>Your account has been created. Please use the following email and password to login: Email: ${staff.email}, Password: ${staff.otp}</p> <p> Please click on the following link to verify your account: <a href="http://localhost:3005/login?email=${staff.email}&password=${staff.otp}">Click Here</a></p>`
+        });
 
         res.status(201).send(staff);
     }
