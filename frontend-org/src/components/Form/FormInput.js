@@ -1,12 +1,12 @@
 import '../../styles/Form.css'
 
 
-const FormInput = ({id, inputType, label, placeholder, bgColor, isDisabled, value, onChange}) => {
+const FormInput = ({id, inputType, label, placeholder, bgColor, isDisabled, value, displayType, onChange}) => {
     return ( 
         <>
 
             <div className="form-group inputfield">
-                <label htmlFor={id} className="label">{label}</label>
+                <label htmlFor={id} className="label" hidden={displayType}>{label}</label>
                 <input type={inputType}
                     disabled={isDisabled} 
                     className="form-control"
