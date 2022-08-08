@@ -6,7 +6,7 @@ import FormTextArea from '../Form/FormTextArea';
 import FormButton from '../Form/FormButton';
 import FormInput from '../Form/FormInput';
 import FormSelect from '../Form/FormSelect';
-import DatePicker from '../DatePicker';
+import DatePicker from './DatePicker';
 
 
 const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, setType, setPrivacy, 

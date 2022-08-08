@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import {useParams} from 'react-router-dom'
 
 import Map from "../components/CreateEvent/Map";
-import DatePicker from "../components/DatePicker";
+import DatePicker from "../components/CreateEvent/DatePicker";
 import {eventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
