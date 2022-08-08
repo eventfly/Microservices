@@ -10,8 +10,8 @@ import { useState, useEffect } from "react";
 import {useParams} from 'react-router-dom'
 
 import Map from "../components/CreateEvent/Map";
-import DatePicker from "../components/DatePicker";
-import {eventApi} from '../api/axiosHook'
+import DatePicker from "../components/CreateEvent/DatePicker";
+import AutoComplete from "../components/AutoComplete";
 
 import "../styles/EventProfile.css";
 
@@ -70,21 +70,23 @@ const EventProfile = ({event, allTags}) => {
 
 
     useEffect(() => {
-        async function fetchEventData(){
-            if (auth.ref_id) {
-                console.log(eventId)
-                eventApi.get(`/${eventId}`).then((res)=>{
-                    console.log(res.data)
 
-                    setName(res.data.name);
-                    setDescription(res.data.description);
-                    //setTag(res.data.tag);
+        if(event){
+            setName(event.name)
+            setDescription(event.description)
 
-                    setStartDate(dateFormatter(res.data.start_date));
-                    setEndDate(dateFormatter(res.data.end_date));
+            for(let i = 0; i < event.tags.length; i++){
+                multiSelections[i] = event.tags[i].name
+            }
 
-                    setTicketPrice(res.data.ticket_price);
-                    setEventType(res.data.type);
+            setMultiSelections([...multiSelections])
+
+            setStartDate(dateFormatter(event.start_date))
+            setEndDate(dateFormatter(event.end_date));
+            setTicketPrice(event.ticket_price);
+
+            setEventType(event.type)
+            setEventPrivacy(event.privacy)
 
             setMailList([...event.mailList])
         }
