@@ -26,6 +26,7 @@ interface EventAttrs {
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    zoom_link?: string;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -44,6 +45,7 @@ interface EventDoc extends mongoose.Document {
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    zoom_link?: string;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -122,6 +124,10 @@ const eventSchema = new mongoose.Schema({
     privacy: {
         type: String,
         required: true
+    },
+    zoom_link: {
+        type: String,
+        required: false
     }
 
     //TODO: Add Venue

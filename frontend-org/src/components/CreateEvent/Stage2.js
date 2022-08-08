@@ -9,8 +9,8 @@ import FormSelect from '../Form/FormSelect';
 import DatePicker from '../DatePicker';
 
 
-const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType, setPrivacy, 
-    filter, setFilter, setStartDate, setEndDate, backStage, nextStage}) => {
+const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, setType, setPrivacy, 
+    filter, setFilter, setStartDate, setEndDate, backStage, nextStage, zoomLink, setZoomLink}) => {
     
         const DefaultLocation = { lat: 23.3, lng: 90.4};
 
@@ -36,6 +36,8 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
         }
     ]
 
+    console.log(`aaaaaaaaaaa ${type}`)
+
     return ( 
 
         <>
@@ -49,9 +51,6 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                 <div className='CreateEvent2'>
                     <div className='left-column'>
 
-                        <Map DefaultLocation={DefaultLocation}/>
-                        <br />
-
                         <FormTextArea id="description"
                             label="Event Description"
                             placeholder="Enter description"
@@ -60,6 +59,11 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                             value={desc}
                             onChange={setDesc}
                         />
+
+                        <Map DefaultLocation={DefaultLocation}
+                             displayType={type === 'Offline' ? 'block' : 'none'}
+                        />
+                        <br />
 
                     </div>
 
@@ -90,6 +94,19 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, setType,
                             options={eventType}
                             onChange={setType}
                         />
+
+
+                        <FormInput id="zoomLink"
+                            inputType={type === 'Offline' ? 'hidden' : 'text'}
+                            label="Meeting Link"
+                            placeholder="Enter Meeting Link"
+                            bgColor={'#e5e5e5'}
+                            value={zoomLink}
+                            onChange={setZoomLink}
+                            displayType={type === 'Offline' ? 'hidden' : ''}
+                        />  
+
+
 
                         <br /><br />
 
