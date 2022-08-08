@@ -10,12 +10,12 @@ import { useState, useEffect } from "react";
 import {useParams} from 'react-router-dom'
 
 import Map from "../components/CreateEvent/Map";
-import DatePicker from "../components/CreateEvent/DatePicker";
+import DatePicker from "../components/DatePicker";
 import {eventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
-const EventProfile = ({event}) => {
+const EventProfile = ({event, allTags}) => {
 
 
     let eventTypeOptions = [
@@ -40,13 +40,7 @@ const EventProfile = ({event}) => {
         }
     ]
 
-
-    let auth = sessionStorage.getItem('auth')
-    if (auth) {
-        auth = JSON.parse(auth);
-    }
-
-    const { eventId } = useParams();
+    console.log("event page:", event)
 
 
     const dateFormatter = (date) => {
@@ -55,7 +49,6 @@ const EventProfile = ({event}) => {
 
     const [name, setName] = useState('Dummy event');
     const [description, setDescription] = useState('Dummy event description');
-    const [tag, setTag] = useState('dummy');
 
     const [location, setLocation] = useState({ lat: 10, lng: 106});
     //2018-06-12T19:30 
@@ -67,6 +60,13 @@ const EventProfile = ({event}) => {
     const [ticketPrice, setTicketPrice] = useState(110);
     const [eventType, setEventType] = useState(eventTypeOptions[1].name);
     const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[0].name);
+
+    const [tagOptions, setTagOptions] = useState([]);
+    const [multiSelections, setMultiSelections] = useState([]);
+
+    const [mailList, setMailList] = useState('')
+    const [filter, setFilter] = useState('')
+
 
 
     useEffect(() => {
@@ -86,15 +86,19 @@ const EventProfile = ({event}) => {
                     setTicketPrice(res.data.ticket_price);
                     setEventType(res.data.type);
 
-
-                })
-            }
-            
+            setMailList([...event.mailList])
         }
-        fetchEventData()
+
+        if(allTags){
+            for(let i = 0; i < allTags.length; i++){
+                tagOptions[i] = allTags[i].name
+            }
+
+            setTagOptions([...tagOptions])
+        }
 
     
-    }, [])
+    }, [event, allTags])
 
 
     const handleSubmit = (e) => {
@@ -102,7 +106,6 @@ const EventProfile = ({event}) => {
         e.preventDefault();
         console.log("name: ", name);
         console.log("description: ", description);
-        console.log("tag: ", tag);
 
         console.log("start date:", startDate)
         console.log("location:", location)
@@ -117,9 +120,9 @@ const EventProfile = ({event}) => {
             // banner_url: bannerImage,
             end: new Date(endDate).toISOString(),
             desc: description,
-            tags: [
-                tag
-            ],
+            tags: multiSelections.map((tag)=>{
+                return {'name': tag}
+            }),
             ticket: parseInt(ticketPrice),
             // mailList: [
             //     sessionStorage.getItem('event_maillist')
@@ -134,85 +137,74 @@ const EventProfile = ({event}) => {
     return ( 
         <>
 
-            {/* <div className="detail_flexbox">
+            <div className="event-details-container">
+                <div className="event-edit-form-container">
+                <FormTitle title="Edit Event" />
 
-                <div className="left-column">
-                    <EventSidebar/>
+                    <form onSubmit={handleSubmit}>
+
+                        <FormInput id="name"
+                            inputType="text"
+                            label="Name"
+                            placeholder="Enter your name"
+                            value={name}
+                            onChange={setName}
+                        />
+
+                        <FormTextArea id="description"
+                            label="Edit Event Description"
+                            placeholder="Enter description"
+                            value={description}
+                            onChange={setDescription}
+                        />
+
+
+                        <AutoComplete
+                            options={tagOptions}
+                            multiSelections={multiSelections}
+                            setMultiSelections={setMultiSelections} 
+                        />
+
+                        <br></br>
+                        <Map DefaultLocation={location} onChange={setLocation}/>
+
+                        <br></br>
+                        <DatePicker label="Edit Start Date" defaultDate={startDate} onChange={setStartDate}/>
+                        
+                        <br></br>
+                        <DatePicker label="Edit End Date" defaultDate={endDate} onChange={setEndDate}/>
+
+
+
+                        <FormInput id="ticketPrice"
+                            inputType="text"
+                            label="Edit Ticket Price"
+                            placeholder="Enter Ticket Price"
+                            value={ticketPrice}
+                            onChange={setTicketPrice}
+                        />
+
+
+                        <FormSelect id="event-type"
+                            label="Edit Event Type"
+                            options={eventTypeOptions}
+                            onChange={setEventType}
+                            defaultValue={eventType}
+                        />
+
+
+                        <FormSelect id="event-privacy"
+                            label="Edit Event Privacy"
+                            options={eventPrivacyOptions}
+                            onChange={setEventPrivacy}
+                            defaultValue={eventPrivacy}
+                        />
+
+                        <FormButton type="submit" buttonText="Save" />
+
+                    </form>
                 </div>
-
-                <div className="right-column"> */}
-
-                    <div className="event-details-container">
-                        <h2>Event Details</h2>
-                        <div className="event-edit-form-container">
-                        <FormTitle title="Edit Event " />
-
-                            <form onSubmit={handleSubmit}>
-
-                                <FormInput id="name"
-                                    inputType="text"
-                                    label="Name"
-                                    placeholder="Enter your name"
-                                    value={name}
-                                    onChange={setName}
-                                />
-
-                                <FormTextArea id="description"
-                                    label="Edit Event Description"
-                                    placeholder="Enter description"
-                                    value={description}
-                                    onChange={setDescription}
-                                />
-
-                                <FormInput id="tag"
-                                    inputType="text"
-                                    label="Edit Event Tags"
-                                    placeholder="Enter tags"
-                                    value={tag}
-                                    onChange={setTag}
-                                />
-                                <br></br>
-                                <Map DefaultLocation={location} onChange={setLocation}/>
-
-                                <br></br>
-                                <DatePicker label="Edit Start Date" defaultDate={startDate} onChange={setStartDate}/>
-                                
-                                <br></br>
-                                <DatePicker label="Edit End Date" defaultDate={endDate} onChange={setEndDate}/>
-
-
-
-                                <FormInput id="ticketPrice"
-                                    inputType="text"
-                                    label="Edit Ticket Price"
-                                    placeholder="Enter Ticket Price"
-                                    value={ticketPrice}
-                                    onChange={setTicketPrice}
-                                />
-
-
-                                <FormSelect id="event-type"
-                                    label="Edit Event Type"
-                                    options={eventTypeOptions}
-                                    onChange={setEventType}
-                                />
-
-
-                                <FormSelect id="event-privacy"
-                                    label="Edit Event Privacy"
-                                    options={eventPrivacyOptions}
-                                    onChange={setEventPrivacy}
-                                />
-
-                                <FormButton type="submit" buttonText="Save" />
-
-                            </form>
-                        </div>
-                    </div>
-
-                {/* </div> */}
-
-            {/* </div> */}
+            </div>
         </>
      );
 }

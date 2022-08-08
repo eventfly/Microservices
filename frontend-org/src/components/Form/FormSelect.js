@@ -1,6 +1,6 @@
 // import '../../styles/Form.module.css'
 
-const FormSelect = ({id, label, options, bgColor, isDisabled, onChange}) => {
+const FormSelect = ({id, label, options, defaultValue, bgColor, isDisabled, onChange}) => {
 
     return ( 
 
@@ -18,13 +18,16 @@ const FormSelect = ({id, label, options, bgColor, isDisabled, onChange}) => {
                     }}
                     disabled={isDisabled} 
                     onChange={e=> onChange(e.target.value)}
+                    value={defaultValue}
                 >
                     
                     {/* <option defaultValue> Choose... </option> */}
 
                     {
                         options.map((item)=>(
-                            <option key={item.id}>
+                            <option 
+                                key={item.id}
+                            >
                                 {item.name}
                             </option>
                         ))

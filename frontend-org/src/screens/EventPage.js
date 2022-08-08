@@ -11,7 +11,7 @@ import EventStatistics from "./EventStatistics";
 import EventStaff from "./EventStaff";
 import AddStaff from "./AddStaff";
 
-import {eventApi} from '../api/axiosHook'
+import {eventApi, orgApi} from '../api/axiosHook'
 
 const EventPage = () => {
     const location = useLocation();
@@ -25,26 +25,37 @@ const EventPage = () => {
     }
 
     const [event, setEvent] = useState(null);
+    const [tags, setTags] = useState([])
     const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         async function fetchEventData(){
             if (auth.ref_id && (loading == false || event == null)) {
-                console.log(eventId)
-                eventApi.get(`/${eventId}`).then((res)=>{
-                    console.log(res.data)
-                    setEvent(res.data)
-                    setLoading(true)
 
-                    console.log('event: ', event);
+                orgApi.get('/tag').then((res)=>{
+                    console.log(res.data)
+
+                    for(let i = 0; i < res.data.length; i++){
+                        tags[i] = res.data[i]
+                    }
+
+                    setTags([...tags]);
+
+                    eventApi.get(`/${eventId}`).then((res)=>{
+                        setEvent(res.data)
+                        setLoading(true)
+    
+                        console.log('event: ', event);
+                    })
                 })
             }
             
         }
+
         fetchEventData()
     
-    }, [event, loading])
+    }, [tags, event, loading])
 
 
     return ( 
@@ -59,7 +70,9 @@ const EventPage = () => {
                 <div className="right-column">
 
                     {
-                        location.pathname.includes('profile') ? <EventProfile event={event} /> :
+                        location.pathname.includes('profile') ? (
+                            <EventProfile event={event} allTags={tags} />
+                        ) :
                         (
                             location.pathname.includes('discussion') ? <EventFeed /> :
 

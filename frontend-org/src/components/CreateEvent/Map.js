@@ -31,7 +31,7 @@ const Map = ({DefaultLocation, onChange,displayType}) => {
                 style={{height:'400px', width: 'inherit'}}
                 onChangeLocation={(lat, lng) => onChange({lat:lat, lng:lng})} 
                 onChangeZoom={handleChangeZoom}
-                apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8'
+                apiKey='AIzaSyCvnfe2DoOW_NoRVqBgoQ1lMdzjf5eeTDM'
                 disabled={true}
             />
         </div>

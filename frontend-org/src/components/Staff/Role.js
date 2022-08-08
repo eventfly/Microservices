@@ -1,7 +1,11 @@
 import {Link} from "react-router-dom";
 import StaffOptions from "./StaffOptions";
+import {useParams} from 'react-router-dom'
 
 const Role = ({roleType}) => {
+
+    const { eventId } = useParams();
+
     let members = []
     for(let i=0;i<7;i++)
         members.push(i)
@@ -11,7 +15,7 @@ const Role = ({roleType}) => {
             <div className="role-container-header">
                 <h3>{roleType}</h3>
 
-                <Link to="/detail/staff/add">
+                <Link to={`/event/${eventId}/staff/add`}>
                     <button>+ Add Staff</button>
                 </Link>
             </div>
