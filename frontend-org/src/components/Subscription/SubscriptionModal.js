@@ -15,7 +15,7 @@ const SubscriptionModal = () => {
     const [nameOnCard, setNameOnCard] = useState('');
 
     return (
-        <Container className="p-3">
+        <Container className="p-3" style={{border:'none'}}>
           <Row>
             <Col>
                 <FormInput

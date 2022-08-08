@@ -19,8 +19,6 @@ import EventPage from './screens/EventPage';
 import Profile from './screens/Profile';
 import PopupModal from './components/PopupModal';
 
-import Map from './components/CreateEvent/Map';
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDBuKGNvEATZlqOKIveVeSXJKqqVMRIItA",
@@ -97,9 +95,6 @@ function App() {
           <Route path="/event/:eventId/*" element={<EventPage />}/>
 
           <Route path="/profile" element={<Profile />}/>
-
-          <Route path="/modal" element={<PopupModal componentToPassDown= {<Map />}/>}/>
-
 
         </Routes>
 
