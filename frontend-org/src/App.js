@@ -22,6 +22,7 @@ import {authApi} from './api/axiosHook'
 
 import Subscription from './screens/Subscription';
 import EventPage from './screens/EventPage';
+import Profile from './screens/Profile';
 
 
 // Your web app's Firebase configuration
@@ -89,6 +90,8 @@ function App() {
           <Route path="/sub" element={<Subscription />}/>
 
           <Route path="/event/:eventId/*" element={<EventPage />}/>
+
+          <Route path="/profile" element={<Profile />}/>
 
 
         </Routes>
