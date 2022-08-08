@@ -21,6 +21,7 @@ import { getStorage } from "firebase/storage";
 import {authApi} from './api/axiosHook'
 
 import Subscription from './screens/Subscription';
+import EventPage from './screens/EventPage';
 
 
 // Your web app's Firebase configuration
@@ -86,6 +87,8 @@ function App() {
           <Route path="/event/:eventId/staff" element={<EventStaff />}/>
 
           <Route path="/sub" element={<Subscription />}/>
+
+          <Route path="/dummy/*" element={<EventPage />}/>
 
 
         </Routes>

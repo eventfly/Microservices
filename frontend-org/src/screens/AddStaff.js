@@ -16,11 +16,15 @@ const AddStaff = () => {
     const [role, setRole] = useState(['staff'])
 
     const navigate = useNavigate();
-    const [status, setStatus] = useState([
-        'unverified'
-    ]);
+    const [status, setStatus] = useState(['unverified']);
 
     const [staffForms, setStaffForms] = useState([{'id' : 1}])
+
+
+    useEffect(() => {
+        console.log(status)
+    
+    }, [status])
 
     const updateNameByIndex = (idx, value) => {
         name[idx] = value
@@ -55,41 +59,34 @@ const AddStaff = () => {
     const removeStaffByIndex = (idx) => {
         console.log('removing staff ', idx)
 
+        for(let i = idx+1; i < staffForms.length; i++){
+            staffForms[i] = {'id': i}
+        }
+
         setStaffForms([
             ...staffForms.slice(0, idx),
             ...staffForms.slice(idx+1, staffForms.length)
         ])
 
-        //status[idx] = 'success'
+        setStatus([
+            ...status.slice(0, idx),
+            ...status.slice(idx+1, status.length)
+        ])
 
-        // setStatus([
-        //     ...status.slice(0, idx),
-        //     ...status.slice(idx + 1, status.length)
-        // ]);
+        setName([
+            ...name.slice(0, idx),
+            ...name.slice(idx + 1)
+        ]);
 
-        setName(name => 
-            name.filter((val, index) => {
-                console.log("index: ", index)
-                return val !== 'Bob'
-            })    
-        );
+        setEmail([
+            ...email.slice(0, idx),
+            ...email.slice(idx + 1, email.length)
+        ]);
 
-        // setName([
-        //     ...name.slice(0, idx),
-        //     ...name.slice(idx + 1)
-        // ]);
-
-        // setEmail([
-        //     ...email.slice(0, idx),
-        //     ...email.slice(idx + 1, email.length)
-        // ]);
-
-        // setRole([
-        //     ...role.slice(0, idx),
-        //     ...role.slice(idx + 1, role.length)
-        // ]);
-
-        console.log(name)
+        setRole([
+            ...role.slice(0, idx),
+            ...role.slice(idx + 1, role.length)
+        ]);
     }
 
     const handleSubmit = (e) => {
@@ -178,7 +175,7 @@ const AddStaff = () => {
                                         role={role[staffForm.id-1]} 
                                         setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
                                         status={status[[staffForm.id-1]]}
-                                        removeStaff={()=>{removeStaffByIndex(staffForm.id-1)}}
+                                        removeStaff={(val)=>removeStaffByIndex(staffForm.id-1)}
                                     />
                                 </div>
                             )
