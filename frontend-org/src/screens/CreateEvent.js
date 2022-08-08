@@ -41,6 +41,8 @@ const CreateEvent = () => {
 
     const navigate = useNavigate();
 
+    const [zoomLink, setZoomLink] = useState("");
+
 
     useEffect(() => {
         async function fetchTags(){
@@ -112,7 +114,9 @@ const CreateEvent = () => {
             }),
             ticket: ticketPrice,
             mailList: mailList.split(/\r?\n/).filter(element => element),
-            filter: filter.split(/\r?\n/).filter(element => element)
+            filter: filter.split(/\r?\n/).filter(element => element),
+
+            zoomLink: zoomLink
         }
 
         event.start = new Date(event.start).toISOString()
@@ -154,11 +158,16 @@ const CreateEvent = () => {
                 <CreateEventStage2
                     desc={desc} setDesc={setDesc}
                     ticketPrice={ticketPrice} setTicketPrice={setTicketPrice}
-                    setType={setType} setPrivacy={setPrivacy}
+                    type={type} setType={setType} 
+                    setPrivacy={setPrivacy}
                     filter={filter} setFilter={setFilter}
                     setStartDate={setStartDate} setEndDate={setEndDate}
                     backStage={backStage} 
-                    nextStage={nextStage} 
+                    nextStage={nextStage}
+
+                    zoomLink={zoomLink} setZoomLink={setZoomLink}
+
+
                 />
 
             </>

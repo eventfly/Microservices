@@ -27,6 +27,7 @@ interface EventAttrs {
     ticket_price?: number;
     ref_id: ObjectId;
     staffs?: Types.DocumentArray<any>;
+    zoom_link?: string;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -47,6 +48,7 @@ interface EventDoc extends mongoose.Document {
     ticket_price?: number;
     ref_id: ObjectId;
     staffs?: Types.DocumentArray<any>;
+    zoom_link?: string;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -152,7 +154,11 @@ const eventSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Staff',
         }
-    }]
+    }],
+    zoom_link: {
+        type: String,
+        required: false
+    }
 
     //TODO: Add Venue
 
