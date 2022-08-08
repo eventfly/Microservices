@@ -51,9 +51,7 @@ const EventSidebar = ({eventId}) => {
     // change active index
     useEffect(() => {
         const curPath = window.location.pathname.split('/')[3];
-        console.log("curpath:", curPath)
         const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
-        console.log("idx", activeItem)
         setActiveIndex(curPath.length === 0 ? 0 : activeItem);
     }, [location]);
 
@@ -66,7 +64,7 @@ const EventSidebar = ({eventId}) => {
                     transform: `translateX(-50%) translateY(${activeIndex * stepHeight}px)`
                 }}
             ></div>
-            {console.log("active:", activeIndex)}
+
             {
                 sidebarNavItems.map((item, index) => (
                     <Link to={item.to} key={index}>

@@ -1,10 +1,16 @@
-/* html, body {
-  height: 100%;
+html{
+  height: 100vh;
+}
+
+body{
+  height: auto;
+  min-height: 100vh;
 }
 
 #root{
-  height: 100%;
-} */
+  height: auto;
+  min-height: 100vh;
+}
 
 header{
   background-color: white;
@@ -16,10 +22,6 @@ footer{
   border-top: 1px solid #e5e5e5;
   background-color: white;
   height: 50px;
-  /* position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0; */
 }
 
 .nav-link{
@@ -29,7 +31,8 @@ footer{
 .main_content{
   padding-left: 5%;
   padding-right: 5%;
-  /* height: calc(100% - 115px); */
+  height: auto;
+  min-height: calc(100vh - 115px);
 }
 
 .no_auth_page_style{

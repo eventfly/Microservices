@@ -21,7 +21,6 @@ const AutoComplete = ({options, multiSelections, setMultiSelections}) => {
                         options={options}
                         placeholder="Choose several tags"
                         selected={multiSelections}
-
                     />
 
                 </Form.Group>

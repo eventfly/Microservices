@@ -32,7 +32,7 @@
 }
 
 .sidebar-icon-title:hover{
-    color: blue;
+    font-weight: 500;
 }
 
 .active-item{
