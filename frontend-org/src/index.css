@@ -1,6 +1,14 @@
+/* html, body {
+  height: 100%;
+}
+
+#root{
+  height: 100%;
+} */
+
 header{
   background-color: white;
-  height: 4rem;
+  height: 65px;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -8,6 +16,10 @@ footer{
   border-top: 1px solid #e5e5e5;
   background-color: white;
   height: 50px;
+  /* position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0; */
 }
 
 .nav-link{
@@ -17,12 +29,17 @@ footer{
 .main_content{
   padding-left: 5%;
   padding-right: 5%;
+  /* height: calc(100% - 115px); */
 }
 
 .no_auth_page_style{
   margin-left: 30%;
   margin-right: 30%;
   margin-bottom: 75px;
+}
+
+a{
+  text-decoration: none;
 }
 
 

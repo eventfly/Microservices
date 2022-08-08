@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     transform: translate(-2%,0%);
+    min-height: 100%;
 }
 
 .detail_flexbox .left-column{
@@ -15,4 +16,33 @@
 .detail_flexbox .right-column{
     flex: 0 0 80%;
     padding-bottom: 75px;
+}
+
+.sidebar-icons{
+    font-size: larger;
+    transform: translate(0%, -8%);
+}
+
+.sidebar-icon-title{
+    color: black;
+    font: bold;
+    font-weight: 450;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sidebar-icon-title:hover{
+    color: blue;
+}
+
+.active-item{
+    background: #B1BDBE;
+    border-radius: 5px;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.inactive-item{
+    padding-left: 8%;
+    padding-right: 8%;
 }

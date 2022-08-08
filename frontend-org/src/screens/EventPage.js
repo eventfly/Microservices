@@ -53,7 +53,7 @@ const EventPage = () => {
             <div className="detail_flexbox">
 
                 <div className="left-column">
-                    <EventSidebar/>
+                    <EventSidebar eventId={eventId} />
                 </div>
 
                 <div className="right-column">

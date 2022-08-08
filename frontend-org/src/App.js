@@ -6,12 +6,6 @@ import Footer from './components/Footer';
 import EventList from './screens/EventList';
 import PopularEvents from './screens/PopularEvents';
 
-import EventProfile from './screens/EventProfile';
-import EventFeed from './screens/EventFeed';
-import EventStatistics from './screens/EventStatistics';
-import EventStaff from './screens/EventStaff';
-import AddStaff from './screens/AddStaff';
-
 import CreateEvent from './screens/CreateEvent';
 import Signup from './screens/signup';
 import Login from './screens/login';
