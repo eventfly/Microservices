@@ -1,6 +1,6 @@
 // import '../../styles/Form.module.css'
 
-const FormSelect = ({id, label, options, bgColor, onChange}) => {
+const FormSelect = ({id, label, options, bgColor, isDisabled, onChange}) => {
 
     return ( 
 
@@ -12,7 +12,11 @@ const FormSelect = ({id, label, options, bgColor, onChange}) => {
 
                 <select 
                     id={id} className={"form-select"}
-                    style={{ backgroundColor: `${bgColor}`, borderColor: `${bgColor}` }} 
+                    style={{ 
+                        backgroundColor: `${bgColor}`, 
+                        borderColor: `${bgColor}`
+                    }}
+                    disabled={isDisabled} 
                     onChange={e=> onChange(e.target.value)}
                 >
                     
