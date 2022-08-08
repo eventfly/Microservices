@@ -26,7 +26,7 @@ const EventList = () => {
 
     useEffect(() => {
         async function fetchEvent(){
-            if (auth.ref_id && (loading == false || events.length == 0)) {
+            if (auth && auth.ref_id && (loading == false || events.length == 0)) {
                 
                 orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
@@ -45,7 +45,7 @@ const EventList = () => {
         }
         fetchEvent()
     
-    }, [events, loading])
+    }, [auth, events, loading])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
     function getTab(tab) {

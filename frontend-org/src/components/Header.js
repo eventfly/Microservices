@@ -9,7 +9,7 @@ const Header = () => {
                     <Nav.Link><i className="fa-solid fa-bell"></i></Nav.Link>
                 </LinkContainer>
                 
-                <LinkContainer to="/">
+                <LinkContainer to="/profile">
                     <Nav.Link>Profile</Nav.Link>
                 </LinkContainer>
 

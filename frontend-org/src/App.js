@@ -33,23 +33,32 @@ const firebaseConfig = {
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState({});
-  const [token, setToken] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  let auth = sessionStorage.getItem('auth')
+  if (auth) {
+      auth = JSON.parse(auth);
+  }
 
   useEffect(()=>{
       async function fetchCurrentUser(){
 
-        authApi.get('/org/currentuser').then((res)=>{
-          console.log(res)
-          console.log(res.data.currentUser)
-          setCurrentUser(res.data.currentUser)
-          // sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
-        })
-        
+        if(auth == null && (loading == false || currentUser == null)){
+
+          authApi.get('/org/currentuser').then((res)=>{
+            console.log(res.data.currentUser)
+            setCurrentUser(res.data.currentUser)
+            setLoading(true)
+
+            window.sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
+          })
+
+        }
       }
 
       fetchCurrentUser()
-  },[])
+  },[currentUser, loading])
 
 
   return (
