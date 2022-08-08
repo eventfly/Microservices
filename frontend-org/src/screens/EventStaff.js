@@ -8,14 +8,14 @@ const EventStaff = () => {
     return ( 
         <>
 
-            <div className="detail_flexbox">
+            {/* <div className="detail_flexbox">
 
                 <div className="left-column">
                     <EventSidebar/>
                 </div>
 
 
-                <div className="right-column">
+                <div className="right-column"> */}
                     <div className="staff-container-header">
                         <h2>Members & Roles</h2>
                         <div className="staff-container-buttons">
@@ -25,9 +25,9 @@ const EventStaff = () => {
                     <div className="role-container">
                         <Role roleType='Organizer'/>
                     </div>
-                </div>
+                {/* </div>
 
-            </div>
+            </div> */}
 
         </>
         

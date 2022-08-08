@@ -6,19 +6,19 @@ const EventFeed = () => {
 
         <>
         
-            <div className="detail_flexbox">
+            {/* <div className="detail_flexbox">
 
                 <div className="left-column">
                     <EventSidebar/>
                 </div>
 
-                <div className="right-column">
+                <div className="right-column"> */}
                     <h1>
                         feed
                     </h1>
-                </div>
+                {/* </div>
             
-            </div>
+            </div> */}
         
         </>
 

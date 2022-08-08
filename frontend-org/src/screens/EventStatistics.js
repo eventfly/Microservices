@@ -11,13 +11,13 @@ const EventStatistics = () => {
     return ( 
         <>
 
-            <div className="detail_flexbox">
+            {/* <div className="detail_flexbox">
 
                 <div className="left-column">
                     <EventSidebar/>
                 </div>
 
-                <div className="right-column">
+                <div className="right-column"> */}
 
                     <div className="stats-container">
                         <ul className="info-container">
@@ -97,9 +97,9 @@ const EventStatistics = () => {
 
                     </div>
 
-                </div>
+                {/* </div>
 
-            </div>
+            </div> */}
         </>
         
      );

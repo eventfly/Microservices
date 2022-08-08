@@ -15,7 +15,7 @@ import {eventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
-const EventProfile = () => {
+const EventProfile = ({event}) => {
 
 
     let eventTypeOptions = [
@@ -92,6 +92,7 @@ const EventProfile = () => {
             
         }
         fetchEventData()
+
     
     }, [])
 
@@ -133,13 +134,13 @@ const EventProfile = () => {
     return ( 
         <>
 
-            <div className="detail_flexbox">
+            {/* <div className="detail_flexbox">
 
                 <div className="left-column">
                     <EventSidebar/>
                 </div>
 
-                <div className="right-column">
+                <div className="right-column"> */}
 
                     <div className="event-details-container">
                         <h2>Event Details</h2>
@@ -209,9 +210,9 @@ const EventProfile = () => {
                         </div>
                     </div>
 
-                </div>
+                {/* </div> */}
 
-            </div>
+            {/* </div> */}
         </>
      );
 }

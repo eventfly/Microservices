@@ -143,13 +143,13 @@ const AddStaff = () => {
     return (
         <>
 
-            <div className="detail_flexbox">
+            {/* <div className="detail_flexbox">
 
                 <div className="left-column">
                     <EventSidebar/>
                 </div>
 
-                <div className="right-column">
+                <div className="right-column"> */}
 
                     <div className="content">
                         <div className="title">
@@ -194,9 +194,9 @@ const AddStaff = () => {
                     
                     </div>
 
-                </div>
+                {/* </div>
             
-            </div>
+            </div> */}
 
         </>
 

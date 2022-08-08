@@ -80,15 +80,15 @@ function App() {
                   <Route path=":id" element={<ProductScreen />}/>
                 </Route> */}
 
-          <Route path="/event/:eventId/profile" element={<EventProfile />}/>
+          {/* <Route path="/event/:eventId/profile" element={<EventProfile />}/>
           <Route path="/event/:eventId/discussion" element={<EventFeed />}/>
           <Route path="/event/:eventId/statistics" element={<EventStatistics />}/>
           <Route path="/event/:eventId/staff/add" element={<AddStaff />}/>
-          <Route path="/event/:eventId/staff" element={<EventStaff />}/>
+          <Route path="/event/:eventId/staff" element={<EventStaff />}/> */}
 
           <Route path="/sub" element={<Subscription />}/>
 
-          <Route path="/dummy/*" element={<EventPage />}/>
+          <Route path="/event/:eventId/*" element={<EventPage />}/>
 
 
         </Routes>
