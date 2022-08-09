@@ -1,5 +1,5 @@
 import EventSidebar from "../components/EventSidebar";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useEffect, useState } from 'react'
 import FormTitle from "../components/Form/FormTitle";
@@ -19,6 +19,8 @@ const AddStaff = () => {
     const [status, setStatus] = useState(['unverified']);
 
     const [staffForms, setStaffForms] = useState([{'id' : 1}])
+    let noOfSuccesses = 0
+    const { eventId } = useParams();
 
 
     useEffect(() => {
@@ -99,35 +101,43 @@ const AddStaff = () => {
                 'name': name[i],
                 'email': email[i],
                 'role': role[i],
-                'events': []
+                'events': [eventId]
             })
         }
 
         console.log(allStaffs)
 
         for(let i = 0; i < staffForms.length; i++){
-            orgApi.post('/staff', allStaffs[i]).then(res => {
-                console.log(res)
-                //navigate('/detail/staff')
 
-                status[i] = 'success'
-                setStatus([
-                    ...status.slice(0, i),
-                    status[i],
-                    ...status.slice(i + 1, status.length)
-                ]);
-    
-            }).catch(err => {
-                console.log(err)
+            if(status[i] != "success"){
 
-                status[i] = 'error'
-                setStatus([
-                    ...status.slice(0, i),
-                    status[i],
-                    ...status.slice(i + 1, status.length)
-                ]);
-                //setError(err.response.data.errors[0].message);
-            })
+                orgApi.post('/staff', allStaffs[i]).then(res => {
+                    console.log(res)
+                    status[i] = 'success'
+                    setStatus([
+                        ...status.slice(0, i),
+                        status[i],
+                        ...status.slice(i + 1, status.length)
+                    ]);
+
+                    noOfSuccesses++;
+
+                    if(noOfSuccesses == staffForms.length){
+                        navigate(`/event/${eventId}/staff`)
+                    }
+        
+                }).catch(err => {
+                    console.log(err)
+
+                    status[i] = 'error'
+                    setStatus([
+                        ...status.slice(0, i),
+                        status[i],
+                        ...status.slice(i + 1, status.length)
+                    ]);
+                    //setError(err.response.data.errors[0].message);
+                })
+            }
         }
     }
 

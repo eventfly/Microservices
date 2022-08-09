@@ -89,8 +89,8 @@ const EventPage = () => {
                                     location.pathname.includes('staff/add') ? <AddStaff /> :
 
                                     (
-                                        location.pathname.includes('staff') ? (
-                                            <EventStaff staffs={event.staffs}/>
+                                        location.pathname.includes('members') ? (
+                                            <EventStaff staffs={event ? event.staffs : null}/>
                                         ) : 
 
                                         (<></>)

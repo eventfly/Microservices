@@ -54,6 +54,7 @@
     padding: 1rem 1rem;
     margin: 0 1rem;
     margin-bottom: 40px;
+    flex: 0 0 46%;
 }
 
 .person-info-body{
@@ -68,15 +69,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    margin: 1rem 7rem 1rem 1rem;
+    margin-left: 5%;
+    /* margin: 1rem 7rem 1rem 1rem; */
+    flex: 0 0 70%;
 }
 
 .person-info img{
-    width: 5rem;
-    height: 5rem;
+    width: 5.7rem;
+    height: 5.7rem;
     border-radius: 50%;
-    margin-right: 1rem;
+    margin-right: 5%;
+    margin-left: 5%;
     background-size: contain;
+    flex: 0 0 25%;
 }
 
 .dropdown-toggle::after {
@@ -98,5 +103,14 @@
 }
 .dropdown-style{
     background-color: white;
+}
+
+.person-name{
+    font-weight: 640;
+}
+
+.person-email{
+    font-weight: 480;
+    font-style: italic;
 }
 

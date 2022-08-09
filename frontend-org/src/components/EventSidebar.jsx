@@ -25,9 +25,9 @@ const EventSidebar = ({eventId}) => {
             section: 'statistics'
         },
         {
-            display: 'Staff',
+            display: 'Members',
             icon: <FaUserNurse className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/event/${eventId}/staff`,
+            to: `/event/${eventId}/members`,
             section: 'staff'
         },
     ]
