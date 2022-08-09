@@ -1,12 +1,12 @@
 // import {Link} from 'react-router-dom'
 
-import Map from './Map';
+import Map from '../Event/Map';
 
 import FormTextArea from '../Form/FormTextArea';
 import FormButton from '../Form/FormButton';
 import FormInput from '../Form/FormInput';
 import FormSelect from '../Form/FormSelect';
-import DatePicker from './DatePicker';
+import DatePicker from '../Event/DatePicker';
 
 
 const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, setType, setPrivacy, 

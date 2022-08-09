@@ -1,5 +1,5 @@
 // import {Link} from 'react-router-dom'
-import CoverImage from './CoverImage'
+import CoverImage from '../Event/CoverImage'
 
 import FormInput from '../Form/FormInput'
 import FormButton from '../Form/FormButton';
@@ -50,17 +50,9 @@ const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelect
 
                 <br />
 
-                <CoverImage uploadImage={uploadImage} />
+                <CoverImage uploadImage={uploadImage} height={'500px'} />
                 <br />
 
-                {/* <FormInput id="tag"
-                    inputType="text"
-                    label="Event Tags"
-                    placeholder="Event Tags"
-                    bgColor={'#e5e5e5'}
-                    value={tags}
-                    onChange={setTags}
-                /> */}
 
                 <AutoComplete
                     options={tagOptions}

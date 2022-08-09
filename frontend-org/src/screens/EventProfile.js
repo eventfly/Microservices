@@ -7,16 +7,16 @@ import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 
 import { useState, useEffect } from "react";
-import {useParams} from 'react-router-dom'
 
-import Map from "../components/CreateEvent/Map";
-import DatePicker from "../components/CreateEvent/DatePicker";
+import Map from "../components/Event/Map";
+import DatePicker from "../components/Event/DatePicker";
 import AutoComplete from "../components/AutoComplete";
+import EventCard from "../components/Event/EventCard";
+import {eventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
-const EventProfile = ({event, allTags}) => {
-
+const EventProfile = ({event, allTags, setLoading}) => {
 
     let eventTypeOptions = [
         {
@@ -114,12 +114,12 @@ const EventProfile = ({event, allTags}) => {
         console.log(eventType);
         console.log(eventPrivacy);
 
-        let event = {
+        let body = {
             type: eventType,
             start: new Date(startDate).toISOString(),
             privacy: eventPrivacy,
             name: name,
-            // banner_url: bannerImage,
+            banner_url: event.banner_url,
             end: new Date(endDate).toISOString(),
             desc: description,
             tags: multiSelections.map((tag)=>{
@@ -134,78 +134,94 @@ const EventProfile = ({event, allTags}) => {
             // ]
         }
         console.log(event);
+
+        eventApi.put(`/${event.ref_id}`, body).then((res)=>{
+            console.log(res)
+            setLoading(false)
+        })
+
     }
 
     return ( 
+        event && 
         <>
 
             <div className="event-details-container">
-                <div className="event-edit-form-container">
-                <FormTitle title="Edit Event" />
+                {/* <FormTitle title="Edit Event" /> */}
 
-                    <form onSubmit={handleSubmit}>
+                <EventCard  
+                    name={name}
+                    description={description}
+                    startDate={startDate}
+                    endDate={endDate}
+                    banner={event.banner_url}
+                />
 
-                        <FormInput id="name"
-                            inputType="text"
-                            label="Name"
-                            placeholder="Enter your name"
-                            value={name}
-                            onChange={setName}
-                        />
+                <form onSubmit={handleSubmit}>
 
-                        <FormTextArea id="description"
-                            label="Edit Event Description"
-                            placeholder="Enter description"
-                            value={description}
-                            onChange={setDescription}
-                        />
+                    <FormInput id="name"
+                        inputType="text"
+                        label="Name"
+                        placeholder="Enter your name"
+                        value={name}
+                        onChange={setName}
+                    />
 
+                    <br />
 
-                        <AutoComplete
-                            options={tagOptions}
-                            multiSelections={multiSelections}
-                            setMultiSelections={setMultiSelections} 
-                        />
+                    <FormTextArea id="description"
+                        label="Description"
+                        placeholder="Enter description"
+                        value={description}
+                        onChange={setDescription}
+                    />
+                    <br />
 
-                        <br></br>
-                        <Map DefaultLocation={location} onChange={setLocation}/>
+                    <AutoComplete
+                        options={tagOptions}
+                        multiSelections={multiSelections}
+                        setMultiSelections={setMultiSelections} 
+                    />
 
-                        <br></br>
-                        <DatePicker label="Edit Start Date" defaultDate={startDate} onChange={setStartDate}/>
-                        
-                        <br></br>
-                        <DatePicker label="Edit End Date" defaultDate={endDate} onChange={setEndDate}/>
+                    {/* <Map DefaultLocation={location} onChange={setLocation}/> */}
 
+                    <br /><br />
+                    <DatePicker label="Start Date" defaultDate={startDate} onChange={setStartDate}/>
+                    
+                    <br /><br />
+                    <DatePicker label="End Date" defaultDate={endDate} onChange={setEndDate}/>
 
+                    <br /><br />
 
-                        <FormInput id="ticketPrice"
-                            inputType="text"
-                            label="Edit Ticket Price"
-                            placeholder="Enter Ticket Price"
-                            value={ticketPrice}
-                            onChange={setTicketPrice}
-                        />
+                    <FormInput id="ticketPrice"
+                        inputType="text"
+                        label="Ticket Price"
+                        placeholder="Enter Ticket Price"
+                        value={ticketPrice}
+                        onChange={setTicketPrice}
+                    />
 
+                    <br />
 
-                        <FormSelect id="event-type"
-                            label="Edit Event Type"
-                            options={eventTypeOptions}
-                            onChange={setEventType}
-                            defaultValue={eventType}
-                        />
+                    <FormSelect id="event-type"
+                        label="Event Type"
+                        options={eventTypeOptions}
+                        onChange={setEventType}
+                        defaultValue={eventType}
+                    />
 
+                    <br />
+                    <FormSelect id="event-privacy"
+                        label="Event Privacy"
+                        options={eventPrivacyOptions}
+                        onChange={setEventPrivacy}
+                        defaultValue={eventPrivacy}
+                    />
+                    <br />
+                    <FormButton type="submit" buttonText="Save" />
 
-                        <FormSelect id="event-privacy"
-                            label="Edit Event Privacy"
-                            options={eventPrivacyOptions}
-                            onChange={setEventPrivacy}
-                            defaultValue={eventPrivacy}
-                        />
-
-                        <FormButton type="submit" buttonText="Save" />
-
-                    </form>
-                </div>
+                </form>
+            
             </div>
         </>
      );

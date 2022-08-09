@@ -33,6 +33,7 @@ const EventPage = () => {
     const [loading, setLoading] = useState(false);
 
     const [loadingMember, setLoadingMember] = useState(false);
+    const [loadingProfile, setLoadingProfile] = useState(false);
 
     window.addEventListener('pageshow', (e)=>{
         setLoading(false)
@@ -45,7 +46,8 @@ const EventPage = () => {
         }
 
         async function fetchEventData(){
-            if (auth && auth.ref_id && (loading == false || event == null || loadingMember == false)) {
+            if (auth && auth.ref_id && 
+                (loading == false || event == null || loadingMember == false || loadingProfile == false)) {
 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -60,6 +62,7 @@ const EventPage = () => {
                         setEvent(res.data)
                         setLoading(true)
                         setLoadingMember(true)
+                        setLoadingProfile(true)
                         
                         console.log('event: ', event);
                     })
@@ -70,7 +73,7 @@ const EventPage = () => {
 
         fetchEventData()
     
-    }, [auth, tags, event, loading, loadingMember])
+    }, [auth, tags, event, loading, loadingMember, loadingProfile])
 
 
     return ( 
@@ -88,7 +91,11 @@ const EventPage = () => {
 
                     {
                         location.pathname.includes('profile') ? (
-                            <EventProfile event={event} allTags={tags} />
+                            <EventProfile 
+                                event={event} 
+                                allTags={tags}
+                                setLoading={setLoadingProfile} 
+                            />
                         ) :
                         (
                             location.pathname.includes('discussion') ? <EventFeed /> :

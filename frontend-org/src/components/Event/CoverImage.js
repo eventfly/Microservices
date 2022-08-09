@@ -1,7 +1,7 @@
 import React from 'react'
 import "../../styles/CreateEvent.css"
 
-const CoverImage = ({uploadImage}) => {
+const CoverImage = ({uploadImage, height}) => {
 
   const clickInputButton = (e) => {
       document.getElementById("uploadInput").click();
@@ -13,7 +13,7 @@ const CoverImage = ({uploadImage}) => {
       backgroundImage: `url("")`,
       backgroundSize: "cover",
       width: "inherit",
-      height: "500px",
+      height: `${height}`,
       display: "flex",
       alignItems: "center",
       alignContent: "center",
