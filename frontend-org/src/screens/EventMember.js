@@ -35,6 +35,7 @@ const EventMember = ({organizers, staffs}) => {
                 header="Add New Role"
                 bodyComponent={<AddRoleModal />}
                 saveButtonText={"Save"}
+                size="md"
             />
 
 

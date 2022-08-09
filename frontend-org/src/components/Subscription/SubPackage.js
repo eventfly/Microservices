@@ -45,6 +45,7 @@ function SubPackage({headerColor}) {
           header="Buy Package"
           bodyComponent={<SubscriptionModal />}
           saveButtonText={"Checkout"}
+          size="lg"
         />
 
       </Card.Body>
