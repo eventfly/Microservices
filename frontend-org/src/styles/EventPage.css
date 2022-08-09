@@ -56,3 +56,8 @@
     padding-left: 8%;
     padding-right: 8%;
 }
+
+.event-sidebar{
+    position: sticky;
+    top: 0;
+}

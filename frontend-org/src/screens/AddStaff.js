@@ -123,7 +123,7 @@ const AddStaff = () => {
                     noOfSuccesses++;
 
                     if(noOfSuccesses == staffForms.length){
-                        navigate(`/event/${eventId}/staff`)
+                        navigate(`/event/${eventId}/members`)
                     }
         
                 }).catch(err => {

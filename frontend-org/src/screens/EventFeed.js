@@ -16,22 +16,11 @@ const EventFeed = () => {
 
         <>
         
-            {/* <div className="detail_flexbox">
+            <h1>
+                feed
+            </h1>
 
-                <div className="left-column">
-                    <EventSidebar/>
-                </div>
-
-                <div className="right-column"> */}
-                    <h1>
-                        feed
-                    </h1>
-                {/* </div>
-            
-            </div> */}
-
-            
-
+        
             <Button variant="contained" color="primary" onClick={ () => setQuizModalShow(true)}> Add quiz</Button>
             <Button variant="contained" color="primary" onClick={ () => setPollModalShow(true)}> Add poll</Button>    
 
@@ -41,6 +30,7 @@ const EventFeed = () => {
                 header="QUIZ"
                 bodyComponent={<Quiz onHide={() => setQuizModalShow(false)}/>}
                 size="lg"
+                saveButtonText={"Add Quiz"}
             />
 
             <PopupModal

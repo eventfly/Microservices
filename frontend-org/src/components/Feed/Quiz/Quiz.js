@@ -44,12 +44,8 @@ const Quiz = ({onHide, setQuiz}) => {
                 />
             </div>
 
-            <div>
+            <div style={{marginBottom: '10px'}}>
                 <QuizAnswer answerList={answerList} setAnswerList={setAnswerList}/>
-            </div>
-
-            <div style={{textAlign: 'center'}}>
-                <Button variant="success" onClick={handleSubmit}>Add Quiz</Button>
             </div>
             
         </Stack>
