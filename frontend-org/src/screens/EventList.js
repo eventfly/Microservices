@@ -3,12 +3,15 @@ import SlidingNav from '../components/SlidingNav';
 import EventPreview from '../components/EventPreview';
 import { useState, useEffect, useContext } from 'react';
 import "../styles/EventList.css"
+import { useNavigate} from 'react-router-dom';
 
 import {orgApi} from '../api/axiosHook'
 
 
 
 const EventList = () => {
+
+    const navigate = useNavigate();
 
     let auth = sessionStorage.getItem('auth')
     if (auth) {
@@ -43,6 +46,11 @@ const EventList = () => {
             }
             
         }
+
+        if(!auth){
+            navigate('/login')
+        }
+
         fetchEvent()
     
     }, [auth, events, loading])
@@ -57,7 +65,7 @@ const EventList = () => {
 
 
     return (
-        <div className='EventList'>
+        auth && <div className='EventList'>
             <Searchbar />
             <SlidingNav getData={getTab} />
             <h2>Event List</h2>

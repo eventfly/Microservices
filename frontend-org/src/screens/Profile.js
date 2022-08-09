@@ -43,7 +43,11 @@ const Profile = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() =>{
-        if (auth.ref_id && loading == false){
+        if(!auth){
+            navigate('/login')
+        }
+
+        if (auth && auth.ref_id && loading == false){
 
             setEmail(auth.email)
             setName(auth.name)
@@ -93,7 +97,7 @@ const Profile = () => {
 
     return ( 
 
-        <>
+        auth && <>
         
             <div className="profile">
 

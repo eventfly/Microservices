@@ -1,6 +1,6 @@
 import "../styles/EventPage.css";
 import EventSidebar from "../components/EventSidebar";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useState, useEffect } from "react";
 import {useParams} from 'react-router-dom'
@@ -14,6 +14,7 @@ import AddStaff from "./AddStaff";
 import {eventApi, orgApi} from '../api/axiosHook'
 
 const EventPage = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     console.log(location.pathname);
 
@@ -30,8 +31,12 @@ const EventPage = () => {
 
 
     useEffect(() => {
+        if(!auth){
+            navigate('/login')
+        }
+
         async function fetchEventData(){
-            if (auth.ref_id && (loading == false || event == null)) {
+            if (auth && auth.ref_id && (loading == false || event == null)) {
 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -59,7 +64,7 @@ const EventPage = () => {
 
 
     return ( 
-        <>
+        auth && <>
         
             <div className="detail_flexbox">
 

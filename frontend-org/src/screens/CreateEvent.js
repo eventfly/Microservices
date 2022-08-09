@@ -45,8 +45,12 @@ const CreateEvent = () => {
 
 
     useEffect(() => {
+        if(!auth){
+            navigate('/login')
+        } 
+
         async function fetchTags(){
-            if (auth.ref_id && (loading == false || tags.length == 0)) {
+            if (auth && auth.ref_id && (loading == false || tags.length == 0)) {
                 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -138,7 +142,7 @@ const CreateEvent = () => {
 
     if (stage === 1) {
         return (
-            <>
+            auth && <>
                 <CreateEventStage1
                     name={name}
                     setName={setName}
@@ -154,7 +158,7 @@ const CreateEvent = () => {
     }
     else if (stage === 2) {
         return (
-            <>
+            auth && <>
                 <CreateEventStage2
                     desc={desc} setDesc={setDesc}
                     ticketPrice={ticketPrice} setTicketPrice={setTicketPrice}
@@ -175,7 +179,7 @@ const CreateEvent = () => {
     }
     else {
         return (
-            <>
+            auth && <>
                 <CreateEventStage3
                     promote={promote} setPromote={setPromote}
                     mailList={mailList} setMailList={setMailList} 

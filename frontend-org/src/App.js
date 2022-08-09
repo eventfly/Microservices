@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import { useEffect, useState, useCallback} from 'react'
 
 import Header from './components/Header';
@@ -41,16 +41,15 @@ function App() {
       auth = JSON.parse(auth);
   }
 
+
   useEffect(()=>{
       async function fetchCurrentUser(){
-
         if(auth == null && (loading == false || currentUser == null)){
 
           authApi.get('/org/currentuser').then((res)=>{
             console.log(res.data.currentUser)
             setCurrentUser(res.data.currentUser)
             setLoading(true)
-
             window.sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
           })
 
@@ -58,6 +57,7 @@ function App() {
       }
 
       fetchCurrentUser()
+
   },[currentUser, loading])
 
 
@@ -69,31 +69,16 @@ function App() {
       <div className='main_content'>
 
         <Routes>
+
           <Route path="/" element={<EventList />} />
-          {/* <Route path="/" element={currentUser != null ? <EventList /> : <Navigate to='/login' />} /> */}
           <Route path="/popular" element={<PopularEvents />} />
-          {/* <Route path="/detail" element={<EventDetail />} /> */}
 
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/create" element={<CreateEvent />} />
-          {/* <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} /> */}
-
-
-          {/* <Route path="product">
-                  <Route path=":id" element={<ProductScreen />}/>
-                </Route> */}
-
-          {/* <Route path="/event/:eventId/profile" element={<EventProfile />}/>
-          <Route path="/event/:eventId/discussion" element={<EventFeed />}/>
-          <Route path="/event/:eventId/statistics" element={<EventStatistics />}/>
-          <Route path="/event/:eventId/staff/add" element={<AddStaff />}/>
-          <Route path="/event/:eventId/staff" element={<EventStaff />}/> */}
 
           <Route path="/sub" element={<Subscription />}/>
-
           <Route path="/event/:eventId/*" element={<EventPage />}/>
-
           <Route path="/profile" element={<Profile />}/>
 
         </Routes>

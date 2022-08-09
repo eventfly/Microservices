@@ -17,7 +17,7 @@ const SubscriptionModal = () => {
     return (
         <Container className="p-3" style={{border:'none'}}>
           <Row>
-            <Col>
+            <Col xs={5}>
                 <FormInput
                     label="Credit Card Number"
                     type="text"
@@ -36,7 +36,7 @@ const SubscriptionModal = () => {
                     onChange={setNameOnCard}
                 />
             </Col>
-            <Col>
+            <Col xs={{ span: 6, offset: 1 }}>
             <ListGroup >
                 <ListGroup.Item active>Pricing Details</ListGroup.Item>
                 <ListGroup.Item>Package Price: </ListGroup.Item>
