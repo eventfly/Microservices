@@ -1,14 +1,6 @@
 import Dropdown from 'react-bootstrap/Dropdown';
 
-function BasicExample() {
-
-    const handleEdit = () => {
-        console.log("e")
-    }
-
-    const handleDelete = () => {
-        console.log("d")
-    }
+function StaffOptions({onEdit, onDelete}) {
 
   return (
 
@@ -18,8 +10,8 @@ function BasicExample() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
-        <Dropdown.Item onClick={handleDelete}>Delete</Dropdown.Item>
+        <Dropdown.Item onClick={onEdit}>Edit</Dropdown.Item>
+        <Dropdown.Item onClick={onDelete}>Delete</Dropdown.Item>
         {/* <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
       </Dropdown.Menu>
       
@@ -27,4 +19,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default StaffOptions;

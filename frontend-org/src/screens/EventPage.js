@@ -32,6 +32,12 @@ const EventPage = () => {
     const [tags, setTags] = useState([])
     const [loading, setLoading] = useState(false);
 
+    const [loadingMember, setLoadingMember] = useState(false);
+
+    window.addEventListener('pageshow', (e)=>{
+        setLoading(false)
+    })
+
 
     useEffect(() => {
         if(!auth && !token){
@@ -39,7 +45,7 @@ const EventPage = () => {
         }
 
         async function fetchEventData(){
-            if (auth && auth.ref_id && (loading == false || event == null)) {
+            if (auth && auth.ref_id && (loading == false || event == null || loadingMember == false)) {
 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -53,7 +59,8 @@ const EventPage = () => {
                     eventApi.get(`/${eventId}`).then((res)=>{
                         setEvent(res.data)
                         setLoading(true)
-    
+                        setLoadingMember(true)
+                        
                         console.log('event: ', event);
                     })
                 })
@@ -63,7 +70,7 @@ const EventPage = () => {
 
         fetchEventData()
     
-    }, [auth, tags, event, loading])
+    }, [auth, tags, event, loading, loadingMember])
 
 
     return ( 
@@ -97,6 +104,7 @@ const EventPage = () => {
                                             <EventMember
                                                 organizers={[auth]} 
                                                 staffs={event ? event.staffs : null}
+                                                setLoading={setLoadingMember}
                                             />
                                         ) : 
 

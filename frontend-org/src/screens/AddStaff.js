@@ -19,7 +19,6 @@ const AddStaff = () => {
     const [status, setStatus] = useState(['unverified']);
 
     const [staffForms, setStaffForms] = useState([{'id' : 1}])
-    let noOfSuccesses = 0
     const { eventId } = useParams();
 
 
@@ -120,9 +119,13 @@ const AddStaff = () => {
                         ...status.slice(i + 1, status.length)
                     ]);
 
-                    noOfSuccesses++;
+                    let failedForms = status.filter((st)=>{
+                        return st !== 'success'
+                    })
 
-                    if(noOfSuccesses == staffForms.length){
+                    console.log("failed", failedForms.length)
+
+                    if(failedForms.length == 0){
                         navigate(`/event/${eventId}/members`)
                     }
         

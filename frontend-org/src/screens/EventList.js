@@ -1,7 +1,7 @@
 import Searchbar from '../components/Searchbar';
 import SlidingNav from '../components/SlidingNav';
 import EventPreview from '../components/EventPreview';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
 import { useNavigate} from 'react-router-dom';
 

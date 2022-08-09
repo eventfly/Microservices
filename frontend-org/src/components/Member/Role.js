@@ -1,16 +1,35 @@
 import {Link} from "react-router-dom";
 import StaffOptions from "./StaffOptions";
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import {MdOutlinePersonAdd} from 'react-icons/md'
+import {eventApi} from '../../api/axiosHook'
 
 
-const Role = ({roleType, members}) => {
+const Role = ({roleType, members, setLoading}) => {
 
     const { eventId } = useParams();
+    const navigate = useNavigate();
 
-    // let members = []
-    // for(let i=0;i<7;i++)
-    //     members.push(i)
+    const handleEdit = () => {
+        console.log("e")
+    }
+
+    const handleDelete = (ref_id) => {
+        console.log("refid", ref_id)
+
+        let body = {
+            ref_id: ref_id
+        }
+
+        eventApi.post(`/${eventId}/remove-staff`, body).then(res => {
+            console.log(res)
+            setLoading(false)
+            // navigate(`/event/${eventId}/members`)
+
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     return ( 
         <>
@@ -29,7 +48,11 @@ const Role = ({roleType, members}) => {
                     members && members.map((member, index) =>{
                         return (
                                 <div className="person-info" key={index}>
-                                    <StaffOptions />
+                                    <StaffOptions 
+                                        onEdit={handleEdit} 
+                                        onDelete={(e)=>{handleDelete(member.ref_id)}}
+                                    />
+
                                     <div className="person-info-body">
                                         <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
                                         <div className="person-info-text">
