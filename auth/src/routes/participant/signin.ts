@@ -51,7 +51,7 @@ router.post('/api/auth/users/signin',
             jwt: userJwt
         }
 
-        res.status(201).send({ existingUser, token: userJwt })
+        res.status(200).send({ existingUser, token: userJwt })
 
 
     })

@@ -54,7 +54,7 @@ router.post('/api/auth/org/signin',
         }
 
 
-        res.status(201).send({ existingUser, token: userJwt })
+        res.status(200).send({ existingUser, token: userJwt })
 
 
     })
