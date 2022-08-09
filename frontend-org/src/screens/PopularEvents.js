@@ -1,23 +1,91 @@
 import EventTable from "../components/EventTable";
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+
+import { useNavigate } from 'react-router-dom';
+import { orgApi } from "../api/axiosHook";
+
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Col, Container, Row } from "react-bootstrap";
 
 const PopularEvents = () => {
 
-    
-    const [events, setEvents] = useState('');
+    const navigate = useNavigate();
 
-    useEffect( () => {
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
+
+    let token = localStorage.getItem('token')
+
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    let alldata = '';
+
+    window.addEventListener('pageshow', (e)=>{
+        setLoading(false)
+    })
+
+    useEffect(() => {
         async function fetchEvent(){
-            const {data} = await axios.get('http://localhost:8000/events/test')
-            setEvents(data.data["all_events"]);
+            if (auth && auth.ref_id && (loading == false || events.length == 0)) {
+                
+                orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
+                    console.log(res.data)
+
+                    for(let i = 0; i < res.data.length; i++){
+                        events[i] = res.data[i]
+                    }
+
+                    setEvents([...events])
+                    setLoading(true)
+
+                    console.log('events: ', events);
+                })
+            }
+            
         }
+
+        if(!auth && !token){
+            navigate('/login')
+        }
+
         fetchEvent()
-    },[])
+    
+    }, [auth, events, loading])
+
+    const handleSort = (sortBy) => {
+        console.log(sortBy)
+    }
 
     return ( 
         <div className='PopularEvents'>
-            <h2>Popular Events</h2>
+            <Container style={{border:'none'}}>
+                <Row style={{alignItems:'center'}}>
+                    <Col xs={{span:5}}>
+                        <h1>Popular Events</h1>
+                    </Col>
+                    <Col xs={{offset:5, span:2}}>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Sort By
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => handleSort('rating')}>Name</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('startDate')}>Start Date</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('endDate')}>End Date</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('rating')}>Rating</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('revenue')}>Revenue</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('attendance')}>Attendance</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                </Row>
+            </Container>
+=            
             {events.length > 0 ? (
                 <EventTable events={events} />
                 ) : (

@@ -91,7 +91,7 @@
     flex: 0 0 25%;
 }
 
-.dropdown-toggle::after {
+.person-info .dropdown-toggle::after {
     content: none;
 }
 
