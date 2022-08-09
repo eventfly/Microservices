@@ -1,6 +1,6 @@
 import "../styles/EventPage.css";
 import EventSidebar from "../components/EventSidebar";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useState, useEffect } from "react";
 import {useParams} from 'react-router-dom'
@@ -8,12 +8,15 @@ import {useParams} from 'react-router-dom'
 import EventProfile from "./EventProfile";
 import EventFeed from "./EventFeed";
 import EventStatistics from "./EventStatistics";
-import EventStaff from "./EventStaff";
+import EventMember from "./EventMember";
 import AddStaff from "./AddStaff";
 
-import {eventApi} from '../api/axiosHook'
+import FormTitle from "../components/Form/FormTitle";
+
+import {eventApi, orgApi} from '../api/axiosHook'
 
 const EventPage = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     console.log(location.pathname);
 
@@ -23,43 +26,77 @@ const EventPage = () => {
     if (auth) {
         auth = JSON.parse(auth);
     }
+    let token = localStorage.getItem('token')
 
     const [event, setEvent] = useState(null);
+    const [tags, setTags] = useState([])
     const [loading, setLoading] = useState(false);
+
+    const [loadingMember, setLoadingMember] = useState(false);
+    const [loadingProfile, setLoadingProfile] = useState(false);
+
+    window.addEventListener('pageshow', (e)=>{
+        setLoading(false)
+    })
 
 
     useEffect(() => {
-        async function fetchEventData(){
-            if (auth.ref_id && (loading == false || event == null)) {
-                console.log(eventId)
-                eventApi.get(`/${eventId}`).then((res)=>{
-                    console.log(res.data)
-                    setEvent(res.data)
-                    setLoading(true)
+        if(!auth && !token){
+            navigate('/login')
+        }
 
-                    console.log('event: ', event);
+        async function fetchEventData(){
+            if (auth && auth.ref_id && 
+                (loading == false || event == null || loadingMember == false || loadingProfile == false)) {
+
+                orgApi.get('/tag').then((res)=>{
+                    console.log(res.data)
+
+                    for(let i = 0; i < res.data.length; i++){
+                        tags[i] = res.data[i]
+                    }
+
+                    setTags([...tags]);
+
+                    eventApi.get(`/${eventId}`).then((res)=>{
+                        setEvent(res.data)
+                        setLoading(true)
+                        setLoadingMember(true)
+                        setLoadingProfile(true)
+                        
+                        console.log('event: ', event);
+                    })
                 })
             }
             
         }
+
         fetchEventData()
     
-    }, [event, loading])
+    }, [auth, tags, event, loading, loadingMember, loadingProfile])
 
 
     return ( 
-        <>
+        auth && <>
         
             <div className="detail_flexbox">
 
                 <div className="left-column">
-                    <EventSidebar/>
+                    <EventSidebar eventId={eventId} />
                 </div>
 
                 <div className="right-column">
 
+                    <FormTitle title={event ? event.name : null} color={'#8C3522'} fontWeight={600} />
+
                     {
-                        location.pathname.includes('profile') ? <EventProfile event={event} /> :
+                        location.pathname.includes('profile') ? (
+                            <EventProfile 
+                                event={event} 
+                                allTags={tags}
+                                setLoading={setLoadingProfile} 
+                            />
+                        ) :
                         (
                             location.pathname.includes('discussion') ? <EventFeed /> :
 
@@ -70,7 +107,13 @@ const EventPage = () => {
                                     location.pathname.includes('staff/add') ? <AddStaff /> :
 
                                     (
-                                        location.pathname.includes('staff') ? <EventStaff /> : 
+                                        location.pathname.includes('members') ? (
+                                            <EventMember
+                                                organizers={[auth]} 
+                                                staffs={event ? event.staffs : null}
+                                                setLoading={setLoadingMember}
+                                            />
+                                        ) : 
 
                                         (<></>)
                                     

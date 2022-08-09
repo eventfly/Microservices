@@ -16,6 +16,7 @@ const CreateEvent = () => {
     if (auth) {
         auth = JSON.parse(auth);
     }
+    let token = localStorage.getItem('token')
 
     const [stage, setStage] = useState(1);
     const [bannerImage, setBannerImage] = useState(null);
@@ -45,8 +46,12 @@ const CreateEvent = () => {
 
 
     useEffect(() => {
+        if(!auth && !token){
+            navigate('/login')
+        } 
+
         async function fetchTags(){
-            if (auth.ref_id && (loading == false || tags.length == 0)) {
+            if (auth && auth.ref_id && (loading == false || tags.length == 0)) {
                 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -64,7 +69,7 @@ const CreateEvent = () => {
         }
         fetchTags()
     
-    }, [tags, loading])
+    }, [auth, tags, loading])
 
 
     const uploadImage = (e) => {
@@ -138,7 +143,7 @@ const CreateEvent = () => {
 
     if (stage === 1) {
         return (
-            <>
+            auth && <>
                 <CreateEventStage1
                     name={name}
                     setName={setName}
@@ -154,7 +159,7 @@ const CreateEvent = () => {
     }
     else if (stage === 2) {
         return (
-            <>
+            auth && <>
                 <CreateEventStage2
                     desc={desc} setDesc={setDesc}
                     ticketPrice={ticketPrice} setTicketPrice={setTicketPrice}
@@ -175,7 +180,7 @@ const CreateEvent = () => {
     }
     else {
         return (
-            <>
+            auth && <>
                 <CreateEventStage3
                     promote={promote} setPromote={setPromote}
                     mailList={mailList} setMailList={setMailList} 

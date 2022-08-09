@@ -12,6 +12,7 @@ import { NotFoundError } from './errors/not-found-error';
 import { getEventsRouter } from './routes/get-events';
 import { editEventRouter } from './routes/edit-events';
 import { getEventDataRouter } from './routes/get-eventData';
+import {removeStaffRouter} from './routes/remove-staff'
 
 const app = express()
 app.use(cors({origin: '*'}));
@@ -39,6 +40,7 @@ app.use(currentUser);
 app.use(getEventsRouter);
 app.use(editEventRouter);
 app.use(getEventDataRouter);
+app.use(removeStaffRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

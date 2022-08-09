@@ -1,11 +1,25 @@
+html{
+  height: 100vh;
+}
+
+body{
+  height: auto;
+  min-height: 100vh;
+}
+
+#root{
+  height: auto;
+  min-height: 100vh;
+}
+
 header{
   background-color: white;
-  height: 4rem;
-  border-bottom: 1px solid #e5e5e5;
+  height: 65px;
+  border-bottom: 1.5px solid #e5e5e5;
 }
 
 footer{
-  border-top: 1px solid #e5e5e5;
+  border-top: 1.5px solid #e5e5e5;
   background-color: white;
   height: 50px;
 }
@@ -17,12 +31,18 @@ footer{
 .main_content{
   padding-left: 5%;
   padding-right: 5%;
+  height: auto;
+  min-height: calc(100vh - 115px);
 }
 
 .no_auth_page_style{
   margin-left: 30%;
   margin-right: 30%;
   margin-bottom: 75px;
+}
+
+a{
+  text-decoration: none;
 }
 
 

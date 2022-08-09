@@ -1,8 +1,9 @@
 import Searchbar from '../components/Searchbar';
 import SlidingNav from '../components/SlidingNav';
 import EventPreview from '../components/EventPreview';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
+import { useNavigate} from 'react-router-dom';
 
 import {orgApi} from '../api/axiosHook'
 
@@ -10,10 +11,14 @@ import {orgApi} from '../api/axiosHook'
 
 const EventList = () => {
 
+    const navigate = useNavigate();
+
     let auth = sessionStorage.getItem('auth')
     if (auth) {
         auth = JSON.parse(auth);
     }
+
+    let token = localStorage.getItem('token')
 
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -26,7 +31,7 @@ const EventList = () => {
 
     useEffect(() => {
         async function fetchEvent(){
-            if (auth.ref_id && (loading == false || events.length == 0)) {
+            if (auth && auth.ref_id && (loading == false || events.length == 0)) {
                 
                 orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
@@ -43,9 +48,14 @@ const EventList = () => {
             }
             
         }
+
+        if(!auth && !token){
+            navigate('/login')
+        }
+
         fetchEvent()
     
-    }, [events, loading])
+    }, [auth, events, loading])
 
     // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
     function getTab(tab) {
@@ -57,7 +67,7 @@ const EventList = () => {
 
 
     return (
-        <div className='EventList'>
+        auth && <div className='EventList'>
             <Searchbar />
             <SlidingNav getData={getTab} />
             <h2>Event List</h2>

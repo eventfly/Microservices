@@ -12,7 +12,7 @@ const AutoComplete = ({options, multiSelections, setMultiSelections}) => {
             <Fragment>
 
                 <Form.Group style={{ marginTop: '20px' }}>
-                    <Form.Label>Event Tags</Form.Label>
+                    <Form.Label className="label">Event Tags</Form.Label>
                     <Typeahead
                         id="basic-typeahead-multiple"
                         labelKey="name"
@@ -21,7 +21,6 @@ const AutoComplete = ({options, multiSelections, setMultiSelections}) => {
                         options={options}
                         placeholder="Choose several tags"
                         selected={multiSelections}
-
                     />
 
                 </Form.Group>
