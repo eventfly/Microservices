@@ -15,11 +15,11 @@ body{
 header{
   background-color: white;
   height: 65px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1.5px solid #e5e5e5;
 }
 
 footer{
-  border-top: 1px solid #e5e5e5;
+  border-top: 1.5px solid #e5e5e5;
   background-color: white;
   height: 50px;
 }

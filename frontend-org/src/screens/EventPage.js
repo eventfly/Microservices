@@ -8,8 +8,10 @@ import {useParams} from 'react-router-dom'
 import EventProfile from "./EventProfile";
 import EventFeed from "./EventFeed";
 import EventStatistics from "./EventStatistics";
-import EventStaff from "./EventStaff";
+import EventMember from "./EventMember";
 import AddStaff from "./AddStaff";
+
+import FormTitle from "../components/Form/FormTitle";
 
 import {eventApi, orgApi} from '../api/axiosHook'
 
@@ -75,6 +77,8 @@ const EventPage = () => {
 
                 <div className="right-column">
 
+                    <FormTitle title={event ? event.name : null} color={'#8C3522'} fontWeight={600} />
+
                     {
                         location.pathname.includes('profile') ? (
                             <EventProfile event={event} allTags={tags} />
@@ -90,7 +94,10 @@ const EventPage = () => {
 
                                     (
                                         location.pathname.includes('members') ? (
-                                            <EventStaff staffs={event ? event.staffs : null}/>
+                                            <EventMember
+                                                organizers={[auth]} 
+                                                staffs={event ? event.staffs : null}
+                                            />
                                         ) : 
 
                                         (<></>)

@@ -28,7 +28,7 @@ const EventSidebar = ({eventId}) => {
             display: 'Members',
             icon: <FaUserNurse className='sidebar-icons' style={{color: 'black'}} />,
             to: `/event/${eventId}/members`,
-            section: 'staff'
+            section: 'members'
         },
     ]
 

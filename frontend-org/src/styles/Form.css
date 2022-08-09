@@ -1,13 +1,13 @@
 .title{
     margin-bottom: 30px;
     text-align: center;
-    font-weight: 700;
-    /* color: aquamarine; */
-    color: black;
+    /* font-weight: 600;
+    color: black; */
 }
 
 .inputfield{
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    margin-bottom: 20px;
 }
 
 .label{

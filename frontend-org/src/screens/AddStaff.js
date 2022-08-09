@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from '../components/Form/FormButton';
 import '../styles/AddStaff.css'
-import AddSingleStaff from "../components/Staff/AddSingleStaff";
+import AddSingleStaff from "../components/Member/AddSingleStaff";
 import {orgApi} from '../api/axiosHook'
 import ErrorPopup from "../components/ErrorPopup";
 
@@ -153,60 +153,48 @@ const AddStaff = () => {
     return (
         <>
 
-            {/* <div className="detail_flexbox">
+            <div className="content">
+                {/* <div className="title">
+                    <FormTitle title="Add New Staff" />
+                </div> */}
 
-                <div className="left-column">
-                    <EventSidebar/>
+                <div className="add-more-btn">
+
+                    <FormButton type="button" buttonText="+ Add New Staff" onClick={onAddNewStaff} />
+
                 </div>
 
-                <div className="right-column"> */}
 
-                    <div className="content">
-                        <div className="title">
-                            <FormTitle title="Add New Staff" />
-                        </div>
-
-                        <div className="add-more-btn">
-
-                            <FormButton type="button" buttonText="+ Add New Staff" onClick={onAddNewStaff} />
-
-                        </div>
-
-
-                        {staffForms.map((staffForm, index)=>{
-                            return(
-                                <div className="add-single-staff" key={index}>
-                                    <AddSingleStaff
-                                        staffNo={staffForm.id}  
-                                        name={name[staffForm.id-1]} 
-                                        setName={(value)=>updateNameByIndex(staffForm.id-1, value)}
-                                        email={email[staffForm.id-1]} 
-                                        setEmail={(value)=>updateEmailByIndex(staffForm.id-1, value)}
-                                        role={role[staffForm.id-1]} 
-                                        setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
-                                        status={status[[staffForm.id-1]]}
-                                        removeStaff={(val)=>removeStaffByIndex(staffForm.id-1)}
-                                    />
-                                </div>
-                            )
-                        })}
-
-                        <div className="add_staff_button">
-
-                            <FormButton 
-                                type="submit" 
-                                buttonText="Add" 
-                                bgColor={'#0E7617'}
-                                onClick={handleSubmit} 
+                {staffForms.map((staffForm, index)=>{
+                    return(
+                        <div className="add-single-staff" key={index}>
+                            <AddSingleStaff
+                                staffNo={staffForm.id}  
+                                name={name[staffForm.id-1]} 
+                                setName={(value)=>updateNameByIndex(staffForm.id-1, value)}
+                                email={email[staffForm.id-1]} 
+                                setEmail={(value)=>updateEmailByIndex(staffForm.id-1, value)}
+                                role={role[staffForm.id-1]} 
+                                setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
+                                status={status[[staffForm.id-1]]}
+                                removeStaff={(val)=>removeStaffByIndex(staffForm.id-1)}
                             />
-
                         </div>
-                    
-                    </div>
+                    )
+                })}
 
-                {/* </div>
+                <div className="add_staff_button">
+
+                    <FormButton 
+                        type="submit" 
+                        buttonText="Add" 
+                        bgColor={'#0E7617'}
+                        onClick={handleSubmit} 
+                    />
+
+                </div>
             
-            </div> */}
+            </div>
 
         </>
 

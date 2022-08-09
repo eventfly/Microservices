@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function PopupModal({show, onHide, header, bodyComponent}) {
+function PopupModal({show, onHide, header, bodyComponent, saveButtonText, saveButtonAction}) {
   return (
     <Modal
       show={show}
@@ -19,7 +19,12 @@ function PopupModal({show, onHide, header, bodyComponent}) {
         {bodyComponent}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>Close</Button>
+        <div className="d-grid gap-3 d-md-flex justify-content-md-start">
+          <Button onClick={saveButtonAction} variant="success">
+              {saveButtonText}  
+          </Button>
+          <Button onClick={onHide}>Close</Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );

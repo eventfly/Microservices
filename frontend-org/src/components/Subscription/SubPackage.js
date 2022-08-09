@@ -17,24 +17,23 @@ function SubPackage({headerColor}) {
       <Card.Header className="subpackage-header" style={{backgroundColor: `${headerColor}`}}>100 BDT/month</Card.Header>
       <Card.Body>
         <Card.Title>Gold Package</Card.Title>
+
+        <ul>
         <Card.Text>
-            <ul>
-                <li>
-                    <i className="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
-                </li>
+            <li>
+                <i className="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
+            </li>
 
-                <li>
-                    <i className="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
-                </li>
+            <li>
+                <i className="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
+            </li>
 
-                <li>
-                    <i className="fa-solid fa-xmark"></i> With supporting textd-in to additional content.
-                </li>
-
-            </ul>
+            <li>
+                <i className="fa-solid fa-xmark"></i> With supporting textd-in to additional content.
+            </li>
             
         </Card.Text>
-
+        </ul>
         
         
         <Button variant="success" onClick={() => setModalShow(true)}>Buy Package</Button>
@@ -45,6 +44,7 @@ function SubPackage({headerColor}) {
           onHide={() => setModalShow(false)}
           header="Buy Package"
           bodyComponent={<SubscriptionModal />}
+          saveButtonText={"Checkout"}
         />
 
       </Card.Body>

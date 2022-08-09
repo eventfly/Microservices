@@ -42,9 +42,9 @@ const SubscriptionModal = () => {
                 <ListGroup.Item>Package Price: </ListGroup.Item>
                 <ListGroup.Item>Discount: </ListGroup.Item>
                 <ListGroup.Item>Total: </ListGroup.Item>
-                <ListGroup.Item style={{textAlign:'center'}}>
+                {/* <ListGroup.Item style={{textAlign:'center'}}>
                     <Button variant="success">Checkout</Button>
-                </ListGroup.Item>
+                </ListGroup.Item> */}
             </ListGroup>
             </Col>
           </Row>
