@@ -2,13 +2,13 @@ import {Link} from "react-router-dom";
 import StaffOptions from "./StaffOptions";
 import {useParams} from 'react-router-dom'
 
-const Role = ({roleType}) => {
+const Role = ({roleType, members}) => {
 
     const { eventId } = useParams();
 
-    let members = []
-    for(let i=0;i<7;i++)
-        members.push(i)
+    // let members = []
+    // for(let i=0;i<7;i++)
+    //     members.push(i)
 
     return ( 
         <>
@@ -22,8 +22,7 @@ const Role = ({roleType}) => {
             <div className="person-container">
             {
                 (
-                    members.map(member =>{
-                        console.log(member);
+                    members && members.map(member =>{
                         return (
                                 <div className="person-info">
                                     <StaffOptions />

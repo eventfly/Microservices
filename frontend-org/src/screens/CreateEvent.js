@@ -16,6 +16,7 @@ const CreateEvent = () => {
     if (auth) {
         auth = JSON.parse(auth);
     }
+    let token = localStorage.getItem('token')
 
     const [stage, setStage] = useState(1);
     const [bannerImage, setBannerImage] = useState(null);
@@ -45,7 +46,7 @@ const CreateEvent = () => {
 
 
     useEffect(() => {
-        if(!auth){
+        if(!auth && !token){
             navigate('/login')
         } 
 
@@ -68,7 +69,7 @@ const CreateEvent = () => {
         }
         fetchTags()
     
-    }, [tags, loading])
+    }, [auth, tags, loading])
 
 
     const uploadImage = (e) => {

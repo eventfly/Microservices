@@ -24,6 +24,7 @@ const EventPage = () => {
     if (auth) {
         auth = JSON.parse(auth);
     }
+    let token = localStorage.getItem('token')
 
     const [event, setEvent] = useState(null);
     const [tags, setTags] = useState([])
@@ -31,7 +32,7 @@ const EventPage = () => {
 
 
     useEffect(() => {
-        if(!auth){
+        if(!auth && !token){
             navigate('/login')
         }
 
@@ -60,7 +61,7 @@ const EventPage = () => {
 
         fetchEventData()
     
-    }, [tags, event, loading])
+    }, [auth, tags, event, loading])
 
 
     return ( 
@@ -88,7 +89,9 @@ const EventPage = () => {
                                     location.pathname.includes('staff/add') ? <AddStaff /> :
 
                                     (
-                                        location.pathname.includes('staff') ? <EventStaff /> : 
+                                        location.pathname.includes('staff') ? (
+                                            <EventStaff staffs={event.staffs}/>
+                                        ) : 
 
                                         (<></>)
                                     

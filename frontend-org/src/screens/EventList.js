@@ -18,6 +18,8 @@ const EventList = () => {
         auth = JSON.parse(auth);
     }
 
+    let token = localStorage.getItem('token')
+
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -47,7 +49,7 @@ const EventList = () => {
             
         }
 
-        if(!auth){
+        if(!auth && !token){
             navigate('/login')
         }
 

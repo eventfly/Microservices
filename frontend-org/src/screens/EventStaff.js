@@ -3,7 +3,7 @@ import '../styles/EventStaff.css'
 import Role from '../components/Staff/Role'
 import { Link } from "react-router-dom";
 
-const EventStaff = () => {
+const EventStaff = ({staffs}) => {
         
     return ( 
         <>
@@ -14,7 +14,7 @@ const EventStaff = () => {
                 </div>
             </div>
             <div className="role-container">
-                <Role roleType='Organizer'/>
+                <Role roleType='Staffs' members={staffs}/>
             </div>
         </>
         

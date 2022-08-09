@@ -20,6 +20,7 @@ const Profile = () => {
     if (auth) {
         auth = JSON.parse(auth);
     }
+    let token = localStorage.getItem('token')
 
     let accTypeOptions = [
         {
@@ -43,7 +44,7 @@ const Profile = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() =>{
-        if(!auth){
+        if(!auth && !token){
             navigate('/login')
         }
 
@@ -52,11 +53,10 @@ const Profile = () => {
             setEmail(auth.email)
             setName(auth.name)
             setAccType(auth.role)
-
             setLoading(true)
 
         }
-    }, [email, loading])
+    }, [auth, email, loading])
 
 
     const handleSubmit = (e) => {
