@@ -45,6 +45,7 @@ function SubPackage({headerColor}) {
           onHide={() => setModalShow(false)}
           header="Buy Package"
           bodyComponent={<SubscriptionModal />}
+          size="lg"
         />
 
       </Card.Body>

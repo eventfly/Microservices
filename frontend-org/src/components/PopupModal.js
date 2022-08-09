@@ -1,12 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function PopupModal({show, onHide, header, bodyComponent}) {
+function PopupModal({show, onHide, size, header, bodyComponent}) {
   return (
     <Modal
       show={show}
       onHide={onHide}
-      size="lg"
+      // size only one of these three values: 'sm' | 'lg' | 'xl'
+      size={size} 
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
