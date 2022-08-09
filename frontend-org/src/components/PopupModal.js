@@ -12,8 +12,8 @@ function PopupModal({show, onHide, size, header, bodyComponent, saveButtonText, 
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <Modal.Header closeButton style={{backgroundColor:'rgb(187, 241, 187)', borderBottom: '2px solid green'}}>
+        <Modal.Title id="contained-modal-title-vcenter" style={{textAlign:'center',width:'100%'}}>
           {header}
         </Modal.Title>
       </Modal.Header>

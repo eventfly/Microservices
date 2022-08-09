@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 html{
   height: 100vh;
 }
@@ -5,6 +8,8 @@ html{
 body{
   height: auto;
   min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 #root{

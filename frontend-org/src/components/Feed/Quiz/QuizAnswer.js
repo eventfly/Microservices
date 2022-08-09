@@ -22,7 +22,7 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
     ];
 
 
-    const addNewAnwer = () => {
+    const addNewAnswer = () => {
         setAnswerList(answerList => [...answerList, {answer:'', radioValue:'1'}]);
     }
 
@@ -50,17 +50,17 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
 
     return ( 
         <div>
-                <p style={{
-                        marginBottom: "10px",
-                        fontSize: "20px",
-                        fontWeight: 'bold',
-                }}>Answers</p>
-{
-                answerList.map((item, index) => {
-                    return (
-                        <Container style={{border:"none"}} key={index} id={`answer-row-${index}`}>
-                            <Row className='my-4'>
-                                <Col>
+            <p style={{
+                    marginBottom: "10px",
+                    fontSize: "20px",
+                    fontWeight: 'bold',
+            }}>Answers</p>
+        {
+            answerList.map((item, index) => {
+                return (
+                    <Container style={{border:"none"}} key={index} id={`answer-row-${index}`}>
+                        <Row className='my-4'>
+                            <Col>
                                 <Form>
                                     <Row>
                                         <Col xs={{ span: 7}}>
@@ -89,7 +89,7 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
                                                     >
                                                         {radio.name}
 
-                                                        </ToggleButton>
+                                                    </ToggleButton>
                                                 ))}
                                             </ButtonGroup>
                                         </Col>
@@ -99,16 +99,16 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
                                             </Button>
                                         </Col>
                                     </Row>
-                                    </Form>
-                                </Col>
-                            </Row>
-                        </Container>
-                    );
-                })
-            }
-                
-                <Button variant="success" onClick={addNewAnwer}>+ Add Options</Button>
-            </div>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Container>
+                );
+            })
+        }
+            
+            <Button variant="success" onClick={addNewAnswer}>+ Add Options</Button>
+        </div>
      );
 }
  
