@@ -6,6 +6,8 @@ import { Button } from 'react-bootstrap';
 
 import React, { useState } from 'react';
 import QuizAnswer from './QuizAnswer';
+import Carousel from "./Carousel";
+import SubscriptionModal from "../../Subscription/SubscriptionModal";
 
 
 
@@ -64,7 +66,10 @@ const QuizModal = () => {
                 show={quizModalShow}
                 onHide={() => setQuizModalShow(false)}
                 header="New Quiz"
-                bodyComponent={quizjsx}
+                bodyComponent={
+                    <Carousel bodyComponent={quizjsx}
+                    />
+                }
                 size="lg"
                 saveButtonText={"Add Quiz"}
                 saveButtonAction={handleSubmit}

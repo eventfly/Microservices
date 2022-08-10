@@ -1,0 +1,16 @@
+.right-slider{
+    font-size: xx-large;
+    color: red;
+    transform: translate(150%, 0%);
+}
+
+.left-slider{
+    font-size: xx-large;
+    color: red;
+    transform: translate(-150%, 0%);
+}
+
+.carousel-body-component{
+    margin-left: 8%;
+    margin-right: 8%;
+}
