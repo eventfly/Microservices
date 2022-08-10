@@ -63,6 +63,9 @@ const CreateEvent = () => {
                     setLoading(true)
                     setTags([...tags]);
                 })
+
+                setLoading(true)
+                setTags([])
             }
             
         }
