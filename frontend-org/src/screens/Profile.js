@@ -5,6 +5,7 @@ import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 import ErrorPopup from "../components/ErrorPopup";
+import PersonCard from '../components/PersonCard';
 
 import { useState, useEffect } from 'react'
 import {authApi} from '../api/axiosHook'
@@ -103,64 +104,78 @@ const Profile = () => {
 
                 <FormTitle title="Profile" />
 
-                <form onSubmit={handleSubmit}>
+                <div className="profile_flexbox">
 
-                    <FormInput id="name"
-                        inputType="text"
-                        label="Name"
-                        placeholder="Enter name"
-                        value={name}
-                        isDisabled={true}
-                        onChange={setName}
-                    />
-                    
-                    <FormInput id="email"
-                        inputType="email"
-                        label="Email"
-                        placeholder="Enter email"
-                        value={email}
-                        isDisabled={true}
-                        onChange={setEmail}
-                    />
+                    <div className="left-column">
+                        
+                        <PersonCard />
 
-                    <FormInput id="password"
-                        inputType="password"
-                        label="Password"
-                        placeholder="Enter password"
-                        value={password}
-                        onChange={setPassword}
-                    />
+                    </div>
 
-                    <FormInput id="new-password"
-                        inputType="password"
-                        label="New Password"
-                        placeholder="Enter new password"
-                        value={newPassword}
-                        onChange={setNewPassword}
-                    />
+                    <div className="right-column">
 
-                    <FormInput id="confirm_password"
-                        inputType="password"
-                        label="Confirm Password"
-                        placeholder="Enter password again"
-                        value={confirmPassword}
-                        onChange={setConfirmPassword}
-                    />
+                        <form onSubmit={handleSubmit}>
 
-                    <FormInput id="role"
-                        inputType="text"
-                        label="Role"
-                        placeholder="Enter role"
-                        value={accType}
-                        isDisabled={true}
-                        onChange={setAccType}
-                    />
+                        <FormInput id="name"
+                            inputType="text"
+                            label="Name"
+                            placeholder="Enter name"
+                            value={name}
+                            isDisabled={true}
+                            onChange={setName}
+                        />
+                        
+                        <FormInput id="email"
+                            inputType="email"
+                            label="Email"
+                            placeholder="Enter email"
+                            value={email}
+                            isDisabled={true}
+                            onChange={setEmail}
+                        />
 
-                    <br/>
+                        {/* <FormInput id="password"
+                            inputType="password"
+                            label="Password"
+                            placeholder="Enter password"
+                            value={password}
+                            onChange={setPassword}
+                        />
 
-                    <FormButton type="submit" buttonText="Save" />
+                        <FormInput id="new-password"
+                            inputType="password"
+                            label="New Password"
+                            placeholder="Enter new password"
+                            value={newPassword}
+                            onChange={setNewPassword}
+                        />
 
-                </form>
+                        <FormInput id="confirm_password"
+                            inputType="password"
+                            label="Confirm Password"
+                            placeholder="Enter password again"
+                            value={confirmPassword}
+                            onChange={setConfirmPassword}
+                        /> */}
+
+                        <FormInput id="role"
+                            inputType="text"
+                            label="Role"
+                            placeholder="Enter role"
+                            value={accType}
+                            isDisabled={true}
+                            onChange={setAccType}
+                        />
+
+                        <br/>
+
+                        <FormButton type="submit" buttonText="Save" />
+
+                        </form>
+
+                    </div>
+
+                </div>
 
                 {
                     error != null ? (
