@@ -18,16 +18,6 @@
     padding-bottom: 75px;
 }
 
-.event-name{
-    margin-top: 25px;
-    margin-bottom: 20px;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    text-align: center;
-    color: #8C3522;
-    font-weight: 600;
-}
-
 .sidebar-icons{
     font-size: larger;
     transform: translate(0%, -8%);
@@ -35,14 +25,14 @@
 
 .sidebar-icon-title{
     color: black;
-    font: bold;
+    font-family: Arial;
     font-weight: 450;
     text-decoration: none;
     cursor: pointer;
 }
 
 .sidebar-icon-title:hover{
-    font-weight: 500;
+    font-weight: 550;
 }
 
 .active-item{
@@ -60,4 +50,41 @@
 .event-sidebar{
     position: sticky;
     top: 0;
+}
+
+
+.event-page-header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+.event-page-header .event-name{
+    color: #8C3522;
+    font-weight: 600;
+    flex: 0 0 30%;
+}
+
+.event-thumbnail{
+    flex: 0 0 66%;
+    transform: translate(60%, 0%);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: flex-start; */
+}
+
+.thumbnail-image-style{
+    transform: translate(0%, -20%);
+    border: 1.5px solid black;
+    height: auto;
+    object-fit: cover;
+}
+
+.thumbnail-title{
+    transform: translate(-10%, 5%);
+    color: #8C3522;
+    font-family: Arial;
+    font-weight: 600;
 }

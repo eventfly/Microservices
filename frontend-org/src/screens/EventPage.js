@@ -10,6 +10,7 @@ import EventFeed from "./EventFeed";
 import EventStatistics from "./EventStatistics";
 import EventMember from "./EventMember";
 import AddStaff from "./AddStaff";
+import EventThumbnail from "../components/Event/EventThumbnail";
 
 import FormTitle from "../components/Form/FormTitle";
 
@@ -17,9 +18,15 @@ import {eventApi, orgApi} from '../api/axiosHook'
 
 const EventPage = () => {
     const navigate = useNavigate();
-    const location = useLocation();
+    const location = useLocation().pathname;
 
     const { eventId } = useParams();
+
+    let pageTitle = location.includes('profile') ? 'Profile' :
+                    (location.includes('discussion') ? 'Discussion' :
+                    (location.includes('statistics') ? 'Statistics' :
+                    (location.includes('members') ? 'Members' :
+                    (location.includes('staff/add') ? 'Add Staff' : '' )))) 
 
     let auth = sessionStorage.getItem('auth')
     if (auth) {
@@ -84,10 +91,21 @@ const EventPage = () => {
 
                 <div className="right-column">
 
-                    <FormTitle title={event ? event.name : null} color={'#8C3522'} fontWeight={600} />
+                    <div className="event-page-header">
+
+                        {/* <div className="event-name"> */}
+                            {/* <FormTitle title={pageTitle} color={'#8C3522'} fontWeight={600} /> */}
+                            <h2 className="event-name"> {pageTitle} </h2>
+                        {/* </div> */}
+                        <EventThumbnail 
+                            image={event ? event.banner_url : ''} 
+                            title={event ? event.name : ''} 
+                        />
+
+                    </div>
 
                     {
-                        location.pathname.includes('profile') ? (
+                        location.includes('profile') ? (
                             <EventProfile 
                                 event={event} 
                                 allTags={tags}
@@ -95,16 +113,16 @@ const EventPage = () => {
                             />
                         ) :
                         (
-                            location.pathname.includes('discussion') ? <EventFeed /> :
+                            location.includes('discussion') ? <EventFeed /> :
 
                             (
-                                location.pathname.includes('statistics') ? <EventStatistics /> :
+                                location.includes('statistics') ? <EventStatistics /> :
 
                                 (
-                                    location.pathname.includes('staff/add') ? <AddStaff /> :
+                                    location.includes('staff/add') ? <AddStaff /> :
 
                                     (
-                                        location.pathname.includes('members') ? (
+                                        location.includes('members') ? (
                                             <EventMember
                                                 organizers={[auth]} 
                                                 staffs={event ? event.staffs : null}
