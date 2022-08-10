@@ -7,11 +7,11 @@ import SubscriptionModal from "../components/Subscription/SubscriptionModal";
 
 import Quiz from "../components/Feed/Quiz/Quiz";
 import Poll from "../components/Feed/Poll/Poll";
+import PollModal from "../components/Feed/Poll/PollModal";
+import QuizModal from "../components/Feed/Quiz/QuizModal";
 
 const EventFeed = () => {
 
-    const [quizModalShow, setQuizModalShow] = useState(false);
-    const [pollModalShow, setPollModalShow] = useState(false);
 
     return ( 
 
@@ -21,27 +21,10 @@ const EventFeed = () => {
                 feed
             </h1>
 
-        
-            <Button variant="contained" color="primary" onClick={ () => setQuizModalShow(true)}> Add quiz</Button>
-            <Button variant="contained" color="primary" onClick={ () => setPollModalShow(true)}> Add poll</Button>    
-
-            <PopupModal
-                show={quizModalShow}
-                onHide={() => setQuizModalShow(false)}
-                header="New Quiz"
-                bodyComponent={<Quiz onHide={() => setQuizModalShow(false)}/>}
-                size="lg"
-                saveButtonText={"Add Quiz"}
-            />
-
-            <PopupModal
-                show={pollModalShow}
-                onHide={() => setPollModalShow(false)}
-                header="New Poll"
-                bodyComponent={<Poll onHide={() => setPollModalShow(false)}/>}
-                size="lg"
-                saveButtonText={"Add Poll"}
-            />
+            <QuizModal />
+            <PollModal />
+            
+          
         
         </>
 

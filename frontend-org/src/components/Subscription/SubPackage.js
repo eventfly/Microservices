@@ -7,6 +7,8 @@ import PopupModal from '../PopupModal';
 import SubscriptionModal from './SubscriptionModal';
 
 
+
+
 function SubPackage({headerColor}) {
 
   //useState for modal
@@ -39,6 +41,7 @@ function SubPackage({headerColor}) {
         <Button variant="success" onClick={() => setModalShow(true)}>Buy Package</Button>
         
 
+        
         <PopupModal
           show={modalShow}
           onHide={() => setModalShow(false)}

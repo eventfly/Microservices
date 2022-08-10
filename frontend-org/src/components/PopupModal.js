@@ -6,6 +6,8 @@ function PopupModal({show, onHide, size, header, bodyComponent, saveButtonText, 
   return (
     <Modal
       show={show}
+      backdrop='static'
+      keyboard='false'
       onHide={onHide}
       // size only one of these three values: 'sm' | 'lg' | 'xl'
       size={size} 

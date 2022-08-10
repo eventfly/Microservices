@@ -34,10 +34,18 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
       }
 
       const updateCorrectnessChanged = (index, value) => {
-          let newArr = [...answerList]; // copying the old datas array
-          answerList[index].radioValue = value; // replace e.target.value with whatever you want to change it to
-        
-          setAnswerList(newArr);
+
+          let correctList = answerList.filter((answer)=>{
+            return answer.radioValue === '2'
+          })
+
+          if(correctList.length == 0 || value == '1'){
+
+            let newArr = [...answerList]; // copying the old datas array
+            answerList[index].radioValue = value; // replace e.target.value with whatever you want to change it to
+            
+            setAnswerList(newArr);
+          }
         }
 
     const removeAnswer = (index) => {
@@ -85,6 +93,7 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
                                                         name="radio"
                                                         value={radio.value}
                                                         checked={answerList[index].radioValue === radio.value}
+                                                        //checked={true}
                                                         onChange={() => updateCorrectnessChanged(index, radio.value)}
                                                     >
                                                         {radio.name}
