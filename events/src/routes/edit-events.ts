@@ -36,7 +36,7 @@ router.put('/api/event/:id', [
     currentUser, requireAuth,
     async (req: Request, res: Response) => {
 
-        const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+        const event = await Event.findOneAndUpdate({"ref_id": req.params.id}, req.body, {
             new: true,
             runValidators: true
         })

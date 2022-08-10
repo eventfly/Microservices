@@ -40,8 +40,6 @@ const EventProfile = ({event, allTags, setLoading}) => {
         }
     ]
 
-    console.log("event page:", event)
-
 
     const dateFormatter = (date) => {
         return date.split(":")[0]+':'+date.split(":")[1];
@@ -72,6 +70,8 @@ const EventProfile = ({event, allTags, setLoading}) => {
     useEffect(() => {
 
         if(event){
+            console.log('event is fetching...', event);
+
             setName(event.name)
             setDescription(event.description)
 
@@ -106,22 +106,15 @@ const EventProfile = ({event, allTags, setLoading}) => {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        console.log("name: ", name);
-        console.log("description: ", description);
-
-        console.log("start date:", startDate)
-        console.log("location:", location)
-        console.log(eventType);
-        console.log(eventPrivacy);
 
         let body = {
             type: eventType,
-            start: new Date(startDate).toISOString(),
+            start_date: new Date(startDate).toISOString(),
             privacy: eventPrivacy,
             name: name,
             banner_url: event.banner_url,
-            end: new Date(endDate).toISOString(),
-            desc: description,
+            end_date: new Date(endDate).toISOString(),
+            description: description,
             tags: multiSelections.map((tag)=>{
                 return {'name': tag}
             }),
@@ -133,10 +126,11 @@ const EventProfile = ({event, allTags, setLoading}) => {
             //     sessionStorage.getItem('event_filter')
             // ]
         }
-        console.log(event);
+        console.log(body);
 
         eventApi.put(`/${event.ref_id}`, body).then((res)=>{
             console.log(res)
+            setMultiSelections([])
             setLoading(false)
         })
 

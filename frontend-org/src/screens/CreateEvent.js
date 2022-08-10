@@ -51,7 +51,7 @@ const CreateEvent = () => {
         } 
 
         async function fetchTags(){
-            if (auth && auth.ref_id && (loading == false || tags.length == 0)) {
+            if (auth && auth.ref_id && (loading == false)) {
                 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -60,9 +60,8 @@ const CreateEvent = () => {
                         tags[i] = res.data[i]
                     }
 
-                    setTags([...tags]);
                     setLoading(true)
-                    console.log("parent: ",tags)
+                    setTags([...tags]);
                 })
             }
             

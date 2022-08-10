@@ -18,7 +18,6 @@ import {eventApi, orgApi} from '../api/axiosHook'
 const EventPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location.pathname);
 
     const { eventId } = useParams();
 
@@ -35,10 +34,6 @@ const EventPage = () => {
     const [loadingMember, setLoadingMember] = useState(false);
     const [loadingProfile, setLoadingProfile] = useState(false);
 
-    window.addEventListener('pageshow', (e)=>{
-        setLoading(false)
-    })
-
 
     useEffect(() => {
         if(!auth && !token){
@@ -47,7 +42,9 @@ const EventPage = () => {
 
         async function fetchEventData(){
             if (auth && auth.ref_id && 
-                (loading == false || event == null || loadingMember == false || loadingProfile == false)) {
+                (loading == false || loadingMember == false || loadingProfile == false)) {
+
+                    console.log(loading, loadingMember, loadingProfile)
 
                 orgApi.get('/tag').then((res)=>{
                     console.log(res.data)
@@ -60,13 +57,13 @@ const EventPage = () => {
 
                     eventApi.get(`/${eventId}`).then((res)=>{
                         setEvent(res.data)
-                        setLoading(true)
-                        setLoadingMember(true)
-                        setLoadingProfile(true)
-                        
-                        console.log('event: ', event);
                     })
                 })
+
+                setLoading(true)
+                setLoadingMember(true)
+                setLoadingProfile(true)
+                setEvent(null)
             }
             
         }

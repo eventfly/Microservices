@@ -25,13 +25,15 @@ const EventList = () => {
 
     let alldata = '';
 
-    window.addEventListener('pageshow', (e)=>{
-        setLoading(false)
-    })
+    // window.addEventListener('pageshow', (e)=>{
+    //     console.log("pageshow")
+    //     setLoading(false)
+    // })
 
     useEffect(() => {
         async function fetchEvent(){
-            if (auth && auth.ref_id && (loading == false || events.length == 0)) {
+            if (auth && auth.ref_id && (loading == false)) {
+                console.log("loading", loading)
                 
                 orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
@@ -41,10 +43,12 @@ const EventList = () => {
                     }
 
                     setEvents([...events])
-                    setLoading(true)
 
                     console.log('events: ', events);
                 })
+
+                setLoading(true)
+                setEvents([])
             }
             
         }

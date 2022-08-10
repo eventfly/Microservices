@@ -21,11 +21,9 @@ const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelect
             }
 
             setTagOptions([...tagOptions])
-
             setLoading(true)
+            //console.log("tagoptions", tagOptions)
         }
-
-        console.log("tagoptions", tagOptions)
     
     }, [tagOptions, loading])
 
