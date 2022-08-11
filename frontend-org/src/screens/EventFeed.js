@@ -9,6 +9,7 @@ import Quiz from "../components/Feed/Quiz/Quiz";
 import Poll from "../components/Feed/Poll/Poll";
 import PollModal from "../components/Feed/Poll/PollModal";
 import QuizModal from "../components/Feed/Quiz/QuizModal";
+import PostModal from "../components/Feed/Post/PostModal";
 
 const EventFeed = () => {
 
@@ -23,6 +24,7 @@ const EventFeed = () => {
 
             <QuizModal />
             <PollModal />
+            <PostModal />
             
           
         
