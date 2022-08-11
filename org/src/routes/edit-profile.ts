@@ -27,59 +27,36 @@ router.put('/api/org/edit-profile', [
 
         console.log(req.body)
         const { email, name, role, profile_pic } = req.body;
-        
 
-        if(role == 'Organizer'){
-            const existingUser = await Organizer.findOne({ email })
-
-            if (!existingUser) {
-                throw new BadRequestError('Organizer doesn\'t exist')
-            } 
-            
-            else{
-                const existingUser = await Organizer.findOneAndUpdate({"email": email}, req.body, {
-                    new: true,
-                    runValidators: true
-                })
-
-                natsWrapper.client.publish('profile:edited', JSON.stringify(
-                    {
-                        name: existingUser!.name,
-                        ref_id: existingUser!.id
-                    }
-                ), () => {
-                    console.log('Edited Profile published')
-                })
-                
-                res.status(201).send({ existingUser })
-            }
+        let Model : any;
+        if (role === 'Organizer') {
+            Model = Organizer;
+        } else {
+            Model = Staff;
         }
+        
+        const existingUser = await Model.findOne({ email })
 
-
+        if (!existingUser) {
+            throw new BadRequestError(`${role} doesn\'t exist`)
+        } 
+        
         else{
-            const existingUser = await Staff.findOne({ email })
+            const existingUser = await Model.findOneAndUpdate({"email": email}, req.body, {
+                new: true,
+                runValidators: true
+            })
 
-            if (!existingUser) {
-                throw new BadRequestError('Staff doesn\'t exist')
-            } 
-
-            else{
-                const existingUser = await Staff.findOneAndUpdate({"email": email}, req.body, {
-                    new: true,
-                    runValidators: true
-                })
-
-                natsWrapper.client.publish('profile:edited', JSON.stringify(
-                    {
-                        name: existingUser!.name,
-                        ref_id: existingUser!.id
-                    }
-                ), () => {
-                    console.log('Edited Profile published')
-                })
-                
-                res.status(201).send({ existingUser })
-            }
+            natsWrapper.client.publish('profile:edited', JSON.stringify(
+                {
+                    name: existingUser!.name,
+                    ref_id: existingUser!.id
+                }
+            ), () => {
+                console.log('Edited Profile published')
+            })
+            
+            res.status(201).send({ existingUser })
         }
     }
 )
