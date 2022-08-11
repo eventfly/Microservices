@@ -15,6 +15,7 @@ import { OrgSignoutRouter } from './routes/org/signout';
 import { OrgcurrentUserRouter } from './routes/org/current-user';
 import cors from 'cors';
 import { verifyOrganizerRouter } from './routes/org/verify';
+import { changePasswordRouter } from './routes/org/change-password';
 
 const app = express()
 
@@ -44,6 +45,7 @@ app.use(OrgSigninRouter)
 app.use(OrgSignoutRouter)
 app.use(OrgcurrentUserRouter)
 app.use(verifyOrganizerRouter)
+app.use(changePasswordRouter)
 //
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
