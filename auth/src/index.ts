@@ -3,6 +3,7 @@ import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
 import { OrgCreatedListener } from './listeners/org-created-listener';
 import { StaffCreatedListener } from './listeners/staff-created-listener';
+import { ProfileEditedListener } from './listeners/profile-edited-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -46,6 +47,7 @@ const start = async () => {
     // Listen for events from the NATS Streaming server
     new OrgCreatedListener(natsWrapper.client).listen();
     new StaffCreatedListener(natsWrapper.client).listen();
+    new ProfileEditedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_AUTH}`, {
       useNewUrlParser: true,
