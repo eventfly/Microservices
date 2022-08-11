@@ -2,9 +2,10 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import image from '../images/avatar.png'
 import '../styles/PersonCard.css'
+import PasswordModal from './Profile/PasswordModal';
 
 
-const PersonCard = ({uploadImage}) => {
+const PersonCard = ({uploadImage, name, email, role}) => {
 
     const clickInputButton = (e) => {
         document.getElementById("uploadDP").click();
@@ -33,15 +34,18 @@ const PersonCard = ({uploadImage}) => {
                 <Card.Body style={{
                     marginTop: '30px'
                 }}>
-                    <Card.Title>Card Title</Card.Title>
+                    <Card.Title>{name}</Card.Title>
                     <Card.Text>
-                    nishan.tan.2017@gmail.com
+                    {email}
                     </Card.Text>
                 </Card.Body>
 
 
                 <Card.Body>
-                    <Card.Link href="#">Change Password</Card.Link>
+                    {/* <Card.Link href="#">Change Password</Card.Link> */}
+
+                    <PasswordModal email={email} role={role}/>
+
                 </Card.Body>
 
             </Card>

@@ -9,6 +9,7 @@ import PersonCard from '../components/PersonCard';
 
 import { useState, useEffect } from 'react'
 import {authApi} from '../api/axiosHook'
+import MapNew from '../components/Event/MapNew';
 
 import "../styles/Profile.css"
 
@@ -60,40 +61,12 @@ const Profile = () => {
     }, [auth, email, loading])
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = (e) => {}
 
-        if(newPassword != confirmPassword){
-            console.log("doesn't match")
-        }
-
-        else{
-            console.log("matched")
-
-            let profileData = {
-                email: email,
-                password: password,
-                newPassword: newPassword,
-                role: accType
-            }
-
-            console.log("profile data: ", profileData)
-
-            authApi.post('/verify', profileData)
-            .then(res => {
-                console.log(res)
-                
-                // Stores the JWT token in the browser's local storage
-                window.localStorage.setItem('token', res.data.token);
-                window.sessionStorage.setItem('auth', JSON.stringify(res.data.existingUser));
-                navigate('/')
-
-            }).catch(err => {
-                console.log(err)
-                setError(err.response.data.errors[0].message);
-            })
-        }
-    }
+    const mapIsReadyCallback = (map) => {
+        //var lngLat = map.getLngLat();
+        //console.log('Longitude: ' + lngLat.lng + ', Latitude: ' + lngLat.lat )
+      };
 
 
     return ( 
@@ -108,7 +81,8 @@ const Profile = () => {
 
                     <div className="left-column">
                         
-                        <PersonCard />
+                        <PersonCard name={name} email={email} role={accType} />
+                        {/* <MapNew mapIsReadyCallback={mapIsReadyCallback}/> */}
 
                     </div>
 
