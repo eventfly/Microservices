@@ -12,7 +12,6 @@ const EventThumbnail = ({image, title}) => {
                         src={image} 
                         thumbnail={true}
                         width={'65%'}
-                        responsive
                         roundedCircle={true}
                         fluid={true}
                         className="thumbnail-image-style"

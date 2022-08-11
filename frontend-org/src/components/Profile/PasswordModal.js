@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FormInput from '../Form/FormInput';
 import PopupModal from '../PopupModal';
 import { Button } from "react-bootstrap";
-import {authApi, orgApi} from '../../api/axiosHook'
+import {authApi} from '../../api/axiosHook'
 
 
 const PasswordModal = ({email, role}) => {
@@ -30,14 +30,14 @@ const PasswordModal = ({email, role}) => {
             let profileData = {
                 email: email,
                 password: password,
-                new_Password: newPassword,
+                new_password: newPassword,
                 role: role
             }
 
             console.log("profile data: ", profileData)
 
-            if(auth.is_verified == true){
-                orgApi.put('/change-password', profileData)
+            if(auth.role == 'Organizer' || auth.is_verified == true){
+                authApi.put('/change-password', profileData)
                 .then(res => {
                     console.log(res)
                     setModalShow(false)
