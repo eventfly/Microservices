@@ -43,9 +43,7 @@ function SubPackage({headerColor}) {
         
         <SubscriptionModal />
 
-        <PollModal />
-        <QuizModal />
-        
+       
 
       </Card.Body>
     </Card>

@@ -18,15 +18,11 @@ function CarouselFadeExample({quizset, setQuizset}) {
   const ref = useRef(null);
 
   const onPrevClick = () => {
-    console.log('prevving new')
     ref.current.prev();
-    console.log(ref.current)
   }
 
   const onNextClick = () => {
-    console.log('nexting')
     ref.current.next();
-    console.log(ref.current)
   }
 
 

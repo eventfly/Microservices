@@ -29,7 +29,7 @@ const QuizModal = () => {
 
         for(let i = 0; i < quizset.length; i++){
             if(quizset[i].question === ''){
-                alert('Please enter a question for each question')
+                alert(`Please don\'t leave question ${i+1} empty`)
                 return;
             }
             if(quizset[i].answerList.length === 0){
