@@ -15,7 +15,7 @@ interface OrgAttrs {
     name: string;
     events?: Types.DocumentArray<EventDoc>;
     role: string;
-
+    profile_pic?: string;
 }
 
 interface OrgDoc extends mongoose.Document {
@@ -24,7 +24,7 @@ interface OrgDoc extends mongoose.Document {
     name: string;
     events?: Types.DocumentArray<EventDoc>;
     role: string;
-
+    profile_pic?: string;
 }
 
 interface OrgModel extends mongoose.Model<OrgDoc> {
@@ -67,6 +67,10 @@ const orgSchema = new mongoose.Schema(
         role: {
             type: String,
             required: true
+        },
+        profile_pic: {
+            type: String,
+            required: false
         }
 
     },

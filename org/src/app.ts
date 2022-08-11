@@ -12,6 +12,7 @@ import { createStaffRouter } from './routes/create-staff';
 import { getEventRouter } from './routes/get-event';
 import { createTagRouter } from './routes/create-tag';
 import { getTagsRouter } from './routes/get-tags';
+import { editProfileRouter } from './routes/edit-profile';
 
 
 const app = express()
@@ -35,6 +36,7 @@ app.use(createStaffRouter)
 app.use(getEventRouter)
 app.use(createTagRouter)
 app.use(getTagsRouter)
+app.use(editProfileRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
