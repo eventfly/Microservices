@@ -53,8 +53,21 @@ router.put('/api/org/edit-profile', [
                     ref_id: existingUser!.id
                 }
             ), () => {
-                console.log('Edited Profile published')
+                console.log('Edited Profile published to auth')
             })
+
+            if(role == 'staff'){
+                natsWrapper.client.publish('staffProfile:edited', JSON.stringify(
+                    {
+                        name: existingUser!.name,
+                        profile_pic: existingUser!.profile_pic,
+                        events: existingUser!.events,
+                        staffId: existingUser!.id
+                    }
+                ), () => {
+                    console.log('Edited Profile published to event')
+                })
+            }
             
             res.status(201).send({ existingUser })
         }
