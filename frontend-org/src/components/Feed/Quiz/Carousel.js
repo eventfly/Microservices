@@ -1,98 +1,109 @@
 import Carousel from 'react-bootstrap/Carousel';
-import {Row,Stack,Container,Button} from 'react-bootstrap'
-import { useRef } from 'react';
+import {Row,Col,Container,Button} from 'react-bootstrap'
+import { useState, useRef } from 'react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai'
+import {RiDeleteBack2Fill} from 'react-icons/ri'
+import {HiDocumentAdd} from 'react-icons/hi'
+import Quiz from './Quiz';
+
 import '../../../styles/Carousel.css'
 
-function CarouselFadeExample({bodyComponent}) {
+function CarouselFadeExample({quizset, setQuizset}) {
 
-    const radios = [
-        { name: 'Incorrect', value: '1' },
-        { name: 'Correct', value: '2' },
-        { name: 'Incorrect', value: '1' },
-        { name: 'Correct', value: '2' },
-        { name: 'Incorrect', value: '1' },
-        { name: 'Correct', value: '2' },
-        { name: 'Incorrect', value: '1' },
-        { name: 'Correct', value: '2' },
-      ];
-  
-    //   const ref = useRef(null);
+  const iconStyle = {
+    fontSize: 'xx-large',
+    cursor: 'pointer'
+  }
 
-      const onPrevClick = () => {
-        console.log('prevving new')
-        // ref.current.prev();
-      };
-      const onNextClick = () => {
-        console.log('nexting')
-        // ref.current.next();
-      };
+  const ref = useRef(null);
 
-    const handleclick = () => {
-        
-    }
+  const onPrevClick = () => {
+    console.log('prevving new')
+    ref.current.prev();
+    console.log(ref.current)
+  }
+
+  const onNextClick = () => {
+    console.log('nexting')
+    ref.current.next();
+    console.log(ref.current)
+  }
 
 
-      const directionButtons = (direction) => {
-        return (
-          <span onClick={handleclick}
-            aria-hidden="true"
-            className={direction === "Next" ? "button-next" : "button-prev"}
-          >
-            {direction}
-          </span>
-        );
-      };
-    
-      return (
-        <>
-        
+  const handleAddQuestion = () => {
+    let newQuizset = [...quizset, {question:'', answerList:[{answer:'',radioValue:'1'}]}]
+    setQuizset(newQuizset)
+    setTimeout(() => {
+      ref.current.next();
+    }, 100);
+  }
+
+  const handleDeleteQuestion = (index) => {
+    console.log(index)
+    let newArr = [...quizset]; // copying the old datas array
+    newArr.splice(index, 1); // remove the element at index
+    setQuizset(newArr);
+    ref.current.prev();
+    alert('deleted')
+  }
+
+
+    return (
+      <>
+        <div className="quiz-carousel-frontback">
+          <AiOutlineArrowLeft style={iconStyle} onClick={onPrevClick} />
+          <AiOutlineArrowRight style={iconStyle} onClick={onNextClick} />
+        </div>
+      
         <div className="container-fluid">
-
-          <Carousel
-          interval={null}
-        //   ref={ref}
-          prevIcon={<AiOutlineArrowLeft  onClick={onPrevClick} className="left-slider"/>}
-          nextIcon={<AiOutlineArrowRight onClick={onNextClick} className="right-slider"/>}
-          indicators={false}
+          <Carousel variant='dark'
+            ref={ref}
+            interval={null}
+            indicators={false}
+            wrap={false}
           >
-            {/* {
-                radios.map((radio, index) => {
-                    return (
-                        <Carousel.Item interval={1000}>
-                                <div style={{
-                                                    height:'300px',
-                                                    width:'300px',
-                                                    backgroundColor:'red',
-
-                                                }}
-                                                >
-                                                {index}
-
-                                                </div>
-                            </Carousel.Item>
-                       
-                        
-                        
-                    )
-                })
-            } */}
+            
             {
-            radios.map((radio, index) => {
-                return (
-                    <Carousel.Item id={`quiz-question-${index}`} key={index}>
-                    <div className='carousel-body-component'>
-            {bodyComponent}
-            </div>
-            </Carousel.Item>
-                )
+              quizset.map((q, index) => {
+                  //
+                  return (
+                      <Carousel.Item id={`quiz-question-${index}`} key={index}>
+                        <div className='quiz-carousel-body-component'>
+                          <Container style={{border:'none'}}>
+                            <Row>
+                              <Col xs={{span:10}}>
+                                <Quiz index={index} quizset={quizset} setQuizset={setQuizset} />
+                              </Col>
+
+                              <Col xs={{offset:1, span:1}} className='quiz-carousel-addremove'>
+                                  {
+                                    index===quizset.length-1? (
+                                      <HiDocumentAdd style={iconStyle} onClick={handleAddQuestion} />
+                                    )
+                                    :(<></>)
+                                  }
+
+                                  {
+                                    quizset.length===1? (<></>)
+                                    :(
+                                      <RiDeleteBack2Fill style={iconStyle} onClick={()=>handleDeleteQuestion(index)} />
+                                    )
+                                  }
+                              </Col>
+                            </Row>
+                            
+                          </Container>
+
+                        </div>
+                      </Carousel.Item>
+                  )
+              })
             }
-            )}
     
-    </Carousel>
-    </div>
-    </>
-      );
+          </Carousel>
+        </div>
+      </>
+    );
 }
 
 export default CarouselFadeExample;

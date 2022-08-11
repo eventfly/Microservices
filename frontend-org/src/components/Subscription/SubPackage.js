@@ -3,16 +3,16 @@ import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 
-import PopupModal from '../PopupModal';
 import SubscriptionModal from './SubscriptionModal';
+
+import PollModal from '../Feed/Poll/PollModal';
+import QuizModal from '../Feed/Quiz/QuizModal'
 
 
 
 
 function SubPackage({headerColor}) {
 
-  //useState for modal
-  const [modalShow, setModalShow] = useState(false);
 
   return (
     <Card className="text-center subpackage">
@@ -38,18 +38,14 @@ function SubPackage({headerColor}) {
         </ul>
         
         
-        <Button variant="success" onClick={() => setModalShow(true)}>Buy Package</Button>
         
 
         
-        <PopupModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          header="Buy Package"
-          bodyComponent={<SubscriptionModal />}
-          saveButtonText={"Checkout"}
-          size="lg"
-        />
+        <SubscriptionModal />
+
+        <PollModal />
+        <QuizModal />
+        
 
       </Card.Body>
     </Card>

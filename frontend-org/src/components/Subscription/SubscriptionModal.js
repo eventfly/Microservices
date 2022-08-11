@@ -7,14 +7,23 @@ import Button from 'react-bootstrap/Button';
 import {useState} from 'react';
 
 import FormInput from '../Form/FormInput';
+import PopupModal from '../PopupModal';
+
 
 
 const SubscriptionModal = () => {
 
+    //useState for modal
+    const [modalShow, setModalShow] = useState(false);
+
     const [creditCardNumber, setCreditCardNumber] = useState('');
     const [nameOnCard, setNameOnCard] = useState('');
 
-    return (
+    const handleBuy = () => {
+        console.log('bought');
+    }
+
+    const subscriptionJSX = (
         <Container className="p-3" style={{border:'none'}}>
           <Row>
             <Col xs={5}>
@@ -50,6 +59,24 @@ const SubscriptionModal = () => {
           </Row>
         </Container>
     );
+
+    return (
+        <>
+            <Button variant="success" onClick={() => setModalShow(true)}>Buy Package</Button>
+
+            <PopupModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                header="Buy Package"
+                bodyComponent={subscriptionJSX}
+                saveButtonText={"Checkout"}
+                size="lg"
+                saveBUttonAction={handleBuy}
+            />
+
+        </>
+
+    )
 }
  
 export default SubscriptionModal;

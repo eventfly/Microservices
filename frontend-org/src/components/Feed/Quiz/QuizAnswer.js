@@ -13,7 +13,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import Form from 'react-bootstrap/Form';
 import {BsTrash} from 'react-icons/bs';
 
-const QuizAnswer = ({answerList, setAnswerList}) => {
+const QuizAnswer = ({quizIndex,answerList, setAnswerList}) => {
 
 
     const radios = [
@@ -23,7 +23,9 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
 
 
     const addNewAnswer = () => {
-        setAnswerList(answerList => [...answerList, {answer:'', radioValue:'1'}]);
+        let newAnswerList = [...answerList, {answer:'', radioValue:'1'}];
+        setAnswerList(newAnswerList);
+        // setAnswerList(answerList => [...answerList, {answer:'', radioValue:'1'}]);
     }
 
     const updateAnswerChanged = (index, value) => {
@@ -62,7 +64,7 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
                     marginBottom: "10px",
                     fontSize: "20px",
                     fontWeight: 'bold',
-            }}>Answers</p>
+            }}>Options</p>
         {
             answerList.map((item, index) => {
                 return (
@@ -87,7 +89,7 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
 
                                                     <ToggleButton
                                                         key={idx}
-                                                        id={`radio-${idx}-${index}`}
+                                                        id={`radio-${idx}-${index}-${quizIndex}`}
                                                         type="radio"
                                                         variant={idx % 2 ? 'outline-success' : 'outline-danger'}
                                                         name="radio"
@@ -116,7 +118,7 @@ const QuizAnswer = ({answerList, setAnswerList}) => {
             })
         }
             
-            <Button variant="success" onClick={addNewAnswer}>+ Add Options</Button>
+            <Button variant="success" onClick={addNewAnswer}>+ Add Option</Button>
         </div>
      );
 }

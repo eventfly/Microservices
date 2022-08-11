@@ -28,7 +28,7 @@ const PollModal = () => {
         console.log(newPoll);
     }
 
-    const polljsx = (
+    const pollJSX = (
         <Stack gap={4}>
             <div>
                 <FormInput 
@@ -72,7 +72,7 @@ const PollModal = () => {
                 onHide={() => setPollModalShow(false)}
                 header="New Poll"
                 // bodyComponent={<Poll onHide={() => setPollModalShow(false)}/>}
-                bodyComponent={polljsx}
+                bodyComponent={pollJSX}
                 size="lg"
                 saveButtonText={"Add Poll"}
                 saveButtonAction={handleSubmit}
