@@ -9,9 +9,9 @@ const Subscription = () => {
                 <p style={{marginTop: "1.4rem"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius orci non eros convallis auctor. Nam aliquam tortor a justo mattis, in efficitur justo vestibulum. Ut tem</p>
             </div>
             <div className="package-container">
-                <SubPackage headerColor="salmon"/>
-                <SubPackage headerColor="teal"/>
-                <SubPackage headerColor="navy"/>
+                <SubPackage headerColor="salmon" isBuyOptionAvailable={true}/>
+                <SubPackage headerColor="teal" isBuyOptionAvailable={true}/>
+                <SubPackage headerColor="navy" isBuyOptionAvailable={true}/>
             </div>
         </div>
      );

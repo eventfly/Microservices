@@ -1,10 +1,9 @@
-const DatePicker = ({label,defaultDate, onChange}) => {
+const DatePicker = ({label,defaultDate,onChange,isDisabled}) => {
     return ( 
         <>        
             <div className='Date'>
                 <div >
                     <label htmlFor={"start_date"}>{label}</label>
-                    <br></br><br></br>
                     <input 
                         type='datetime-local' 
                         className={"form-control"} 
@@ -13,6 +12,7 @@ const DatePicker = ({label,defaultDate, onChange}) => {
                         value={defaultDate}
                         onChange={e=> onChange(e.target.value)} 
                         style={{height: '50px'}}
+                        disabled={isDisabled}
                     />
                 </div>
             </div>

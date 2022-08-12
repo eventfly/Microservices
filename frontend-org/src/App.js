@@ -18,6 +18,7 @@ import Subscription from './screens/Subscription';
 import EventPage from './screens/EventPage';
 import Profile from './screens/Profile';
 import PopupModal from './components/PopupModal';
+import BillingDetails from './components/Profile/OrgProfileMenu/BillingDetails';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -80,6 +81,7 @@ function App() {
           <Route path="/sub" element={<Subscription />}/>
           <Route path="/event/:eventId/*" element={<EventPage />}/>
           <Route path="/profile" element={<Profile />}/>
+          <Route path="/profile/billing" element={<BillingDetails />}/>
 
         </Routes>
 

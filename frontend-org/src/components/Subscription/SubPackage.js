@@ -11,7 +11,7 @@ import QuizModal from '../Feed/Quiz/QuizModal'
 
 
 
-function SubPackage({headerColor}) {
+function SubPackage({headerColor,isBuyOptionAvailable}) {
 
 
   return (
@@ -40,8 +40,11 @@ function SubPackage({headerColor}) {
         
         
 
+        {
+          isBuyOptionAvailable ? <SubscriptionModal />
+          : <></>
+        }
         
-        <SubscriptionModal />
 
        
 
