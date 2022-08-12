@@ -6,7 +6,7 @@ import FormTitle from "../components/Form/FormTitle";
 import FormButton from '../components/Form/FormButton';
 import '../styles/AddStaff.css'
 import AddSingleStaff from "../components/Member/AddSingleStaff";
-import {orgApi} from '../api/axiosHook'
+import {getOrgApi} from '../api/axiosHook'
 import ErrorPopup from "../components/ErrorPopup";
 
 const AddStaff = () => {
@@ -110,7 +110,7 @@ const AddStaff = () => {
 
             if(status[i] != "success"){
 
-                orgApi.post('/staff', allStaffs[i]).then(res => {
+                getOrgApi(localStorage.getItem('token')).post('/staff', allStaffs[i]).then(res => {
                     console.log(res)
                     status[i] = 'success'
                     setStatus([

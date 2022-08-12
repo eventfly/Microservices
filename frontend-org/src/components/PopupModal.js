@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
-function PopupModal({show, onHide, size, header, bodyComponent, saveButtonText, saveButtonAction}) {
+function PopupModal({show, onHide, size, header, bodyComponent, saveButtonText, saveButtonAction, willDelete}) {
   return (
     <Modal
       show={show}
@@ -14,7 +14,7 @@ function PopupModal({show, onHide, size, header, bodyComponent, saveButtonText, 
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton style={{backgroundColor:'rgb(187, 241, 187)', borderBottom: '2px solid green'}}>
+      <Modal.Header closeButton style={{backgroundColor:'#2591FE', border: '2px solid #2591FE'}}>
         <Modal.Title id="contained-modal-title-vcenter" style={{textAlign:'center',width:'100%'}}>
           {header}
         </Modal.Title>
@@ -24,7 +24,7 @@ function PopupModal({show, onHide, size, header, bodyComponent, saveButtonText, 
       </Modal.Body>
       <Modal.Footer>
         <div className="d-grid gap-3 d-md-flex justify-content-md-start">
-          <Button onClick={saveButtonAction} variant="success">
+          <Button onClick={saveButtonAction} variant={willDelete == true ? "danger" : "success"}>
               {saveButtonText}  
           </Button>
           <Button onClick={onHide}>Close</Button>

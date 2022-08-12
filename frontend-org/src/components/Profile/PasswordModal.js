@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FormInput from '../Form/FormInput';
 import PopupModal from '../PopupModal';
 import { Button } from "react-bootstrap";
-import {authApi} from '../../api/axiosHook'
+import {getAuthApi} from '../../api/axiosHook'
 
 
 const PasswordModal = ({email, role}) => {
@@ -37,7 +37,7 @@ const PasswordModal = ({email, role}) => {
             console.log("profile data: ", profileData)
 
             if(auth.role == 'Organizer' || auth.is_verified == true){
-                authApi.put('/change-password', profileData)
+                getAuthApi(localStorage.getItem('token')).put('/change-password', profileData)
                 .then(res => {
                     console.log(res)
                     setModalShow(false)
@@ -45,13 +45,13 @@ const PasswordModal = ({email, role}) => {
                     setNewPassword('')
                     setConfirmPassword('')
 
-                }).catch(err => {
-                    console.log(err)
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
                 })
             }
 
             else{
-                authApi.put('/verify', profileData)
+                getAuthApi(localStorage.getItem('token')).put('/verify', profileData)
                 .then(res => {
                     console.log(res)
                     setModalShow(false)
@@ -60,8 +60,8 @@ const PasswordModal = ({email, role}) => {
                     setConfirmPassword('')
                     window.sessionStorage.setItem('auth', JSON.stringify(res.data.existingUser));
 
-                }).catch(err => {
-                    console.log(err)
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
                 })
             }
         }

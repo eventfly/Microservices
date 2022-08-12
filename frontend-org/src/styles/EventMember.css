@@ -23,27 +23,6 @@
     margin-left: 1rem;
 }
 
-.role-container{
-    background-color: white;
-    min-height: inherit;
-    margin-top: 1rem;
-    border-radius: 0.7rem;  
-    padding: 1rem 1rem;
-    width: 100%;
-}
-
-.role-container-header{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    /* justify-content: space-between; */
-}
-
-.role-container-header h3{
-    flex: 0 0 10%;
-    margin-right: 3%;
-}
-
 
 .person-container{
     display: flex;
@@ -122,13 +101,36 @@
 }
 
 
+
+.role-container{
+    background-color: white;
+    min-height: inherit;
+    margin-top: 1rem;
+    border-radius: 0.7rem;  
+    padding: 1rem 1rem;
+    width: 100%;
+}
+
+.role-container-header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 60px;
+}
+
+.role-container-header h3{
+    flex: 0 0 10%;
+    margin-right: 3%;
+}
+
+
 .role-header{
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding: 0 1rem;
     margin-top: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .role-header h2{
@@ -151,11 +153,27 @@
     transform: translate(0%, -10%);
     cursor: pointer;
     color: #8C3522;
+    margin-right: 50px;
+    margin-left: 25%;
 }
 .add-member-icon:hover{
     color: blue;
 }
 
-.add-role-modal{
-    margin-bottom: 20px;
+.edit-role-icon{
+    font-size: x-large;
+    transform: translate(-50%, -10%);
+    cursor: pointer;
+}
+.edit-role-icon:hover{
+    color: blue;
+}
+
+.delete-role-icon{
+    font-size: larger;
+    transform: translate(-30%, -10%);
+    cursor: pointer;
+}
+.delete-role-icon:hover{
+    color: red;
 }
