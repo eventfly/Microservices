@@ -4,7 +4,7 @@ import {Form} from 'react-bootstrap'
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
-const AutoComplete = ({options, multiSelections, setMultiSelections}) => {
+const AutoComplete = ({label, placeholder, options, multiSelections, setMultiSelections}) => {
 
     return ( 
         <>
@@ -12,14 +12,14 @@ const AutoComplete = ({options, multiSelections, setMultiSelections}) => {
             <Fragment>
 
                 <Form.Group style={{ marginTop: '20px' }}>
-                    <Form.Label className="label">Event Tags</Form.Label>
+                    <Form.Label className="label">{label}</Form.Label>
                     <Typeahead
                         id="basic-typeahead-multiple"
                         labelKey="name"
                         multiple
                         onChange={setMultiSelections}
                         options={options}
-                        placeholder="Choose several tags"
+                        placeholder={placeholder}
                         selected={multiSelections}
                     />
 

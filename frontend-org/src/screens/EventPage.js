@@ -129,7 +129,7 @@ const EventPage = () => {
                                     (
                                         location.includes('members') ? (
                                             <EventMember
-                                                organizers={[auth]} 
+                                                managers={[auth]} 
                                                 staffs={event ? event.staffs : null}
                                                 setLoading={setLoadingMember}
                                             />

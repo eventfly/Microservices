@@ -53,6 +53,8 @@ const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelect
 
 
                 <AutoComplete
+                    label={'Event Tags'}
+                    placeholder={'Choose several tags'}
                     options={tagOptions}
                     multiSelections={multiSelections}
                     setMultiSelections={setMultiSelections} 

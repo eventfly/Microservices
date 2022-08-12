@@ -56,8 +56,8 @@ const EventProfile = ({event, allTags, setLoading}) => {
     const [endDate, setEndDate] = useState(dateFormatter("2018-06-12T19:30:00.000Z"));
 
     const [ticketPrice, setTicketPrice] = useState(110);
-    const [eventType, setEventType] = useState(eventTypeOptions[1].name);
-    const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[0].name);
+    const [eventType, setEventType] = useState('');
+    const [eventPrivacy, setEventPrivacy] = useState('');
 
     const [tagOptions, setTagOptions] = useState([]);
     const [multiSelections, setMultiSelections] = useState([]);
@@ -174,6 +174,8 @@ const EventProfile = ({event, allTags, setLoading}) => {
                     <br />
 
                     <AutoComplete
+                        label={'Event Tags'}
+                        placeholder={'Choose several tags'}
                         options={tagOptions}
                         multiSelections={multiSelections}
                         setMultiSelections={setMultiSelections} 
