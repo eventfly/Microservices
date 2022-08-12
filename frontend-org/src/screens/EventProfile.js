@@ -12,7 +12,7 @@ import Map from "../components/Event/Map";
 import DatePicker from "../components/Event/DatePicker";
 import AutoComplete from "../components/AutoComplete";
 import EventCard from "../components/Event/EventCard";
-import {eventApi} from '../api/axiosHook'
+import {getEventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
@@ -128,10 +128,12 @@ const EventProfile = ({event, allTags, setLoading}) => {
         }
         console.log(body);
 
-        eventApi.put(`/${event.ref_id}`, body).then((res)=>{
+        getEventApi(localStorage.getItem('token')).put(`/${event.ref_id}`, body).then((res)=>{
             console.log(res)
             setMultiSelections([])
             setLoading(false)
+        }).catch((err)=>{
+            console.log(err.response.data.errors)
         })
 
     }

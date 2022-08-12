@@ -8,7 +8,6 @@ import ErrorPopup from "../components/ErrorPopup";
 import PersonCard from '../components/PersonCard';
 
 import { useState, useEffect } from 'react'
-import {authApi} from '../api/axiosHook'
 import StaffProfile from '../components/Profile/StaffProfile';
 import OrgProfile from '../components/Profile/OrgProfile';
 

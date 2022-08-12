@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import StaffOptions from "./StaffOptions";
 import {useParams, useNavigate} from 'react-router-dom'
 import {MdOutlinePersonAdd} from 'react-icons/md'
-import {eventApi} from '../../api/axiosHook'
+import {getEventApi} from '../../api/axiosHook'
 
 
 const Role = ({roleType, members, setLoading}) => {
@@ -21,13 +21,13 @@ const Role = ({roleType, members, setLoading}) => {
             ref_id: ref_id
         }
 
-        eventApi.post(`/${eventId}/remove-staff`, body).then(res => {
+        getEventApi(localStorage.getItem('token')).post(`/${eventId}/remove-staff`, body).then(res => {
             console.log(res)
             setLoading(false)
             // navigate(`/event/${eventId}/members`)
 
-        }).catch(err => {
-            console.log(err)
+        }).catch((err)=>{
+            console.log(err.response.data.errors)
         })
     }
 

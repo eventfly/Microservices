@@ -14,7 +14,7 @@ import EventThumbnail from "../components/Event/EventThumbnail";
 
 import FormTitle from "../components/Form/FormTitle";
 
-import {eventApi, orgApi} from '../api/axiosHook'
+import {getEventApi, getOrgApi} from '../api/axiosHook'
 
 const EventPage = () => {
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ const EventPage = () => {
 
                     console.log(loading, loadingMember, loadingProfile)
 
-                orgApi.get('/tag').then((res)=>{
+                getOrgApi(localStorage.getItem('token')).get('/tag').then((res)=>{
                     console.log(res.data)
 
                     for(let i = 0; i < res.data.length; i++){
@@ -62,9 +62,14 @@ const EventPage = () => {
 
                     setTags([...tags]);
 
-                    eventApi.get(`/${eventId}`).then((res)=>{
+                    getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
                         setEvent(res.data)
+                    }).catch((err)=>{
+                        console.log(err.response.data.errors)
                     })
+                })
+                .catch((err)=>{
+                    console.log(err.response.data.errors)
                 })
 
                 setLoading(true)

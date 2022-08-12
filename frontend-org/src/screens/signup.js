@@ -6,7 +6,7 @@ import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 import { useState } from 'react'
 import ErrorPopup from "../components/ErrorPopup";
-import {orgApi} from '../api/axiosHook'
+import {getOrgApi} from '../api/axiosHook'
 
 import '../styles/Form.css'
 
@@ -49,7 +49,7 @@ const Signup = () => {
         console.log(account)
 
 
-        orgApi.post('/', account).then(res => {
+        getOrgApi('').post('/', account).then(res => {
             localStorage.setItem('token', res.data.token);
             navigate('/')
         

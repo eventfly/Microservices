@@ -7,7 +7,7 @@ import ErrorPopup from "../ErrorPopup";
 import PersonCard from '../PersonCard';
 
 import { useState, useEffect } from 'react'
-import {orgApi} from '../../api/axiosHook'
+import {getOrgApi} from '../../api/axiosHook'
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
@@ -50,16 +50,16 @@ const StaffProfile = () => {
 
             console.log(auth.ref_id)
 
-            orgApi.get(`/${auth.ref_id}`).then((res)=>{
+            getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}`).then((res)=>{
                 console.log(res.data)
                 setProfileImage(res.data.existingUser.profile_pic)
 
                 auth.profile_pic = res.data.existingUser.profile_pic
                 window.sessionStorage.setItem('auth', JSON.stringify(auth));
 
-            }).catch(err => {
-                console.log(err)
-            })
+            }).catch((err)=>{
+                console.log(err.response.data.errors)
+              })
             
         }
 
@@ -114,7 +114,7 @@ const StaffProfile = () => {
 
         console.log('editedProfile', editedProfile)
 
-        orgApi.put('/edit-profile', editedProfile)
+        getOrgApi(localStorage.getItem('token')).put('/edit-profile', editedProfile)
         .then(res => {
             console.log(res)
 
@@ -124,8 +124,8 @@ const StaffProfile = () => {
 
             setLoading(false)
 
-        }).catch(err => {
-            console.log(err)
+        }).catch((err)=>{
+            console.log(err.response.data.errors)
         })
     }
 

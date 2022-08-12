@@ -6,7 +6,7 @@ import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
 
 import "../styles/CreateEvent.css"
-import {orgApi} from '../api/axiosHook'
+import {getOrgApi} from '../api/axiosHook'
 import ErrorPopup from "../components/ErrorPopup";
 
 
@@ -53,7 +53,7 @@ const CreateEvent = () => {
         async function fetchTags(){
             if (auth && auth.ref_id && (loading == false)) {
                 
-                orgApi.get('/tag').then((res)=>{
+                getOrgApi(localStorage.getItem('token')).get('/tag').then((res)=>{
                     console.log(res.data)
 
                     for(let i = 0; i < res.data.length; i++){
@@ -62,7 +62,9 @@ const CreateEvent = () => {
 
                     setLoading(true)
                     setTags([...tags]);
-                })
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
+                  })
 
                 setLoading(true)
                 setTags([])
@@ -131,7 +133,7 @@ const CreateEvent = () => {
 
         console.log(event)
 
-        orgApi.post('/event', event).then(res => {
+        getOrgApi(localStorage.getItem('token')).post('/event', event).then(res => {
             console.log(res)
             navigate('/')
 

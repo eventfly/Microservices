@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
 import { useNavigate} from 'react-router-dom';
 
-import {orgApi} from '../api/axiosHook'
+import {getOrgApi} from '../api/axiosHook'
 
 
 
@@ -35,7 +35,7 @@ const EventList = () => {
             if (auth && auth.ref_id && (loading == false)) {
                 console.log("loading", loading)
                 
-                orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
+                getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
 
                     for(let i = 0; i < res.data.length; i++){
@@ -45,7 +45,9 @@ const EventList = () => {
                     setEvents([...events])
 
                     console.log('events: ', events);
-                })
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
+                  })
 
                 setLoading(true)
                 setEvents([])
