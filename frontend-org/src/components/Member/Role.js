@@ -5,6 +5,7 @@ import {MdOutlinePersonAdd} from 'react-icons/md'
 import {getEventApi} from '../../api/axiosHook'
 import { Button } from "react-bootstrap";
 import {BiPencil} from 'react-icons/bi'
+import DeleteRoleModal from "./DeleteRoleModal";
 
 
 const Role = ({roleType, members, setLoading}) => {
@@ -41,6 +42,8 @@ const Role = ({roleType, members, setLoading}) => {
                 <h3>{roleType}</h3>
 
                 <BiPencil className="edit-role-icon" />
+                <DeleteRoleModal />
+                
 
                 <Link to={`/event/${eventId}/staff/add`}>
                     <MdOutlinePersonAdd className="add-member-icon" />

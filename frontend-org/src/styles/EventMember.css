@@ -154,6 +154,7 @@
     cursor: pointer;
     color: #8C3522;
     margin-right: 50px;
+    margin-left: 25%;
 }
 .add-member-icon:hover{
     color: blue;
@@ -161,5 +162,18 @@
 
 .edit-role-icon{
     font-size: x-large;
-    transform: translate(-50%, -8%);
+    transform: translate(-50%, -10%);
+    cursor: pointer;
+}
+.edit-role-icon:hover{
+    color: blue;
+}
+
+.delete-role-icon{
+    font-size: larger;
+    transform: translate(-30%, -10%);
+    cursor: pointer;
+}
+.delete-role-icon:hover{
+    color: red;
 }
