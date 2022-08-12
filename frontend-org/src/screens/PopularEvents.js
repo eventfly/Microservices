@@ -2,7 +2,7 @@ import EventTable from "../components/EventTable";
 import { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { orgApi } from "../api/axiosHook";
+import { getOrgApi } from "../api/axiosHook";
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -32,7 +32,7 @@ const PopularEvents = () => {
         async function fetchEvent(){
             if (auth && auth.ref_id && (loading == false || events.length == 0)) {
                 
-                orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
+                getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
 
                     for(let i = 0; i < res.data.length; i++){
@@ -43,6 +43,8 @@ const PopularEvents = () => {
                     setLoading(true)
 
                     console.log('events: ', events);
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
                 })
             }
             

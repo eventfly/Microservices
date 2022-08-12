@@ -2,13 +2,18 @@ import {Link} from "react-router-dom";
 import StaffOptions from "./StaffOptions";
 import {useParams, useNavigate} from 'react-router-dom'
 import {MdOutlinePersonAdd} from 'react-icons/md'
-import {eventApi} from '../../api/axiosHook'
+import {getEventApi} from '../../api/axiosHook'
+import { Button } from "react-bootstrap";
+import {BiPencil} from 'react-icons/bi'
+import DeleteRoleModal from "./DeleteRoleModal";
 
 
 const Role = ({roleType, members, setLoading}) => {
 
     const { eventId } = useParams();
     const navigate = useNavigate();
+
+    const permissions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
 
     const handleEdit = () => {
         console.log("e")
@@ -21,13 +26,13 @@ const Role = ({roleType, members, setLoading}) => {
             ref_id: ref_id
         }
 
-        eventApi.post(`/${eventId}/remove-staff`, body).then(res => {
+        getEventApi(localStorage.getItem('token')).post(`/${eventId}/remove-staff`, body).then(res => {
             console.log(res)
             setLoading(false)
             // navigate(`/event/${eventId}/members`)
 
-        }).catch(err => {
-            console.log(err)
+        }).catch((err)=>{
+            console.log(err.response.data.errors)
         })
     }
 
@@ -36,9 +41,33 @@ const Role = ({roleType, members, setLoading}) => {
             <div className="role-container-header">
                 <h3>{roleType}</h3>
 
+                <BiPencil className="edit-role-icon" />
+                <DeleteRoleModal />
+                
+
                 <Link to={`/event/${eventId}/staff/add`}>
                     <MdOutlinePersonAdd className="add-member-icon" />
                 </Link>
+
+                <div className="d-grid gap-0 d-md-flex justify-content-md-start">
+                {
+                    permissions.map((p)=>{
+                        return(
+                            <Button
+                                size="sm"
+                                variant="outline-secondary"
+                                style={{
+                                    backgroundColor: '#ABABAB',
+                                    fontSize: '0.85rem',
+                                    color: 'black'
+                                }}
+                            >
+                                {p}
+                            </Button>
+                        )
+                    })
+                }
+                </div>
 
             </div>
 
@@ -54,7 +83,7 @@ const Role = ({roleType, members, setLoading}) => {
                                     />
 
                                     <div className="person-info-body">
-                                        <img src="https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" alt="" />
+                                        <img src={member.profile_pic ? member.profile_pic : "https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg"} alt="" />
                                         <div className="person-info-text">
                                             <h5 className="person-name"> {member.name} </h5>
                                             <p className="person-email"> {member.email} </p>

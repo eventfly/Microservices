@@ -12,7 +12,7 @@ import Map from "../components/Event/Map";
 import DatePicker from "../components/Event/DatePicker";
 import AutoComplete from "../components/AutoComplete";
 import EventCard from "../components/Event/EventCard";
-import {eventApi} from '../api/axiosHook'
+import {getEventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
@@ -56,8 +56,8 @@ const EventProfile = ({event, allTags, setLoading}) => {
     const [endDate, setEndDate] = useState(dateFormatter("2018-06-12T19:30:00.000Z"));
 
     const [ticketPrice, setTicketPrice] = useState(110);
-    const [eventType, setEventType] = useState(eventTypeOptions[1].name);
-    const [eventPrivacy, setEventPrivacy] = useState(eventPrivacyOptions[0].name);
+    const [eventType, setEventType] = useState('');
+    const [eventPrivacy, setEventPrivacy] = useState('');
 
     const [tagOptions, setTagOptions] = useState([]);
     const [multiSelections, setMultiSelections] = useState([]);
@@ -128,10 +128,12 @@ const EventProfile = ({event, allTags, setLoading}) => {
         }
         console.log(body);
 
-        eventApi.put(`/${event.ref_id}`, body).then((res)=>{
+        getEventApi(localStorage.getItem('token')).put(`/${event.ref_id}`, body).then((res)=>{
             console.log(res)
             setMultiSelections([])
             setLoading(false)
+        }).catch((err)=>{
+            console.log(err.response.data.errors)
         })
 
     }
@@ -172,6 +174,8 @@ const EventProfile = ({event, allTags, setLoading}) => {
                     <br />
 
                     <AutoComplete
+                        label={'Event Tags'}
+                        placeholder={'Choose several tags'}
                         options={tagOptions}
                         multiSelections={multiSelections}
                         setMultiSelections={setMultiSelections} 

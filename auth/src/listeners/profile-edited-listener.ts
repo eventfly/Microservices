@@ -9,7 +9,7 @@ export class ProfileEditedListener extends Listener {
     async onMessage(data: any, msg: Message) {
         console.log('Profile Edited! Data: ', data);
 
-        const organizer = await Organizer.findByIdAndUpdate(data.ref_id, data, {
+        const organizer = await Organizer.findOneAndUpdate({"ref_id": data.ref_id}, data, {
             new: true,
             runValidators: true
         })

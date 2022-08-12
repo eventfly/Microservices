@@ -150,6 +150,10 @@ const eventSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+        profile_pic:{
+            type: String,
+            required: false
+        },
         ref_id:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Staff',

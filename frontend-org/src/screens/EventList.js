@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
 import { useNavigate} from 'react-router-dom';
 
-import {orgApi} from '../api/axiosHook'
+import {getOrgApi} from '../api/axiosHook'
 
 
 
@@ -23,6 +23,9 @@ const EventList = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    const [searchText, setSearchText] = useState('');
+    const [eventSubset, setEventSubset] = useState([]);
+
     let alldata = '';
 
     // window.addEventListener('pageshow', (e)=>{
@@ -35,7 +38,7 @@ const EventList = () => {
             if (auth && auth.ref_id && (loading == false)) {
                 console.log("loading", loading)
                 
-                orgApi.get(`/event/${auth.ref_id}`).then((res)=>{
+                getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
                     console.log(res.data)
 
                     for(let i = 0; i < res.data.length; i++){
@@ -43,9 +46,12 @@ const EventList = () => {
                     }
 
                     setEvents([...events])
+                    setEventSubset([...events])
 
                     console.log('events: ', events);
-                })
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
+                  })
 
                 setLoading(true)
                 setEvents([])
@@ -70,13 +76,31 @@ const EventList = () => {
     }
 
 
+    let subset = [];
+    useEffect(() => {
+        console.log(searchText)
+        if (searchText.length === 0) {
+            subset = events
+            setEventSubset([...subset])
+        }
+        else {
+            subset = events.filter((event) => {
+                return event.name.toLowerCase().includes(searchText.toLowerCase())
+            }
+            )
+            console.log(subset, subset.length)
+            setEventSubset([...subset])
+        }
+    }, [searchText])
+
+
     return (
         auth && <div className='EventList'>
-            <Searchbar />
+            <Searchbar searchText={searchText} setSearchText={setSearchText} />
             <SlidingNav getData={getTab} />
             <h2>Event List</h2>
             <div className='event-container'>
-                {
+                {/* {
                     (events != null && events.length > 0) ? (
                         events.map(event => {
                             return (
@@ -88,8 +112,22 @@ const EventList = () => {
                     (
                         <p>No events</p>
                     )
-                }
+                } */}
 
+                {
+                    (eventSubset != null && eventSubset.length > 0) ? (
+                        eventSubset.map(event => {
+                            return (
+                                <EventPreview key={event.id} event={event} />
+
+                            );
+                        })
+                    ) : 
+                    (
+                        <p>No events</p>
+                    )
+                    
+                }
             </div>
         </div>
     );

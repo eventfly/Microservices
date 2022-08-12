@@ -12,12 +12,13 @@ import Login from './screens/login';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
-import {authApi} from './api/axiosHook'
+import {getAuthApi} from './api/axiosHook'
 
 import Subscription from './screens/Subscription';
 import EventPage from './screens/EventPage';
 import Profile from './screens/Profile';
 import PopupModal from './components/PopupModal';
+import BillingDetails from './components/Profile/OrgProfileMenu/BillingDetails';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -46,11 +47,13 @@ function App() {
       async function fetchCurrentUser(){
         if(auth == null && (loading == false || currentUser == null)){
 
-          authApi.get('/org/currentuser').then((res)=>{
+          getAuthApi(localStorage.getItem('token')).get('/org/currentuser').then((res)=>{
             console.log(res.data.currentUser)
             setCurrentUser(res.data.currentUser)
             setLoading(true)
             window.sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
+          }).catch((err)=>{
+            console.log(err.response.data.errors)
           })
 
         }
@@ -80,6 +83,7 @@ function App() {
           <Route path="/sub" element={<Subscription />}/>
           <Route path="/event/:eventId/*" element={<EventPage />}/>
           <Route path="/profile" element={<Profile />}/>
+          <Route path="/profile/billing" element={<BillingDetails />}/>
 
         </Routes>
 

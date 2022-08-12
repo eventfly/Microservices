@@ -5,7 +5,7 @@ import '../styles/PersonCard.css'
 import PasswordModal from './Profile/PasswordModal';
 
 
-const PersonCard = ({uploadImage, name, email, role}) => {
+const PersonCard = ({uploadImage, name, email, role, profilePic}) => {
 
     const clickInputButton = (e) => {
         document.getElementById("uploadDP").click();
@@ -17,15 +17,15 @@ const PersonCard = ({uploadImage, name, email, role}) => {
         
             <Card style={{ width: '80%' }}>
                 <Card.Img variant="top" 
-                    src={image}
+                    src={profilePic ? profilePic : image}
                     onClick={clickInputButton}
                     style={{
-                        width: '50%',
-                        height: '50%',
+                        width: '100%',
+                        height: '75%',
                         alignSelf: 'center',
-                        marginTop: '30px',
                         cursor: 'pointer'
                     }}
+                    id="profilePic"
                 />
 
                 <input type={"file"} onChange={uploadImage} id={"uploadDP"} hidden />
@@ -34,7 +34,11 @@ const PersonCard = ({uploadImage, name, email, role}) => {
                 <Card.Body style={{
                     marginTop: '30px'
                 }}>
-                    <Card.Title>{name}</Card.Title>
+                    <Card.Title style={{
+                        fontWeight: '550'
+                    }}>
+                        {name}
+                    </Card.Title>
                     <Card.Text>
                     {email}
                     </Card.Text>

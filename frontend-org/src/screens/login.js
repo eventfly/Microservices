@@ -7,7 +7,7 @@ import FormSelect from "../components/Form/FormSelect";
 import ErrorPopup from "../components/ErrorPopup";
 
 import { useState, useEffect } from 'react'
-import {authApi} from '../api/axiosHook'
+import {getAuthApi} from '../api/axiosHook'
 
 const Login = () => {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ const Login = () => {
 
     const postToLoginApi = (emailVal, passwordVal, roleVal) => {
 
-        authApi.post('/org/signin', {
+        getAuthApi('').post('/org/signin', {
             email: emailVal,
             password: passwordVal,
             role: roleVal

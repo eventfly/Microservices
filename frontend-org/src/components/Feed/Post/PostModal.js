@@ -16,7 +16,7 @@ const PostModal = () => {
     const [postModalShow, setPostModalShow] = useState(false);
 
     const [content, setContent] = useState('');
-    const [bannerImage, setBannerImage] = useState('');
+    const [postImage, setPostImage] = useState('');
 
 
     const uploadImage = (e) => {
@@ -35,8 +35,8 @@ const PostModal = () => {
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
                     console.log(downloadUrl);
-                    setBannerImage(downloadUrl);
-                    sessionStorage.setItem("event_banner", downloadUrl);
+                    setPostImage(downloadUrl);
+                    sessionStorage.setItem("post_image", downloadUrl);
                     // document.getElementById("banner").style.backgroundImage = `url(${downloadUrl})`;
                 })
             }
@@ -51,7 +51,7 @@ const PostModal = () => {
         }
         setPostModalShow(false);
         console.log(content);
-        console.log(bannerImage);
+        console.log(postImage);
     }
 
     const clickInputButton = (e) => {
@@ -82,13 +82,13 @@ const PostModal = () => {
             </div>
             <div>
                 {
-                    bannerImage !== '' ? (
+                    postImage !== '' ? (
                         <>
                             <Button variant="secondary" style={{position:'absolute'}}>
 
-                            <ImCross  onClick={() => setBannerImage('')}/>
+                            <ImCross  onClick={() => setPostImage('')}/>
                             </Button>
-                            <img src={bannerImage} alt="banner" style={{ width: '40%' }} />
+                            <img src={postImage} alt="postImage" style={{ width: '40%' }} />
                             
                         </>
 
