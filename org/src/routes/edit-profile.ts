@@ -21,8 +21,12 @@ router.put('/api/org/edit-profile', [
     // body('profile_pic').
     //     isURL().
     //     withMessage('Profile picture must be a valid URL'),
-    ], validateRequest,
-    currentUser, requireAuth,
+    ], 
+    
+    validateRequest,
+    currentUser, 
+    requireAuth,
+    
     async (req: Request, res: Response) => {
 
         console.log(req.body)
@@ -56,7 +60,7 @@ router.put('/api/org/edit-profile', [
                 console.log('Edited Profile published to auth')
             })
 
-            if(role == 'staff'){
+            if(role != 'Organizer'){
                 natsWrapper.client.publish('staffProfile:edited', JSON.stringify(
                     {
                         name: existingUser!.name,

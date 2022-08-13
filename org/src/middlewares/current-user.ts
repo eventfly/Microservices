@@ -31,6 +31,8 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
     try {
         const payload = jwt.verify(req.headers.authorization, process.env.JWT_KEY!) as UserPayload
         req.currentUser = payload;
+        
+        //console.log("payload", req.currentUser)
 
         if (!req.currentUser) {
             throw new NotAuthorizedError()
