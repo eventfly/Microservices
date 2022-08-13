@@ -28,6 +28,7 @@ interface EventAttrs {
     ref_id: ObjectId;
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
+    roles?: Types.DocumentArray<any>;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -49,6 +50,7 @@ interface EventDoc extends mongoose.Document {
     ref_id: ObjectId;
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
+    roles?: Types.DocumentArray<any>;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -162,7 +164,20 @@ const eventSchema = new mongoose.Schema({
     zoom_link: {
         type: String,
         required: false
-    }
+    },
+
+    roles: [{
+        name:{
+            type: String,
+            required: true,
+            unique: true
+        },
+        permissions: {
+            type: [String],
+            default: 'Read Only',
+            required: false
+        }
+    }]
 
     //TODO: Add Venue
 

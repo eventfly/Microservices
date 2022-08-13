@@ -27,7 +27,7 @@ router.put('/api/event/:id', [
         isURL().
         withMessage('Banner URL must be a valid URL'),
     check('end_date').custom((value, {req}) => {
-        if (new Date(value) <= new Date(req.body.start)) {
+        if (new Date(value) <= new Date(req.body.start_date)) {
             throw new Error('End date must be valid and after start date');
         }
         return true;
