@@ -25,6 +25,12 @@ const EventSidebar = ({setSelectedMenu, setCanvasShow}) => {
             section: 'package'
         },
         {
+            display: 'Members',
+            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            to: `/profile`,
+            section: 'members'
+        },
+        {
             display: 'About',
             icon: <FaUserNurse className='sidebar-icons' style={{color: 'black'}} />,
             to: `/profile`,

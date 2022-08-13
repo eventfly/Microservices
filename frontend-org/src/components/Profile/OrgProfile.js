@@ -6,6 +6,7 @@ import {GiHamburgerMenu} from 'react-icons/gi'
 import Account from "./OrgProfileMenu/Account";
 
 import Package from "./OrgProfileMenu/Package";
+import OrgMembers from "./OrgProfileMenu/OrgMembers";
 
 function OrgProfile() {
   const [canvasShow, setCanvasShow] = useState(false);
@@ -33,19 +34,10 @@ function OrgProfile() {
 
 
         <div className="profile">
-
-            {/* <div className="profile_flexbox">
-            <div className="left-column">
-            <OrgSidebar />
-            </div>
-            <div className="right-column">
-            
-                aap jaisa koi
-                </div>
-            </div> */}
             {
                 selectedMenu === 'Account' ? <Account />
                 : selectedMenu === 'Package' ? <Package />
+                : selectedMenu === 'Members' ? <OrgMembers />
                 : <>    </>
             }
 

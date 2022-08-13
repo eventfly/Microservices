@@ -1,10 +1,11 @@
 import PopupModal from '../../../components/PopupModal';
-import { Button, FormSelect } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useState } from "react";
 
 import { Stack } from "react-bootstrap";
 
 import FormInput from "../../Form/FormInput";
+import FormSelect from "../../Form/FormSelect";
 
 import Form from 'react-bootstrap/Form';
 
