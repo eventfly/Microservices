@@ -7,6 +7,11 @@ import AddRoleModal from "../components/Member/AddRoleModal";
 
 const EventMember = ({event, setEvent, managers, setLoading}) => {
 
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
+
     const roleOptions = [
         {
             'id': 1,
@@ -65,11 +70,18 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
             <div className="role-header">
 
                 <h2>Roles</h2>
-                <AddRoleModal 
-                    eventId={event ? event.ref_id : ''} 
-                    setEvent={setEvent}
-                    roleOptions={getRoleOptions()}
-                />
+
+                {
+                    (auth && (auth.role === 'Organizer' || auth.role === 'Manager')) ? (
+                        <AddRoleModal 
+                            eventId={event ? event.ref_id : ''} 
+                            setEvent={setEvent}
+                            roleOptions={getRoleOptions()}
+                        />
+                    ) : (
+                        <></>
+                    )
+                }
 
             </div>
 
