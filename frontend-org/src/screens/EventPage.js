@@ -63,6 +63,7 @@ const EventPage = () => {
                     setTags([...tags]);
 
                     getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
+                        console.log(res.data)
                         setEvent(res.data)
                     }).catch((err)=>{
                         console.log(err.response.data.errors)
@@ -129,8 +130,9 @@ const EventPage = () => {
                                     (
                                         location.includes('members') ? (
                                             <EventMember
-                                                managers={[auth]} 
-                                                staffs={event ? event.staffs : null}
+                                                event={event}
+                                                setEvent={setEvent}
+                                                managers={[auth]}
                                                 setLoading={setLoadingMember}
                                             />
                                         ) : 

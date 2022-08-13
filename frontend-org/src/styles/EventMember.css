@@ -29,18 +29,18 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-top: 1.2rem;
     padding: 1rem;
 }
 
 .person-info{
-    border: 1px solid rgb(230, 224, 224);
+    border: 1.5px solid rgb(230, 224, 224);
     border-radius: 0.3rem;
     padding: 1rem 1rem;
     margin: 0 1rem;
     margin-bottom: 40px;
-    flex: 0 0 46%;
+    flex: 0 0 44%;
 }
 
 .person-info-body{

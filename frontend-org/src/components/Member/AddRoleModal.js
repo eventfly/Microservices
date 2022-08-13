@@ -1,42 +1,18 @@
 import { useState } from 'react';
-import FormInput from '../Form/FormInput';
-import FormButton from '../Form/FormButton';
 import FormSelect from '../Form/FormSelect';
 import PopupModal from '../PopupModal';
 import AutoComplete from '../AutoComplete'
 import {MdOutlineGroupAdd} from 'react-icons/md'
+import {getEventApi} from '../../api/axiosHook'
 
 
-const AddRoleModal = () => {
+const AddRoleModal = ({eventId, setEvent, roleOptions}) => {
 
     const [newRole, setNewRole] = useState('Default');
     const [modalShow, setModalShow] = useState(false);
     const [permissions, setPermissions] = useState([]);
 
     const permitOptions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
-
-    const roleOptions = [
-        {
-            'id': 1,
-            'name': 'Speakers'
-        },
-        {
-            'id': 2,
-            'name': 'Receptionists'
-        },
-        {
-            'id': 3,
-            'name': 'Social Media Managers'
-        },
-        {
-            'id': 4,
-            'name': 'Distributors'
-        },
-        {
-            'id': 5,
-            'name': 'Default'
-        }
-    ]
 
     const modalJSX = (
         <>
@@ -70,11 +46,23 @@ const AddRoleModal = () => {
         e.preventDefault();
 
         let body = {
-            role: newRole,
+            name: newRole,
             permissions: permissions
         }
 
         console.log(body)
+
+        getEventApi(localStorage.getItem('token')).post(`/${eventId}/role`, body).then((res)=>{
+
+            console.log(res.data.event)
+            setNewRole('')
+            setPermissions([])
+            setModalShow(false)
+            setEvent(res.data.event)
+
+        }).catch((err)=>{
+            console.log(err.response.data.errors)
+        })
     }
 
 

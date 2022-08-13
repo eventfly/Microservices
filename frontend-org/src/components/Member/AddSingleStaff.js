@@ -6,7 +6,8 @@ import {FaAngleDown, FaAngleRight, FaRegCheckCircle, FaRegTimesCircle} from 'rea
 
 
 
-const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole, status, removeStaff}) => {
+const AddSingleStaff = ({roleType, staffNo, name, email, setName, setEmail, status, removeStaff}) => {
+    
     const [display, setDisplay] = useState('block');
     //const [displayForm, setDisplayForm] = useState('block');
 
@@ -42,7 +43,7 @@ const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole,
                 }
 
 
-                <h4 className='staff-header'> Staff {staffNo} </h4>
+                <h4 className='staff-header'> {roleType} {staffNo} </h4>
                 <FaRegTimesCircle className='icon-wrong-header' onClick={removeStaff}/>
 
             </div> 
@@ -81,8 +82,7 @@ const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole,
                     inputType="text"
                     label="Role"
                     placeholder="Assign a role"
-                    value={role}
-                    onChange={setRole}
+                    value={roleType}
                 />
 
             </form>
@@ -104,7 +104,7 @@ const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole,
                 <div className='icon_flexbox'>
 
                     <FaRegCheckCircle className='icon-check' />
-                    <h5 className='staff-header right-text'> Staff {staffNo} has been successfully created </h5>
+                    <h5 className='staff-header right-text'> {roleType} {staffNo} has been successfully created </h5>
 
                 </div> 
 
@@ -127,7 +127,7 @@ const AddSingleStaff = ({staffNo, name, email, role, setName, setEmail, setRole,
                 }
 
 
-                <h4 className='staff-header'> Staff {staffNo} </h4>
+                <h4 className='staff-header'> {roleType} {staffNo} </h4>
                 <h5 className='wrong-text'>Something Wrong !!</h5>
                 <FaRegTimesCircle className='icon-wrong'/>
 

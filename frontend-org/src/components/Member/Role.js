@@ -4,16 +4,16 @@ import {useParams, useNavigate} from 'react-router-dom'
 import {MdOutlinePersonAdd} from 'react-icons/md'
 import {getEventApi} from '../../api/axiosHook'
 import { Button } from "react-bootstrap";
-import {BiPencil} from 'react-icons/bi'
 import DeleteRoleModal from "./DeleteRoleModal";
+import EditRoleModal from "./EditRoleModal";
 
 
-const Role = ({roleType, members, setLoading}) => {
+const Role = ({setEvent, roleType, permissions, members}) => {
 
     const { eventId } = useParams();
     const navigate = useNavigate();
 
-    const permissions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
+    //const permissions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
 
     const handleEdit = () => {
         console.log("e")
@@ -28,7 +28,7 @@ const Role = ({roleType, members, setLoading}) => {
 
         getEventApi(localStorage.getItem('token')).post(`/${eventId}/remove-staff`, body).then(res => {
             console.log(res)
-            setLoading(false)
+            setEvent(res.data.event)
             // navigate(`/event/${eventId}/members`)
 
         }).catch((err)=>{
@@ -41,19 +41,32 @@ const Role = ({roleType, members, setLoading}) => {
             <div className="role-container-header">
                 <h3>{roleType}</h3>
 
-                <BiPencil className="edit-role-icon" />
-                <DeleteRoleModal />
+                <EditRoleModal 
+                    eventId={eventId} 
+                    setEvent={setEvent}
+                    roleType={roleType}
+                    defaultPermissions={permissions}
+                />
+                <DeleteRoleModal 
+                    eventId={eventId}
+                    setEvent={setEvent}
+                    roleType={roleType}
+                />
                 
 
-                <Link to={`/event/${eventId}/staff/add`}>
+                <Link 
+                    to={`/event/${eventId}/staff/add`}
+                    state={{ roleType: roleType }}
+                >
                     <MdOutlinePersonAdd className="add-member-icon" />
                 </Link>
 
                 <div className="d-grid gap-0 d-md-flex justify-content-md-start">
                 {
-                    permissions.map((p)=>{
+                    permissions && permissions.map((p, index)=>{
                         return(
                             <Button
+                                key={index}
                                 size="sm"
                                 variant="outline-secondary"
                                 style={{
