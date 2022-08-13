@@ -1,13 +1,18 @@
 import OrgSidebar from "./OrgSidebar";
-import Account from "./OrgProfileMenu/Account";
 
-import Package from "./OrgProfileMenu/Package";
+import OrgAccount from "./OrgProfileMenu/OrgAccount";
+import OrgPackage from "./OrgProfileMenu/OrgPackage";
 import OrgMembers from "./OrgProfileMenu/OrgMembers";
+import OrgStatistics from "./OrgProfileMenu/OrgStatistics";
 
 import {useLocation} from 'react-router-dom'
+import {useState} from 'react'
+
+
 
 function OrgProfile() {
   const location = useLocation().pathname;
+  const [Loading, setLoading] = useState(false);
 
     return ( 
     <>
@@ -17,9 +22,10 @@ function OrgProfile() {
             </div>
             <div className="main-content-column">
             {
-                location.includes('account') ? <Account />
-                : location.includes('package') ? <Package />
-                : location.includes('members') ? <OrgMembers />
+                location.includes('account') ? <OrgAccount />
+                : location.includes('package') ? <OrgPackage />
+                : location.includes('members') ? <OrgMembers setLoading={setLoading} />
+                : location.includes('statistics') ? < OrgStatistics />
                 : <>    </>
             }
             </div>

@@ -13,12 +13,6 @@ const EventSidebar = () => {
             section: 'account'
         },
         {
-            display: 'Settings',
-            icon: <FaCommentAlt className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile/settings`,
-            section: 'settings'
-        },
-        {
             display: 'Package',
             icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
             to: `/profile/package`,
@@ -29,6 +23,18 @@ const EventSidebar = () => {
             icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
             to: `/profile/members`,
             section: 'members'
+        },
+        {
+            display: 'Statistics',
+            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            to: `/profile/statistics`,
+            section: 'statistics'
+        },
+        {
+            display: 'Settings',
+            icon: <FaCommentAlt className='sidebar-icons' style={{color: 'black'}} />,
+            to: `/profile/settings`,
+            section: 'settings'
         },
         {
             display: 'About',

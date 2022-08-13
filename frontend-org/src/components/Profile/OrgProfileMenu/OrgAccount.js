@@ -13,7 +13,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import DatePicker from '../../Event/DatePicker';
 
 
-const Account = () => {
+const OrgAccount = () => {
 
     let accTypeOptions = [
         {
@@ -141,4 +141,4 @@ const Account = () => {
     );
 }
  
-export default Account;
+export default OrgAccount;

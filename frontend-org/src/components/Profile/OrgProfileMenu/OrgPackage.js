@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 import ChangeBillingDay from './ChangeBillingDay';
 
-const Package = () => {
+const OrgPackage = () => {
     return ( 
         <>
             <FormTitle title="Package" />
@@ -41,4 +41,4 @@ const Package = () => {
     );
 }
  
-export default Package;
+export default OrgPackage;
