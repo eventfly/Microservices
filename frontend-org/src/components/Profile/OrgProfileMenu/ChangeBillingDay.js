@@ -13,25 +13,24 @@ const ChangeBillingDay = () => {
 
     const [changeBillingModalShow, setChangeBillingModalShow] = useState(false);
 
-    const [question, setQuestion] = useState('');
+    const [newBillingDay, setNewBillingDay] = useState('');
     
     const handleSubmit = (e) => {
         e.preventDefault();
         setChangeBillingModalShow(false);
         
-        console.log(question);
+        console.log(newBillingDay);
+        console.log(newBillingDay.length ===3? newBillingDay.substring(0,1) : newBillingDay.substring(0,2));
     }
 
-    let eventTypeOptions = [
-        {
-            'id': 1,
-            'name': 'Offline'
-        },
-        {
-            'id': 2,
-            'name': 'Online'
-        }
-    ]
+    let billingDayOptions = []
+    for(let i = 1; i <= 28; i++){
+        let ordinal = (i==1)? 'st' : (i==2)? 'nd' : (i==3)? 'rd' : 'th'
+        billingDayOptions.push({
+            'id': i,
+            'name': `${i}${ordinal}`
+        })
+    }
 
     const billingDayJSX = (
         <Stack gap={4}>
@@ -42,16 +41,15 @@ const ChangeBillingDay = () => {
                     placeholder="Enter question text"
                     backgroundColor={'#e5e5e5'}
                     value="12th"
-                    onChange={setQuestion}
                     isDisabled={true}
                 />
 
                 <FormSelect id="billing-day"
                     label="New Billing Day"
-                    options={eventTypeOptions}
-                    defaultValue={eventTypeOptions[0].name}
+                    options={billingDayOptions}
+                    defaultValue={billingDayOptions[0].name}
+                    onChange={setNewBillingDay}
                 />
-                    <h3>This dropdown is not working.</h3>
             </div>
 
         </Stack>
