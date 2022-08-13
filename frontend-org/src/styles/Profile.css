@@ -27,4 +27,28 @@
 .profile_flexbox .right-column{
   flex: 0 0 50%;
 }  
-  
+
+
+
+
+/* for org profile only */
+
+.org-profile-flexbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin-left: 5%;
+  margin-right: 5%; */
+}
+
+.org-profile-flexbox .sidebar-column{
+  flex: 0 0 15%;
+  padding-top: 2.5rem;
+  border-right: 1.5px solid #e5e5e5;
+  min-height: 100vh;
+}
+
+.org-profile-flexbox .main-content-column{
+  flex: 0 0 80%;
+  padding-bottom: 75px;
+}  

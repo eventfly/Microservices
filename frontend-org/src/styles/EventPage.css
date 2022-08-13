@@ -11,6 +11,7 @@
     flex: 0 0 15%;
     padding-top: 2.5rem;
     border-right: 1.5px solid #e5e5e5;
+    min-height: 100vh
 }
 
 .detail_flexbox .right-column{
