@@ -5,6 +5,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
+import { accessControl } from '../middlewares/access-control';
 import { Event } from '../models/event';
 import {Tag} from '../models/tag';
 import {ObjectId} from 'bson';
@@ -35,8 +36,13 @@ router.post('/api/org/event', [
         }
         return true;
     })
-], validateRequest,
-    currentUser, requireAuth,
+    ], 
+    
+    validateRequest,
+    currentUser, 
+    requireAuth,
+    accessControl('Organizer', 'Manager'),
+    
     async (req: Request, res: Response) => {
         const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter, tags, zoomLink } = req.body
         console.log(req.body)

@@ -4,7 +4,7 @@ import {Form} from 'react-bootstrap'
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
-const AutoComplete = ({label, placeholder, options, multiSelections, setMultiSelections}) => {
+const AutoComplete = ({label, placeholder, options, multiSelections, setMultiSelections, isDisabled}) => {
 
     return ( 
         <>
@@ -21,6 +21,7 @@ const AutoComplete = ({label, placeholder, options, multiSelections, setMultiSel
                         options={options}
                         placeholder={placeholder}
                         selected={multiSelections}
+                        disabled={isDisabled}
                     />
 
                 </Form.Group>

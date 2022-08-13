@@ -32,6 +32,7 @@
     justify-content: space-between;
     margin-top: 1.2rem;
     padding: 1rem;
+    margin-bottom: 50px;
 }
 
 .person-info{
@@ -115,12 +116,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .role-container-header h3{
     flex: 0 0 10%;
     margin-right: 3%;
+    font-weight: 550;
 }
 
 
@@ -134,7 +136,8 @@
 }
 
 .role-header h2{
-    flex: 0 0 10%
+    flex: 0 0 10%;
+    font-weight: 530;
 }
 
 .add-role-icon{
