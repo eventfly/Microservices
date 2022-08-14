@@ -1,56 +1,34 @@
 import OrgSidebar from "./OrgSidebar";
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import {useState} from 'react'
-import {GiHamburgerMenu} from 'react-icons/gi'
-import Account from "./OrgProfileMenu/Account";
 
-import Package from "./OrgProfileMenu/Package";
+import OrgAccount from "./OrgProfileMenu/OrgAccount";
+import OrgPackage from "./OrgProfileMenu/OrgPackage";
+import OrgMembers from "./OrgProfileMenu/OrgMembers";
+import OrgStatistics from "./OrgProfileMenu/OrgStatistics";
+
+import {useLocation} from 'react-router-dom'
+import {useState} from 'react'
+
+
 
 function OrgProfile() {
-  const [canvasShow, setCanvasShow] = useState(false);
+  const location = useLocation().pathname;
+  const [Loading, setLoading] = useState(false);
 
-  const [selectedMenu, setSelectedMenu] = useState('Account');
-
-  const handleClose = () => setCanvasShow(false);
-  const handleShow = () => setCanvasShow(true);
     return ( 
     <>
-    {/* <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button> */}
-        <GiHamburgerMenu onClick={handleShow} style={{fontSize:'xx-large', color:'#8C3522', cursor:'pointer'}}/>
-
-        <Offcanvas show={canvasShow} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Organizer Profile</Offcanvas.Title>
-        </Offcanvas.Header>
-
-        <Offcanvas.Body>
-            <OrgSidebar setCanvasShow={setCanvasShow} setSelectedMenu={setSelectedMenu}/>
-        </Offcanvas.Body>
-        </Offcanvas>
-
-
-        <div className="profile">
-
-            {/* <div className="profile_flexbox">
-            <div className="left-column">
-            <OrgSidebar />
+        <div className="org-profile-flexbox">
+            <div className="sidebar-column">
+                <OrgSidebar />
             </div>
-            <div className="right-column">
-            
-                aap jaisa koi
-                </div>
-            </div> */}
+            <div className="main-content-column">
             {
-                selectedMenu === 'Account' ? <Account />
-                : selectedMenu === 'Package' ? <Package />
+                location.includes('account') ? <OrgAccount />
+                : location.includes('package') ? <OrgPackage />
+                : location.includes('members') ? <OrgMembers setLoading={setLoading} />
+                : location.includes('statistics') ? < OrgStatistics />
                 : <>    </>
             }
-
-
-
+            </div>
         </div>      
 
     </>

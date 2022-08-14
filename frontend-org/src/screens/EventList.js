@@ -7,6 +7,8 @@ import { useNavigate} from 'react-router-dom';
 
 import {getOrgApi} from '../api/axiosHook'
 
+import Spinner from '../components/Spinner';
+
 
 
 const EventList = () => {
@@ -137,6 +139,7 @@ const EventList = () => {
                     ) : 
                     (
                         <p>No events</p>
+                        // <Spinner />
                     )
                     
                 }

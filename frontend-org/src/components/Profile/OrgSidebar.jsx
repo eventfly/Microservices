@@ -3,31 +3,43 @@ import { Link, useLocation } from 'react-router-dom';
 import {FaHome, FaCommentAlt, FaChartLine, FaUserNurse} from 'react-icons/fa'
 import '../sidebar.scss';
 
-const EventSidebar = ({setSelectedMenu, setCanvasShow}) => {
+const EventSidebar = () => {
 
     const sidebarNavItems = [
         {
             display: 'Account',
             icon: <FaHome className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile`,
+            to: `/profile/account`,
             section: 'account'
-        },
-        {
-            display: 'Settings',
-            icon: <FaCommentAlt className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile`,
-            section: 'settings'
         },
         {
             display: 'Package',
             icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile`,
+            to: `/profile/package`,
             section: 'package'
+        },
+        {
+            display: 'Members',
+            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            to: `/profile/members`,
+            section: 'members'
+        },
+        {
+            display: 'Statistics',
+            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            to: `/profile/statistics`,
+            section: 'statistics'
+        },
+        {
+            display: 'Settings',
+            icon: <FaCommentAlt className='sidebar-icons' style={{color: 'black'}} />,
+            to: `/profile/settings`,
+            section: 'settings'
         },
         {
             display: 'About',
             icon: <FaUserNurse className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile`,
+            to: `/profile/about`,
             section: 'about'
         },
     ]
@@ -48,19 +60,15 @@ const EventSidebar = ({setSelectedMenu, setCanvasShow}) => {
         }, 50);
     }, []);
 
-    // change active index
-    // useEffect(() => {
-    //     const curPath = window.location.pathname.split('/')[3];
-    //     const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
-    //     setActiveIndex(curPath.length === 0 ? 0 : activeItem);
-    // }, [location]);
+    //change active index
+    useEffect(() => {
+        const curPath = window.location.pathname.split('/')[2];
+        console.log(curPath)
+        console.log(window.location.pathname)
+        const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
+        setActiveIndex(curPath.length === 0 ? 0 : activeItem);
+    }, [location]);
 
-    const handleclick = (index) => {
-        console.log(index);
-        // setActiveIndex(index);
-        setCanvasShow(false)
-        setSelectedMenu(sidebarNavItems[index].display);
-    }
 
     return <div className='sidebar'>
         <div ref={sidebarRef} className="sidebar__menu">
@@ -75,7 +83,7 @@ const EventSidebar = ({setSelectedMenu, setCanvasShow}) => {
             {
                 sidebarNavItems.map((item, index) => (
                     <Link to={item.to} key={index}>
-                        <div className='sidebar__menu__item' onClick={() =>handleclick(index)}>
+                        <div className='sidebar__menu__item'>
                             <div className="sidebar__menu__item__icon">
                                 {item.icon}
                             </div>
