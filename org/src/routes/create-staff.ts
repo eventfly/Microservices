@@ -36,65 +36,70 @@ router.post('/api/org/staff', [
     errorHandler, 
     
     async (req: Request, res: Response) => {
-    let { name, email, role, events } = req.body;
+    
+        let { name, email, role, permissions } = req.body;
 
-    const existingUser = await Staff.findOne({ email });
-    if (existingUser) {
-        throw new Error('Email in use');
-    } else {
+        const existingUser = await Staff.findOne({ email });
 
-        events = events.map((eventId: string) => {
-            return {eventId: new ObjectId(eventId)}
-        })
+        if (existingUser) {
+            throw new Error('Email in use');
+        }
 
-        const staff = await Staff.build({
-            name,
-            email,
-            role,
-            organizer: req.currentUser!.ref_id,
-            events
-        });
+        else {
+            // events = events.map((eventId: string) => {
+            //     return {eventId: new ObjectId(eventId)}
+            // })
 
-        await staff.save();
+            const staff = await Staff.build({
+                name,
+                email,
+                role,
+                permissions,
+                organizer: req.currentUser!.ref_id,
+                // events
+            });
 
-        console.log("Staff created. login with otp: ", staff!.otp)
+            await staff.save();
 
-        natsWrapper.client.publish('staff:created', JSON.stringify(
-            { 
-                name: staff.name,
-                email: staff.email, 
-                role: staff.role,
-                ref_id: staff.id, 
-                password: staff.otp!,
-                is_verified: staff.is_verified,
-                events: staff.events
-            }
-        ));
+            console.log("Staff created. login with otp: ", staff!.otp)
 
-        natsWrapper.client.publish('staff:created2', JSON.stringify(
-            { 
-                name: staff.name,
-                email: staff.email, 
-                role: staff.role,
-                ref_id: staff.id, 
-                password: staff.otp!,
-                is_verified: staff.is_verified,
-                events: staff.events
-            }
-        ));
+            natsWrapper.client.publish('staff:created', JSON.stringify(
+                { 
+                    name: staff.name,
+                    email: staff.email, 
+                    role: staff.role,
+                    ref_id: staff.id, 
+                    password: staff.otp!,
+                    permissions: staff.permissions!
+                    // is_verified: staff.is_verified,
+                    // events: staff.events
+                }
+            ));
 
-        const url = encodeURIComponent(`http://localhost:3005/login?email=${staff.email}&password=${staff.otp}`)
-        console.log(url);
+            natsWrapper.client.publish('staff:assigned', JSON.stringify(
+                { 
+                    name: staff.name,
+                    email: staff.email, 
+                    role: staff.role,
+                    ref_id: staff.id, 
+                    password: staff.otp!,
+                    // is_verified: staff.is_verified,
+                    events: staff.events
+                }
+            ));
 
-        sendMail({
-            from: 'eventfly@buetcsefest2022.com',
-            to: staff.email,
-            subject: 'Welcome to Eventfly',
-            html: `<h1>Welcome to Eventfly!</h1> <p>Your account has been created. Please use the following email and password to login: Email: ${staff.email}, Password: ${staff.otp}</p> <p> Please click on the following link to verify your account: <a href=${url}>Click Here</a></p>`
-        });
+            const url = encodeURIComponent(`http://localhost:3005/login?email=${staff.email}&password=${staff.otp}`)
+            console.log(url);
 
-        res.status(201).send(staff);
-    }
+            sendMail({
+                from: 'eventfly@buetcsefest2022.com',
+                to: staff.email,
+                subject: 'Welcome to Eventfly',
+                html: `<h1>Welcome to Eventfly!</h1> <p>Your account has been created. Please use the following email and password to login: Email: ${staff.email}, Password: ${staff.otp}</p> <p> Please click on the following link to verify your account: <a href=${url}>Click Here</a></p>`
+            });
+
+            res.status(201).send(staff);
+        }
 
 
 })
