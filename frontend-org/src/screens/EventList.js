@@ -39,7 +39,7 @@ const EventList = () => {
                 console.log("loading", loading)
 
                 let route = `/event/${auth.ref_id}`
-                if(auth.role != 'Organizer' || auth.role != 'Manager'){
+                if(auth.role != 'Organizer' && auth.role != 'Manager'){
                     route = `/event/staff/${auth.ref_id}`
                 }
                 
