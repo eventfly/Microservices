@@ -26,7 +26,7 @@ router.post('/api/auth/org/signin',
 
 
         if (!existingUser) {
-            throw new BadRequestError('Organizer doesn\'t exist')
+            throw new BadRequestError('Organizer or Staff doesn\'t exist')
         } 
 
 
@@ -52,7 +52,6 @@ router.post('/api/auth/org/signin',
         req.session = {
             jwt: userJwt
         }
-
 
         res.status(200).send({ existingUser, token: userJwt })
 
