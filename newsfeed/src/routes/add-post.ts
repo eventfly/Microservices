@@ -3,6 +3,7 @@ import { currentUser } from '../middlewares/current-user';
 import { errorHandler } from '../middlewares/error-handler';
 import { requireAuth } from '../middlewares/require-auth';
 import { body } from 'express-validator';
+import { Post } from '../models/post';
 
 const router = express.Router();
 
@@ -27,6 +28,8 @@ router.post('/api/newsfeed/post',
 
         } = req.body;
         //Add a post to the database
+
+        const post = await Post.create({});
 
 
 

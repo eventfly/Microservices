@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose";
 
 const userSchema = new mongoose.Schema({
     ref_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: false
     },
     email: {
@@ -21,22 +21,32 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: false
+    },
+    gender: {
+        type: String,
+        required: false
+    },
+    dateOfBirth: {
+        type: Date,
+        required: false
     }
 
-})
+});
 
-const User = mongoose.model('User', userSchema);
+
 
 userSchema.statics.findByEmail = function(email: string) {
-
-}
+    return this.findOne({email: email});
+};
 
 userSchema.statics.build = function(attrs: any) {
     return new User(attrs);
-}
+};
 
 userSchema.statics.findByRefId = function(ref_id: string) {
     return this.findOne({ref_id: ref_id});
-}
+};
+
+const User = mongoose.model('User', userSchema);
 
 export { User };

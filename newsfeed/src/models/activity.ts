@@ -53,7 +53,7 @@ const activitySchema = new mongoose.Schema({
 
 });
 
-const Activity = mongoose.model('Activity', activitySchema);
+
 
 activitySchema.statics.build = (attrs: any) => {
     return new Activity(attrs);
@@ -71,6 +71,7 @@ activitySchema.statics.findTotalLikesByPostId = async (postId: string) => {
     return await Activity.count({post_id: postId, is_liked: true});
 }
 
+const Activity = mongoose.model('Activity', activitySchema);
 
 
 

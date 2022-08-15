@@ -24,7 +24,7 @@ const feedSchema = new mongoose.Schema({
     }]
 });
 
-const Feed = mongoose.model('Feed', feedSchema);
+
 
 feedSchema.statics.build = (attrs: any) => {
     return new Feed(attrs);
@@ -71,6 +71,7 @@ feedSchema.statics.addActivity = async (userId: string, activityId: ObjectId) =>
     
 }
 
+const Feed = mongoose.model('Feed', feedSchema);
 
 
 export { Feed };

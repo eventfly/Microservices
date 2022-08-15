@@ -6,6 +6,7 @@ import cors from 'cors'
 import { errorHandler } from './middlewares/error-handler';
 
 import { NotFoundError } from './errors/not-found-error';
+import { signupRouter } from './routes/create-participant';
 
 
 const app = express()
@@ -22,7 +23,9 @@ app.use((req,res,next)=>{
 })
 
 // app.set('trust proxy', true)
-app.use(json())
+app.use(json());
+
+app.use(signupRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
