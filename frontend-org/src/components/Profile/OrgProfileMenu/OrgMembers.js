@@ -1,11 +1,9 @@
-import EventSidebar from "../components/EventSidebar";
-import '../styles/EventMember.css'
-import Role from '../components/Member/Role'
-import { Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import AddRoleModal from "../components/Member/AddRoleModal";
+import FormTitle from "../../Form/FormTitle";
+import AddRoleModal from "../../Member/AddRoleModal";
+import Role from "../../Member/Role";
+import { useEffect } from "react";
 
-const EventMember = ({event, setEvent, managers, setLoading}) => {
+const OrgMembers = ({event, setEvent, managers, setLoading}) => {
 
     let auth = sessionStorage.getItem('auth')
     if (auth) {
@@ -49,7 +47,7 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
 
         if(event){
             event.roles.map((role) => {
-                tempOptions = tempOptions.filter((opt)=>{
+                tempOptions = tempOptions.filtergetRoleOptions((opt)=>{
                     return opt.name !== role.name
                 })
 
@@ -67,6 +65,10 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
         
     return ( 
         <>
+            <h1 style={{color:'red'}}>
+                This is copied from EventMember.js<br></br>
+                Need to fix roles, routes++
+            </h1>
             <div className="role-header">
 
                 <h2>Roles</h2>
@@ -116,6 +118,4 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
      );
 }
  
-export default EventMember;
-
-
+export default OrgMembers;

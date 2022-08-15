@@ -4,10 +4,11 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { validateRequest } from '../middlewares/validate-request';
 import { Staff } from '../models/staff';
-import { requireAuth } from '@thr_org/common';
+import { requireAuth } from '../middlewares/require-auth';
 import { errorHandler } from '../middlewares/error-handler';
 import { ObjectId } from 'bson';
 import { sendMail } from '../services/mail';
+import { accessControl } from '../middlewares/access-control';
 var URI = require("uri-js");
 
 const router = express.Router();
@@ -19,14 +20,22 @@ router.post('/api/org/staff', [
     body('email').
         isEmail().
         withMessage('Email must be a valid email'),
-    body('role').
-        isIn(['organizer', 'staff']).
-        withMessage('Role must be either organizer or staff'),
+    // body('role').
+    //     isIn(['organizer', 'staff']).
+    //     withMessage('Role must be either organizer or staff'),
     body('events').
         isArray().
         withMessage('Events must be an array'),
 
-], validateRequest, currentUser, requireAuth, errorHandler, async (req: Request, res: Response) => {
+    ], 
+    
+    validateRequest, 
+    currentUser, 
+    requireAuth,
+    accessControl('Organizer', 'Manager'), 
+    errorHandler, 
+    
+    async (req: Request, res: Response) => {
     let { name, email, role, events } = req.body;
 
     const existingUser = await Staff.findOne({ email });
@@ -47,6 +56,8 @@ router.post('/api/org/staff', [
         });
 
         await staff.save();
+
+        console.log("Staff created. login with otp: ", staff!.otp)
 
         natsWrapper.client.publish('staff:created', JSON.stringify(
             { 

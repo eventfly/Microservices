@@ -16,7 +16,7 @@ import {getEventApi} from '../api/axiosHook'
 
 import "../styles/EventProfile.css";
 
-const EventProfile = ({event, allTags, setLoading}) => {
+const EventProfile = ({event, allTags, setLoading, isEditable}) => {
 
     let eventTypeOptions = [
         {
@@ -68,6 +68,7 @@ const EventProfile = ({event, allTags, setLoading}) => {
 
 
     useEffect(() => {
+        console.log("isEditable: ", isEditable)
 
         if(event){
             console.log('event is fetching...', event);
@@ -161,6 +162,7 @@ const EventProfile = ({event, allTags, setLoading}) => {
                         placeholder="Enter your name"
                         value={name}
                         onChange={setName}
+                        isDisabled={!isEditable}
                     />
 
                     <br />
@@ -170,6 +172,7 @@ const EventProfile = ({event, allTags, setLoading}) => {
                         placeholder="Enter description"
                         value={description}
                         onChange={setDescription}
+                        disabled={!isEditable}
                     />
                     <br />
 
@@ -178,16 +181,27 @@ const EventProfile = ({event, allTags, setLoading}) => {
                         placeholder={'Choose several tags'}
                         options={tagOptions}
                         multiSelections={multiSelections}
-                        setMultiSelections={setMultiSelections} 
+                        setMultiSelections={setMultiSelections}
+                        isDisabled={!isEditable} 
                     />
 
                     {/* <Map DefaultLocation={location} onChange={setLocation}/> */}
 
                     <br /><br />
-                    <DatePicker label="Start Date" defaultDate={startDate} onChange={setStartDate}/>
+                    <DatePicker 
+                        label="Start Date" 
+                        defaultDate={startDate} 
+                        onChange={setStartDate}
+                        isDisabled={!isEditable}
+                    />
                     
                     <br /><br />
-                    <DatePicker label="End Date" defaultDate={endDate} onChange={setEndDate}/>
+                    <DatePicker 
+                        label="End Date" 
+                        defaultDate={endDate} 
+                        onChange={setEndDate}
+                        isDisabled={!isEditable}
+                    />
 
                     <br /><br />
 
@@ -197,6 +211,7 @@ const EventProfile = ({event, allTags, setLoading}) => {
                         placeholder="Enter Ticket Price"
                         value={ticketPrice}
                         onChange={setTicketPrice}
+                        isDisabled={!isEditable}
                     />
 
                     <br />
@@ -206,6 +221,7 @@ const EventProfile = ({event, allTags, setLoading}) => {
                         options={eventTypeOptions}
                         onChange={setEventType}
                         defaultValue={eventType}
+                        isDisabled={!isEditable}
                     />
 
                     <br />
@@ -214,9 +230,14 @@ const EventProfile = ({event, allTags, setLoading}) => {
                         options={eventPrivacyOptions}
                         onChange={setEventPrivacy}
                         defaultValue={eventPrivacy}
+                        isDisabled={!isEditable}
                     />
                     <br />
-                    <FormButton type="submit" buttonText="Save" />
+                    <FormButton 
+                        type="submit" 
+                        buttonText="Save"
+                        isDisabled={!isEditable} 
+                    />
 
                 </form>
             

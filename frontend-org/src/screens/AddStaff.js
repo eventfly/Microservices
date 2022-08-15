@@ -1,5 +1,5 @@
 import EventSidebar from "../components/EventSidebar";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import { useEffect, useState } from 'react'
 import FormTitle from "../components/Form/FormTitle";
@@ -21,9 +21,12 @@ const AddStaff = () => {
     const [staffForms, setStaffForms] = useState([{'id' : 1}])
     const { eventId } = useParams();
 
+    const location = useLocation()
+    const { roleType } = location.state
+
 
     useEffect(() => {
-        console.log(status)
+        //console.log(status)
     
     }, [status])
 
@@ -99,7 +102,7 @@ const AddStaff = () => {
             allStaffs.push({
                 'name': name[i],
                 'email': email[i],
-                'role': role[i],
+                'role': roleType,
                 'events': [eventId]
             })
         }
@@ -172,13 +175,14 @@ const AddStaff = () => {
                     return(
                         <div className="add-single-staff" key={index}>
                             <AddSingleStaff
+                                roleType={roleType}
                                 staffNo={staffForm.id}  
                                 name={name[staffForm.id-1]} 
                                 setName={(value)=>updateNameByIndex(staffForm.id-1, value)}
                                 email={email[staffForm.id-1]} 
                                 setEmail={(value)=>updateEmailByIndex(staffForm.id-1, value)}
-                                role={role[staffForm.id-1]} 
-                                setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
+                                // role={role[staffForm.id-1]} 
+                                // setRole={(value)=>updateRoleByIndex(staffForm.id-1, value)}
                                 status={status[[staffForm.id-1]]}
                                 removeStaff={(val)=>removeStaffByIndex(staffForm.id-1)}
                             />

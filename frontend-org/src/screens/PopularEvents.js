@@ -64,12 +64,12 @@ const PopularEvents = () => {
 
     return ( 
         <div className='PopularEvents'>
-            <Container style={{border:'none'}}>
+            <Container style={{border:'none', marginLeft:'5%', marginRight:'5%', marginTop:'5%'}}>
                 <Row style={{alignItems:'center'}}>
-                    <Col xs={{span:5}}>
+                    {/* <Col xs={{span:5}}>
                         <h1>Popular Events</h1>
-                    </Col>
-                    <Col xs={{offset:5, span:2}}>
+                    </Col> */}
+                    <Col xs={{offset:10, span:2}}>
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Sort By
@@ -87,7 +87,7 @@ const PopularEvents = () => {
                     </Col>
                 </Row>
             </Container>
-=            
+            
             {events.length > 0 ? (
                 <EventTable events={events} />
                 ) : (

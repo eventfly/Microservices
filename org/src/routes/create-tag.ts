@@ -4,6 +4,7 @@ import {body} from 'express-validator';
 import { errorHandler } from '../middlewares/error-handler';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
+import { accessControl } from '../middlewares/access-control';
 import { Tag } from '../models/tag';
 
 const router = express.Router();
@@ -14,7 +15,11 @@ router.post('/api/org/tag',
         notEmpty().
         withMessage('Name is required'),
     ], 
-    currentUser, requireAuth, errorHandler, 
+    currentUser, 
+    requireAuth,
+    accessControl('Organizer', 'Manager'), 
+    errorHandler, 
+    
     async (req: Request, res:Response) => {
         const { name } = req.body;
 

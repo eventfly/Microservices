@@ -4,7 +4,7 @@
     border: 1px solid #05a515;
   }
   
-  .EventList, .PopularEvents{
+  .EventList{
     background-color: white;
     min-height: inherit;
     margin: 2.5rem 3.5rem;

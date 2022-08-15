@@ -6,22 +6,32 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { accessControl } from '../middlewares/access-control';
 import { Event } from '../models/event';
+import { Staff } from '../models/staff';
 import { errorHandler } from '../middlewares/error-handler';
 import { ObjectId } from 'bson';
 
 const router = express.Router();
 
-router.get('/api/org/event/:orgId', 
+router.get('/api/org/event/staff/:staffId', 
 currentUser, 
 requireAuth,
-accessControl('Organizer', 'Manager'),
+// accessControl('Organizer', 'Manager')
 errorHandler, 
 
 async (req: Request, res: Response) => {
-    const { orgId } = req.params;
+    const { staffId } = req.params;
+    const staff = await Staff.findById(staffId);
 
-    const events = await Event.find({ organizer: new ObjectId(orgId) });
-    res.send(events);
+    const ids = staff!.events!.map((element: any) => {
+        return element!.eventId
+    });
+
+    const eventsByStaff = await Event.find({"_id": {
+        "$in": ids
+    }});
+
+    
+    res.status(201).send(eventsByStaff);
 })
 
-export { router as getEventRouter };
+export { router as getEventsByStaffRouter };

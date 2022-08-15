@@ -41,6 +41,13 @@ const EventPage = () => {
     const [loadingMember, setLoadingMember] = useState(false);
     const [loadingProfile, setLoadingProfile] = useState(false);
 
+    const isPageEditable = () => {
+        if(auth.role == 'Organizer' || auth.role == 'Manager'){
+            return true
+        }
+        return false
+    }
+
 
     useEffect(() => {
         if(!auth && !token){
@@ -62,13 +69,21 @@ const EventPage = () => {
 
                     setTags([...tags]);
 
-                    getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
-                        setEvent(res.data)
-                    }).catch((err)=>{
-                        console.log(err.response.data.errors)
-                    })
+                    // getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
+                    //     console.log(res.data)
+                    //     setEvent(res.data)
+                    // }).catch((err)=>{
+                    //     console.log(err.response.data.errors)
+                    // })
                 })
                 .catch((err)=>{
+                    console.log(err.response.data.errors)
+                })
+
+                getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
+                    console.log(res.data)
+                    setEvent(res.data)
+                }).catch((err)=>{
                     console.log(err.response.data.errors)
                 })
 
@@ -114,7 +129,8 @@ const EventPage = () => {
                             <EventProfile 
                                 event={event} 
                                 allTags={tags}
-                                setLoading={setLoadingProfile} 
+                                setLoading={setLoadingProfile}
+                                isEditable={isPageEditable()} 
                             />
                         ) :
                         (
@@ -129,8 +145,9 @@ const EventPage = () => {
                                     (
                                         location.includes('members') ? (
                                             <EventMember
-                                                managers={[auth]} 
-                                                staffs={event ? event.staffs : null}
+                                                event={event}
+                                                setEvent={setEvent}
+                                                managers={[auth]}
                                                 setLoading={setLoadingMember}
                                             />
                                         ) : 

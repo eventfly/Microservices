@@ -82,7 +82,7 @@ function App() {
 
           <Route path="/sub" element={<Subscription />}/>
           <Route path="/event/:eventId/*" element={<EventPage />}/>
-          <Route path="/profile" element={<Profile />}/>
+          <Route path="/profile/*" element={<Profile />}/>
           <Route path="/profile/billing" element={<BillingDetails />}/>
 
         </Routes>

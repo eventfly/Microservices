@@ -7,6 +7,8 @@ import { useNavigate} from 'react-router-dom';
 
 import {getOrgApi} from '../api/axiosHook'
 
+import Spinner from '../components/Spinner';
+
 
 
 const EventList = () => {
@@ -37,8 +39,13 @@ const EventList = () => {
         async function fetchEvent(){
             if (auth && auth.ref_id && (loading == false)) {
                 console.log("loading", loading)
+
+                let route = `/event/${auth.ref_id}`
+                if(auth.role != 'Organizer' && auth.role != 'Manager'){
+                    route = `/event/staff/${auth.ref_id}`
+                }
                 
-                getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
+                getOrgApi(localStorage.getItem('token')).get(route).then((res)=>{
                     console.log(res.data)
 
                     for(let i = 0; i < res.data.length; i++){
@@ -51,7 +58,7 @@ const EventList = () => {
                     console.log('events: ', events);
                 }).catch((err)=>{
                     console.log(err.response.data.errors)
-                  })
+                })
 
                 setLoading(true)
                 setEvents([])
@@ -73,6 +80,13 @@ const EventList = () => {
         else if (tab === 1) setEvents(alldata.data["past_events"]);
         else if (tab === 2) setEvents(alldata.data["upcoming_events"]);
         else setEvents(alldata.data["all_events"]);
+    }
+
+    const isPageEditable = () => {
+        if(auth.role == 'Organizer' || auth.role == 'Manager'){
+            return true
+        }
+        return false
     }
 
 
@@ -97,7 +111,7 @@ const EventList = () => {
     return (
         auth && <div className='EventList'>
             <Searchbar searchText={searchText} setSearchText={setSearchText} />
-            <SlidingNav getData={getTab} />
+            <SlidingNav getData={getTab} canCreateEvent={isPageEditable() ? 'block' : 'none'} />
             <h2>Event List</h2>
             <div className='event-container'>
                 {/* {
@@ -125,6 +139,7 @@ const EventList = () => {
                     ) : 
                     (
                         <p>No events</p>
+                        // <Spinner />
                     )
                     
                 }
