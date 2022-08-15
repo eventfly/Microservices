@@ -20,6 +20,9 @@ import { editRoleRouter } from './routes/edit-role';
 import { removeRoleRouter } from './routes/remove-role';
 import { removeStaffRouter } from './routes/remove-staff';
 import { editStaffRoleRouter } from './routes/edit-staff-role';
+import { getAllStaffsRouter } from './routes/get-all-staffs';
+import { getOrgDataRouter } from './routes/get-org-data';
+import { getOrgRolesRouter } from './routes/get-org-roles';
 
 
 const app = express()
@@ -51,6 +54,9 @@ app.use(editRoleRouter)
 app.use(removeRoleRouter)
 app.use(removeStaffRouter)
 app.use(editStaffRoleRouter)
+app.use(getAllStaffsRouter)
+app.use(getOrgDataRouter)
+app.use(getOrgRolesRouter)
 
 
 app.all('*', async (req, res, next) => {

@@ -17,6 +17,7 @@ interface OrgAttrs {
     role: string;
     profile_pic?: string;
     roles?: Types.DocumentArray<any>;
+    permission?: string;
 }
 
 interface OrgDoc extends mongoose.Document {
@@ -27,6 +28,7 @@ interface OrgDoc extends mongoose.Document {
     role: string;
     profile_pic?: string;
     roles?: Types.DocumentArray<any>;
+    permission?: string;
 }
 
 interface OrgModel extends mongoose.Model<OrgDoc> {
@@ -86,7 +88,12 @@ const orgSchema = new mongoose.Schema(
                 default: 'Read Only',
                 required: false
             }
-        }]
+        }],
+
+        permission: {
+            type: String,
+            required: true
+        }
 
     },
     {

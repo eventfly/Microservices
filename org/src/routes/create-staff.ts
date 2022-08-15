@@ -76,17 +76,17 @@ router.post('/api/org/staff', [
                 }
             ));
 
-            natsWrapper.client.publish('staff:assigned', JSON.stringify(
-                { 
-                    name: staff.name,
-                    email: staff.email, 
-                    role: staff.role,
-                    ref_id: staff.id, 
-                    password: staff.otp!,
-                    // is_verified: staff.is_verified,
-                    events: staff.events
-                }
-            ));
+            // natsWrapper.client.publish('staff:assigned', JSON.stringify(
+            //     { 
+            //         name: staff.name,
+            //         email: staff.email, 
+            //         role: staff.role,
+            //         ref_id: staff.id, 
+            //         password: staff.otp!,
+            //         // is_verified: staff.is_verified,
+            //         events: staff.events
+            //     }
+            // ));
 
             const url = encodeURIComponent(`http://localhost:3005/login?email=${staff.email}&password=${staff.otp}`)
             console.log(url);

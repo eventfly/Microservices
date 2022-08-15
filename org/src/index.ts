@@ -5,6 +5,7 @@ import { EventEditedListener } from './listeners/event-edited-listener';
 import { StaffRemovedFromEventListener } from './listeners/staff-removed-from-event-listener';
 import { OtpVerifiedListener } from './listeners/otp-verified-listener';
 import { StaffAssignedListener } from './listeners/staff-assigned-listener';
+import { EventRoleRemovedListener } from './listeners/event-role-removed';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -48,6 +49,7 @@ const start = async () => {
     new StaffRemovedFromEventListener(natsWrapper.client).listen();
     new OtpVerifiedListener(natsWrapper.client).listen();
     new StaffAssignedListener(natsWrapper.client).listen();
+    new EventRoleRemovedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_ORG}`, {
       useNewUrlParser: true,

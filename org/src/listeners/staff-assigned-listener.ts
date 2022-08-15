@@ -9,21 +9,24 @@ export class StaffAssignedListener extends Listener {
     async onMessage(data: any, msg: Message) {
         console.log('Staff assigned! Data: ', data);
 
-        let {staffId, eventId} = data
+        let {staffs, eventId} = data
 
-        await Staff.findByIdAndUpdate(staffId, 
-        {
-            $push: 
-            {"events": 
-                {
-                    eventId
+        staffs.forEach(async (staff: any) => {
+
+            await Staff.findByIdAndUpdate(staff.ref_id, 
+            {
+                $push: 
+                {"events": 
+                    {
+                        eventId
+                    }
                 }
-            }
-        }, 
-        {
-            new: true,
-            runValidators: true
-        })
+            }, 
+            {
+                new: true,
+                runValidators: true
+            }) 
+        });
         
         msg.ack();
     }

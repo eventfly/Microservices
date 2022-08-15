@@ -4,6 +4,8 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { validateRequest } from '../middlewares/validate-request';
 import { Organizer } from '../models/organizer';
+import { Staff } from '../models/staff';
+import { natsWrapper } from '../nats-wrapper';
 
 
 const router = express.Router();
@@ -19,11 +21,13 @@ router.delete('/api/org/:id/role', [
 
     async (req: Request, res: Response) => {
 
+        let {name, staffIds} = req.body;
+
         const organizer = await Organizer.findByIdAndUpdate(req.params.id,
             {$pull: 
                 {
                     roles: {
-                        name: req.body.name
+                        name: name
                     }
                 }
             }, 
@@ -32,6 +36,24 @@ router.delete('/api/org/:id/role', [
                 runValidators: true
             }
        )
+
+       staffIds.forEach(async (id: any) => {
+            await Staff.findByIdAndUpdate(id, {
+                role: 'Default'
+            }, 
+            {
+                new: true,
+                runValidators: true
+            })
+        })
+
+       natsWrapper.client.publish('role:removed', JSON.stringify(
+        {
+            role: name, 
+            newRole: 'Default',
+            staffIds: staffIds 
+        }
+    ));
 
        res.status(201).send({ existingUser: organizer })
     }
