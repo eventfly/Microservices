@@ -36,6 +36,8 @@ const EventPage = () => {
 
     const [event, setEvent] = useState(null);
     const [tags, setTags] = useState([])
+    const [orgStaffs, setOrgStaffs] = useState([]);
+    const [orgRoles, setOrgRoles] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const [loadingMember, setLoadingMember] = useState(false);
@@ -69,12 +71,6 @@ const EventPage = () => {
 
                     setTags([...tags]);
 
-                    // getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
-                    //     console.log(res.data)
-                    //     setEvent(res.data)
-                    // }).catch((err)=>{
-                    //     console.log(err.response.data.errors)
-                    // })
                 })
                 .catch((err)=>{
                     console.log(err.response.data.errors)
@@ -83,6 +79,24 @@ const EventPage = () => {
                 getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
                     console.log(res.data)
                     setEvent(res.data)
+                
+                    getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/staffs`).then((res)=>{
+                        console.log(res.data.staffs)
+                        setOrgStaffs([...res.data.staffs])
+                    
+                    }).catch((err)=>{
+                        console.log(err.response.data.errors)
+                    })
+
+                    getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/roles`).then((res)=>{
+                        console.log(res.data.roles)
+                        setOrgRoles([...res.data.roles])
+                    
+                    }).catch((err)=>{
+                        console.log(err.response.data.errors)
+                    })
+                
+                
                 }).catch((err)=>{
                     console.log(err.response.data.errors)
                 })
@@ -147,7 +161,9 @@ const EventPage = () => {
                                             <EventMember
                                                 event={event}
                                                 setEvent={setEvent}
-                                                managers={[auth]}
+                                                orgRoles={orgRoles}
+                                                orgStaffs={orgStaffs}
+                                                // managers={[auth]}
                                                 setLoading={setLoadingMember}
                                             />
                                         ) : 

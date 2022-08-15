@@ -51,4 +51,39 @@
 .org-profile-flexbox .main-content-column{
   flex: 0 0 80%;
   padding-bottom: 75px;
-}  
+}
+
+
+.org-sidebar-icons{
+  font-size: larger;
+  transform: translate(0%, -8%);
+}
+
+.org-sidebar-icons-md{
+  font-size: x-large;
+  transform: translate(0%, -8%);
+}
+
+.org-sidebar-icon-title{
+  color: black;
+  font-family: Arial;
+  font-weight: 450;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.org-sidebar-icon-title:hover{
+  font-weight: 550;
+}
+
+.active-item{
+  background: #B1BDBE;
+  border-radius: 5px;
+  padding-left: 8%;
+  padding-right: 8%;
+}
+
+.inactive-item{
+  padding-left: 8%;
+  padding-right: 8%;
+}
