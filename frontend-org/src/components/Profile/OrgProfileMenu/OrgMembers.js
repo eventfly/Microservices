@@ -2,9 +2,11 @@ import FormTitle from "../../Form/FormTitle";
 import AddRoleModal from "../../Member/AddRoleModal";
 import Role from "../../Member/Role";
 import { useEffect, useState } from "react";
+import {getOrgApi} from '../../../api/axiosHook'
 
 const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
 
+    const [loading, setLoading] = useState(false);
 
     const roleOptions = [
         {
@@ -29,13 +31,25 @@ const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
         }
     ]
 
-
     useEffect(() => {
-
+        
         console.log("org data: ", orgData, staffs)
 
+        if(loading == false && orgData){
+            console.log("loading: ", loading)
+
+            getOrgApi(localStorage.getItem('token')).get(`/${orgData.id}/staffs`).then((res)=>{
+                console.log(res.data.staffs)
+                setStaffs([...res.data.staffs])
+
+            }).catch((err)=>{
+                console.log(err)
+            })
+
+            setLoading(true)
+        }
     
-    }, [orgData])
+    }, [orgData, loading])
 
     const getStaffsByRole = (role) => {
         let tempStaffs = staffs.filter((staff)=>{
@@ -111,6 +125,8 @@ const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
                                 roleType={role.name}
                                 permissions={role.permissions}
                                 members={staffs ? getStaffsByRole(role) : null}
+                                setStaffs={setStaffs}
+                                setLoading={setLoading}
                             />
                         )
                     })

@@ -8,6 +8,7 @@ export class StaffRemovedListener extends Listener {
 
     async onMessage(data: any, msg: Message) {
 
+        console.log("Data:", data)
         let {ref_id} = data;
 
         await Organizer.deleteOne({"ref_id": ref_id})

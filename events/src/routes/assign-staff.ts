@@ -7,6 +7,8 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
 import { accessControl } from '../middlewares/access-control';
+import { sendMail } from '../services/mail';
+var URI = require("uri-js");
 
 
 const router = express.Router();
@@ -38,6 +40,22 @@ router.put('/api/event/:id/assign-staff',
         ), () => {
             console.log('Staff assignment published')
         })
+
+        let staffs = req.body
+
+        staffs.forEach((staff: any) => {
+           
+            const url = encodeURIComponent(`http://localhost:3005/event/${req.params.id}/profile`)
+            console.log(url);
+    
+            sendMail({
+                from: 'eventfly@buetcsefest2022.com',
+                to: staff.email,
+                subject: 'Welcome to Eventfly',
+                html: `<h1>Welcome to Eventfly!</h1> <p>You are assigned to our event. <a href=${url}>Visit Event Page</a></p>`
+            });
+
+        });
         
         res.status(201).send({ event })
     }
