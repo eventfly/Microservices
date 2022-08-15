@@ -4,7 +4,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Organizer } from '../models/organizer';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.post('/api/org/:id/role', [
     validateRequest,
     currentUser, 
     requireAuth,
-    accessControl('Organizer', 'Manager'),
+    roleControl('Organizer', 'Manager'),
 
     async (req: Request, res: Response) => {
 

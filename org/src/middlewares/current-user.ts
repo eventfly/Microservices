@@ -11,6 +11,7 @@ interface UserPayload {
     gender?: string;
     role?: string;
     ref_id: string;
+    permissions?: string[]
 }
 
 declare global {

@@ -6,6 +6,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { Organizer } from '../models/organizer';
 import { Staff } from '../models/staff';
 import { natsWrapper } from '../nats-wrapper';
+import { roleControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -18,6 +19,7 @@ router.delete('/api/org/:id/role', [
     validateRequest,
     currentUser, 
     requireAuth,
+    roleControl('Organizer', 'Manager'),
 
     async (req: Request, res: Response) => {
 
