@@ -23,11 +23,11 @@ const Login = () => {
     let accTypeOptions = [
         {
             'id': 1,
-            'name': 'organizer'
+            'name': 'Organizer'
         },
         {
             'id': 2,
-            'name': 'staff'
+            'name': 'Staff'
         }
     ]
 
@@ -50,7 +50,13 @@ const Login = () => {
 
             window.localStorage.setItem('token', res.data.token);
             window.sessionStorage.setItem('auth', JSON.stringify(res.data.existingUser));
-            navigate('/profile')
+
+            if(res.data.existingUser.role == 'Staff'){
+                navigate('/profile')
+            }
+            else{
+                navigate('/profile/account')
+            }
 
         }).catch(err => {
             console.log(err)

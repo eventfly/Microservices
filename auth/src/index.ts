@@ -4,6 +4,9 @@ import { app } from './app';
 import { OrgCreatedListener } from './listeners/org-created-listener';
 import { StaffCreatedListener } from './listeners/staff-created-listener';
 import { ProfileEditedListener } from './listeners/profile-edited-listener';
+import { StaffRemovedListener} from './listeners/staff-removed-listener';
+import { StaffPermissionEditedListener} from './listeners/staff-permission-edited-listener';
+import { StaffRoleEditedListener} from './listeners/staff-role-edited-listener';
 import { natsWrapper } from './nats-wrapper';
 import { ParticipantCreatedListener } from './listeners/participant-created-listener';
 
@@ -50,6 +53,9 @@ const start = async () => {
     new StaffCreatedListener(natsWrapper.client).listen();
     new ProfileEditedListener(natsWrapper.client).listen();
     new ParticipantCreatedListener(natsWrapper.client).listen();
+    new StaffRemovedListener(natsWrapper.client).listen();
+    new StaffPermissionEditedListener(natsWrapper.client).listen();
+    new StaffRoleEditedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_AUTH}`, {
       useNewUrlParser: true,

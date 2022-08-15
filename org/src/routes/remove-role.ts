@@ -3,13 +3,14 @@ import { body, check } from 'express-validator';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { validateRequest } from '../middlewares/validate-request';
-import { Event } from '../models/event';
+import { Organizer } from '../models/organizer';
+import { Staff } from '../models/staff';
 import { natsWrapper } from '../nats-wrapper';
 
 
 const router = express.Router();
 
-router.delete('/api/event/:id/role', [
+router.delete('/api/org/:id/role', [
     body('name').
         isLength({ min: 3, max: 20 }).
         withMessage('Name must be between 3 and 20 characters')
@@ -20,14 +21,13 @@ router.delete('/api/event/:id/role', [
 
     async (req: Request, res: Response) => {
 
-        await Event.findOneAndUpdate(
-            {
-                "ref_id": req.params.id
-            }, 
+        let {name, staffIds} = req.body;
+
+        const organizer = await Organizer.findByIdAndUpdate(req.params.id,
             {$pull: 
                 {
                     roles: {
-                        name: req.body.name
+                        name: name
                     }
                 }
             }, 
@@ -37,37 +37,25 @@ router.delete('/api/event/:id/role', [
             }
        )
 
-
-       const event = await Event.findOneAndUpdate(
-        {
-            "ref_id": req.params.id
-        }, 
-        {$pull: 
+       staffIds.forEach(async (id: any) => {
+            await Staff.findByIdAndUpdate(id, {
+                role: 'Default'
+            }, 
             {
-                staffs: {
-                    ref_id: {
-                        $in: req.body.staffIds
-                    }
-                }
-            }
-        }, 
+                new: true,
+                runValidators: true
+            })
+        })
+
+       natsWrapper.client.publish('role:removed', JSON.stringify(
         {
-            new: true,
-            runValidators: true
+            role: name, 
+            newRole: 'Default',
+            staffIds: staffIds 
         }
-   )
+    ));
 
-
-   natsWrapper.client.publish('event-role:removed', JSON.stringify(
-    {
-        eventId: req.params.id, 
-        staffIds: req.body.staffIds
-    }
-    ), () => {
-        console.log('Removal of event role published')
-    })
-
-       res.status(201).send({ event })
+       res.status(201).send({ existingUser: organizer })
     }
 )
 

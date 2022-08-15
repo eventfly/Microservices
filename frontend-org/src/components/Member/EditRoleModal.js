@@ -3,9 +3,9 @@ import FormInput from '../Form/FormInput';
 import PopupModal from '../PopupModal';
 import AutoComplete from '../AutoComplete'
 import {BiPencil} from 'react-icons/bi'
-import {getEventApi} from '../../api/axiosHook'
+import {getEventApi, getOrgApi} from '../../api/axiosHook'
 
-const EditRoleModal = ({eventId, setEvent, roleType, defaultPermissions}) => {
+const EditRoleModal = ({id, setData, roleType, defaultPermissions, apiCallRoute, members}) => {
 
     const [modalShow, setModalShow] = useState(false);
     const [permissions, setPermissions] = useState([]);
@@ -18,7 +18,7 @@ const EditRoleModal = ({eventId, setEvent, roleType, defaultPermissions}) => {
             setPermissions([...defaultPermissions])
         }
 
-    }, [])
+    }, [defaultPermissions])
 
     const modalJSX = (
         <>
@@ -53,17 +53,32 @@ const EditRoleModal = ({eventId, setEvent, roleType, defaultPermissions}) => {
 
         let body = {
             name: roleType,
-            permissions: permissions
+            permissions: permissions,
+            staffIds: members.map((member)=>{
+                return member.id
+            })
         }
 
         console.log(body)
 
-        getEventApi(localStorage.getItem('token')).put(`/${eventId}/role`, body).then((res)=>{
+        let api = getOrgApi
 
-            console.log(res.data.event)
+        if(apiCallRoute == 'events'){
+            api = getEventApi
+        }
+
+        api(localStorage.getItem('token')).put(`/${id}/role`, body).then((res)=>{
             setPermissions([])
             setModalShow(false)
-            setEvent(res.data.event)
+
+            console.log(res.data)
+
+            if(apiCallRoute == 'events'){
+                setData(res.data.event)
+            }
+            else if(apiCallRoute == 'org'){
+                setData(res.data.existingUser)
+            }
 
         }).catch((err)=>{
             console.log(err.response.data.errors)

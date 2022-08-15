@@ -2,9 +2,10 @@ import { Listener } from '@thr_org/common'
 import { Message } from 'node-nats-streaming'
 import { Event } from '../models/event';
 
-export class StaffCreatedListener extends Listener {
-    subject = 'staff:created2';
-    queueGroupName = 'staff-created';
+export class StaffAssignedListener extends Listener {
+    subject = 'staff:assigned';
+    queueGroupName = 'staff-assigned';
+    
     async onMessage(data: any, msg: Message) {
 
         console.log(data);

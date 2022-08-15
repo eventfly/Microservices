@@ -6,6 +6,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
+import { accessControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -32,8 +33,13 @@ router.put('/api/event/:id', [
         }
         return true;
     })
-], validateRequest,
-    currentUser, requireAuth,
+    ], 
+    
+    validateRequest,
+    currentUser, 
+    requireAuth,
+    accessControl('Organizer', 'Manager'),
+    
     async (req: Request, res: Response) => {
 
         const event = await Event.findOneAndUpdate({"ref_id": req.params.id}, req.body, {

@@ -8,12 +8,12 @@ export class StaffCreatedListener extends Listener {
     queueGroupName = 'staff-created';
     async onMessage(data: any, msg: Message) {
 
-        let {name, email, password, role, ref_id} = data;
+        let {name, email, password, role, ref_id, permissions} = data;
 
         password = await Password.toHash(password);
 
         const staff = await Organizer.build({
-            name, email, password, role, ref_id
+            name, email, password, role, ref_id, permissions
         })
 
         await staff.save();

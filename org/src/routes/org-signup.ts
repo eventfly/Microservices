@@ -26,7 +26,13 @@ router.post('/api/org', [
             'Email in use'
         )
     } else {
-        const user = Organizer.build({ email, password, name, role })
+        const user = Organizer.build({ 
+            email, 
+            password, 
+            name, 
+            role,
+            permission: 'Admin' 
+        })
 
         await user.save()
 
@@ -38,6 +44,7 @@ router.post('/api/org', [
                 name: user.name,
                 password: user.password,
                 role: user.role,
+                permissions: [user.permission],
                 ref_id: user.id
             }
         ), () => {
@@ -52,7 +59,8 @@ router.post('/api/org', [
             email: user.email,
             name: user.name,
             role: user.role,
-            ref_id: user.id
+            ref_id: user.id,
+            permission: user.permission
         }, process.env.JWT_KEY!)
 
         //Store it on session object (in the cookie)

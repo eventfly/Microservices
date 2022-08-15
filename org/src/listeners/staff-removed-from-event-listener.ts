@@ -2,7 +2,7 @@ import { Listener } from '@thr_org/common'
 import { Message } from 'node-nats-streaming'
 import { Staff } from '../models/staff';
 
-export class StaffRemovedListener extends Listener {
+export class StaffRemovedFromEventListener extends Listener {
     subject = 'staff:removed';
     queueGroupName = 'staff-removed';
     async onMessage(data: any, msg: Message) {
