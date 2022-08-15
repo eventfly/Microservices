@@ -3,12 +3,12 @@ import FormSelect from '../Form/FormSelect';
 import PopupModal from '../PopupModal';
 import AutoComplete from '../AutoComplete'
 import {MdOutlineGroupAdd} from 'react-icons/md'
-import {getEventApi} from '../../api/axiosHook'
+import {getEventApi, getOrgApi} from '../../api/axiosHook'
 
 
-const AddRoleModal = ({eventId, setEvent, roleOptions}) => {
+const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
 
-    const [newRole, setNewRole] = useState('Default');
+    const [newRole, setNewRole] = useState(roleOptions.length > 0 ? roleOptions[0].name : '');
     const [modalShow, setModalShow] = useState(false);
     const [permissions, setPermissions] = useState([]);
 
@@ -25,7 +25,8 @@ const AddRoleModal = ({eventId, setEvent, roleOptions}) => {
                     defaultValue={newRole}
                     onChange={setNewRole}
                 />
-
+                
+                <div style={{display: `${display}`}}>
                 <div style={{marginTop: '30px'}}></div>
 
                 <AutoComplete
@@ -36,6 +37,8 @@ const AddRoleModal = ({eventId, setEvent, roleOptions}) => {
                     setMultiSelections={setPermissions}
                 />
 
+                </div>
+
             </div>
         
         </>
@@ -45,20 +48,45 @@ const AddRoleModal = ({eventId, setEvent, roleOptions}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        let body = {
-            name: newRole,
-            permissions: permissions
+        let body;
+
+        if(apiCallRoute == 'org'){
+            body = {
+                name: newRole,
+                permissions: permissions
+            }
+        }
+        else if(apiCallRoute == 'events'){
+            body = {
+                name: newRole,
+                permissions: roleOptions.filter((opt)=>{
+                    return opt.name == newRole
+                })[0].permissions
+            }
         }
 
         console.log(body)
 
-        getEventApi(localStorage.getItem('token')).post(`/${eventId}/role`, body).then((res)=>{
+        let api = getOrgApi
 
-            console.log(res.data.event)
+        if(apiCallRoute == 'events'){
+            api = getEventApi
+        }
+
+        api(localStorage.getItem('token')).post(`/${id}/role`, body).then((res)=>{
+
             setNewRole('')
             setPermissions([])
             setModalShow(false)
-            setEvent(res.data.event)
+
+            console.log(res.data)
+
+            if(apiCallRoute == 'events'){
+                setData(res.data.event)
+            }
+            else if(apiCallRoute == 'org'){
+                setData(res.data.existingUser)
+            }
 
         }).catch((err)=>{
             console.log(err.response.data.errors)
@@ -70,7 +98,13 @@ const AddRoleModal = ({eventId, setEvent, roleOptions}) => {
 
         <>
 
-            <MdOutlineGroupAdd className="add-role-icon" onClick={() => setModalShow(true)} />
+            <MdOutlineGroupAdd 
+                className="add-role-icon" 
+                onClick={() => setModalShow(true)}
+                style={{
+                    display: roleOptions.length > 0 ? 'block' : 'none'
+                }} 
+            />
 
             <PopupModal
                 show={modalShow}

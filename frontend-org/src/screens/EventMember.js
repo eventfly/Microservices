@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import AddRoleModal from "../components/Member/AddRoleModal";
 
-const EventMember = ({event, setEvent, managers, setLoading}) => {
+const EventMember = ({event, setEvent, orgRoles, orgStaffs, managers, setLoading}) => {
 
     let auth = sessionStorage.getItem('auth')
     if (auth) {
@@ -38,7 +38,12 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
 
     const getStaffsByRole = (role) => {
         let tempStaffs = event.staffs.filter((staff)=>{
-            return staff.role === role.name
+            if(role.name == 'Default'){
+                return staff.role === role.name
+            }
+            else{
+                return staff.role === role.name.slice(0, -1)
+            }
         })
 
         return tempStaffs
@@ -47,22 +52,36 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
     const getRoleOptions = () => {
         let tempOptions = roleOptions
 
-        if(event){
+        if(event && orgRoles.length > 0){
+            tempOptions = orgRoles
+
             event.roles.map((role) => {
                 tempOptions = tempOptions.filter((opt)=>{
                     return opt.name !== role.name
                 })
 
             });
+
+            tempOptions = tempOptions.map((opt)=>{
+                return{
+                    'id': opt._id,
+                    'name': opt.name,
+                    'permissions': opt.permissions
+                }
+            })
+
+            console.log("tempOptions", tempOptions)
+
         }
 
         return tempOptions
     }
 
     useEffect(() => {
-        setLoading(false)
-    
-    }, [])
+        // setLoading(false)
+        console.log(orgRoles, orgStaffs)
+
+    }, [orgRoles, orgStaffs])
 
         
     return ( 
@@ -74,9 +93,11 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
                 {
                     (auth && (auth.role === 'Organizer' || auth.role === 'Manager')) ? (
                         <AddRoleModal 
-                            eventId={event ? event.ref_id : ''} 
-                            setEvent={setEvent}
+                            id={event ? event.ref_id : ''} 
+                            setData={setEvent}
                             roleOptions={getRoleOptions()}
+                            apiCallRoute={'events'}
+                            display={'none'}
                         />
                     ) : (
                         <></>
@@ -88,8 +109,9 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
             <div className="role-container">
                 <Role 
                     roleType='Managers'
-                    setEvent={setEvent} 
+                    // setEvent={setEvent} 
                     members={managers}
+                    displayEditModal={'none'}
                 />
             </div>
 
@@ -101,8 +123,10 @@ const EventMember = ({event, setEvent, managers, setLoading}) => {
                                 key={index} 
                                 roleType={role.name}
                                 permissions={role.permissions}
-                                setEvent={setEvent} 
+                                setData={setEvent} 
                                 members={event ? getStaffsByRole(role) : null}
+                                displayEditModal={'none'}
+                                orgStaffs={orgStaffs ? orgStaffs : []}
                             />
                         )
                     })

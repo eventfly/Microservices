@@ -1,14 +1,12 @@
 import FormTitle from "../../Form/FormTitle";
 import AddRoleModal from "../../Member/AddRoleModal";
 import Role from "../../Member/Role";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {getOrgApi} from '../../../api/axiosHook'
 
-const OrgMembers = ({event, setEvent, managers, setLoading}) => {
+const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
 
-    let auth = sessionStorage.getItem('auth')
-    if (auth) {
-        auth = JSON.parse(auth);
-    }
+    const [loading, setLoading] = useState(false);
 
     const roleOptions = [
         {
@@ -33,10 +31,33 @@ const OrgMembers = ({event, setEvent, managers, setLoading}) => {
         }
     ]
 
+    useEffect(() => {
+        
+        console.log("org data: ", orgData, staffs)
+
+        if(loading == false && orgData){
+            console.log("loading: ", loading)
+
+            getOrgApi(localStorage.getItem('token')).get(`/${orgData.id}/staffs`).then((res)=>{
+                console.log(res.data.staffs)
+                setStaffs([...res.data.staffs])
+
+            }).catch((err)=>{
+                console.log(err)
+            })
+
+            setLoading(true)
+        }
+    
+    }, [orgData, loading])
 
     const getStaffsByRole = (role) => {
-        let tempStaffs = event.staffs.filter((staff)=>{
-            return staff.role === role.name
+        let tempStaffs = staffs.filter((staff)=>{
+            
+            if(role.name != 'Default'){
+                return staff.role === role.name.slice(0, -1)
+            }
+            else return staff.role === role.name
         })
 
         return tempStaffs
@@ -45,40 +66,36 @@ const OrgMembers = ({event, setEvent, managers, setLoading}) => {
     const getRoleOptions = () => {
         let tempOptions = roleOptions
 
-        if(event){
-            event.roles.map((role) => {
-                tempOptions = tempOptions.filtergetRoleOptions((opt)=>{
+        if(orgData && orgData.roles){
+            orgData.roles.map((role) => {
+                tempOptions = tempOptions.filter((opt)=>{
                     return opt.name !== role.name
                 })
 
             });
         }
 
+        // tempOptions = tempOptions.map((opt)=>{
+        //     return opt.name
+        // })
+
         return tempOptions
     }
-
-    useEffect(() => {
-        setLoading(false)
-    
-    }, [])
 
         
     return ( 
         <>
-            <h1 style={{color:'red'}}>
-                This is copied from EventMember.js<br></br>
-                Need to fix roles, routes++
-            </h1>
             <div className="role-header">
 
                 <h2>Roles</h2>
 
                 {
-                    (auth && (auth.role === 'Organizer' || auth.role === 'Manager')) ? (
+                    (orgData && (orgData.role === 'Organizer' || orgData.role === 'Manager')) ? (
                         <AddRoleModal 
-                            eventId={event ? event.ref_id : ''} 
-                            setEvent={setEvent}
+                            id={orgData ? orgData.id : ''} 
                             roleOptions={getRoleOptions()}
+                            apiCallRoute={'org'}
+                            setData={setOrgData}
                         />
                     ) : (
                         <></>
@@ -90,21 +107,26 @@ const OrgMembers = ({event, setEvent, managers, setLoading}) => {
             <div className="role-container">
                 <Role 
                     roleType='Managers'
-                    setEvent={setEvent} 
-                    members={managers}
+                    orgId={orgData ? orgData.id : ''}
+                    setData={setOrgData} 
+                    permissions={['Admin']}
+                    // members={managers}
                 />
             </div>
 
             <div className="role-container">
                 {
-                    event && event.roles.map((role, index)=>{
+                    orgData && orgData.roles && orgData.roles.map((role, index)=>{
                         return (
                             <Role
-                                key={index} 
+                                key={index}
+                                orgId={orgData ? orgData.id : ''}
+                                setData={setOrgData}
                                 roleType={role.name}
                                 permissions={role.permissions}
-                                setEvent={setEvent} 
-                                members={event ? getStaffsByRole(role) : null}
+                                members={staffs ? getStaffsByRole(role) : null}
+                                setStaffs={setStaffs}
+                                setLoading={setLoading}
                             />
                         )
                     })

@@ -15,6 +15,14 @@ import { getTagsRouter } from './routes/get-tags';
 import { editProfileRouter } from './routes/edit-profile';
 import { getStaffRouter } from './routes/get-staff';
 import { getEventsByStaffRouter } from './routes/get-events-by-staff';
+import { addRoleRouter } from './routes/add-role';
+import { editRoleRouter } from './routes/edit-role';
+import { removeRoleRouter } from './routes/remove-role';
+import { removeStaffRouter } from './routes/remove-staff';
+import { editStaffRoleRouter } from './routes/edit-staff-role';
+import { getAllStaffsRouter } from './routes/get-all-staffs';
+import { getOrgDataRouter } from './routes/get-org-data';
+import { getOrgRolesRouter } from './routes/get-org-roles';
 
 
 const app = express()
@@ -41,6 +49,15 @@ app.use(getTagsRouter)
 app.use(editProfileRouter)
 app.use(getStaffRouter)
 app.use(getEventsByStaffRouter)
+app.use(addRoleRouter)
+app.use(editRoleRouter)
+app.use(removeRoleRouter)
+app.use(removeStaffRouter)
+app.use(editStaffRoleRouter)
+app.use(getAllStaffsRouter)
+app.use(getOrgDataRouter)
+app.use(getOrgRolesRouter)
+
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

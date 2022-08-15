@@ -3,12 +3,13 @@ import { body, check } from 'express-validator';
 import { validateRequest } from '../middlewares/validate-request';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
-import { Event } from '../models/event';
+import { Organizer } from '../models/organizer';
+import { accessControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
 
-router.put('/api/event/:id/role', [
+router.post('/api/org/:id/role', [
     body('name').
         isLength({ min: 3, max: 20 }).
         withMessage('Name must be between 3 and 20 characters')
@@ -16,19 +17,19 @@ router.put('/api/event/:id/role', [
     validateRequest,
     currentUser, 
     requireAuth,
+    accessControl('Organizer', 'Manager'),
 
     async (req: Request, res: Response) => {
 
         let {name, permissions} = req.body;
 
-        const event = await Event.findOneAndUpdate(
-            {
-                "ref_id": req.params.id,
-                "roles.name": name
-            }, 
-            {$set: 
-                {
-                    "roles.$.permissions": permissions
+        const organizer = await Organizer.findByIdAndUpdate(req.params.id, 
+            {$push: 
+                {"roles": 
+                    {
+                        "name": name,
+                        "permissions": permissions
+                    }
                 }
             }, 
             {
@@ -37,8 +38,8 @@ router.put('/api/event/:id/role', [
             }
        )
 
-       res.status(201).send({ event })
+       res.status(201).send({ existingUser: organizer })
     }
 )
 
-export { router as editRoleRouter }
+export { router as addRoleRouter }

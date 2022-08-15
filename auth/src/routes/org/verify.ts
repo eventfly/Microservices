@@ -26,7 +26,7 @@ router.put('/api/auth/verify', [
         throw new BadRequestError('Organizer doesn\'t exist')
     } 
 
-    if(existingUser.role == 'staff' && existingUser.is_verified == false){
+    if(existingUser.role != 'Organizer' && existingUser.is_verified == false){
 
         const passwordMatch = await Password.compare(existingUser.password, password)
 

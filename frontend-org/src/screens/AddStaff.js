@@ -22,8 +22,7 @@ const AddStaff = () => {
     const { eventId } = useParams();
 
     const location = useLocation()
-    const { roleType } = location.state
-
+    const { roleType, permissions } = location.state
 
     useEffect(() => {
         //console.log(status)
@@ -103,6 +102,7 @@ const AddStaff = () => {
                 'name': name[i],
                 'email': email[i],
                 'role': roleType,
+                'permissions': permissions,
                 'events': [eventId]
             })
         }
@@ -129,7 +129,7 @@ const AddStaff = () => {
                     console.log("failed", failedForms.length)
 
                     if(failedForms.length == 0){
-                        navigate(`/event/${eventId}/members`)
+                        navigate(`/profile/members`)
                     }
         
                 }).catch(err => {

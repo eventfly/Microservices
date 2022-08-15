@@ -147,7 +147,7 @@ const CreateEvent = () => {
 
     if (stage === 1) {
         return (
-            auth && <>
+            auth && (auth.role == 'Organzizer' || auth.role == 'Manager') && <>
                 <CreateEventStage1
                     name={name}
                     setName={setName}

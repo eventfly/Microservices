@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import PopupModal from '../PopupModal';
 import {RiDeleteBin6Line} from 'react-icons/ri'
-import {getEventApi} from '../../api/axiosHook'
+import {getEventApi, getOrgApi} from '../../api/axiosHook'
 
 
-const DeleteRoleModal = ({eventId, setEvent, roleType}) => {
+const DeleteRoleModal = ({id, setData, roleType, apiCallRoute, members, setLoading}) => {
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -24,15 +24,31 @@ const DeleteRoleModal = ({eventId, setEvent, roleType}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        getEventApi(localStorage.getItem('token')).delete(`/${eventId}/role`, {
+        let api = getOrgApi
+
+        if(apiCallRoute == 'events'){
+            api = getEventApi
+        }
+
+        api(localStorage.getItem('token')).delete(`/${id}/role`, {
             data:{
-                name: roleType
+                name: roleType,
+                staffIds: members.map((member)=>{
+                    return apiCallRoute == 'org' ? member.id : member.ref_id
+                })
             }
         }).then((res)=>{
-
-            console.log(res.data.event)
             setModalShow(false)
-            setEvent(res.data.event)
+            
+            console.log(res.data)
+            if(apiCallRoute == 'events'){
+                setData(res.data.event)
+            }
+            else if(apiCallRoute == 'org'){
+                setData(res.data.existingUser)
+                // to fetch staffs
+                setLoading(false)
+            }
 
         }).catch((err)=>{
             console.log(err.response.data.errors)

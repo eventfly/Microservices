@@ -4,6 +4,7 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { validateRequest } from '../middlewares/validate-request';
 import { Event } from '../models/event';
+import { natsWrapper } from '../nats-wrapper';
 
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router.delete('/api/event/:id/role', [
 
     async (req: Request, res: Response) => {
 
-        const event = await Event.findOneAndUpdate(
+        await Event.findOneAndUpdate(
             {
                 "ref_id": req.params.id
             }, 
@@ -35,6 +36,36 @@ router.delete('/api/event/:id/role', [
                 runValidators: true
             }
        )
+
+
+       const event = await Event.findOneAndUpdate(
+        {
+            "ref_id": req.params.id
+        }, 
+        {$pull: 
+            {
+                staffs: {
+                    ref_id: {
+                        $in: req.body.staffIds
+                    }
+                }
+            }
+        }, 
+        {
+            new: true,
+            runValidators: true
+        }
+   )
+
+
+   natsWrapper.client.publish('event-role:removed', JSON.stringify(
+    {
+        eventId: req.params.id, 
+        staffIds: req.body.staffIds
+    }
+    ), () => {
+        console.log('Removal of event role published')
+    })
 
        res.status(201).send({ event })
     }

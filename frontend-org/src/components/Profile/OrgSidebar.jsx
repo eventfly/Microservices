@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {FaHome, FaCommentAlt, FaChartLine, FaUserNurse} from 'react-icons/fa'
+import {FaHome, FaCommentAlt, FaChartLine, FaUserNurse, FaUser} from 'react-icons/fa'
+import {MdOutlineGroup, MdSubscriptions} from 'react-icons/md'
 import '../sidebar.scss';
 
 const EventSidebar = () => {
@@ -8,40 +9,28 @@ const EventSidebar = () => {
     const sidebarNavItems = [
         {
             display: 'Account',
-            icon: <FaHome className='sidebar-icons' style={{color: 'black'}} />,
+            icon: <FaUser className='org-sidebar-icons' style={{color: 'black'}} />,
             to: `/profile/account`,
             section: 'account'
         },
         {
             display: 'Package',
-            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            icon: <MdSubscriptions className='org-sidebar-icons-md' style={{color: 'black'}} />,
             to: `/profile/package`,
             section: 'package'
         },
         {
             display: 'Members',
-            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            icon: <MdOutlineGroup className='org-sidebar-icons-md' style={{color: 'black'}} />,
             to: `/profile/members`,
             section: 'members'
         },
         {
             display: 'Statistics',
-            icon: <FaChartLine className='sidebar-icons' style={{color: 'black'}} />,
+            icon: <FaChartLine className='org-sidebar-icons' style={{color: 'black'}} />,
             to: `/profile/statistics`,
             section: 'statistics'
-        },
-        {
-            display: 'Settings',
-            icon: <FaCommentAlt className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile/settings`,
-            section: 'settings'
-        },
-        {
-            display: 'About',
-            icon: <FaUserNurse className='sidebar-icons' style={{color: 'black'}} />,
-            to: `/profile/about`,
-            section: 'about'
-        },
+        }
     ]
 
 
@@ -62,7 +51,7 @@ const EventSidebar = () => {
 
     //change active index
     useEffect(() => {
-        const curPath = window.location.pathname.split('/')[2];
+        const curPath = window.location.pathname.split('/')[1];
         console.log(curPath)
         console.log(window.location.pathname)
         const activeItem = sidebarNavItems.findIndex(item => item.section === curPath);
@@ -87,7 +76,7 @@ const EventSidebar = () => {
                             <div className="sidebar__menu__item__icon">
                                 {item.icon}
                             </div>
-                            <div className={`sidebar-icon-title ${activeIndex === index ? 'active-item' : 'inactive-item'}`}>
+                            <div className={`org-sidebar-icon-title ${activeIndex === index ? 'active-item' : 'inactive-item'}`}>
                                 {item.display}
                             </div>
                         </div>

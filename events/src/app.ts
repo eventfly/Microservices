@@ -14,8 +14,8 @@ import { editEventRouter } from './routes/edit-events';
 import { getEventDataRouter } from './routes/get-eventData';
 import {removeStaffRouter} from './routes/remove-staff'
 import {addRoleRouter} from './routes/add-role'
-import {editRoleRouter} from './routes/edit-role'
 import {removeRoleRouter} from './routes/remove-role'
+import {assignStaffRouter} from './routes/assign-staff'
 
 const app = express()
 app.use(cors({origin: '*'}));
@@ -45,8 +45,8 @@ app.use(editEventRouter);
 app.use(getEventDataRouter);
 app.use(removeStaffRouter)
 app.use(addRoleRouter)
-app.use(editRoleRouter)
 app.use(removeRoleRouter)
+app.use(assignStaffRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

@@ -2,38 +2,71 @@ import {Link} from "react-router-dom";
 import StaffOptions from "./StaffOptions";
 import {useParams, useNavigate} from 'react-router-dom'
 import {MdOutlinePersonAdd} from 'react-icons/md'
-import {getEventApi} from '../../api/axiosHook'
+import {getEventApi, getOrgApi} from '../../api/axiosHook'
 import { Button } from "react-bootstrap";
 import DeleteRoleModal from "./DeleteRoleModal";
 import EditRoleModal from "./EditRoleModal";
+import AssignRoleModal from "./AssignRoleModal";
 
 
-const Role = ({setEvent, roleType, permissions, members}) => {
+// setData is either event or staffs
+
+const Role = ({orgId, setData, roleType, permissions, members, displayEditModal, orgStaffs, setStaffs, setLoading}) => {
 
     const { eventId } = useParams();
     const navigate = useNavigate();
 
     //const permissions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
 
+    const staffsToBeAssigned = () => {
+        return orgStaffs.filter((st)=>{
+            let hasMatch = members.filter((member)=>{
+                return member.email == st.email
+            })
+
+            return hasMatch.length == 0
+        })
+    }
+
     const handleEdit = () => {
         console.log("e")
     }
 
-    const handleDelete = (ref_id) => {
-        console.log("refid", ref_id)
+    const handleDelete = (staffId, idx) => {
+        console.log("staffId", staffId)
 
         let body = {
-            ref_id: ref_id
+            orgId : orgId,
+            staffId: staffId
         }
 
-        getEventApi(localStorage.getItem('token')).post(`/${eventId}/remove-staff`, body).then(res => {
-            console.log(res)
-            setEvent(res.data.event)
-            // navigate(`/event/${eventId}/members`)
+        if(displayEditModal == 'none'){
+            getEventApi(localStorage.getItem('token')).post(`/${eventId}/remove-staff`, body).then(res => {
+                console.log(res)
+                setData(res.data.event)
+    
+            }).catch((err)=>{
+                console.log(err.response.data.errors)
+            })
+        }
 
-        }).catch((err)=>{
-            console.log(err.response.data.errors)
-        })
+        else{
+            getOrgApi(localStorage.getItem('token')).post(`/remove-staff`, body).then(res => {
+
+                //setStaffs
+                getOrgApi(localStorage.getItem('token')).get(`/${orgId}/staffs`).then((res2)=>{
+                    console.log(res2.data.staffs)
+                    setStaffs([...res2.data.staffs])
+
+                }).catch((err2)=>{
+                    console.log(err2)
+                })
+    
+            }).catch((err)=>{
+                console.log(err.response.data.errors)
+            })
+        }
+
     }
 
     return ( 
@@ -41,25 +74,56 @@ const Role = ({setEvent, roleType, permissions, members}) => {
             <div className="role-container-header">
                 <h3>{roleType}</h3>
 
+                <div                 
+                    style={{
+                        display: displayEditModal
+                    }} 
+                >
                 <EditRoleModal 
-                    eventId={eventId} 
-                    setEvent={setEvent}
+                    id={orgId} 
+                    setData={setData}
                     roleType={roleType}
                     defaultPermissions={permissions}
+                    apiCallRoute={'org'}
+                    members={members}
                 />
+                </div>
+
                 <DeleteRoleModal 
-                    eventId={eventId}
-                    setEvent={setEvent}
+                    id={displayEditModal == 'none' ? eventId : orgId} 
+                    setData={setData}
                     roleType={roleType}
+                    apiCallRoute={displayEditModal == 'none' ? 'events' : 'org'}
+                    members={members}
+                    setLoading={setLoading}
                 />
                 
+                <div>
+                {
+                    displayEditModal == 'none' ? (
+                        <AssignRoleModal 
+                            id={eventId} 
+                            setData={setData}
+                            roleType={roleType}
+                            staffsToBeAssigned={orgStaffs ? staffsToBeAssigned() : []}
+                        />
+                    ) : (
 
-                <Link 
-                    to={`/event/${eventId}/staff/add`}
-                    state={{ roleType: roleType }}
-                >
-                    <MdOutlinePersonAdd className="add-member-icon" />
-                </Link>
+                        <Link 
+                            to={`/profile/staff/add`}
+                            state={{ 
+                                roleType: roleType != 'Default' ? roleType.slice(0, -1) : roleType,
+                                permissions: permissions,
+                                // setStaffs: setStaffs ,
+                                // orgId: orgId 
+                            }}
+                        >
+                            <MdOutlinePersonAdd className="add-member-icon" />
+                        </Link>
+                    )
+                }
+                </div>
+
 
                 <div className="d-grid gap-0 d-md-flex justify-content-md-start">
                 {
@@ -92,7 +156,9 @@ const Role = ({setEvent, roleType, permissions, members}) => {
                                 <div className="person-info" key={index}>
                                     <StaffOptions 
                                         onEdit={handleEdit} 
-                                        onDelete={(e)=>{handleDelete(member.ref_id)}}
+                                        onDelete={(e)=>{
+                                            handleDelete(displayEditModal == 'none' ? member.ref_id : member.id)
+                                        }}
                                     />
 
                                     <div className="person-info-body">

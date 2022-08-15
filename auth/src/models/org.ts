@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import { Password } from '../services/password'
 
 
@@ -10,6 +10,7 @@ interface OrgAttrs {
     role: string
     ref_id: string
     is_verified?: boolean
+    permissions?: Types.DocumentArray<any>
 }
 
 //An interface that describes the properties that a participant Model has
@@ -27,6 +28,7 @@ interface OrgDoc extends mongoose.Document {
     ref_id: string
     is_verified?: boolean
     otp?: string
+    permissions?: Types.DocumentArray<any>
 }
 
 const OrgSchema = new mongoose.Schema({
@@ -61,6 +63,11 @@ const OrgSchema = new mongoose.Schema({
     is_verified: {
         type: Boolean,
         default: false
+    },
+    permissions: {
+        type: [String],
+        default: 'Read Only',
+        required: false
     }
 
 },
