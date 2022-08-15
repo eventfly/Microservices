@@ -20,6 +20,8 @@ import Profile from './screens/Profile';
 import PopupModal from './components/PopupModal';
 import BillingDetails from './components/Profile/OrgProfileMenu/BillingDetails';
 
+import Post from './components/Feed/Post/Post';
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDBuKGNvEATZlqOKIveVeSXJKqqVMRIItA",
@@ -84,6 +86,7 @@ function App() {
           <Route path="/event/:eventId/*" element={<EventPage />}/>
           <Route path="/profile/*" element={<Profile />}/>
           <Route path="/profile/billing" element={<BillingDetails />}/>
+
 
         </Routes>
 
