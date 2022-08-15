@@ -17,26 +17,22 @@ router.put('/api/event/:id/assign-staff',
     
     async (req: Request, res: Response) => {
 
-        let {email, name, role, profile_pic, ref_id} = req.body
+        // let {email, name, role, profile_pic, ref_id} = req.body
+        console.log(req.body)
 
         const event = await Event.findOneAndUpdate({"ref_id": req.params.id}, 
         {$push: 
-            {"staffs": 
-                {
-                    email, name, role, profile_pic, ref_id
-                }
-            }
+            {"staffs": req.body}
         },
         {
             new: true,
             runValidators: true
         })
 
-        // Publish the edited event to the NATS Streaming server
 
         natsWrapper.client.publish('staff:assignedToEvent', JSON.stringify(
             {
-                staffId: ref_id,
+                staffs: req.body,
                 eventId: event!.ref_id
             }
         ), () => {

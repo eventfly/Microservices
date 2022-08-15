@@ -14,7 +14,7 @@ router.post('/api/event/:id/remove-staff', [], currentUser, requireAuth, errorHa
     const event = await Event.findOneAndUpdate({"ref_id": req.params.id}, {
         $pull: {
           staffs: {
-            ref_id: req.body.ref_id
+            ref_id: req.body.staffId
           }
         }
       }, {
@@ -25,7 +25,7 @@ router.post('/api/event/:id/remove-staff', [], currentUser, requireAuth, errorHa
     natsWrapper.client.publish('staff:removed', JSON.stringify(
         {
             eventId: req.params.id, 
-            ref_id: req.body.ref_id
+            ref_id: req.body.staffId
         }
     ), () => {
         console.log('Removed Staff published')

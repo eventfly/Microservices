@@ -14,7 +14,7 @@ export class RolePermissionEditedListener extends Listener {
 
         // const events = await Event.find({"roles.name": name})
 
-        const event = await Event.findAndUpdate(
+        await Event.updateMany(
             {
                 "roles.name": name
             }, 
