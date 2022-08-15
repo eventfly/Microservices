@@ -82,6 +82,7 @@ Please implement error management with this in mind.
 
 
 ##### /api/auth/users/signup
+###### ALERT: Removed, use POST localhost:3004/api/participant/ instead. Details to be added soon in Participants/Readme.md
 
 Purpose: User signup
 
