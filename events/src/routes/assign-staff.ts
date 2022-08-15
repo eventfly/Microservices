@@ -6,7 +6,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl, permissionControl } from '../middlewares/access-control';
 import { sendMail } from '../services/mail';
 var URI = require("uri-js");
 
@@ -16,6 +16,7 @@ const router = express.Router();
 router.put('/api/event/:id/assign-staff',
     currentUser, 
     requireAuth,
+    permissionControl('Admin', 'Edit Role'),
     
     async (req: Request, res: Response) => {
 
