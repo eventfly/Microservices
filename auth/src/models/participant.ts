@@ -9,6 +9,8 @@ interface participantAttrs {
     name: string
     dob: string
     gender: string
+    ref_id: string
+    avatar?: string
 }
 
 //An interface that describes the properties that a participant Model has
@@ -24,6 +26,8 @@ interface participantDoc extends mongoose.Document {
     name: string
     dob: string
     gender: string
+    ref_id: string
+    avatar?: string
 }
 
 const participantSchema = new mongoose.Schema({
@@ -32,7 +36,9 @@ const participantSchema = new mongoose.Schema({
 
     email: {
         type: String,
-        required: true
+        required: true,
+        index: true,
+        unique: true
     },
 
     password: {
@@ -53,6 +59,16 @@ const participantSchema = new mongoose.Schema({
     gender: {
         type: String,
         required: true
+    },
+
+    avatar: {
+        type: String,
+        default: 'https://res.cloudinary.com/dzqbzqgjw/image/upload/v1598424851/default_avatar_jxqzqz.png'
+    },
+
+    ref_id: {
+        type: String,
+        required: true
     }
 
 },
@@ -67,13 +83,7 @@ const participantSchema = new mongoose.Schema({
         }
     })
 
-participantSchema.pre('save', async function (done) {
-    if (this.isModified('password')) {
-        const hashed = await Password.toHash(this.get('password'))
-        this.set('password', hashed)
-    }
-    done()
-})
+
 
 //Add a static method to the participantSchema
 participantSchema.statics.build = (attrs: participantAttrs) => {

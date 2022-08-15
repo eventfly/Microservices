@@ -6,7 +6,6 @@ import cookieSession from 'cookie-session';
 
 import { signinRouter } from './routes/participant/signin';
 import { signoutRouter } from './routes/participant/signout';
-import { signupRouter } from './routes/participant/signup';
 import { currentUserRouter } from './routes/participant/current-user';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
@@ -39,7 +38,6 @@ app.use(json())
 app.use(currentUserRouter)
 app.use(signinRouter)
 app.use(signoutRouter)
-app.use(signupRouter)
 
 app.use(OrgSigninRouter)
 app.use(OrgSignoutRouter)
