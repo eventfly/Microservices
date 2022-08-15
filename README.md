@@ -9,9 +9,9 @@
 
 ## Port Mapping
 ```
-- 3000: Events Service
-- 3001: Auth Service
-- 3002: Org Service
+- 3000: Auth Service
+- 3001: Org Service
+- 3002: Events Service
 ```
 
 ## API Endpoints Mapping
