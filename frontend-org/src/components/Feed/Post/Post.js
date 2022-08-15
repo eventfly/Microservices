@@ -7,6 +7,7 @@ import Comment from './Comment';
 import { Avatar } from '@material-ui/core';
 import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined } from '@material-ui/icons';
 import {useState} from 'react';
+import { Button } from 'react-bootstrap';
 
 const Post = ({ profilePic, image, username, timestamp, message }) => {
 
@@ -21,6 +22,15 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
         }
     }
 
+    const [buttonDisplay, setButtonDisplay] = useState(message.length > 300 ? 'inline' : 'none');
+    const [shownMessage, setShownMessage] = useState(message.substring(0, 300));
+    
+    const seeMoreClicked = () => {
+        setButtonDisplay('none');
+        setShownMessage(message);
+        console.log('see more clicked');
+    }
+
     return (
         <div className="post">
             <div className="postTop">
@@ -33,7 +43,13 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
             </div>
 
             <div className="postBottom">
-                <p>{message}</p>
+                {shownMessage}
+                <a style={{
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    display: buttonDisplay,
+                }} onClick = {seeMoreClicked}>... See more</a>    
+
             </div>
 
             <div className="postImage">

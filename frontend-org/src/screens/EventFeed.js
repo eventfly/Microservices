@@ -37,6 +37,7 @@ const EventFeed = () => {
                 <Post message={mess} username='jawad' timestamp='14/8/2022' image='https://i.redd.it/d6kybhyceqh91.jpg'/>
                 <Post message={mess} username='jawad' timestamp='14/8/2022'image='https://i.redd.it/tfur3uql6fh91.jpg'/>
 
+                {/* <Poll limit={55}/> */}
             </div>
           
         
