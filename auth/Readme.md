@@ -102,7 +102,7 @@ body : {
 
 ##### /api/auth/org/signin
 
-###### Same as /api/auth/users/signin
+###### S ame as /api/auth/users/signin
 
 
 ### Models:

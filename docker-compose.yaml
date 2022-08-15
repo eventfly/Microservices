@@ -4,15 +4,7 @@ networks:
     isolation-network:
       driver: bridge
   
-services:
-    # ingress:
-    #   image: jwilder/nginx-proxy
-    #   ports:
-    #     - "80:80"
-    #   volumes:
-    #     - /var/run/docker.sock:/tmp/docker.sock:ro
-
-      
+services:  
     nats_server:
       image: nats-streaming
       container_name: nats_server
@@ -88,41 +80,35 @@ services:
         - variables.env
       depends_on:
         - nats_server
-    # frontend-pwa:
-    #   build: ./frontend-pwa
-    #   container_name: frontend-pwa
-    #   ports:
-    #     - "3003:3000"
-    #   volumes:
-    #     - ./frontend-pwa:/var/lib/frontend-pwa
-    #   networks:
-    #     - isolation-network
-    #   restart: always
-    #   environment:
-    #     - NATS_CLIENT_ID=frontend-pwa
-    #   env_file:
-    #     - variables.env
-    #   depends_on:
-    #     - nats_server
-    #     - auth
-    #     - org
-    #     - events
-    # frontend-org:
-    #   build: ./frontend-org
-    #   container_name: frontend-org
-    #   ports:
-    #     - "3004:3000"
-    #   volumes:
-    #     - ./frontend-org:/var/lib/frontend-org
-    #   networks:
-    #     - isolation-network
-    #   restart: always
-    #   environment:
-    #     - NATS_CLIENT_ID=frontend-org
-    #   env_file:
-    #     - variables.env
-    #   depends_on:
-    #     - nats_server
-    #     - auth
-    #     - org
-    #     - events
+    newsfeed:
+      build: ./newsfeed
+      container_name: newsfeed
+      ports:
+        - "3003:3000"
+      volumes:
+        - ./newsfeed:/var/lib/newsfeed
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=newsfeed
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
+    participant:
+      build: ./participant
+      container_name: participant
+      ports:
+        - "3004:3000"
+      volumes:
+        - ./participant:/var/lib/participant
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=participant
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server

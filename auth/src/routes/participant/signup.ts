@@ -7,6 +7,7 @@ import { validateRequest } from '../../middlewares/validate-request'
 
 import { participant } from '../../models/participant'
 import { BadRequestError } from '../../errors/bad-request-error'
+import { natsWrapper } from '../../nats-wrapper'
 
 const router = express.Router()
 
@@ -41,8 +42,11 @@ router.post('/api/auth/users/signup', [
                 name: user.name,
                 dob: user.dob,
                 gender: user.gender
-            }, process.env.JWT_KEY!)
-
+            }, process.env.JWT_KEY!);
+            
+            natsWrapper.client.publish('participant.created', JSON.stringify({
+                user
+            }));
 
 
             res.status(201).send({ user, token: userJwt });
