@@ -36,14 +36,18 @@ router.post('/api/auth/org/signin',
             throw new BadRequestError('Invalid credentials')
         }
 
-        //Generate JWT
-        const userJwt = jwt.sign({
+
+        let userData = {
             id: existingUser.id,
             email: existingUser.email,
             name: existingUser.name,
             role: existingUser.role,
-            ref_id: existingUser.ref_id
-        }, process.env.JWT_KEY!, {
+            ref_id: existingUser.ref_id,
+            permissions: existingUser.permissions
+        }
+
+        //Generate JWT
+        const userJwt = jwt.sign(userData, process.env.JWT_KEY!, {
             expiresIn: 60*100
         })
 
