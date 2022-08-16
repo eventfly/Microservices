@@ -12,10 +12,11 @@ import { NotFoundError } from './errors/not-found-error';
 import { getEventsRouter } from './routes/get-events';
 import { editEventRouter } from './routes/edit-events';
 import { getEventDataRouter } from './routes/get-eventData';
-import {removeStaffRouter} from './routes/remove-staff'
-import {addRoleRouter} from './routes/add-role'
-import {removeRoleRouter} from './routes/remove-role'
-import {assignStaffRouter} from './routes/assign-staff'
+import { removeStaffRouter } from './routes/remove-staff'
+import { addRoleRouter } from './routes/add-role'
+import { removeRoleRouter } from './routes/remove-role'
+import { assignStaffRouter } from './routes/assign-staff'
+import { addTicketRouter } from './routes/add-ticket';
 
 const app = express()
 app.use(cors({origin: '*'}));
@@ -47,6 +48,7 @@ app.use(removeStaffRouter)
 app.use(addRoleRouter)
 app.use(removeRoleRouter)
 app.use(assignStaffRouter)
+app.use(addTicketRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

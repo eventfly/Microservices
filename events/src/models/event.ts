@@ -9,6 +9,17 @@ interface TagDoc {
 }
 
 
+
+interface TicketDoc extends mongoose.Document {
+    class: string;
+    price: number;
+    quantity: number;
+    tokens: Types.DocumentArray<string>;
+}
+
+
+
+
 interface EventAttrs {
     name: string;
     banner_url?: string;
@@ -29,6 +40,7 @@ interface EventAttrs {
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
+    tickets?: any | Types.DocumentArray<TicketDoc>;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -51,6 +63,7 @@ interface EventDoc extends mongoose.Document {
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
+    tickets?: Types.DocumentArray<any>;
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -177,6 +190,28 @@ const eventSchema = new mongoose.Schema({
             default: 'Read Only',
             required: false
         }
+    }],
+    tickets: [{
+        class: {
+            type: String,
+            required: false
+        },
+        price: {
+            type: Number,
+            required: false
+        },
+        quantity: {
+            type: Number,
+            required: false
+        },
+        tokens: [{
+            type: String,
+            required: false
+        }],
+        available: {
+            type: Number,
+            required: false
+        }
     }]
 
     //TODO: Add Venue
@@ -194,6 +229,10 @@ const eventSchema = new mongoose.Schema({
 
 eventSchema.statics.build = (attrs: EventAttrs) => {
     return new Event(attrs);
+}
+
+eventSchema.statics.findByRefId = async (refId: string) => {
+    return await Event.findOne({ref_id: refId});
 }
 
 const Event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);

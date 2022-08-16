@@ -5,7 +5,7 @@ import { ObjectId, ObjectIdLike } from 'bson';
 
 export class EventCreatedListener extends Listener {
     subject = 'event:created';
-    queueGroupName = 'event-created';
+    queueGroupName = 'event-created-event';
     async onMessage(data: any, msg: Message) {
         console.log('Event Created! Data: ', data);
 
