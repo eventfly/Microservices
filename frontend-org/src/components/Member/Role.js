@@ -11,7 +11,7 @@ import AssignRoleModal from "./AssignRoleModal";
 
 // setData is either event or staffs
 
-const Role = ({orgId, setData, roleType, permissions, members, displayEditModal, orgStaffs}) => {
+const Role = ({orgId, setData, roleType, permissions, members, displayEditModal, orgStaffs, setStaffs, setLoading}) => {
 
     const { eventId } = useParams();
     const navigate = useNavigate();
@@ -52,12 +52,15 @@ const Role = ({orgId, setData, roleType, permissions, members, displayEditModal,
 
         else{
             getOrgApi(localStorage.getItem('token')).post(`/remove-staff`, body).then(res => {
-                console.log(res)
-                // setData(res.data.event)
-    
-                // members = members.filter((member)=>{
-                //     return member.id != staffId
-                // })
+
+                //setStaffs
+                getOrgApi(localStorage.getItem('token')).get(`/${orgId}/staffs`).then((res2)=>{
+                    console.log(res2.data.staffs)
+                    setStaffs([...res2.data.staffs])
+
+                }).catch((err2)=>{
+                    console.log(err2)
+                })
     
             }).catch((err)=>{
                 console.log(err.response.data.errors)
@@ -92,6 +95,7 @@ const Role = ({orgId, setData, roleType, permissions, members, displayEditModal,
                     roleType={roleType}
                     apiCallRoute={displayEditModal == 'none' ? 'events' : 'org'}
                     members={members}
+                    setLoading={setLoading}
                 />
                 
                 <div>
@@ -108,8 +112,10 @@ const Role = ({orgId, setData, roleType, permissions, members, displayEditModal,
                         <Link 
                             to={`/profile/staff/add`}
                             state={{ 
-                                roleType: roleType.slice(0, -1),
-                                permissions: permissions 
+                                roleType: roleType != 'Default' ? roleType.slice(0, -1) : roleType,
+                                permissions: permissions,
+                                // setStaffs: setStaffs ,
+                                // orgId: orgId 
                             }}
                         >
                             <MdOutlinePersonAdd className="add-member-icon" />

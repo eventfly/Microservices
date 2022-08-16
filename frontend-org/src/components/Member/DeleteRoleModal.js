@@ -4,7 +4,7 @@ import {RiDeleteBin6Line} from 'react-icons/ri'
 import {getEventApi, getOrgApi} from '../../api/axiosHook'
 
 
-const DeleteRoleModal = ({id, setData, roleType, apiCallRoute, members}) => {
+const DeleteRoleModal = ({id, setData, roleType, apiCallRoute, members, setLoading}) => {
 
     const [modalShow, setModalShow] = useState(false);
 
@@ -45,7 +45,9 @@ const DeleteRoleModal = ({id, setData, roleType, apiCallRoute, members}) => {
                 setData(res.data.event)
             }
             else if(apiCallRoute == 'org'){
-                //setData(res.data.existingUser)
+                setData(res.data.existingUser)
+                // to fetch staffs
+                setLoading(false)
             }
 
         }).catch((err)=>{

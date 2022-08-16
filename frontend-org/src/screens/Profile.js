@@ -64,7 +64,7 @@ const Profile = () => {
 
         auth && <>
         
-            {auth.role == 'Organizer' ? <OrgProfile /> : <StaffProfile /> }
+            {auth.role == 'Organizer' || auth.role == 'Manager' ? <OrgProfile /> : <StaffProfile /> }
             
         
         </>

@@ -4,10 +4,11 @@ import { Event } from '../models/event';
 
 export class StaffRemovedListener extends Listener {
     subject = 'org-staff:removed2';
-    queueGroupName = 'org-staff:removed2';
+    queueGroupName = 'org-staff-removed2';
 
     async onMessage(data: any, msg: Message) {
 
+        console.log("org-staff-removed, Data:", data)
         let {organizer, staffId} = data;
 
         const events = await Event.find({"organizer": organizer})

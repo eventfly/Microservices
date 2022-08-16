@@ -1,7 +1,7 @@
 import '../../styles/Form.css'
 
 
-const FormTextArea = ({id, label, placeholder, disabled, height, bgColor, value, onChange}) => {
+const FormTextArea = ({id, label, placeholder, disabled, height, bgColor, value, onChange, onKeyDown}) => {
     return ( 
         <>
 
@@ -19,6 +19,7 @@ const FormTextArea = ({id, label, placeholder, disabled, height, bgColor, value,
                     value={value}
                     disabled={disabled}
                     onChange={e=> onChange(e.target.value)} 
+                    onKeyDown={onKeyDown}
                 />
             </div>
         

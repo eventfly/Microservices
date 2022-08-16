@@ -5,6 +5,7 @@ import { requireAuth } from '../middlewares/require-auth';
 import { validateRequest } from '../middlewares/validate-request';
 import { Event } from '../models/event';
 import { natsWrapper } from '../nats-wrapper';
+import { roleControl, permissionControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.delete('/api/event/:id/role', [
     validateRequest,
     currentUser, 
     requireAuth,
+    permissionControl('Admin', 'Edit Role'),
 
     async (req: Request, res: Response) => {
 

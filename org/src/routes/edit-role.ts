@@ -4,7 +4,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Organizer } from '../models/organizer';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl } from '../middlewares/access-control';
 import { natsWrapper } from '../nats-wrapper';
 
 
@@ -19,6 +19,7 @@ router.put('/api/org/:id/role', [
     validateRequest,
     currentUser, 
     requireAuth,
+    roleControl('Organizer', 'Manager'),
 
     async (req: Request, res: Response) => {
 

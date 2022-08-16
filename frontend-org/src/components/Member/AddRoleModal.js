@@ -27,15 +27,15 @@ const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
                 />
                 
                 <div style={{display: `${display}`}}>
-                <div style={{marginTop: '30px'}}></div>
+                    <div style={{marginTop: '30px'}}></div>
 
-                <AutoComplete
-                    label={'Permissions'}
-                    placeholder={'Allow several permissions'}
-                    options={permitOptions}
-                    multiSelections={permissions}
-                    setMultiSelections={setPermissions}
-                />
+                    <AutoComplete
+                        label={'Permissions'}
+                        placeholder={'Allow several permissions'}
+                        options={permitOptions}
+                        multiSelections={permissions}
+                        setMultiSelections={setPermissions}
+                    />
 
                 </div>
 

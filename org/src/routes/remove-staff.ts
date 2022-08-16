@@ -4,13 +4,15 @@ import express, { Request, Response } from 'express';
 import { errorHandler } from '../middlewares/error-handler';
 import { Staff } from '../models/staff';
 import { natsWrapper } from '../nats-wrapper';
+import { roleControl } from '../middlewares/access-control';
 
 const router = express.Router();
 
 router.post('/api/org/remove-staff', [], 
   currentUser, 
   requireAuth, 
-  errorHandler, 
+  errorHandler,
+  roleControl('Organizer', 'Manager'), 
   
   async (req: Request, res:Response) => {
   

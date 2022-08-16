@@ -8,7 +8,7 @@ import { requireAuth } from '../middlewares/require-auth';
 import { errorHandler } from '../middlewares/error-handler';
 import { ObjectId } from 'bson';
 import { sendMail } from '../services/mail';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl } from '../middlewares/access-control';
 var URI = require("uri-js");
 
 const router = express.Router();
@@ -32,7 +32,7 @@ router.post('/api/org/staff', [
     validateRequest, 
     currentUser, 
     requireAuth,
-    accessControl('Organizer', 'Manager'), 
+    roleControl('Organizer', 'Manager'), 
     errorHandler, 
     
     async (req: Request, res: Response) => {

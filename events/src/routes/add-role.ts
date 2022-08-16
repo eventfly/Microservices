@@ -4,7 +4,7 @@ import { validateRequest } from '../middlewares/validate-request';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl, permissionControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.post('/api/event/:id/role', [
     validateRequest,
     currentUser, 
     requireAuth,
-    accessControl('Organizer', 'Manager'),
+    permissionControl('Admin', 'Edit Role'),
 
     async (req: Request, res: Response) => {
 

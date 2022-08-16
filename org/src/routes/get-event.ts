@@ -4,7 +4,6 @@ import { body } from 'express-validator';
 import { validateRequest } from '../middlewares/validate-request';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
-import { accessControl } from '../middlewares/access-control';
 import { Event } from '../models/event';
 import { errorHandler } from '../middlewares/error-handler';
 import { ObjectId } from 'bson';
@@ -14,7 +13,6 @@ const router = express.Router();
 router.get('/api/org/event/:orgId', 
 currentUser, 
 requireAuth,
-accessControl('Organizer', 'Manager'),
 errorHandler, 
 
 async (req: Request, res: Response) => {

@@ -6,7 +6,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -38,7 +38,7 @@ router.put('/api/event/:id', [
     validateRequest,
     currentUser, 
     requireAuth,
-    accessControl('Organizer', 'Manager'),
+    roleControl('Organizer', 'Manager'),
     
     async (req: Request, res: Response) => {
 

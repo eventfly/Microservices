@@ -7,6 +7,7 @@ import { requireAuth } from '../middlewares/require-auth';
 import { Staff } from '../models/staff';
 import { Organizer } from '../models/organizer';
 import { BadRequestError } from '../errors/bad-request-error';
+import { roleControl } from '../middlewares/access-control';
 
 
 const router = express.Router();
@@ -26,6 +27,7 @@ router.put('/api/org/edit-profile', [
     validateRequest,
     currentUser, 
     requireAuth,
+    roleControl('Organizer', 'Manager'),
     
     async (req: Request, res: Response) => {
 

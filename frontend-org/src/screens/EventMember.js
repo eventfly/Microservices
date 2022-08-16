@@ -91,7 +91,7 @@ const EventMember = ({event, setEvent, orgRoles, orgStaffs, managers, setLoading
                 <h2>Roles</h2>
 
                 {
-                    (auth && (auth.role === 'Organizer' || auth.role === 'Manager')) ? (
+                    (
                         <AddRoleModal 
                             id={event ? event.ref_id : ''} 
                             setData={setEvent}
@@ -99,8 +99,6 @@ const EventMember = ({event, setEvent, orgRoles, orgStaffs, managers, setLoading
                             apiCallRoute={'events'}
                             display={'none'}
                         />
-                    ) : (
-                        <></>
                     )
                 }
 

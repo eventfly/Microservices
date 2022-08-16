@@ -17,6 +17,7 @@ function OrgProfile() {
     const [loading, setLoading] = useState(false);
     const [orgData, setOrgData] = useState(null);
     const [staffs, setStaffs] = useState(null);
+
     const navigate = useNavigate();
 
     let auth = sessionStorage.getItem('auth')
@@ -78,7 +79,7 @@ function OrgProfile() {
                             orgData={orgData} 
                             setOrgData={setOrgData}
                             staffs={staffs}
-                            setStaffs={setStaffs} 
+                            setStaffs={setStaffs}
                         />
                     )
                     : location.includes('statistics') ? < OrgStatistics />

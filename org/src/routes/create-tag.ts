@@ -4,7 +4,7 @@ import {body} from 'express-validator';
 import { errorHandler } from '../middlewares/error-handler';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
-import { accessControl } from '../middlewares/access-control';
+import { roleControl } from '../middlewares/access-control';
 import { Tag } from '../models/tag';
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.post('/api/org/tag',
     ], 
     currentUser, 
     requireAuth,
-    accessControl('Organizer', 'Manager'), 
+    roleControl('Organizer', 'Manager'), 
     errorHandler, 
     
     async (req: Request, res:Response) => {
