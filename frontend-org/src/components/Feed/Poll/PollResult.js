@@ -9,7 +9,7 @@ const resData = [
   { id: 2, text: 'Nishwartha Bhalobasa', votes: 12 }
 ]
 
-const question = 'Your favorite film?'
+const question = 'Your favorite film?Your favorite film?Your favorite film?'
 
 // Object keys may vary on the poll type (see the 'Theme options' table below)
 const customTheme = {
