@@ -9,7 +9,7 @@ import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined }
 import {useState} from 'react';
 import { Button } from 'react-bootstrap';
 
-const Post = ({ profilePic, image, username, timestamp, message }) => {
+const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
 
     const [commentDisplayType, setCommentDisplayType] = useState('none');
 
@@ -78,4 +78,4 @@ const Post = ({ profilePic, image, username, timestamp, message }) => {
     )
 }
 
-export default Post;
+export default PostDisplay;
