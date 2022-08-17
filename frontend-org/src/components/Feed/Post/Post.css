@@ -78,7 +78,8 @@ h3{
     font-weight: bold;
 }
 
-.poll-result h1{
+.poll-result h1, .quiz-result h1{
     font-size: 1.2rem;
     margin-bottom: 1rem;
+    width: 100%;
 }

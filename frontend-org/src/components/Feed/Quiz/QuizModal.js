@@ -18,6 +18,8 @@ const QuizModal = () => {
     const [question, setQuestion] = useState('');
     const [answerList, setAnswerList] = useState([{answer:'', radioValue:'1'}]);
 
+    const [quizTopic, setQuizTopic] = useState('');
+
     const [quizset, setQuizset] = useState([{question:'', answerList:[{answer:'', radioValue:'1'}]}]);
     // console.log(quizset[0].question)
     // console.log(quizset[0].answerList)
@@ -26,6 +28,7 @@ const QuizModal = () => {
         e.preventDefault();
         
         console.log(quizset)
+        quizset.quizTopic = quizTopic;
 
         for(let i = 0; i < quizset.length; i++){
             if(quizset[i].question === ''){
@@ -89,7 +92,12 @@ const QuizModal = () => {
                 onHide={() => setQuizModalShow(false)}
                 header="New Quiz"
                 bodyComponent={
-                    <Carousel quizset={quizset} setQuizset={setQuizset}/>
+                    <Carousel 
+                        quizset={quizset}
+                        setQuizset={setQuizset}
+                        quizTopic={quizTopic}
+                        setQuizTopic={setQuizTopic}
+                    />
                     
                 }
                 size="xl"

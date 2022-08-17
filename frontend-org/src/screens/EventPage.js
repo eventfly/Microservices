@@ -15,6 +15,7 @@ import EventThumbnail from "../components/Event/EventThumbnail";
 import FormTitle from "../components/Form/FormTitle";
 
 import {getEventApi, getOrgApi} from '../api/axiosHook'
+import QuizResultDetails from "../components/Feed/Quiz/QuizResultDetails";
 
 const EventPage = () => {
     const navigate = useNavigate();
@@ -148,7 +149,11 @@ const EventPage = () => {
                             />
                         ) :
                         (
-                            location.includes('discussion') ? <EventFeed /> :
+                            location.includes('discussion') ? 
+                            (
+                                location.includes('quiz') ? <QuizResultDetails /> : <EventFeed />
+                            ) 
+                            :
 
                             (
                                 location.includes('statistics') ? <EventStatistics /> :
