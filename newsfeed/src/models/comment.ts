@@ -9,23 +9,10 @@ const commentSchema = new mongoose.Schema({
         required: true
     },
     creator: {
-        creator_id :{
+        id :{
             type: Types.ObjectId,
             required: true,
             ref: 'User'
-        },
-        creator_name: {
-            type: String,
-            required: true
-
-        },
-        creator_role: {
-            type: String,
-            required: true
-        },
-        creator_avatar: {
-            type: String,
-            required: false
         }
     },
     content: {

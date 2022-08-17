@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     organizer: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Organizer"
     },
     description: {
@@ -20,26 +20,42 @@ const eventSchema = new mongoose.Schema({
         required: false
     },
     posts: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }],
     participants: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
     staffs: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
     followers: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    ref_id: {
+        type: String,
+        required: false
+    },
+    start_date: {
+        type: Date,
+        required: false
+    },
+    end_date: {
+        type: Date,
+        required: false
+    }
       
 })
 
 eventSchema.statics.build = (attrs: any) => {
     return new Event(attrs);
+}
+
+eventSchema.statics.addPost = async (eventId: string, postId: string) => {
+    return await Event.findByIdAndUpdate(eventId, {$push: {posts: postId}});
 }
 
 eventSchema.statics.findByOrganizer = async (organizerId: string) => {
@@ -95,6 +111,6 @@ eventSchema.statics.getTotalPosts = async (eventId: string) => {
 }
 
 
-const Event = mongoose.model("Event", eventSchema);
+const Event = mongoose.model<any, any>("Event", eventSchema);
 
 export { Event };

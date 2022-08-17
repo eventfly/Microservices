@@ -40,7 +40,10 @@ router.post('/api/auth/users/signin',
             email: existingUser.email,
             dob: existingUser.dob,
             gender: existingUser.gender,
-            name: existingUser.name
+            name: existingUser.name,
+            ref_id: existingUser.ref_id,
+            role: 'Participant'
+
         }, process.env.JWT_KEY!, {
             expiresIn: 60*10
         })

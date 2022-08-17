@@ -8,6 +8,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import cors from 'cors';
+import { addPostRouter } from './routes/add-post';
 
 
 const app = express()
@@ -28,6 +29,8 @@ app.use((req,res,next)=>{
 
 // app.set('trust proxy', true) // trust first proxy
 app.use(json())
+
+app.use(addPostRouter);
 
 //
 app.all('*', async (req, res, next) => {

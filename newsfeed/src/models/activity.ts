@@ -3,12 +3,12 @@ import { ObjectId } from "mongoose";
 
 const activitySchema = new mongoose.Schema({
     user_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
     post_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         required: true,
         index: true

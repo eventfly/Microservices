@@ -47,6 +47,6 @@ userSchema.statics.findByRefId = function(ref_id: string) {
     return this.findOne({ref_id: ref_id});
 };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model<any,any>('User', userSchema);
 
 export { User };

@@ -1,6 +1,7 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
+import { EventCreatedListener } from './listeners/event-created-listener';
 import { ParticipantCreatedListener } from './listeners/participant-created-listener';
 import { natsWrapper } from './nats-wrapper';
 
@@ -42,6 +43,7 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new ParticipantCreatedListener(natsWrapper.client).listen();
+    new EventCreatedListener(natsWrapper.client).listen();
 
 
     await mongoose.connect(`${process.env.MONGO_URI_NEWSFEED}`, {

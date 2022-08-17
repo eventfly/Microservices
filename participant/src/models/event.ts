@@ -62,7 +62,8 @@ interface EventModel extends mongoose.Model<EventDoc> {
 const eventSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     organizer: {
         type: mongoose.Schema.Types.ObjectId,

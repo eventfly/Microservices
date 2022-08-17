@@ -10,6 +10,7 @@ interface UserPayload {
     dob?: string;
     gender?: string;
     role?: string;
+    ref_id?: string;
 }
 
 declare global {
@@ -28,7 +29,7 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
     }
 
     try {
-        const payload = jwt.verify(req.headers.authorization, process.env.JWT_KEY!) as UserPayload
+        const payload = jwt.verify(req.headers.authorization, process.env.JWT_KEY!) as any
         req.currentUser = payload;
 
         if (!req.currentUser) {
