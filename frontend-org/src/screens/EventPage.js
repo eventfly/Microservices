@@ -11,6 +11,7 @@ import EventStatistics from "./EventStatistics";
 import EventMember from "./EventMember";
 import AddStaff from "./AddStaff";
 import EventThumbnail from "../components/Event/EventThumbnail";
+import EventTicket from "./EventTicket";
 
 import FormTitle from "../components/Form/FormTitle";
 
@@ -27,7 +28,8 @@ const EventPage = () => {
                     (location.includes('discussion') ? 'Discussion' :
                     (location.includes('statistics') ? 'Statistics' :
                     (location.includes('members') ? 'Members' :
-                    (location.includes('staff/add') ? 'Add Staff' : '' )))) 
+                    (location.includes('tickets') ? 'Tickets' :
+                    (location.includes('staff/add') ? 'Add Staff' : '' ))))) 
 
     let auth = sessionStorage.getItem('auth')
     if (auth) {
@@ -172,6 +174,11 @@ const EventPage = () => {
                                                 setLoading={setLoadingMember}
                                             />
                                         ) : 
+                                        
+                                        
+                                        location.includes('tickets') ? (
+                                            <EventTicket setEvent={setEvent} />
+                                        ) :
 
                                         (<></>)
                                     

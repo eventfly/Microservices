@@ -4,13 +4,13 @@ import { ObjectId } from "mongoose";
 
 const commentSchema = new mongoose.Schema({
     post_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         required: true
     },
     creator: {
         id :{
-            type: Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User'
         }
@@ -35,12 +35,12 @@ const commentSchema = new mongoose.Schema({
         default: 0
     },
     parent_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment',
         required: false
     },
     replies: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
     }],
     is_deleted: {

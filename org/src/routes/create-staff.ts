@@ -20,9 +20,6 @@ router.post('/api/org/staff', [
     body('email').
         isEmail().
         withMessage('Email must be a valid email'),
-    // body('role').
-    //     isIn(['organizer', 'staff']).
-    //     withMessage('Role must be either organizer or staff'),
     body('events').
         isArray().
         withMessage('Events must be an array'),
@@ -76,17 +73,6 @@ router.post('/api/org/staff', [
                 }
             ));
 
-            // natsWrapper.client.publish('staff:assigned', JSON.stringify(
-            //     { 
-            //         name: staff.name,
-            //         email: staff.email, 
-            //         role: staff.role,
-            //         ref_id: staff.id, 
-            //         password: staff.otp!,
-            //         // is_verified: staff.is_verified,
-            //         events: staff.events
-            //     }
-            // ));
 
             const url = encodeURIComponent(`http://localhost:3005/login?email=${staff.email}&password=${staff.otp}`)
             console.log(url);

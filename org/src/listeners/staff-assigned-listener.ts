@@ -18,7 +18,7 @@ export class StaffAssignedListener extends Listener {
                 $push: 
                 {"events": 
                     {
-                        eventId
+                        eventId 
                     }
                 }
             }, 

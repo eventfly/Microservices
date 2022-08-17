@@ -89,3 +89,20 @@
     font-weight: 550;
     font-size: 1.57rem;
 }
+
+.sidebar-icons-md{
+    font-size: x-large;
+    transform: translate(0%, -8%);
+}
+
+/**---------------------------------- Event Ticket ---------------------------**/
+
+.tickets-form-title{
+    text-align: center;
+}
+
+.tickets-form-body{
+    margin-top: 80px;
+    margin-left: 25%;
+    margin-right: 25%;
+}

@@ -1,10 +1,24 @@
-import React, { Fragment, useState,useEffect } from "react";
-import { Typeahead } from "react-bootstrap-typeahead";
+import React, { Fragment, useState, useCallback } from "react";
+import { Typeahead,AsyncTypeahead } from "react-bootstrap-typeahead";
 import {Form} from 'react-bootstrap'
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
-const AutoComplete = ({label, placeholder, options, multiSelections, setMultiSelections, isDisabled}) => {
+const AutoComplete = ({label, placeholder, options, setOptions, multiSelections, setMultiSelections, isDisabled}) => {
+
+    const onKeyDown = useCallback((e) => {
+
+        if (e.key === 'Enter') {
+            console.log(e.target.value)
+            setOptions(options => [...options, e.target.value])
+        }
+
+        if (e.key === 'Tab') {
+            console.log(e.target.value)
+            setMultiSelections(multiSelections => [...multiSelections, e.target.value]);
+        }
+    
+    },[]);
 
     return ( 
         <>
@@ -22,7 +36,10 @@ const AutoComplete = ({label, placeholder, options, multiSelections, setMultiSel
                         placeholder={placeholder}
                         selected={multiSelections}
                         disabled={isDisabled}
+                        onKeyDown={onKeyDown}
                     />
+
+
 
                 </Form.Group>
             
