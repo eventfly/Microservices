@@ -21,7 +21,7 @@ export class EventCreatedListener extends Listener {
             end_date: data.end_date,
             description: data.description,
             banner_url: data.banner_url,
-            ref_id: new ObjectId(data.id), //Ref Id is the id of the event in the org database
+            _id: new ObjectId(data.id), 
         })
 
         await event.save();

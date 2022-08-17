@@ -2,10 +2,6 @@ import mongoose, {Types} from "mongoose";
 import { ObjectId } from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    ref_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false
-    },
     email: {
         type: String,
         required: false
@@ -28,6 +24,11 @@ const userSchema = new mongoose.Schema({
     },
     dateOfBirth: {
         type: Date,
+        required: false
+    },
+    feed: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Feed",
         required: false
     }
 

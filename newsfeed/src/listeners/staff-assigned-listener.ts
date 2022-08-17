@@ -16,7 +16,7 @@ export class StaffAssignedListener extends Listener {
         staffs.forEach(async (staff: any) => {
 
             const user = User.build({
-                ref_id : staff.ref_id,
+                _id : staff.ref_id,
                 roles: ['Staff'],
                 email: staff.email,
                 avatar: staff.profile_pic,
@@ -27,7 +27,7 @@ export class StaffAssignedListener extends Listener {
 
             const event = await Event.findOneAndUpdate(
                 {
-                    ref_id: eventId
+                    _id: eventId
                 },
                 {
                     $push: {

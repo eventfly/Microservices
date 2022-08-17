@@ -11,7 +11,7 @@ export class ParticipantCreatedListener extends Listener {
         console.log('Participant Created! Data: ', data);
 
         const user = new User({
-            ref_id: data._id,
+            _id: data._id,
             email: data.email,
             name: data.name,
             dateOfBirth: data.dob,

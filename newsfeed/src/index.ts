@@ -2,6 +2,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
 import { EventCreatedListener } from './listeners/event-created-listener';
+import { EventParticipantAddedListener } from './listeners/event-participant-added-listener';
 import { ParticipantCreatedListener } from './listeners/participant-created-listener';
 import { StaffAssignedListener } from './listeners/staff-assigned-listener';
 import { natsWrapper } from './nats-wrapper';
@@ -46,7 +47,7 @@ const start = async () => {
     new ParticipantCreatedListener(natsWrapper.client).listen();
     new EventCreatedListener(natsWrapper.client).listen();
     new StaffAssignedListener(natsWrapper.client).listen();
-
+    new EventParticipantAddedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_NEWSFEED}`, {
       useNewUrlParser: true,

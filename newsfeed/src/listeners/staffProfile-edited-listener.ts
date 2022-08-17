@@ -15,25 +15,9 @@ export class StaffProfileEditedListener extends Listener {
 
         events.forEach(async (event: any) => {
             
-            // const updatedEvent = await Event.updateOne(
-            //     {
-            //         "ref_id": event.eventId,
-            //         "staffs.ref_id": staffId
-            //     }, 
-            //     {
-            //         $set: {
-            //             'staffs.$.name' : name, 
-            //             'staffs.$.profile_pic' : profile_pic
-            //         } 
-            //     }, 
-            //      {
-            //         new: true,
-            //         runValidators: true
-            //     }
-            //     );
-
+            
             const user = await User.findOneAndUpdate({
-                ref_id: staffId,
+                _id: staffId,
                 role: 'Staff'
             }, {
                 name,
