@@ -13,6 +13,8 @@
 3000 - Auth Service
 3001 - Org Service
 3002 - Events Service
+3003 - Newsfeed Service
+3004 - Participant Service
 ```
 
 ## API Endpoints
@@ -42,4 +44,9 @@
 ```
 /api/org/
         /:staffId             GET
+```
+
+### PARTICIPANT Service
+```
+/api/participant/:userId/tickets        GET
 ```
