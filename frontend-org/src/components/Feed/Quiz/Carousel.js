@@ -7,8 +7,9 @@ import {HiDocumentAdd} from 'react-icons/hi'
 import Quiz from './Quiz';
 
 import '../../../styles/Carousel.css'
+import FormInput from '../../Form/FormInput';
 
-function CarouselFadeExample({quizset, setQuizset}) {
+function CarouselFadeExample({quizset, setQuizset, quizTopic, setQuizTopic}) {
 
   const iconStyle = {
     fontSize: 'xx-large',
@@ -58,6 +59,18 @@ function CarouselFadeExample({quizset, setQuizset}) {
             indicators={false}
             wrap={false}
           >
+            <Carousel.Item id={`quiz-question-topic-name`}>
+              <div className='quiz-carousel-body-component'>
+                <FormInput 
+                  label="Quiz Topic"
+                  type="text"
+                  placeholder="What is the quiz about?"
+                  value={quizTopic}
+                  onChange={setQuizTopic}
+
+                />
+              </div>
+            </Carousel.Item>
             
             {
               quizset.map((q, index) => {

@@ -133,6 +133,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
             console.log(res)
             setMultiSelections([])
             setLoading(false)
+            alert('Event updated successfully')
         }).catch((err)=>{
             console.log(err.response.data.errors)
         })
