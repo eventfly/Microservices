@@ -26,9 +26,10 @@ const QuizModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+                quizset.quizTopic = quizTopic;
+
         console.log(quizset)
-        quizset.quizTopic = quizTopic;
+        console.log(quizset[0])
 
         for(let i = 0; i < quizset.length; i++){
             if(quizset[i].question === ''){

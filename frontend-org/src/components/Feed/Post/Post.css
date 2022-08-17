@@ -79,7 +79,7 @@ h3{
 }
 
 .poll-result h1, .quiz-result h1{
-    font-size: 1.2rem;
+    font-size: medium;
     margin-bottom: 1rem;
     width: 100%;
 }
