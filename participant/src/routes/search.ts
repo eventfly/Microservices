@@ -13,16 +13,24 @@ router.get('/api/participant/search', currentUser, requireAuth, [], async (req: 
 
     console.log(query, parameter);
     
+    // const events = await Event.aggregate([
+    //     {
+    //       $search: {
+    //         text: {
+    //           query: query,
+    //           path: parameter
+    //         }
+    //       }
+    //     }
+    //   ]).exec();
+
     const events = await Event.aggregate([
-        {
-          $search: {
-            text: {
-              query: query,
-              path: parameter
-            }
-          }
-        }
-      ]).exec();
+      { $match: { $text: { $search: "Annual" } }}
+    ])
+
+    console.log(events)
+
+
     res.status(200).send({ events });  
 })
 
