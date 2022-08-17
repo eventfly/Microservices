@@ -164,7 +164,9 @@ const eventSchema = new mongoose.Schema({
         },
         quantity: {
             type: Number,
-            required: false
+            required: false,
+            default: 0,
+            min: 0
         },
         tokens: [{
             type: String,
@@ -172,7 +174,9 @@ const eventSchema = new mongoose.Schema({
         }],
         available: {
             type: Number,
-            required: false
+            required: false,
+            default: 0,
+            min: 0
         }
     }]
 

@@ -45,7 +45,7 @@ router.post('/api/auth/users/signin',
             role: 'Participant'
 
         }, process.env.JWT_KEY!, {
-            expiresIn: 60*10
+            expiresIn: 60*1000
         })
 
         //Store it on session object
