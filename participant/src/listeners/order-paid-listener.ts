@@ -5,6 +5,7 @@ import { ObjectId, ObjectIdLike } from 'bson';
 import { Order } from '../models/order';
 import { Ticket } from '../models/ticket';
 import { Participant } from '../models/participant';
+import { natsWrapper } from '../nats-wrapper';
 
 export class OrderPaidListener extends Listener {
     subject = 'order:paid';
@@ -70,7 +71,8 @@ export class OrderPaidListener extends Listener {
                 created_at: new Date(),
                 participant: {
                     id: order.user_id,
-                    name: participant!.name
+                    name: participant!.name,
+                    email: participant!.email
                 },
                 order_id: order._id
             });
@@ -79,6 +81,12 @@ export class OrderPaidListener extends Listener {
         })
         
         msg.ack();
+
+        natsWrapper.client.publish('event:participant:added', JSON.stringify({
+            event_id: event!.ref_id,
+            participant_id: order.user_id
+        }));
+
     }
 
 }
