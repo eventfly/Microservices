@@ -5,6 +5,9 @@ import PollResult from "../components/Feed/Poll/PollResult";
 
 import FeedHeader from "../components/Feed/FeedHeader";
 
+import QuizModal from "../components/Feed/Quiz/QuizModal";
+import Quiz from "../components/Feed/Quiz/Quiz";
+
 const EventFeed = () => {
 
     const mess = 'sdfkjfsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhff sdjfnajkebfkjsdfasdf a sdufhak ad asduifhae uhffsdjfnajkeb fkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhfa kdfcicch9eurf a efifh389 fu uiefh8e'
@@ -14,7 +17,7 @@ const EventFeed = () => {
 
         <>
             <FeedHeader />  
-
+            <QuizModal />
 
             <div className='feed-container'>
 

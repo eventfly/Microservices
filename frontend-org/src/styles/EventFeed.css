@@ -3,3 +3,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+.feed-dropdown-item:hover{
+    background-color: rgb(206, 153, 255)
+
+}

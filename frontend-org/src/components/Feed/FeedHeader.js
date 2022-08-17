@@ -53,9 +53,9 @@ function FeedHeader() {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item > <PostModal /> </Dropdown.Item>
-                                <Dropdown.Item > <PollModal /> </Dropdown.Item>
-                                <Dropdown.Item > <QuizModal /> </Dropdown.Item>
+                                 <div className="feed-dropdown-item"> <PostModal /> </div>  
+                                 <div className="feed-dropdown-item"> <PollModal /> </div> 
+                                 <div className="feed-dropdown-item"> <QuizModal /> </div> 
                             </Dropdown.Menu>
                         </Dropdown> 
                     </Col>
