@@ -1,6 +1,7 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
+import { OrderCreatedListener } from './listeners/order-created-listener';
 
 import { natsWrapper } from './nats-wrapper';
 
@@ -41,9 +42,11 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
+    new OrderCreatedListener(natsWrapper.client).listen();
 
 
-    await mongoose.connect(`${process.env.MONGO_URI_PARTICIPANT}`, {
+
+    await mongoose.connect(`${process.env.MONGO_URI_PAYMENT}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     } as ConnectOptions);

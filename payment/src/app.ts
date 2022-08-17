@@ -6,6 +6,7 @@ import cors from 'cors'
 import { errorHandler } from './middlewares/error-handler';
 
 import { NotFoundError } from './errors/not-found-error';
+import { createPaymentRouter } from './routes/create-payment';
 
 
 
@@ -25,7 +26,7 @@ app.use((req,res,next)=>{
 // app.set('trust proxy', true)
 app.use(json());
 
-
+app.use(createPaymentRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

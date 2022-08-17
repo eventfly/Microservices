@@ -25,9 +25,10 @@ const orderSchema = new mongoose.Schema({
             required: false
         }
     }],
-    payment_status: {
+    status: {
         type: String,
-        required: false
+        required: false,
+        default: 'pending'
     },
     expiration_date: {
         type: Date,
