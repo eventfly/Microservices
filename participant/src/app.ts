@@ -9,6 +9,7 @@ import { NotFoundError } from './errors/not-found-error';
 import { signupRouter } from './routes/create-participant';
 import { searchRouter } from './routes/search';
 import { createOrderRouter } from './routes/create-order';
+import { getTicketsRouter } from './routes/get-tickets';
 
 
 const app = express()
@@ -30,6 +31,7 @@ app.use(json());
 app.use(signupRouter);
 app.use(searchRouter);
 app.use(createOrderRouter);
+app.use(getTicketsRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
