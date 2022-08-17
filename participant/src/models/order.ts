@@ -41,7 +41,7 @@ const orderSchema = new mongoose.Schema({
     total_price: {
         type: Number,
         required: false
-    }
+    },
 
 
 })
