@@ -9,6 +9,9 @@ import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
 import cors from 'cors';
 import { addPostRouter } from './routes/add-post';
+import { addCommentRouter } from './routes/add-comment';
+import { getCommentRouter } from './routes/get-comment';
+import { getAllPostsRouter } from './routes/get-all-posts';
 
 
 const app = express()
@@ -31,6 +34,9 @@ app.use((req,res,next)=>{
 app.use(json())
 
 app.use(addPostRouter);
+app.use(addCommentRouter);
+app.use(getCommentRouter);
+app.use(getAllPostsRouter);
 
 //
 app.all('*', async (req, res, next) => {

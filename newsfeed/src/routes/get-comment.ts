@@ -23,3 +23,5 @@ router.get('/api/newsfeed/:postId', currentUser, requireAuth,
         res.status(200).send({ post });
 
     })
+
+    export { router as getCommentRouter };

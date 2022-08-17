@@ -38,3 +38,6 @@ router.post('/api/newsfeed/comment/:postId', [
         res.status(201).send({ post });
     }
 )
+
+export { router as addCommentRouter };
+

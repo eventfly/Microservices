@@ -24,3 +24,5 @@ router.get('/api/newsfeed/:eventId/post',
 
     }
 )
+
+export { router as getAllPostsRouter };
