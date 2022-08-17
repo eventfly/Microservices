@@ -5,7 +5,7 @@ import { ObjectId, ObjectIdLike } from 'bson';
 
 export class EventCreatedListener extends Listener {
     subject = 'event:created';
-    queueGroupName = 'event-created-event';
+    queueGroupName = 'event-created2';
     async onMessage(data: any, msg: Message) {
         console.log('Event Created! Data: ', data);
 
@@ -20,18 +20,8 @@ export class EventCreatedListener extends Listener {
             start_date: data.start_date,
             end_date: data.end_date,
             description: data.description,
-            type: data.type,
-            tags: data.tags,
-            mailList: data.mailList,
-            rating: data.rating,
-            parent_id: data.parent_id,
-            sub_events: data.sub_events,
             banner_url: data.banner_url,
-            filter: data.filter,
-            ticket_price: data.ticket_price,
-            ref_id: new ObjectId(data.id),
-            privacy: data.privacy,
-            zoom_link: data.zoom_link
+            ref_id: new ObjectId(data.id), //Ref Id is the id of the event in the org database
         })
 
         await event.save();

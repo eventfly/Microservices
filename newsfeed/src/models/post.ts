@@ -6,26 +6,28 @@ import {ObjectId} from 'mongoose';
 
 const postSchema = new mongoose.Schema({
     event_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'Event',
         index: true
     },
     creator: {
-        creator_id :{
-            type: Types.ObjectId,
+
+        //Ref_Id
+        id :{
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User'
         },
-        creator_name: {
+        name: {
             type: String,
             required: true
         },
-        creator_role: {
+        role: {
             type: String,
             required: true
         },
-        creator_avatar: {
+        avatar: {
             type: String,
             required: false
         }
@@ -46,7 +48,7 @@ const postSchema = new mongoose.Schema({
     },
     comments: [
         {
-            type: Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Comment'
         }
     ],
@@ -201,7 +203,7 @@ postSchema.statics.getNPosts = async (eventId: string, n: number) => {
 
 
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model<any, any>('Post', postSchema);
 
 export {Post};
 

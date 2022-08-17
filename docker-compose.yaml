@@ -112,3 +112,19 @@ services:
         - variables.env
       depends_on:
         - nats_server
+    payment:
+      build: ./payment
+      container_name: payment
+      ports:
+        - "3005:3000"
+      volumes:
+        - ./payment:/var/lib/payment
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=payment
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server

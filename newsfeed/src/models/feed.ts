@@ -3,14 +3,14 @@ import { ObjectId } from "mongoose";
 
 const feedSchema = new mongoose.Schema({
     user_id: {
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
         index: true,
         unique: true
     },
     posts: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }],
     last_updated: {
@@ -19,7 +19,7 @@ const feedSchema = new mongoose.Schema({
         default: Date.now
     },
     activities: [{
-        type: Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Activity'
     }]
 });
@@ -33,6 +33,10 @@ feedSchema.statics.build = (attrs: any) => {
 feedSchema.statics.getFeed = async (userId: string) => {
     const feed = await Feed.findOne({user_id: userId});
     return feed;
+}
+
+feedSchema.statics.findByUserId = async (userId: string) => {
+    return await Feed.findOne({user_id: userId});
 }
 
 feedSchema.statics.addPost = async (userId: string, postId: ObjectId) => {
@@ -71,7 +75,7 @@ feedSchema.statics.addActivity = async (userId: string, activityId: ObjectId) =>
     
 }
 
-const Feed = mongoose.model('Feed', feedSchema);
+const Feed = mongoose.model<any, any>('Feed', feedSchema);
 
 
 export { Feed };

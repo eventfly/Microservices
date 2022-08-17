@@ -9,17 +9,6 @@ interface TagDoc {
 }
 
 
-
-interface TicketDoc extends mongoose.Document {
-    class: string;
-    price: number;
-    quantity: number;
-    tokens: Types.DocumentArray<string>;
-}
-
-
-
-
 interface EventAttrs {
     name: string;
     banner_url?: string;
@@ -40,7 +29,7 @@ interface EventAttrs {
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
-    tickets?: any | Types.DocumentArray<TicketDoc>;
+    tickets?: Types.DocumentArray<any>;
 }
 
 interface EventDoc extends mongoose.Document {
@@ -73,7 +62,8 @@ interface EventModel extends mongoose.Model<EventDoc> {
 const eventSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     organizer: {
         type: mongoose.Schema.Types.ObjectId,
@@ -147,33 +137,6 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-
-    staffs: [{
-        email:{
-            type: String,
-            required: true
-        },
-        name:{
-            type: String,
-            required: true
-        },
-        otp:{
-            type: String,
-            required: false
-        },
-        role:{
-            type: String,
-            required: true
-        },
-        profile_pic:{
-            type: String,
-            required: false
-        },
-        ref_id:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Staff',
-        }
-    }],
     zoom_link: {
         type: String,
         required: false
@@ -182,8 +145,7 @@ const eventSchema = new mongoose.Schema({
     roles: [{
         name:{
             type: String,
-            required: true,
-            unique: true
+            required: false
         },
         permissions: {
             type: [String],
@@ -229,10 +191,6 @@ const eventSchema = new mongoose.Schema({
 
 eventSchema.statics.build = (attrs: EventAttrs) => {
     return new Event(attrs);
-}
-
-eventSchema.statics.findByRefId = async (refId: string) => {
-    return await Event.findOne({ref_id: refId});
 }
 
 const Event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);

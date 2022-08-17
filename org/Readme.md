@@ -205,6 +205,10 @@ Tag({
 
     headers['Authorization'] = JWT_TOKEN
 
+###### POST /api/org
+
+For Organizer Signup
+
 
 ###### POST /api/org/event
 Request Body:
@@ -300,3 +304,11 @@ Create a new staff account
 ###### POST /api/org/
 
 Create a new organizer account
+
+
+
+
+TODO:
+
+1. Get all events of a staff
+2. 

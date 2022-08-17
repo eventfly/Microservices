@@ -5,13 +5,14 @@ import { ObjectId, ObjectIdLike } from 'bson';
 
 export class EventCreatedListener extends Listener {
     subject = 'event:created';
-    queueGroupName = 'event-created-event';
+    queueGroupName = 'event-created-participant';
     async onMessage(data: any, msg: Message) {
         console.log('Event Created! Data: ', data);
 
         data.tags.forEach((element: { id: string | ObjectId | ObjectIdLike ; }) => {
             element.id = new ObjectId(element.id);
         });
+
 
 
         const event = Event.build({

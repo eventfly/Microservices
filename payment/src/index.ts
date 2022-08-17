@@ -1,8 +1,7 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
-import { EventCreatedListener } from './listeners/event-created-listener';
-import { TicketAddedListener } from './listeners/ticket-added-listener';
+
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -10,8 +9,8 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined')
   }
 
-  if (!process.env.MONGO_URI_PARTICIPANT) {
-    throw new Error('MONGO_URI_ORG must be defined')
+  if (!process.env.MONGO_URI_PAYMENT) {
+    throw new Error('MONGO_URI_PAYMENT must be defined')
   }
 
   if (!process.env.NATS_URL) {
@@ -42,8 +41,6 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    new EventCreatedListener(natsWrapper.client).listen();
-    new TicketAddedListener(natsWrapper.client).listen();
 
 
     await mongoose.connect(`${process.env.MONGO_URI_PARTICIPANT}`, {
