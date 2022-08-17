@@ -47,7 +47,7 @@ const ChangeBillingDay = () => {
                 <FormSelect id="billing-day"
                     label="New Billing Day"
                     options={billingDayOptions}
-                    defaultValue={billingDayOptions[0].name}
+                    defaultValue={newBillingDay}
                     onChange={setNewBillingDay}
                 />
             </div>
