@@ -72,7 +72,7 @@ function OrgProfile() {
                 </div>
                 <div className="main-content-column">
                 {
-                    location.includes('account') ? <OrgAccount />
+                    location.includes('account') ? <OrgAccount orgData={orgData} setOrgData={setOrgData} /> 
                     : location.includes('package') ? <OrgPackage />
                     : location.includes('members') ? (
                         <OrgMembers 

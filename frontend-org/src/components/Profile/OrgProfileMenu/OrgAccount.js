@@ -7,14 +7,23 @@ import ErrorPopup from "../../ErrorPopup";
 import PersonCard from '../../PersonCard';
 
 import { useState, useEffect } from 'react'
-import {orgApi} from '../../../api/axiosHook'
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import DatePicker from '../../Event/DatePicker';
 
+import {getOrgApi} from '../../../api/axiosHook'
 
-const OrgAccount = () => {
 
+
+const OrgAccount = ({orgData}) => {
+
+    const navigate = useNavigate();
+
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
+    
     let accTypeOptions = [
         {
             'id': 1,
@@ -26,7 +35,17 @@ const OrgAccount = () => {
         }
     ]
 
-    const [email, setEmail] = useState('yahoo@google');
+    useEffect(() => {
+        if(orgData){
+            setEmail(orgData.email)
+            setName(orgData.name)
+            setAccType(orgData.role)
+            setDate(orgData.created_at.split(':')[0]+':'+orgData.created_at.split(':')[1])
+            setProfileImage(orgData.profile_pic)
+        }
+    } , [orgData])
+
+    const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [accType, setAccType] = useState('');
 
@@ -64,6 +83,29 @@ const OrgAccount = () => {
         e.preventDefault();
         console.log('handleSubmit')
         console.log(date)
+
+        let updatedOrg = {
+            email,
+            name,
+            role: accType,
+            profile_pic: profileImage,
+        }
+
+        getOrgApi(localStorage.getItem('token')).put(`/edit-profile`, updatedOrg).then(res => {
+            console.log(res)
+
+            auth.profile_pic = res.data.existingUser.profile_pic
+            auth.name = res.data.existingUser.name
+            window.sessionStorage.setItem('auth', JSON.stringify(auth));
+            alert('Profile updated successfully')
+            
+        }).catch(err => {
+            console.log(err)
+            setError(err.response.data.errors[0].message);
+        })
+
+
+
     }
 
     const [date, setDate] = useState("2017-06-01T08:30");
@@ -107,14 +149,14 @@ const OrgAccount = () => {
                         onChange={setEmail}
                     />
                     
-                    <FormInput id="phonenumber"
+                    {/* <FormInput id="phonenumber"
                         inputType="number"
                         label="Contact Number"
                         placeholder="Enter contact number"
                         value={phonenumber}
                         isDisabled={false}
                         onChange={setPhonenumber}
-                    />
+                    /> */}
 
                     <FormInput id="role"
                         inputType="text"
