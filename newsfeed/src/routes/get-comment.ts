@@ -14,7 +14,7 @@ router.get('/api/newsfeed/:postId', currentUser, requireAuth,
     [], async (req: Request, res: Response) => {
         const { postId } = req.params;
         
-        const post = await Post.findById(postId).populate('Comment');
+        const post = await Post.findById(postId).populate('comments');
 
         if (!post) {
             throw new Error('Post not found');
