@@ -38,6 +38,12 @@ export class OrderPaidListener extends Listener {
             throw new Error('Participant not found');
         }
 
+        participant.events.push(
+            event._id
+        );
+
+        await participant.save();
+
         let tokens: { type: any; id: number; }[] = [];
 
         order.tickets.forEach(async (ticket: any) => {

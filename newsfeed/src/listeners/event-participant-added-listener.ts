@@ -26,6 +26,9 @@ export class EventParticipantAddedListener extends Listener {
         event.followers.push(user._id);
         await event.save();
 
+        user.events.push(event._id);
+        await user.save();
+
         let feed = Feed.findOne({user_id: user._id});
 
         if (!feed) {
@@ -36,9 +39,6 @@ export class EventParticipantAddedListener extends Listener {
             await feed.save();
         }
 
-        
-
-        
         msg.ack();
 
         
