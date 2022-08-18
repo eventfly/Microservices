@@ -59,7 +59,7 @@ const QuizResultPreview = () => {
             <Row>
                 <Col xs={{offset:9, span:3}}>
                   <Link to='/event/5/discussion/quiz/6'>
-                    view deitainls
+                    View Details
                   </Link>
                 </Col>
             </Row>

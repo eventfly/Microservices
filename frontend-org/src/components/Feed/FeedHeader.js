@@ -13,7 +13,7 @@ import QuizModal from './Quiz/QuizModal';
 import PostModal from './Post/PostModal';
 import PollModal from './Poll/PollModal';
 
-function FeedHeader() {
+function FeedHeader({setAllPosts}) {
     const headerStyle = {
         // backgroundColor: 'red'
     }
@@ -53,8 +53,8 @@ function FeedHeader() {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                 <div className="feed-dropdown-item"> <PostModal /> </div>  
-                                 <div className="feed-dropdown-item"> <PollModal /> </div> 
+                                 <div className="feed-dropdown-item"> <PostModal setAllPosts={setAllPosts} /> </div>  
+                                 <div className="feed-dropdown-item"> <PollModal setAllPosts={setAllPosts} /> </div> 
                                  <div className="feed-dropdown-item"> <QuizModal /> </div> 
                             </Dropdown.Menu>
                         </Dropdown> 

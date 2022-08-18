@@ -13,6 +13,20 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
 
     const [commentDisplayType, setCommentDisplayType] = useState('none');
 
+    const dateFormatter = (time) => {
+        let date = time.split('T')[0]
+
+        let yr = date.split('-')[0].substring(2, 4)
+        let mon = date.split('-')[1]
+        let day = date.split('-')[2]
+
+        let clock = time.split('T')[1]
+        let hr = clock.split(':')[0]
+        let min = clock.split(':')[1]
+        
+        return hr + ":" + min + " " + day + "/" + mon + "/" + yr;
+    }
+
     const displayCommentBox = () => {
         if (commentDisplayType === 'none') {
             setCommentDisplayType('flex');
@@ -38,7 +52,7 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
 
                 <div className="postTopInfo">
                     <h3>{username}</h3>
-                    <p>{timestamp}</p>
+                    <p>{dateFormatter(timestamp)}</p>
                 </div>
             </div>
 

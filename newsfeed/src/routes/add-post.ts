@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post('/api/newsfeed/:eventId/post',
     [  
-        body('title').trim().notEmpty().withMessage('Title is required'),
+        // body('title').trim().notEmpty().withMessage('Title is required'),
         body('content').trim().notEmpty().withMessage('Content is required'),
     ],
     validateRequest,
@@ -33,8 +33,9 @@ router.post('/api/newsfeed/:eventId/post',
 
         //Get post data from request body
         const {
-            title,
+            // title,
             content,
+            image,
             poll_options,
             questions
         } = req.body;
@@ -52,10 +53,10 @@ router.post('/api/newsfeed/:eventId/post',
             content,
             poll_options,
             questions,
-            title,
+            // title,
             created_at: new Date(),
-            updated_at: new Date()
-
+            updated_at: new Date(),
+            image: image
         });
 
         await post.save();
@@ -78,10 +79,7 @@ router.post('/api/newsfeed/:eventId/post',
         })
 
 
-
-
-
-        res.status(201).send(post);
+        res.status(201).send({post});
 })
 
 export { router as addPostRouter };
