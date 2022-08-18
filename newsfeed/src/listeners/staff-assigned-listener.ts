@@ -31,7 +31,8 @@ export class StaffAssignedListener extends Listener {
                 },
                 {
                     $push: {
-                        staffs: new ObjectId(user._id)
+                        staffs: new ObjectId(user._id),
+                        followers: new ObjectId(user._id)
                     }
                 },
                 {

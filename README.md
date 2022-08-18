@@ -49,4 +49,24 @@
 ### PARTICIPANT Service
 ```
 /api/participant/:userId/tickets        GET
+/api/participant/order                  POST
+/api/participant                        POST
+/api/participant/:id/tickets            GET
+/api/participant/checkin                PUT
+```
+
+### NEWSFEED Service
+
+```
+/api/newsfeed/:eventId/post             POST (Add Post)
+/api/newsfeed/post/:postId/comment      POST (Add Comment)
+/api/newsfeed/:eventId/post             GET  (Get all posts under an event)
+/api/newsfeed/post/:postId/comment      GET  (Get all comments under a post)
+/api/newsfeed/feed                      GET  (Get newsfeed)
+/api/newsfeed/post/:postId              GET  (Get post data)
+```
+
+### PAYMENT Service
+```
+/api/payment/                           POST
 ```

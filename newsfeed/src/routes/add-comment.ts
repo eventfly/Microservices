@@ -4,17 +4,21 @@ import { User } from '../models/user';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
 import { ObjectId } from 'bson';
+import { currentUser } from '../middlewares/current-user';
+import { requireAuth } from '../middlewares/require-auth';
+import { errorHandler } from '../middlewares/error-handler';
+import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
-router.post('/api/newsfeed/comment/:postId', [
+router.post('/api/newsfeed/post/:postId/comment', [
     body('content').trim().isLength({ min: 1 })
-], 
+], validateRequest, currentUser, requireAuth, errorHandler, 
     async (req: Request, res: Response) => {
         const { postId } = req.params;
         const { content } = req.body;
 
-        const user = await User.findByRefId(req.currentUser!.ref_id);
+        const user = await User.findById(req.currentUser!.ref_id);
         const post = await Post.findById(postId);
 
         if (!post) {
