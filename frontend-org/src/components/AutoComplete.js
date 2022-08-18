@@ -6,19 +6,26 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const AutoComplete = ({label, placeholder, options, setOptions, multiSelections, setMultiSelections, isDisabled}) => {
 
-    const onKeyDown = useCallback((e) => {
+    //const onKeyDown = useCallback((e) => {
 
-        if (e.key === 'Enter') {
-            console.log(e.target.value)
-            setOptions(options => [...options, e.target.value])
-        }
+        // if (e.key === 'Enter') {
+        //     console.log(e.target.value)
+        //     setOptions(options => [...options, e.target.value])
 
-        if (e.key === 'Tab') {
-            console.log(e.target.value)
-            setMultiSelections(multiSelections => [...multiSelections, e.target.value]);
-        }
+        //     setTimeout(() => {
+                
+        //         setMultiSelections(multiSelections => [...multiSelections, e.target.value]);
+        //         e.target.value.clear()
+
+        //     }, 50)
+        // }
+
+        // if (e.key === 'Tab') {
+        //     console.log(e.target.value)
+        //     setMultiSelections(multiSelections => [...multiSelections, e.target.value]);
+        // }
     
-    },[]);
+    //},[]);
 
     return ( 
         <>
@@ -36,7 +43,7 @@ const AutoComplete = ({label, placeholder, options, setOptions, multiSelections,
                         placeholder={placeholder}
                         selected={multiSelections}
                         disabled={isDisabled}
-                        onKeyDown={onKeyDown}
+                        // onKeyDown={onKeyDown}
                     />
 
 
