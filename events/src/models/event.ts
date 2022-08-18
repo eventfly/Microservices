@@ -41,6 +41,7 @@ interface EventAttrs {
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
     tickets?: any | Types.DocumentArray<TicketDoc>;
+    location?: number[]
 }
 
 interface EventDoc extends mongoose.Document {
@@ -64,6 +65,7 @@ interface EventDoc extends mongoose.Document {
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
     tickets?: Types.DocumentArray<any>;
+    location?: number[]
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -212,7 +214,12 @@ const eventSchema = new mongoose.Schema({
             type: Number,
             required: false
         }
-    }]
+    }],
+
+    location: {
+        type: [Number],
+        required: false
+    }
 
     //TODO: Add Venue
 
