@@ -14,7 +14,7 @@ router.get('/api/newsfeed/:eventId/post',
     [], 
     async (req: Request, res: Response) => {
         const { eventId } = req.params;
-        const event = await Event.findByRefId(eventId).populate('Post');
+        const event = await Event.findById(eventId).populate('posts');
 
         if (!event) {
             throw new Error('Event not found');

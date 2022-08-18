@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/api/newsfeed/feed', currentUser, requireAuth, errorHandler, async (req: Request, res: Response) => {
     
-    const feed = await Feed.find({user_id: new ObjectId(req.currentUser!.ref_id)});
+    const feed = await Feed.find({user_id: new ObjectId(req.currentUser!.ref_id)}).populate('posts');
 
     if (!feed){
         throw new Error('Feed not found');

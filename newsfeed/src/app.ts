@@ -10,6 +10,7 @@ import { addCommentRouter } from './routes/add-comment';
 import { getCommentRouter } from './routes/get-comment';
 import { getAllPostsRouter } from './routes/get-all-posts';
 import { getFeedRouter } from './routes/get-feed';
+import { getPostRouter } from './routes/get-post';
 
 
 const app = express()
@@ -32,6 +33,7 @@ app.use((req,res,next)=>{
 app.use(json())
 
 app.use(getFeedRouter);
+app.use(getPostRouter);
 app.use(addPostRouter);
 app.use(addCommentRouter);
 app.use(getCommentRouter);
