@@ -72,8 +72,7 @@ const OrgAccount = ({orgData}) => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
                     console.log(downloadUrl);
                     setProfileImage(downloadUrl);
-                    sessionStorage.setItem("orgProfilePic", downloadUrl);
-                    // document.getElementById("banner").style.backgroundImage = `url(${downloadUrl})`;
+                    document.getElementById("profilePic").style.backgroundImage = `url(${downloadUrl})`;
                 })
             }
         );

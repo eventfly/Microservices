@@ -49,6 +49,15 @@ const EventMember = ({event, setEvent, orgRoles, orgStaffs, managers, setLoading
         return tempStaffs
     }
 
+    const getManagers = () => {
+        let tempStaffs = orgStaffs.filter((staff)=>{
+            return staff.role === 'Manager'
+        })
+
+        return tempStaffs
+    }
+
+
     const getRoleOptions = () => {
         let tempOptions = roleOptions
 
@@ -107,9 +116,11 @@ const EventMember = ({event, setEvent, orgRoles, orgStaffs, managers, setLoading
             <div className="role-container">
                 <Role 
                     roleType='Managers'
-                    // setEvent={setEvent} 
-                    members={managers}
+                    permissions={['Admin']}
+                    setData={setEvent}
+                    members={orgStaffs ? getManagers() : null}
                     displayEditModal={'none'}
+                    orgStaffs={orgStaffs ? orgStaffs : []}
                 />
             </div>
 

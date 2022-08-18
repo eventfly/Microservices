@@ -27,7 +27,7 @@ router.put('/api/org/edit-profile', [
     validateRequest,
     currentUser, 
     requireAuth,
-    roleControl('Organizer', 'Manager'),
+    // roleControl('Organizer', 'Manager'),
     
     async (req: Request, res: Response) => {
 
