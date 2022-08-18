@@ -37,6 +37,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [headerLoading, setHeaderLoading] = useState(false);
 
   let auth = sessionStorage.getItem('auth')
   if (auth) {
@@ -68,7 +69,7 @@ function App() {
   return (
     
     <Router>
-      <Header />
+      <Header loading={headerLoading} setLoading={setHeaderLoading} />
 
       <div className='main_content'>
 
@@ -78,7 +79,7 @@ function App() {
           <Route path="/popular" element={<PopularEvents />} />
 
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setHeaderLoading={setHeaderLoading} />} />
           <Route path="/create" element={<CreateEvent />} />
 
           <Route path="/sub" element={<Subscription />}/>

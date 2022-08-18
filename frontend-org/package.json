@@ -10,8 +10,6 @@
     "firebase": "^9.9.0",
     "maplibre-gl": "^2.2.0",
     "mdb-react-ui-kit": "^3.0.0",
-    "ol": "^6.15.1",
-    "ol-mapbox-style": "^8.2.1",
     "react": "17.0.2",
     "react-bootstrap": "^2.4.0",
     "react-bootstrap-typeahead": "^6.0.0-rc.3",

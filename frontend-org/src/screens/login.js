@@ -9,7 +9,8 @@ import ErrorPopup from "../components/ErrorPopup";
 import { useState, useEffect } from 'react'
 import {getAuthApi} from '../api/axiosHook'
 
-const Login = () => {
+const Login = ({setHeaderLoading}) => {
+    
     const navigate = useNavigate();
 
     let auth = sessionStorage.getItem('auth')
@@ -50,6 +51,8 @@ const Login = () => {
 
             window.localStorage.setItem('token', res.data.token);
             window.sessionStorage.setItem('auth', JSON.stringify(res.data.existingUser));
+
+            setHeaderLoading(false)
 
             if(res.data.existingUser.role == 'Staff'){
                 navigate('/profile')

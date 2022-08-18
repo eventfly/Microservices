@@ -44,8 +44,10 @@ router.post('/api/org/event', [
     roleControl('Organizer', 'Manager'),
     
     async (req: Request, res: Response) => {
-        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter, tags, zoomLink } = req.body
-        console.log(req.body)
+        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, 
+            filter, tags, zoomLink, location } = req.body
+        
+            console.log(req.body)
         // Find the corresponding tag element from database and add it to the event
         tags.forEach(async (element: {name: string | any, id: number;}) => {
             let tag = await Tag.findOne({name: element.name});
@@ -73,10 +75,9 @@ router.post('/api/org/event', [
             tags,
             zoom_link: zoomLink,
             organizer: new ObjectId(req.currentUser!.ref_id),
+            location: location
         })
 
-        console.log('after build')
-        console.log(event)
 
         // Save the event to the database
         await event.save()

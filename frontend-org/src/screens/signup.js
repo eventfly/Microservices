@@ -10,7 +10,7 @@ import {getOrgApi} from '../api/axiosHook'
 
 import '../styles/Form.css'
 
-const Signup = () => {
+const Signup = ({setHeaderLoading}) => {
 
     const navigate = useNavigate();
 
@@ -51,6 +51,7 @@ const Signup = () => {
 
         getOrgApi('').post('/', account).then(res => {
             localStorage.setItem('token', res.data.token);
+            setHeaderLoading(false)
             navigate('/')
         
         }).catch(err => {

@@ -8,7 +8,7 @@ import FormSelect from "../components/Form/FormSelect";
 
 import { useState, useEffect } from "react";
 
-import Map from "../components/Event/Map";
+import MapBox from "../components/Event/MapBox";
 import DatePicker from "../components/Event/DatePicker";
 import AutoComplete from "../components/AutoComplete";
 import EventCard from "../components/Event/EventCard";
@@ -48,7 +48,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
     const [name, setName] = useState('Dummy event');
     const [description, setDescription] = useState('Dummy event description');
 
-    const [location, setLocation] = useState({ lat: 10, lng: 106});
+    const [location, setLocation] = useState(null);
     //2018-06-12T19:30 
     //2022-07-14T06:26:00.000Z
 
@@ -65,6 +65,11 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
     const [mailList, setMailList] = useState('')
     const [filter, setFilter] = useState('')
 
+
+    const onDragMarker = (lat, lng) => {
+        console.log(lat, lng)
+        setLocation({lat:lat, lng:lng})
+    }
 
 
     useEffect(() => {
@@ -90,6 +95,8 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
             setEventPrivacy(event.privacy)
 
             setMailList([...event.mailList])
+
+            setLocation({lat:event.location[1], lng:event.location[0]})
         }
 
         if(allTags){
@@ -120,6 +127,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                 return {'name': tag}
             }),
             ticket: parseInt(ticketPrice),
+            location: [location.lng, location.lat]
             // mailList: [
             //     sessionStorage.getItem('event_maillist')
             // ],
@@ -145,7 +153,6 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
         <>
 
             <div className="event-details-container">
-                {/* <FormTitle title="Edit Event" /> */}
 
                 <EventCard  
                     name={name}
@@ -166,7 +173,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         isDisabled={!isEditable}
                     />
 
-                    <br />
+                    <div style={{ marginBottom: '40px' }} />
 
                     <FormTextArea id="description"
                         label="Description"
@@ -175,7 +182,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         onChange={setDescription}
                         disabled={!isEditable}
                     />
-                    <br />
+                    <div style={{ marginBottom: '40px' }} />
 
                     <AutoComplete
                         label={'Event Tags'}
@@ -186,9 +193,17 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         isDisabled={!isEditable} 
                     />
 
-                    {/* <Map DefaultLocation={location} onChange={setLocation}/> */}
+                    <div style={{ marginBottom: '40px' }} />
 
-                    <br /><br />
+                    <MapBox 
+                        defaultLat={location ? location.lat : 23.8} 
+                        defaultLng={location? location.lng : 90.4} 
+                        onDrag={onDragMarker}
+                        displayType={isEditable ? 'block' : 'none'}
+                    />
+
+                    <div style={{ marginBottom: '40px' }} />
+
                     <DatePicker 
                         label="Start Date" 
                         defaultDate={startDate} 
@@ -196,7 +211,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         isDisabled={!isEditable}
                     />
                     
-                    <br /><br />
+                    <div style={{ marginBottom: '40px' }} />
                     <DatePicker 
                         label="End Date" 
                         defaultDate={endDate} 
@@ -204,7 +219,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         isDisabled={!isEditable}
                     />
 
-                    <br /><br />
+                    {/* <div style={{ marginBottom: '40px' }} />
 
                     <FormInput id="ticketPrice"
                         inputType="text"
@@ -213,9 +228,9 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         value={ticketPrice}
                         onChange={setTicketPrice}
                         isDisabled={!isEditable}
-                    />
+                    /> */}
 
-                    <br />
+                    <div style={{ marginBottom: '40px' }} />
 
                     <FormSelect id="event-type"
                         label="Event Type"
@@ -225,7 +240,8 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         isDisabled={!isEditable}
                     />
 
-                    <br />
+                    <div style={{ marginBottom: '40px' }} />
+
                     <FormSelect id="event-privacy"
                         label="Event Privacy"
                         options={eventPrivacyOptions}
@@ -233,7 +249,9 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         defaultValue={eventPrivacy}
                         isDisabled={!isEditable}
                     />
-                    <br />
+                    
+                    <div style={{ marginBottom: '40px' }} />
+
                     <FormButton 
                         type="submit" 
                         buttonText="Save"

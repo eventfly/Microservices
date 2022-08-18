@@ -40,6 +40,8 @@ const CreateEvent = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const [location, setLocation] = useState({})
+
     const navigate = useNavigate();
 
     const [zoomLink, setZoomLink] = useState("");
@@ -125,7 +127,8 @@ const CreateEvent = () => {
             mailList: mailList.split(/\r?\n/).filter(element => element),
             filter: filter.split(/\r?\n/).filter(element => element),
 
-            zoomLink: zoomLink
+            zoomLink: zoomLink,
+            location: [location.lng, location.lat]
         }
 
         event.start = new Date(event.start).toISOString()
@@ -147,7 +150,8 @@ const CreateEvent = () => {
 
     if (stage === 1) {
         return (
-            auth && (auth.role == 'Organzizer' || auth.role == 'Manager') && <>
+            // auth && (auth.role == 'Organzizer' || auth.role == 'Manager') && 
+            <>
                 <CreateEventStage1
                     name={name}
                     setName={setName}
@@ -173,7 +177,7 @@ const CreateEvent = () => {
                     setStartDate={setStartDate} setEndDate={setEndDate}
                     backStage={backStage} 
                     nextStage={nextStage}
-
+                    setLocation={setLocation}
                     zoomLink={zoomLink} setZoomLink={setZoomLink}
 
 
