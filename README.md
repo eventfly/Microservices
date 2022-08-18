@@ -15,6 +15,7 @@
 3002 - Events Service
 3003 - Newsfeed Service
 3004 - Participant Service
+3005 - Payment Service
 ```
 
 ## API Endpoints
@@ -53,6 +54,7 @@
 /api/participant                        POST
 /api/participant/:id/tickets            GET
 /api/participant/checkin                PUT
+/api/participant/:id/events             GET
 ```
 
 ### NEWSFEED Service
