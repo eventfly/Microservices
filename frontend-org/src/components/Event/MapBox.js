@@ -5,7 +5,7 @@ import markerImg from '../../images/marker.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '../../styles/MapBox.css'
 
-const MapBox = ({defaultLat, defaultLng, onDrag, displayType}) =>{
+const MapBox = ({defaultLat, defaultLng, onDrag, displayType, displayMarker, isDraggable}) =>{
 
   const [marker, setMarker] = useState(null);
 
@@ -39,7 +39,7 @@ const MapBox = ({defaultLat, defaultLng, onDrag, displayType}) =>{
         <Marker 
           longitude={marker ? marker.lng : defaultLng} 
           latitude={marker ? marker.lat : defaultLat}
-          draggable={true}
+          draggable={isDraggable}
           anchor="bottom"
           onDragEnd={(evt)=>{
 
@@ -53,7 +53,7 @@ const MapBox = ({defaultLat, defaultLng, onDrag, displayType}) =>{
           
           <img src={markerImg} className="map-marker-style" 
             style={{
-              display: `${displayType}`
+              display: `${displayMarker}`
             }} 
           />
         

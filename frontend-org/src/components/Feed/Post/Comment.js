@@ -62,9 +62,9 @@ const  Comment= ({displayType}) => {
                         />
                     </ListGroup.Item>
                     {
-                        commentList.map(comment => {
+                        commentList.map((comment, index) => {
                             return (
-                                <ListGroup.Item>
+                                <ListGroup.Item key={index}>
                                     <Card style={commentBoxStyle}>
                                         <Card.Header className='comment-header'>
                                             <Avatar  className="postAvatar" />

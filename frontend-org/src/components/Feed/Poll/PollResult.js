@@ -3,25 +3,13 @@ import 'react-leaf-polls/dist/index.css'
 import '../Post/Post.css'
 
 // Persistent data array (typically fetched from the server)
-const resData = [
-  { id: 0, text: 'Khoj: The Search', votes: 5 },
-  { id: 1, text: 'Din: The Day', votes: 30 },
-  { id: 2, text: 'Nishwartha Bhalobasa', votes: 12 }
-]
+// const resData = [
+//   { id: 0, text: 'Khoj: The Search', votes: 5 },
+//   { id: 1, text: 'Din: The Day', votes: 30 },
+//   { id: 2, text: 'Nishwartha Bhalobasa', votes: 12 }
+// ]
 
 // const  = 'Your favorite film?Your favorite film?Your favorite film?'
-
-const question = (
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  }}
-  >
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla ve</p>
-    <p style={{fontSize: 'small',color: 'gray'}}>17/8/22</p>
-  </div>
-)
 
 
 // Object keys may vary on the poll type (see the 'Theme options' table below)
@@ -46,16 +34,49 @@ const pollStyle = {
     // height: auto;
 }
 
-const PollResult = () => {
+const PollResult = ({pollData, pollQuestion, timeStamp}) => {
+
+  const dateFormatter = (time) => {
+    if(time == null){
+      return
+    }
+    let date = time.split('T')[0]
+
+    let yr = date.split('-')[0].substring(2, 4)
+    let mon = date.split('-')[1]
+    let day = date.split('-')[2]
+
+    let clock = time.split('T')[1]
+    let hr = clock.split(':')[0]
+    let min = clock.split(':')[1]
+    
+    return hr + ":" + min + " " + day + "/" + mon + "/" + yr;
+}
+
+  const question = (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    }}
+    >
+      <p> {pollQuestion} </p>
+      <p style={{fontSize: 'small',color: 'gray'}}> {dateFormatter(timeStamp)} </p>
+    </div>
+  )
+
+
+
   return (
     <div className='poll-result' style={pollStyle}>
+      {console.log("time => ", timeStamp)}
+
         <LeafPoll
-        type='multiple'
-        question={question}
-        results={resData}
-        theme={customTheme}
-        //   onVote={vote}
-        isVoted={true}
+          type='multiple'
+          question={question}
+          results={pollData}
+          theme={customTheme}
+          isVoted={true}
         />
     </div>
   )

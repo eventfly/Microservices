@@ -74,7 +74,9 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
                             defaultLat={23.8} 
                             defaultLng={90.4} 
                             onDrag={onDragMarker}
-                            displayType={type === 'Offline' ? 'block' : 'none'} 
+                            displayType={type === 'Offline' ? 'block' : 'none'}
+                            displayMarker={'block'}
+                            isDraggable={true} 
                         />
 
                     </div>

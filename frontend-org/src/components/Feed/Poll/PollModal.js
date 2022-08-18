@@ -4,28 +4,46 @@ import { useState } from "react";
 
 import { Stack } from "react-bootstrap";
 import PollChoice from "./PollChoice";
-
+import { useParams } from "react-router-dom";
 import FormInput from "../../Form/FormInput";
-
+import {getNewsfeedApi} from '../../../api/axiosHook'
 import Form from 'react-bootstrap/Form';
 
-const PollModal = () => {
+
+const PollModal = ({setAllPosts}) => {
 
     const [pollModalShow, setPollModalShow] = useState(false);
 
     const [question, setQuestion] = useState('');
     const [choiceList, setChoiceList] = useState([{choice:''}]);
     const [allowMultiple, setAllowMultiple] = useState(false);
+
+    const { eventId } = useParams();
     
     const handleSubmit = (e) => {
         e.preventDefault();
         setPollModalShow(false);
-        const newPoll = {
-            question: question,
-            choiceList: choiceList,
-            allowMultiple: allowMultiple
+
+        let post = {
+            content: question,
+            image: '',
+            poll_options: choiceList.map((item)=>{
+                return {
+                    option: item.choice
+                }
+            }),
+            questions: []
         }
-        console.log(newPoll);
+
+        console.log(post)
+
+        getNewsfeedApi(localStorage.getItem('token')).post(`${eventId}/post`, post).then((res)=>{
+            console.log(res.data)
+            setAllPosts(allPosts => [...allPosts, res.data.post])
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
 
     const pollJSX = (

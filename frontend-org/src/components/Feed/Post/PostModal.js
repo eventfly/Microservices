@@ -3,20 +3,24 @@ import { Button, FormText } from "react-bootstrap";
 import { useState } from "react";
 
 import { Stack } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 import FormTextArea from "../../Form/FormTextArea";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 import {ImCross} from 'react-icons/im';
-
 import Form from 'react-bootstrap/Form';
 
-const PostModal = () => {
+import {getNewsfeedApi} from '../../../api/axiosHook'
+
+
+const PostModal = ({setAllPosts}) => {
 
     const [postModalShow, setPostModalShow] = useState(false);
 
     const [content, setContent] = useState('');
     const [postImage, setPostImage] = useState('');
+    const { eventId } = useParams();
 
 
     const uploadImage = (e) => {
@@ -50,8 +54,23 @@ const PostModal = () => {
             return;
         }
         setPostModalShow(false);
-        console.log(content);
-        console.log(postImage);
+
+        let post = {
+            content: content,
+            image: postImage,
+            poll_options: [],
+            questions: []
+        }
+
+        console.log(post)
+
+        getNewsfeedApi(localStorage.getItem('token')).post(`${eventId}/post`, post).then((res)=>{
+            setAllPosts(allPosts => [...allPosts, res.data.post])
+        })
+        .catch((err)=>{
+            console.log(err.response.data.errors)
+        })
+
     }
 
     const clickInputButton = (e) => {

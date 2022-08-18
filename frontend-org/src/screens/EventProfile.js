@@ -196,10 +196,12 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                     <div style={{ marginBottom: '40px' }} />
 
                     <MapBox 
-                        defaultLat={location ? location.lat : 23.8} 
-                        defaultLng={location? location.lng : 90.4} 
+                        defaultLat={event.location[1]} 
+                        defaultLng={event.location[0]} 
                         onDrag={onDragMarker}
                         displayType={isEditable ? 'block' : 'none'}
+                        displayMarker={'block'}
+                        isDraggable={isEditable}
                     />
 
                     <div style={{ marginBottom: '40px' }} />
