@@ -88,15 +88,21 @@ const Role = ({orgId, setData, roleType, permissions, members, displayEditModal,
                     members={members}
                 />
                 </div>
-
-                <DeleteRoleModal 
-                    id={displayEditModal == 'none' ? eventId : orgId} 
-                    setData={setData}
-                    roleType={roleType}
-                    apiCallRoute={displayEditModal == 'none' ? 'events' : 'org'}
-                    members={members}
-                    setLoading={setLoading}
-                />
+                
+                {
+                    roleType != 'Managers' ? (
+                        <DeleteRoleModal 
+                            id={displayEditModal == 'none' ? eventId : orgId} 
+                            setData={setData}
+                            roleType={roleType}
+                            apiCallRoute={displayEditModal == 'none' ? 'events' : 'org'}
+                            members={members}
+                            setLoading={setLoading}
+                        />
+                    ) : (
+                        <></>
+                    )
+                }
                 
                 <div>
                 {

@@ -56,6 +56,7 @@ const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelect
                     label={'Event Tags'}
                     placeholder={'Choose several tags'}
                     options={tagOptions}
+                    setOptions={setTagOptions}
                     multiSelections={multiSelections}
                     setMultiSelections={setMultiSelections} 
                 />

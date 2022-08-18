@@ -63,6 +63,14 @@ const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
         return tempStaffs
     }
 
+    const getManagers = () => {
+        let tempStaffs = staffs.filter((staff)=>{
+            return staff.role === 'Manager'
+        })
+
+        return tempStaffs
+    }
+
     const getRoleOptions = () => {
         let tempOptions = roleOptions
 
@@ -110,7 +118,9 @@ const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
                     orgId={orgData ? orgData.id : ''}
                     setData={setOrgData} 
                     permissions={['Admin']}
-                    // members={managers}
+                    members={staffs ? getManagers() : null}
+                    setStaffs={setStaffs}
+                    setLoading={setLoading}
                 />
             </div>
 
