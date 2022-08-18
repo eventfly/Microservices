@@ -55,7 +55,6 @@ const EventList = () => {
                     setEvents([...events])
                     setEventSubset([...events])
 
-                    console.log('events: ', events);
                 }).catch((err)=>{
                     console.log(err.response.data.errors)
                 })

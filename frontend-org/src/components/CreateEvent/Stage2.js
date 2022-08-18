@@ -1,6 +1,7 @@
 // import {Link} from 'react-router-dom'
 
 import Map from '../Event/Map';
+import MapBox from '../Event/MapBox';
 
 import FormTextArea from '../Form/FormTextArea';
 import FormButton from '../Form/FormButton';
@@ -10,9 +11,10 @@ import DatePicker from '../Event/DatePicker';
 
 
 const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, setType, setPrivacy, 
-    filter, setFilter, setStartDate, setEndDate, backStage, nextStage, zoomLink, setZoomLink}) => {
+        filter, setFilter, setStartDate, setEndDate, backStage, nextStage, zoomLink, setZoomLink, 
+        setLocation
+    }) => {
     
-        const DefaultLocation = { lat: 23.3, lng: 90.4};
 
     let eventType = [
         {
@@ -38,6 +40,12 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
 
     console.log(`aaaaaaaaaaa ${type}`)
 
+    const onDragMarker = (lat, lng) => {
+        console.log(lat, lng)
+        setLocation({lat:lat, lng:lng})
+    }
+
+
     return ( 
 
         <>
@@ -60,33 +68,37 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
                             onChange={setDesc}
                         />
 
-                        <Map DefaultLocation={DefaultLocation}
-                             displayType={type === 'Offline' ? 'block' : 'none'}
+                        <div style={{ marginBottom: '42px' }} />
+
+                        <MapBox 
+                            defaultLat={23.8} 
+                            defaultLng={90.4} 
+                            onDrag={onDragMarker}
+                            displayType={type === 'Offline' ? 'block' : 'none'} 
                         />
-                        <br />
 
                     </div>
 
                     <div className='right-column'>
 
-                        <FormInput id="ticket"
+                        {/* <FormInput id="ticket"
                             inputType="text"
                             label="Ticket Price(BDT)"
                             placeholder="Event Ticket Price"
                             bgColor={'#e5e5e5'}
                             value={ticketPrice}
                             onChange={setTicketPrice}
-                        />
+                        /> */}
                         
-                        <br /><br />
+                        <div style={{ marginBottom: '40px' }} />
 
                         <DatePicker label="Start Date" onChange={setStartDate}/>
 
-                        <br /><br />
+                        <div style={{ marginBottom: '40px' }} />
                         
                         <DatePicker label="End Date" onChange={setEndDate}/>
 
-                        <br /><br />
+                        <div style={{ marginBottom: '40px' }} />
 
                         <FormSelect id="type"
                             label="Event Type"
@@ -95,20 +107,24 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
                             onChange={setType}
                         />
 
+                        <div style={{ 
+                                marginBottom: `${type == 'Offline' ? '0px' : '40px'}` 
+                            }}
+                        />
+
 
                         <FormInput id="zoomLink"
-                            inputType={type === 'Offline' ? 'hidden' : 'text'}
+                            inputType={'text'}
                             label="Meeting Link"
                             placeholder="Enter Meeting Link"
                             bgColor={'#e5e5e5'}
                             value={zoomLink}
                             onChange={setZoomLink}
-                            displayType={type === 'Offline' ? 'hidden' : ''}
+                            displayType={type === 'Offline' ? 'none' : 'block'}
                         />  
 
 
-
-                        <br /><br />
+                        <div style={{ marginBottom: '40px' }} />
 
                         <FormSelect id="privacy"
                             label="Event Privacy"
@@ -117,7 +133,7 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
                             onChange={setPrivacy}
                         />
 
-                        <br /><br />
+                        <div style={{ marginBottom: '40px' }} />
 
                         <FormInput id="filter"
                             inputType="text"
@@ -132,6 +148,8 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
 
                     
                 </div>
+
+                <div style={{ marginBottom: '40px' }} />
 
                 <div className="d-grid gap-4 d-md-flex justify-content-md-start">
                     <FormButton type="button" buttonText="Back" onClick={backStage} />
