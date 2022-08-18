@@ -52,6 +52,7 @@
 /api/participant/order                  POST
 /api/participant                        POST
 /api/participant/:id/tickets            GET
+/api/participant/checkin                PUT
 ```
 
 ### NEWSFEED Service
