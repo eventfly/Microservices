@@ -10,7 +10,7 @@ import { Comment } from '../models/comment';
 
 const router = express.Router();
 
-router.get('/api/newsfeed/:postId', currentUser, requireAuth,
+router.get('/api/newsfeed/post/:postId/comment', currentUser, requireAuth,
     [], async (req: Request, res: Response) => {
         const { postId } = req.params;
         
