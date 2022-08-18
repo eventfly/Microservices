@@ -1,5 +1,5 @@
 import mongoose, {Types} from "mongoose";
-import { ObjectId } from "mongoose";
+import { ObjectId } from 'bson';
 
 const feedSchema = new mongoose.Schema({
     user_id: {
@@ -39,12 +39,25 @@ feedSchema.statics.findByUserId = async (userId: string) => {
     return await Feed.findOne({user_id: userId});
 }
 
-feedSchema.statics.addPost = async (userId: string, postId: ObjectId) => {
+feedSchema.statics.addPost = async (userId: ObjectId, postId: ObjectId) => {
     const feed = await Feed.findOne({user_id: userId});
-    
-    if (feed) {
+
+    if (!feed) {
+        console.log('Feed not found, creating new feed');
+        console.log(userId, postId);
+        const newFeed = Feed.build({
+            user_id: new ObjectId(userId),
+            posts: [new ObjectId(postId)]
+        });
+
+        await newFeed.save();
+
+        return newFeed;
+    } else {
         feed.posts.push(postId);
         await feed.save();
+
+        return feed;
     }
     
 }

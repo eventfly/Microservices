@@ -9,6 +9,7 @@ import { addPostRouter } from './routes/add-post';
 import { addCommentRouter } from './routes/add-comment';
 import { getCommentRouter } from './routes/get-comment';
 import { getAllPostsRouter } from './routes/get-all-posts';
+import { getFeedRouter } from './routes/get-feed';
 
 
 const app = express()
@@ -30,10 +31,12 @@ app.use((req,res,next)=>{
 // app.set('trust proxy', true) // trust first proxy
 app.use(json())
 
+app.use(getFeedRouter);
 app.use(addPostRouter);
 app.use(addCommentRouter);
 app.use(getCommentRouter);
 app.use(getAllPostsRouter);
+
 
 //
 app.all('*', async (req, res, next) => {
