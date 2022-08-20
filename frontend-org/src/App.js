@@ -78,7 +78,7 @@ function App() {
           <Route path="/" element={<EventList />} />
           <Route path="/popular" element={<PopularEvents />} />
 
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup setHeaderLoading={setHeaderLoading} />} />
           <Route path="/login" element={<Login setHeaderLoading={setHeaderLoading} />} />
           <Route path="/create" element={<CreateEvent />} />
 

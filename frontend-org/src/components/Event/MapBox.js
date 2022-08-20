@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
 import Map, {Marker} from 'react-map-gl';
-import markerImg from '../../images/marker.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '../../styles/MapBox.css'
+import Pin from './Pin';
 
 const MapBox = ({defaultLat, defaultLng, onDrag, displayType, displayMarker, isDraggable}) =>{
 
@@ -51,11 +51,13 @@ const MapBox = ({defaultLat, defaultLng, onDrag, displayType, displayMarker, isD
           }} 
         >
           
-          <img src={markerImg} className="map-marker-style" 
+          {/* <img src={markerImg} className="map-marker-style" 
             style={{
               display: `${displayMarker}`
             }} 
-          />
+          /> */}
+
+          <Pin size={25} />
         
         </Marker>
 

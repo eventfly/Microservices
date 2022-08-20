@@ -28,7 +28,7 @@ const Signup = ({setHeaderLoading}) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [accType, setAccType] = useState('');
+    const [accType, setAccType] = useState('Organizer');
 
     // const [show, setShow] = useState(false);
     const [error, setError] = useState(null);
@@ -51,8 +51,9 @@ const Signup = ({setHeaderLoading}) => {
 
         getOrgApi('').post('/', account).then(res => {
             localStorage.setItem('token', res.data.token);
+            window.sessionStorage.setItem('auth', JSON.stringify(res.data.user));
             setHeaderLoading(false)
-            navigate('/')
+            navigate('/profile/account')
         
         }).catch(err => {
             console.log(err)
