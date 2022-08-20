@@ -75,22 +75,13 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
                             defaultLng={90.4} 
                             onDrag={onDragMarker}
                             displayType={type === 'Offline' ? 'block' : 'none'}
-                            displayMarker={'block'}
+                            displayMarker={type === 'Offline' ? 'block' : 'none'}
                             isDraggable={true} 
                         />
 
                     </div>
 
                     <div className='right-column'>
-
-                        {/* <FormInput id="ticket"
-                            inputType="text"
-                            label="Ticket Price(BDT)"
-                            placeholder="Event Ticket Price"
-                            bgColor={'#e5e5e5'}
-                            value={ticketPrice}
-                            onChange={setTicketPrice}
-                        /> */}
                         
                         <div style={{ marginBottom: '40px' }} />
 

@@ -57,7 +57,7 @@ const MapBox = ({defaultLat, defaultLng, onDrag, displayType, displayMarker, isD
             }} 
           /> */}
 
-          <Pin size={25} />
+          <Pin size={25} displayMarker={displayMarker} />
         
         </Marker>
 

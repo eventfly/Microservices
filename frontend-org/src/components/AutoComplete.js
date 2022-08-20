@@ -1,31 +1,27 @@
-import React, { Fragment, useState, useCallback } from "react";
-import { Typeahead,AsyncTypeahead } from "react-bootstrap-typeahead";
+import React, { Fragment, useState, useCallback, useRef } from "react";
+import { Typeahead } from "react-bootstrap-typeahead";
 import {Form} from 'react-bootstrap'
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
-const AutoComplete = ({label, placeholder, options, setOptions, multiSelections, setMultiSelections, isDisabled}) => {
+const AutoComplete = ({label, placeholder, options, setOptions, multiSelections, 
+    setMultiSelections, isDisabled, isNewItemsAllowed}) => {
 
-    //const onKeyDown = useCallback((e) => {
+    const typeaheadRef = useRef(null);
 
-        // if (e.key === 'Enter') {
-        //     console.log(e.target.value)
-        //     setOptions(options => [...options, e.target.value])
+    const onKeyDown = useCallback((e) => {
 
-        //     setTimeout(() => {
-                
-        //         setMultiSelections(multiSelections => [...multiSelections, e.target.value]);
-        //         e.target.value.clear()
+        if (e.key === 'Enter' && isNewItemsAllowed) {
+            console.log(e.target.value)
+            let temp = e.target.value
+            typeaheadRef.current.clear()
 
-        //     }, 50)
-        // }
+            setOptions(options => [...options, temp])
+            setMultiSelections(multiSelections => [...multiSelections, temp]);
+        }
 
-        // if (e.key === 'Tab') {
-        //     console.log(e.target.value)
-        //     setMultiSelections(multiSelections => [...multiSelections, e.target.value]);
-        // }
     
-    //},[]);
+    },[]);
 
     return ( 
         <>
@@ -35,6 +31,7 @@ const AutoComplete = ({label, placeholder, options, setOptions, multiSelections,
                 <Form.Group style={{ marginTop: '20px' }}>
                     <Form.Label className="label">{label}</Form.Label>
                     <Typeahead
+                        ref={typeaheadRef}
                         id="basic-typeahead-multiple"
                         labelKey="name"
                         multiple
@@ -43,7 +40,7 @@ const AutoComplete = ({label, placeholder, options, setOptions, multiSelections,
                         placeholder={placeholder}
                         selected={multiSelections}
                         disabled={isDisabled}
-                        // onKeyDown={onKeyDown}
+                        onKeyDown={onKeyDown}
                     />
 
 

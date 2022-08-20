@@ -10,7 +10,7 @@ const EditRoleModal = ({id, setData, roleType, defaultPermissions, apiCallRoute,
     const [modalShow, setModalShow] = useState(false);
     const [permissions, setPermissions] = useState([]);
 
-    const permitOptions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
+    const [permitOptions, setPermitOptions] = useState(['Admin', 'Edit Role', 'Read Only', 'Read-Write']);
 
     useEffect(() => {
 
@@ -38,8 +38,10 @@ const EditRoleModal = ({id, setData, roleType, defaultPermissions, apiCallRoute,
                     label={'Permissions'}
                     placeholder={'Allow several permissions'}
                     options={permitOptions}
+                    setOptions={setPermitOptions}
                     multiSelections={permissions}
                     setMultiSelections={setPermissions}
+                    isNewItemsAllowed={true}
                 />
 
             </div>

@@ -12,7 +12,7 @@ const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
     const [modalShow, setModalShow] = useState(false);
     const [permissions, setPermissions] = useState([]);
 
-    const permitOptions = ['Admin', 'Edit Role', 'Read Only', 'Read-Write']
+    const [permitOptions, setPermitOptions] = useState(['Admin', 'Edit Role', 'Read Only', 'Read-Write']);
 
     const modalJSX = (
         <>
@@ -33,8 +33,10 @@ const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
                         label={'Permissions'}
                         placeholder={'Allow several permissions'}
                         options={permitOptions}
+                        setOptions={setPermitOptions}
                         multiSelections={permissions}
                         setMultiSelections={setPermissions}
+                        isNewItemsAllowed={true}
                     />
 
                 </div>

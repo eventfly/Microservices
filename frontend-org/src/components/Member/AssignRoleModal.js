@@ -10,6 +10,8 @@ const AssignRoleModal = ({id, setData, roleType, staffsToBeAssigned}) => {
     const [modalShow, setModalShow] = useState(false);
     const [staffs, setStaffs] = useState([]);
 
+    const [options, setOptions] = useState([]);
+
     const getOptions = () => {
 
         // filter by role
@@ -52,8 +54,10 @@ const AssignRoleModal = ({id, setData, roleType, staffsToBeAssigned}) => {
                     label={'Staffs'}
                     placeholder={'Choose Staffs'}
                     options={staffsToBeAssigned ? getOptions() : []}
+                    setOptions={setOptions}
                     multiSelections={staffs}
                     setMultiSelections={setStaffs}
+                    isNewItemsAllowed={false}
                 />
 
             </div>

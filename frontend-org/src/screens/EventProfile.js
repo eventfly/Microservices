@@ -188,9 +188,11 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         label={'Event Tags'}
                         placeholder={'Choose several tags'}
                         options={tagOptions}
+                        setOptions={setTagOptions}
                         multiSelections={multiSelections}
                         setMultiSelections={setMultiSelections}
-                        isDisabled={!isEditable} 
+                        isDisabled={!isEditable}
+                        isNewItemsAllowed={true} 
                     />
 
                     <div style={{ marginBottom: '40px' }} />
@@ -220,17 +222,6 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         onChange={setEndDate}
                         isDisabled={!isEditable}
                     />
-
-                    {/* <div style={{ marginBottom: '40px' }} />
-
-                    <FormInput id="ticketPrice"
-                        inputType="text"
-                        label="Ticket Price"
-                        placeholder="Enter Ticket Price"
-                        value={ticketPrice}
-                        onChange={setTicketPrice}
-                        isDisabled={!isEditable}
-                    /> */}
 
                     <div style={{ marginBottom: '40px' }} />
 

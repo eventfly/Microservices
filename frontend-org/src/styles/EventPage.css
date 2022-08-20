@@ -78,8 +78,9 @@
 .thumbnail-image-style{
     transform: translate(0%, -20%);
     border: 1.5px solid black;
-    height: auto;
-    object-fit: cover;
+    /* height: auto; */
+    /* object-fit: cover; */
+    height: 70px;
 }
 
 .thumbnail-title{
