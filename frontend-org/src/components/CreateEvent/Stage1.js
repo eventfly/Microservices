@@ -59,7 +59,8 @@ const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelect
                     setOptions={setTagOptions}
                     multiSelections={multiSelections}
                     setMultiSelections={setMultiSelections}
-                    isNewItemsAllowed={true} 
+                    isNewItemsAllowed={true}
+                    isMultiple={true} 
                 />
 
                 <br /><br />

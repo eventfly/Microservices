@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FormSelect from '../Form/FormSelect';
 import PopupModal from '../PopupModal';
 import AutoComplete from '../AutoComplete'
@@ -8,23 +8,57 @@ import {getEventApi, getOrgApi} from '../../api/axiosHook'
 
 const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
 
-    const [newRole, setNewRole] = useState(roleOptions.length > 0 ? roleOptions[0].name : '');
+    // const [newRole, setNewRole] = useState(roleOptions.length > 0 ? roleOptions[0].name : '');
     const [modalShow, setModalShow] = useState(false);
     const [permissions, setPermissions] = useState([]);
 
     const [permitOptions, setPermitOptions] = useState(['Admin', 'Edit Role', 'Read Only', 'Read-Write']);
+    const [newRoleOptions, setNewRoleOptions] = useState([]);
+    const [newRole, setNewRole] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const [selectedRole, setSelectedRole] = useState(roleOptions.length > 0 ? roleOptions[0].name : '');
+
+
+    useEffect(()=>{
+
+        if(loading == false){
+            setLoading(true)
+            console.log("roles : ", roleOptions)
+            setNewRoleOptions([...roleOptions])
+        }
+
+    }, [loading, roleOptions])
 
     const modalJSX = (
         <>
         
             <div style={{marginBottom: '20px'}}>
 
-                <FormSelect id="type"
-                    label="Role"
-                    options={roleOptions}
-                    defaultValue={newRole}
-                    onChange={setNewRole}
-                />
+                {
+                    apiCallRoute == 'org' ? (
+                        <AutoComplete
+                            label={'Role'}
+                            placeholder={'Choose a role'}
+                            options={newRoleOptions ? newRoleOptions: []}
+                            setOptions={setNewRoleOptions}
+                            multiSelections={newRole}
+                            setMultiSelections={setNewRole}
+                            isNewItemsAllowed={true}
+                            isMultiple={false} 
+                        />
+                    
+                    ) : (
+                        <FormSelect id="type"
+                            label="Role"
+                            options={roleOptions}
+                            defaultValue={selectedRole}
+                            onChange={setSelectedRole}
+                        />
+
+                    )
+                }
+
                 
                 <div style={{display: `${display}`}}>
                     <div style={{marginTop: '30px'}}></div>
@@ -37,6 +71,7 @@ const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
                         multiSelections={permissions}
                         setMultiSelections={setPermissions}
                         isNewItemsAllowed={true}
+                        isMultiple={true} 
                     />
 
                 </div>
@@ -54,15 +89,15 @@ const AddRoleModal = ({id, setData, roleOptions, apiCallRoute, display}) => {
 
         if(apiCallRoute == 'org'){
             body = {
-                name: newRole,
+                name: newRole[0],
                 permissions: permissions
             }
         }
         else if(apiCallRoute == 'events'){
             body = {
-                name: newRole,
+                name: selectedRole,
                 permissions: roleOptions.filter((opt)=>{
-                    return opt.name == newRole
+                    return opt.name == selectedRole
                 })[0].permissions
             }
         }

@@ -58,6 +58,7 @@ const AssignRoleModal = ({id, setData, roleType, staffsToBeAssigned}) => {
                     multiSelections={staffs}
                     setMultiSelections={setStaffs}
                     isNewItemsAllowed={false}
+                    isMultiple={true} 
                 />
 
             </div>

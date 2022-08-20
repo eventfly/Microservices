@@ -56,6 +56,7 @@ function App() {
             window.sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
           }).catch((err)=>{
             console.log(err.response.data.errors)
+            window.localStorage.clear()
           })
 
         }

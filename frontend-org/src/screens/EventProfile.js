@@ -192,7 +192,8 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                         multiSelections={multiSelections}
                         setMultiSelections={setMultiSelections}
                         isDisabled={!isEditable}
-                        isNewItemsAllowed={true} 
+                        isNewItemsAllowed={true}
+                        isMultiple={true}  
                     />
 
                     <div style={{ marginBottom: '40px' }} />

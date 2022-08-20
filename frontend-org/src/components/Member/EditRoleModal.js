@@ -42,6 +42,7 @@ const EditRoleModal = ({id, setData, roleType, defaultPermissions, apiCallRoute,
                     multiSelections={permissions}
                     setMultiSelections={setPermissions}
                     isNewItemsAllowed={true}
+                    isMultiple={true} 
                 />
 
             </div>

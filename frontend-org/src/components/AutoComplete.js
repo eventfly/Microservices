@@ -5,7 +5,7 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 
 const AutoComplete = ({label, placeholder, options, setOptions, multiSelections, 
-    setMultiSelections, isDisabled, isNewItemsAllowed}) => {
+    setMultiSelections, isDisabled, isNewItemsAllowed, isMultiple}) => {
 
     const typeaheadRef = useRef(null);
 
@@ -34,11 +34,11 @@ const AutoComplete = ({label, placeholder, options, setOptions, multiSelections,
                         ref={typeaheadRef}
                         id="basic-typeahead-multiple"
                         labelKey="name"
-                        multiple
+                        multiple={isMultiple}
                         onChange={setMultiSelections}
                         options={options}
                         placeholder={placeholder}
-                        selected={multiSelections}
+                        selected={isMultiple ? multiSelections : []}
                         disabled={isDisabled}
                         onKeyDown={onKeyDown}
                     />

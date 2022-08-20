@@ -31,6 +31,8 @@ const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
         }
     ]
 
+    //const roleOptions = ['Speakers', 'Receptionists', 'Social Media Managers', 'Distributors', 'Default']
+
     useEffect(() => {
         
         console.log("org data: ", orgData, staffs)
@@ -83,9 +85,9 @@ const OrgMembers = ({orgData, setOrgData, staffs, setStaffs}) => {
             });
         }
 
-        // tempOptions = tempOptions.map((opt)=>{
-        //     return opt.name
-        // })
+        tempOptions = tempOptions.map((opt)=>{
+            return opt.name
+        })
 
         return tempOptions
     }
