@@ -10,22 +10,9 @@ const router = express.Router();
 
 router.get('/api/participant/search', currentUser, requireAuth, [], async (req: Request, res: Response) => {
     const { query, parameter } = req.query;
-
-    console.log(query, parameter);
     
-    // const events = await Event.aggregate([
-    //     {
-    //       $search: {
-    //         text: {
-    //           query: query,
-    //           path: parameter
-    //         }
-    //       }
-    //     }
-    //   ]).exec();
-
     const events = await Event.aggregate([
-      { $match: { $text: { $search: "Annual" } }}
+      { $match: { $text: { $search: `${query}` } }}
     ])
 
     console.log(events)

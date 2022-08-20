@@ -20,6 +20,7 @@ const PopularEvents = () => {
     let token = localStorage.getItem('token')
 
     const [events, setEvents] = useState([]);
+    const [sortedEvent, setSortedEvent] = useState([]);
     const [loading, setLoading] = useState(false);
 
     let alldata = '';
@@ -40,6 +41,7 @@ const PopularEvents = () => {
                     }
 
                     setEvents([...events])
+                    setSortedEvent([...events])
                     setLoading(true)
 
                     console.log('events: ', events);
@@ -59,7 +61,49 @@ const PopularEvents = () => {
     }, [auth, events, loading])
 
     const handleSort = (sortBy) => {
-        console.log(sortBy)
+        let newarr = [...events]
+        if(sortBy == 'name'){
+            newarr.sort((a,b)=>{
+                if(a.name < b.name){
+                    return -1
+                }
+                if(a.name > b.name){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+        }
+
+        else if(sortBy == 'startDate'){
+            let newarr = [...events]
+            newarr.sort((a,b)=>{
+                if(a.start_date < b.start_date){
+                    return -1
+                }
+                if(a.start_date > b.start_date){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+            
+        }
+
+        else if(sortBy == 'endDate'){
+            let newarr = [...events]
+            newarr.sort((a,b)=>{
+                if(a.end_date < b.end_date){
+                    return -1
+                }
+                if(a.end_date > b.end_date){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+        }
+        
     }
 
     return ( 
@@ -76,7 +120,7 @@ const PopularEvents = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => handleSort('rating')}>Name</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('name')}>Name</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleSort('startDate')}>Start Date</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleSort('endDate')}>End Date</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleSort('rating')}>Rating</Dropdown.Item>
@@ -89,7 +133,7 @@ const PopularEvents = () => {
             </Container>
             
             {events.length > 0 ? (
-                <EventTable events={events} />
+                <EventTable events={sortedEvent} />
                 ) : (
                 <p>No events</p>
                 )}

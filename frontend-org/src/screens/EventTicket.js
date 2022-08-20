@@ -54,6 +54,7 @@ const EventTicket = ({setEvent}) => {
         .then(res => {
             console.log(res.data.event)
             setEvent(res.data.event)
+            alert("Ticket added")
 
         }).catch(err => {
             console.log(err)

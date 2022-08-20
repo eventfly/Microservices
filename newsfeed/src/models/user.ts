@@ -30,7 +30,11 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Feed",
         required: false
-    }
+    },
+    events: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+    }]
 
 });
 
