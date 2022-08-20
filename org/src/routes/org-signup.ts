@@ -51,7 +51,15 @@ router.post('/api/org', [
             console.log('Event published')
         })
 
-
+        
+        let userData = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            ref_id: user.id,
+            permissions: [user.permission]
+        }
 
         //Generate JWT Token
         const userJwt = jwt.sign({
@@ -69,7 +77,7 @@ router.post('/api/org', [
             jwt: userJwt
         }
 
-        res.status(201).send({ user, token: userJwt });
+        res.status(201).send({ user: userData, token: userJwt });
     }
 })
 
