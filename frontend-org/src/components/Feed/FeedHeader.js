@@ -12,6 +12,7 @@ import {MdQuiz, MdFeed} from 'react-icons/md'
 import QuizModal from './Quiz/QuizModal';
 import PostModal from './Post/PostModal';
 import PollModal from './Poll/PollModal';
+import MdPostModal from './MarkdownPost/MdPostModal';
 
 function FeedHeader({setAllPosts}) {
     const headerStyle = {
@@ -56,6 +57,8 @@ function FeedHeader({setAllPosts}) {
                                  <div className="feed-dropdown-item"> <PostModal setAllPosts={setAllPosts} /> </div>  
                                  <div className="feed-dropdown-item"> <PollModal setAllPosts={setAllPosts} /> </div> 
                                  <div className="feed-dropdown-item"> <QuizModal /> </div> 
+                                <div className="feed-dropdown-item"> <MdPostModal setAllPosts={setAllPosts}/> </div>
+                                
                             </Dropdown.Menu>
                         </Dropdown> 
                     </Col>

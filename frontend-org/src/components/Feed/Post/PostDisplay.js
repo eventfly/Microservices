@@ -8,6 +8,7 @@ import { Avatar } from '@material-ui/core';
 import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined } from '@material-ui/icons';
 import {useState} from 'react';
 import { Button } from 'react-bootstrap';
+import parse from 'html-react-parser'
 
 const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
 
@@ -57,7 +58,7 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
             </div>
 
             <div className="postBottom">
-                {shownMessage}
+                {parse(shownMessage)}
                 <a style={{
                     fontWeight: 'bold',
                     cursor: 'pointer',
