@@ -71,7 +71,7 @@ const EventFeed = () => {
                             return(
                                 <PollResult
                                     key={index}
-                                    timestamp={post.created_at}
+                                    timeStamp={post.created_at}
                                     pollQuestion={post.content} 
                                     pollData={
                                         post.poll_options.map((opt, optId)=>{
