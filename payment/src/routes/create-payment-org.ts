@@ -7,28 +7,25 @@ import { validateRequest } from '../middlewares/validate-request';
 
 import { stripe } from '../stripe';
 
-import { Order } from '../models/order';
+import { OrgOrder } from '../models/order-org';
 import { Payment } from '../models/payment';
 import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-router.post('/api/payment/participant', currentUser, requireAuth, async (req: Request, res: Response) => {
+router.post('/api/payment/org', currentUser, requireAuth, async (req: Request, res: Response) => {
     const {token, order_id} = req.body;
 
-    const order = await Order.findById(order_id);
+    const order = await OrgOrder.findById(order_id);
 
-    // if (!order) {
-    //     throw new Error('Order not found');
-    // }
+    if (!order) {
+        throw new Error('Order not found');
+    }
 
-    // if (order.status === 'paid') {
-    //     throw new Error('Order already paid');
-    // }
+    if (order.status === 'paid') {
+        throw new Error('Order already paid');
+    }
 
-    // if (order.user_id !== req.currentUser!.ref_id) {
-    //     throw new Error('Order not found');
-    // }
 
     const charge = await stripe.charges.create({
         currency: 'usd',
@@ -41,9 +38,12 @@ router.post('/api/payment/participant', currentUser, requireAuth, async (req: Re
         stripe_id: charge.id
     });
 
-    await payment.save();
+    order.status = 'paid'
 
-    natsWrapper.client.publish('order:paid', JSON.stringify({
+    await payment.save();
+    await order.save();
+
+    natsWrapper.client.publish('order:paid:org', JSON.stringify({
         order_id: order._id,
         payment: payment
     }));
@@ -52,4 +52,4 @@ router.post('/api/payment/participant', currentUser, requireAuth, async (req: Re
     
 })
 
-export { router as createPaymentRouter };
+export { router as createPaymentOrgRouter };

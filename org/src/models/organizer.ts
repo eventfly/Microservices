@@ -2,38 +2,7 @@ import mongoose, { Types } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Password } from '../services/password';
 
-interface EventDoc {
-    eventId: string;
-    imageUrl: string;
-    name: string;
-}
 
-
-interface OrgAttrs {
-    email: string;
-    password: string;
-    name: string;
-    events?: Types.DocumentArray<EventDoc>;
-    role: string;
-    profile_pic?: string;
-    roles?: Types.DocumentArray<any>;
-    permission?: string;
-}
-
-interface OrgDoc extends mongoose.Document {
-    email: string;
-    password: string;
-    name: string;
-    events?: Types.DocumentArray<EventDoc>;
-    role: string;
-    profile_pic?: string;
-    roles?: Types.DocumentArray<any>;
-    permission?: string;
-}
-
-interface OrgModel extends mongoose.Model<OrgDoc> {
-    build(attrs: OrgAttrs): OrgDoc;
-}
 
 const orgSchema = new mongoose.Schema(
     {
@@ -93,7 +62,19 @@ const orgSchema = new mongoose.Schema(
         permission: {
             type: String,
             required: true
-        }
+        },
+
+        current_package: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Package"
+        },
+
+        orders: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Order"
+        }]
+
+
 
     },
     {
@@ -117,10 +98,10 @@ orgSchema.pre('save', async function (done) {
 orgSchema.set('versionKey', 'version');
 orgSchema.plugin(updateIfCurrentPlugin);
 
-orgSchema.statics.build = (attrs: OrgAttrs) => {
+orgSchema.statics.build = (attrs: any) => {
     return new Organizer(attrs);
 };
 
-const Organizer = mongoose.model<OrgDoc, OrgModel>('Organizer', orgSchema);
+const Organizer = mongoose.model<any, any>('Organizer', orgSchema);
 
-export { Organizer, OrgDoc };
+export { Organizer};

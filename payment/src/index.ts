@@ -2,6 +2,7 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
 import { OrderCreatedListener } from './listeners/order-created-listener';
+import { OrderCreatedOrgListener } from './listeners/order-created-org-listener';
 
 import { natsWrapper } from './nats-wrapper';
 
@@ -43,6 +44,7 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCreatedOrgListener(natsWrapper.client).listen();
 
 
 
