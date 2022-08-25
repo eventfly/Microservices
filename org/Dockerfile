@@ -1,5 +1,9 @@
 FROM node:alpine
 
+# RUN apk add g++ make python
+# RUN apk --no-cache add --virtual .builds-deps build-base python3
+
+
 WORKDIR /app
 COPY package.json .
 RUN npm config set fetch-retry-mintimeout 20000

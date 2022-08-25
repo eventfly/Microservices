@@ -55,7 +55,9 @@ router.post('/api/org/event', [
             if (tag) {
                 element.id = tag.id;
             } else {
-                throw new Error('Tag not found');
+                const tag = new Tag({name: element.name});
+                await tag.save();
+                element.id = tag.id;
             }  
             
         });
