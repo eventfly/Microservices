@@ -8,6 +8,11 @@ import { StaffAssignedListener } from './listeners/staff-assigned-listener';
 import { EventRoleRemovedListener } from './listeners/event-role-removed';
 import { natsWrapper } from './nats-wrapper';
 
+// import {runScript} from './analytics/runScript.js'
+
+// import { exec, execFile, fork, spawn } from "child_process";
+
+
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined')

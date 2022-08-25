@@ -38,7 +38,7 @@ const AutoComplete = ({label, placeholder, options, setOptions, multiSelections,
                         onChange={setMultiSelections}
                         options={options}
                         placeholder={placeholder}
-                        selected={isMultiple ? multiSelections : []}
+                        selected={multiSelections}
                         disabled={isDisabled}
                         onKeyDown={onKeyDown}
                     />

@@ -56,7 +56,7 @@ const EventList = () => {
                     setEventSubset([...events])
 
                 }).catch((err)=>{
-                    console.log(err.response.data.errors)
+                    console.log(err)
                 })
 
                 setLoading(true)

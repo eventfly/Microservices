@@ -38,8 +38,6 @@ const CreateEventStage2 = ({desc, setDesc, ticketPrice, setTicketPrice, type, se
         }
     ]
 
-    console.log(`aaaaaaaaaaa ${type}`)
-
     const onDragMarker = (lat, lng) => {
         console.log(lat, lng)
         setLocation({lat:lat, lng:lng})

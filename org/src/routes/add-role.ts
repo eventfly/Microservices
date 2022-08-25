@@ -5,6 +5,7 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Organizer } from '../models/organizer';
 import { roleControl } from '../middlewares/access-control';
+import { BadRequestError } from '../errors/bad-request-error';
 
 
 const router = express.Router();
@@ -22,6 +23,19 @@ router.post('/api/org/:id/role', [
     async (req: Request, res: Response) => {
 
         let {name, permissions} = req.body;
+
+        const existingRole = await Organizer.find({
+            "_id": req.params.id,
+            "roles.name": name
+        })
+
+        console.log("exists? ", existingRole)
+
+        if(existingRole.length != 0){
+            throw new BadRequestError(
+                'Role is already added'
+            )
+        }
 
         const organizer = await Organizer.findByIdAndUpdate(req.params.id, 
             {$push: 

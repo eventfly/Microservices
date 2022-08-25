@@ -184,8 +184,8 @@ const eventSchema = new mongoose.Schema({
     roles: [{
         name:{
             type: String,
-            required: true,
-            unique: true
+            required: true
+            // unique: true
         },
         permissions: {
             type: [String],

@@ -58,7 +58,6 @@ app.use(getAllStaffsRouter)
 app.use(getOrgDataRouter)
 app.use(getOrgRolesRouter)
 
-
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
 })

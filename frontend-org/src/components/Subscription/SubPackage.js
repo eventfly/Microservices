@@ -5,10 +5,6 @@ import { useState } from 'react';
 
 import SubscriptionModal from './SubscriptionModal';
 
-import PollModal from '../Feed/Poll/PollModal';
-import QuizModal from '../Feed/Quiz/QuizModal'
-
-
 
 
 function SubPackage({headerColor,isBuyOptionAvailable}) {
@@ -37,15 +33,11 @@ function SubPackage({headerColor,isBuyOptionAvailable}) {
         </Card.Text>
         </ul>
         
-        
-        
 
         {
           isBuyOptionAvailable ? <SubscriptionModal />
           : <></>
         }
-        
-
        
 
       </Card.Body>
