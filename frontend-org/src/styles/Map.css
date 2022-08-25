@@ -1,0 +1,19 @@
+/* @import '~maplibre-gl/dist/maplibre-gl.css'; */
+@import '~ol/ol.css';
+
+.map-container {
+    height: 100%;
+    width: 100%;
+}
+
+
+.placeholder {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background-color: darkgray;
+}
+
+.placeholder-text {
+    margin: auto;
+}

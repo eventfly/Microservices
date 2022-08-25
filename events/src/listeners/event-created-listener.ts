@@ -1,12 +1,18 @@
 import { Listener } from '@thr_org/common'
 import { Message } from 'node-nats-streaming'
 import { Event } from '../models/event';
+import { ObjectId, ObjectIdLike } from 'bson';
 
 export class EventCreatedListener extends Listener {
     subject = 'event:created';
-    queueGroupName = 'event-created';
+    queueGroupName = 'event-created-event';
     async onMessage(data: any, msg: Message) {
         console.log('Event Created! Data: ', data);
+
+        data.tags.forEach((element: { id: string | ObjectId | ObjectIdLike ; }) => {
+            element.id = new ObjectId(element.id);
+        });
+
 
         const event = Event.build({
             name: data.name,
@@ -22,7 +28,11 @@ export class EventCreatedListener extends Listener {
             sub_events: data.sub_events,
             banner_url: data.banner_url,
             filter: data.filter,
-            ticket_price: data.ticket_price
+            ticket_price: data.ticket_price,
+            ref_id: new ObjectId(data.id),
+            privacy: data.privacy,
+            zoom_link: data.zoom_link,
+            location: data.location
         })
 
         await event.save();

@@ -15,6 +15,80 @@
     margin-bottom: 50px;
 }
 
-.button_style{
-    margin-top: 15px;
+.add_staff_button{
+    margin-top: 5px;
+}
+
+
+.add-more-btn{
+    padding-left: 80%;
+    margin-bottom: 20px;
+}
+
+.staff-header{
+    padding-left: 2%;
+}
+
+.icon-arrow{
+    transform: translate(0%, 50%);
+    cursor: pointer;
+}
+
+.icon_flexbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.add-single-staff{
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-bottom: 30px;
+}
+
+.add_staff_button{
+    transform: translate(46%, -30%);
+}
+
+.success{
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.success .staff-header{
+    transform: translate(0%, 36%);
+    font-style: italic;
+}
+
+.icon-check{
+    transform: translate(0%, 55%);
+    font-size: larger;
+    margin-left: 2%;
+    color: green;
+}
+.icon-wrong{
+    transform: translate(0%, 30%);
+    font-size: larger;
+    margin-left: 2%;
+    color: red;
+}
+
+.wrong-text{
+    margin-left: 10%;
+    transform: translate(0%, 5%);
+    font-style: italic;
+    color: red;
+}
+.right-text{
+    color: green;
+}
+
+.icon-wrong-header{
+    transform: translate(0%, 30%);
+    font-size: larger;
+    color: black;
+    margin-left: 5%;
+    cursor: pointer;
 }

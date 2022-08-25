@@ -6,7 +6,11 @@ import { natsWrapper } from '../nats-wrapper';
 import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { Event } from '../models/event';
-// import { OrgCreatedPublisher } from '../events/publishers/org-created-publisher';
+import {Tag} from '../models/tag';
+import {ObjectId} from 'bson';
+import { roleControl } from '../middlewares/access-control';
+
+
 
 const router = express.Router();
 
@@ -32,12 +36,33 @@ router.post('/api/org/event', [
         }
         return true;
     })
-], validateRequest,
-    /*currentUser, requireAuth,*/
+    ], 
+    
+    validateRequest,
+    currentUser, 
+    requireAuth,
+    roleControl('Organizer', 'Manager'),
+    
     async (req: Request, res: Response) => {
-        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, filter } = req.body
+        const { name, desc, start, end, banner_url, type, privacy, ticket, mailList, 
+            filter, tags, zoomLink, location } = req.body
+        
+            console.log(req.body)
+        // Find the corresponding tag element from database and add it to the event
+        tags.forEach(async (element: {name: string | any, id: number;}) => {
+            let tag = await Tag.findOne({name: element.name});
+            
+            if (tag) {
+                element.id = tag.id;
+            } else {
+                const tag = new Tag({name: element.name});
+                await tag.save();
+                element.id = tag.id;
+            }  
+            
+        });
 
-
+        //
         const event = Event.build({
             name,
             description: desc,
@@ -49,8 +74,12 @@ router.post('/api/org/event', [
             ticket_price: ticket,
             mailList,
             filter,
-            organizer: req.currentUser!.id,
+            tags,
+            zoom_link: zoomLink,
+            organizer: new ObjectId(req.currentUser!.ref_id),
+            location: location
         })
+
 
         // Save the event to the database
         await event.save()

@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import CreateEventStage1 from "../components/CreateEvent/Stage1";
 import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
-import axios from 'axios';
 
 import "../styles/CreateEvent.css"
+import {getOrgApi} from '../api/axiosHook'
+import ErrorPopup from "../components/ErrorPopup";
 
 
 const CreateEvent = () => {
+
+    let auth = sessionStorage.getItem('auth')
+    if (auth) {
+        auth = JSON.parse(auth);
+    }
+    let token = localStorage.getItem('token')
 
     const [stage, setStage] = useState(1);
     const [bannerImage, setBannerImage] = useState(null);
@@ -23,9 +31,51 @@ const CreateEvent = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState([])
+    const [multiSelections, setMultiSelections] = useState([]);
+
     const [mailList, setMailList] = useState('')
     const [filter, setFilter] = useState('')
+
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const [location, setLocation] = useState({})
+
+    const navigate = useNavigate();
+
+    const [zoomLink, setZoomLink] = useState("");
+
+
+    useEffect(() => {
+        if(!auth && !token){
+            navigate('/login')
+        } 
+
+        async function fetchTags(){
+            if (auth && auth.ref_id && (loading == false)) {
+                
+                getOrgApi(localStorage.getItem('token')).get('/tag').then((res)=>{
+                    console.log(res.data)
+
+                    for(let i = 0; i < res.data.length; i++){
+                        tags[i] = res.data[i]
+                    }
+
+                    setLoading(true)
+                    setTags([...tags]);
+                }).catch((err)=>{
+                    console.log(err.response.data.errors)
+                  })
+
+                setLoading(true)
+                setTags([])
+            }
+            
+        }
+        fetchTags()
+    
+    }, [auth, tags, loading])
 
 
     const uploadImage = (e) => {
@@ -70,10 +120,15 @@ const CreateEvent = () => {
             banner_url: bannerImage,
             end: endDate,
             desc: desc,
-            tags: tags,
+            tags: multiSelections.map((tag)=>{
+                return {'name': tag}
+            }),
             ticket: ticketPrice,
             mailList: mailList.split(/\r?\n/).filter(element => element),
-            filter: filter.split(/\r?\n/).filter(element => element)
+            filter: filter.split(/\r?\n/).filter(element => element),
+
+            zoomLink: zoomLink,
+            location: [location.lng, location.lat]
         }
 
         event.start = new Date(event.start).toISOString()
@@ -81,53 +136,72 @@ const CreateEvent = () => {
 
         console.log(event)
 
-        // axios.post('/api/org/event', event).then(res => {
-        //     console.log(res)
-        // }).catch(err => {
-        //     console.log(err)
-        // })
+        getOrgApi(localStorage.getItem('token')).post('/event', event).then(res => {
+            console.log(res)
+            navigate('/')
+
+        }).catch(err => {
+            console.log(err)
+            setError(err.response.data.errors[0].message);
+        })
 
     }
 
 
     if (stage === 1) {
         return (
+            // auth && (auth.role == 'Organzizer' || auth.role == 'Manager') && 
             <>
                 <CreateEventStage1
                     name={name}
                     setName={setName}
-                    tags={tags}
-                    setTags={setTags} 
+                    tags={tags} setTags={setTags}
+                    multiSelections={multiSelections}
+                    setMultiSelections={setMultiSelections} 
                     uploadImage={uploadImage} 
                     nextStage={nextStage} 
                 />
+
             </>
         );
     }
     else if (stage === 2) {
         return (
-            <>
+            auth && <>
                 <CreateEventStage2
                     desc={desc} setDesc={setDesc}
                     ticketPrice={ticketPrice} setTicketPrice={setTicketPrice}
-                    setType={setType} setPrivacy={setPrivacy}
+                    type={type} setType={setType} 
+                    setPrivacy={setPrivacy}
                     filter={filter} setFilter={setFilter}
                     setStartDate={setStartDate} setEndDate={setEndDate}
                     backStage={backStage} 
-                    nextStage={nextStage} 
+                    nextStage={nextStage}
+                    setLocation={setLocation}
+                    zoomLink={zoomLink} setZoomLink={setZoomLink}
+
+
                 />
+
             </>
         );
     }
     else {
         return (
-            <>
+            auth && <>
                 <CreateEventStage3
                     promote={promote} setPromote={setPromote}
                     mailList={mailList} setMailList={setMailList} 
                     backStage={backStage} 
                     createEvent={createEvent} 
                 />
+
+                {
+                    error != null ? (
+                        <ErrorPopup error={error} setError={setError} />
+                    ) : (<></>)
+                }
+
             </>
         );
     }

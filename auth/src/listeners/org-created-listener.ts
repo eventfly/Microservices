@@ -8,12 +8,11 @@ export class OrgCreatedListener extends Listener {
     async onMessage(data: any, msg: Message) {
         console.log('Organization Created! Data: ', data);
 
+        const {name, email, password, role, permissions, ref_id} = data;
+
         const org = await Organizer.build({
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            role: data.role
-        })
+            name, email, password, role, permissions, ref_id
+        });
 
         await org.save();
 

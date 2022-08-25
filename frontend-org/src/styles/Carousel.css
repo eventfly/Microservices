@@ -1,0 +1,35 @@
+/* .right-slider{
+    font-size: xx-large;
+    color: red;
+    transform: translate(150%, 0%);
+}
+
+.left-slider{
+    font-size: xx-large;
+    color: red;
+    transform: translate(-150%, 0%);
+} */
+
+.quiz-carousel-body-component{
+    margin-left: 8%;
+    margin-right: 8%;
+}
+
+.container-fluid .carousel-control-prev, .container-fluid .carousel-control-next{
+    height: 0px;
+    width: 0px;
+}
+
+.quiz-carousel-frontback{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 1rem;
+}
+
+.quiz-carousel-addremove{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly
+}

@@ -26,7 +26,13 @@ router.post('/api/org', [
             'Email in use'
         )
     } else {
-        const user = Organizer.build({ email, password, name, role })
+        const user = Organizer.build({ 
+            email, 
+            password, 
+            name, 
+            role,
+            permission: 'Admin' 
+        })
 
         await user.save()
 
@@ -37,20 +43,32 @@ router.post('/api/org', [
                 email: user.email,
                 name: user.name,
                 password: user.password,
-                role: user.role
+                role: user.role,
+                permissions: [user.permission],
+                ref_id: user.id
             }
         ), () => {
             console.log('Event published')
         })
 
-
+        
+        let userData = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            ref_id: user.id,
+            permissions: [user.permission]
+        }
 
         //Generate JWT Token
         const userJwt = jwt.sign({
             id: user.id,
             email: user.email,
             name: user.name,
-            role: user.role
+            role: user.role,
+            ref_id: user.id,
+            permission: user.permission
         }, process.env.JWT_KEY!)
 
         //Store it on session object (in the cookie)
@@ -59,7 +77,7 @@ router.post('/api/org', [
             jwt: userJwt
         }
 
-        res.status(201).send({ user })
+        res.status(201).send({ user: userData, token: userJwt });
     }
 })
 

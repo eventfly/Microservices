@@ -2,6 +2,12 @@
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
 import { EventCreatedListener } from './listeners/event-created-listener';
+import { StaffAssignedListener } from './listeners/staff-assigned-listener';
+import { StaffProfileEditedListener } from './listeners/staffProfile-edited-listener';
+import { StaffRemovedListener } from './listeners/staff-removed-listener';
+import { RolePermissionEditedListener } from './listeners/role-permission-edited-listener';
+import { StaffRoleEditedListener } from './listeners/staff-role-edited-listener';
+import { RoleRemovedListener } from './listeners/role-removed-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -9,8 +15,8 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined')
   }
 
-  if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined')
+  if (!process.env.MONGO_URI_EVENT) {
+    throw new Error('MONGO_URI_EVENT must be defined')
   }
 
   if (!process.env.NATS_URL) {
@@ -41,8 +47,14 @@ const start = async () => {
 
     // Listen for events from the NATS Streaming server
     new EventCreatedListener(natsWrapper.client).listen();
+    new StaffAssignedListener(natsWrapper.client).listen();
+    new StaffProfileEditedListener(natsWrapper.client).listen();
+    new StaffRemovedListener(natsWrapper.client).listen();
+    new RolePermissionEditedListener(natsWrapper.client).listen();
+    new StaffRoleEditedListener(natsWrapper.client).listen();
+    new RoleRemovedListener(natsWrapper.client).listen();
 
-    await mongoose.connect(`${process.env.MONGO_URI}`, {
+    await mongoose.connect(`${process.env.MONGO_URI_EVENT}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     } as ConnectOptions);

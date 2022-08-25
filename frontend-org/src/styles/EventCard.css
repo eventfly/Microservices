@@ -1,0 +1,39 @@
+
+.eventCard{
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 75px;
+    margin-top: 75px;
+}
+
+.eventBanner{
+    height: 300px;
+    opacity: 0.25;
+    object-fit: cover;
+}
+
+.overlay{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.event-card-title{
+    font-size: 2.3rem;
+    font-weight: 650;
+    margin-bottom: 15px;
+    color: #2C92FF;
+}
+
+.event-card-description{
+    font-size: 1rem;
+}
+
+.event-card-date{
+    color: #FF692C;
+    font-weight: 500;
+}
+
+
+
+

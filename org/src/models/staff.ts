@@ -16,6 +16,8 @@ interface StaffAttrs {
     organizer: string
     events?: Types.DocumentArray<EventDoc>
     role?: string
+    profile_pic?: string,
+    permissions?: Types.DocumentArray<any>;
 }
 
 //An interface that describes the properties that a participant Model has
@@ -34,6 +36,8 @@ interface StaffDoc extends mongoose.Document {
     organizer: string
     events?: Types.DocumentArray<EventDoc>
     role?: string
+    profile_pic?: string;
+    permissions?: Types.DocumentArray<any>;
 }
 
 const StaffSchema = new mongoose.Schema({
@@ -42,7 +46,8 @@ const StaffSchema = new mongoose.Schema({
 
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
     password: {
@@ -81,6 +86,15 @@ const StaffSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "staff"
+    },
+    profile_pic: {
+        type: String,
+        required: false
+    },
+    permissions: {
+        type: [String],
+        default: 'Read Only',
+        required: false
     }
 
     //TODO: Add the roles

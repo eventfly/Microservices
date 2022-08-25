@@ -1,18 +1,24 @@
-.detail_flexbox{
+.feed-container{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    transform: translate(-2%,0%);
+    flex-direction: column;
+    align-items: center;
 }
 
-.detail_flexbox .left-column{
-    flex: 0 0 15%;
-    padding-top: 2.5rem;
-    border-right: 1px solid #e5e5e5;
+.feed-dropdown-item{
+    margin-top: 0.5rem;
+}
+.feed-dropdown-item:hover{
+    background-color: rgb(206, 153, 255);
+    cursor: pointer;
 }
 
-.detail_flexbox .right-column{
-    flex: 0 0 80%;
-    padding-bottom: 75px;
+.quiz-result-single-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid lightgray;
+    margin-top: 2rem;
 }

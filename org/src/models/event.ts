@@ -1,4 +1,12 @@
-import mongoose from "mongoose";
+import mongoose, {Types} from "mongoose";
+
+import {ObjectId} from 'bson';
+
+
+interface TagDoc {
+    name: string;
+    id: ObjectId;
+}
 
 
 interface EventAttrs {
@@ -6,17 +14,19 @@ interface EventAttrs {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: string[];
+    tags?: Types.DocumentArray<TagDoc>;
     description: string;
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    zoom_link?: string;
+    location?: number[]
 }
 
 interface EventDoc extends mongoose.Document {
@@ -24,17 +34,19 @@ interface EventDoc extends mongoose.Document {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: string[];
+    tags?: Types.DocumentArray<TagDoc>;
     description: string;
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    zoom_link?: string;
+    location?: number[]
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -74,10 +86,19 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    tags: {
-        type: [String],
-        required: false
-    },
+    tags: [
+        {
+            name: {
+                type: String,
+                required: false
+            },     
+            tagId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Tag",
+                required: false
+            }   
+        }
+    ],
     mailList: {
         type: [String],
         required: false
@@ -100,7 +121,21 @@ const eventSchema = new mongoose.Schema({
         type: Number,
         required: false
 
+    },
+    privacy: {
+        type: String,
+        required: true
+    },
+    zoom_link: {
+        type: String,
+        required: false
+    },
+
+    location: {
+        type: [Number],
+        required: false
     }
+
 
     //TODO: Add Venue
 

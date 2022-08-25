@@ -1,0 +1,182 @@
+
+.staff-container-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-top: 0.8rem;
+}
+
+.staff-container-header h2{
+    display: inline-block;
+    margin: 0
+}
+
+.staff-container-header button, .role-container-header button{
+    color: white;
+    background-color: #e41727;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    /* width: 6rem; */
+    margin-left: 1rem;
+}
+
+
+.person-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.2rem;
+    padding: 1rem;
+    margin-bottom: 50px;
+}
+
+.person-info{
+    border: 1.5px solid rgb(230, 224, 224);
+    border-radius: 0.3rem;
+    padding: 1rem 1rem;
+    margin: 0 1rem;
+    margin-bottom: 40px;
+    flex: 0 0 44%;
+}
+
+.person-info-body{
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+}
+
+.person-info-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 5%;
+    /* margin: 1rem 7rem 1rem 1rem; */
+    flex: 0 0 70%;
+}
+
+.person-info img{
+    width: 5.7rem;
+    height: 5.7rem;
+    border-radius: 50%;
+    margin-right: 5%;
+    margin-left: 5%;
+    background-size: contain;
+    flex: 0 0 25%;
+}
+
+.person-info .dropdown-toggle::after {
+    content: none;
+}
+
+.person-info button{
+    background-color: white;
+    color: black;
+    border: none;
+    position: absolute;
+    top: -5px;
+    right: -15px;
+}
+
+
+.toggle-style{
+    color: black;
+}
+.dropdown-style{
+    background-color: white;
+}
+
+.person-name{
+    font-weight: 640;
+}
+
+.person-email{
+    font-weight: 480;
+    font-style: italic;
+}
+
+
+
+.role-container{
+    background-color: white;
+    min-height: inherit;
+    margin-top: 1rem;
+    border-radius: 0.7rem;  
+    padding: 1rem 1rem;
+    width: 100%;
+}
+
+.role-container-header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+
+.role-container-header h3{
+    flex: 0 0 10%;
+    margin-right: 3%;
+    font-weight: 550;
+}
+
+
+.role-header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.role-header h2{
+    flex: 0 0 10%;
+    font-weight: 530;
+}
+
+.add-role-icon{
+    font-size: xx-large;
+    transform: translate(0%, -8%);
+    cursor: pointer;
+    color: blue;
+}
+
+.add-role-icon:hover{
+    color: #8C3522;
+}
+
+.add-member-icon{
+    font-size: xx-large;
+    transform: translate(0%, -10%);
+    cursor: pointer;
+    color: #8C3522;
+    margin-right: 50px;
+    margin-left: 25%;
+}
+.add-member-icon:hover{
+    color: blue;
+}
+
+.edit-role-icon{
+    font-size: x-large;
+    transform: translate(-50%, -10%);
+    cursor: pointer;
+}
+.edit-role-icon:hover{
+    color: blue;
+}
+
+.delete-role-icon{
+    font-size: larger;
+    transform: translate(-30%, -10%);
+    cursor: pointer;
+}
+.delete-role-icon:hover{
+    color: red;
+}

@@ -1,0 +1,52 @@
+.sub-container{
+    background-color: white;
+    min-height: inherit;
+    margin: 2.5rem 3.5rem;
+    margin-bottom: 75px;
+    border-radius: 0.7rem;  
+    padding: 1rem 2rem;
+    padding-bottom: 3rem;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+.text-container{
+    text-align: center;
+    margin: 3rem 0rem ;
+}
+
+.subpackage{
+    margin: 1rem 0;
+    border-radius: 50px;
+    padding-bottom: 0.5rem;
+}
+
+.subpackage:hover{
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
+.subpackage-header{
+    font-size: 2.2rem;
+    color: aliceblue;
+    background-color: #198754;
+    padding: 1.5rem;
+}
+
+.package-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card{
+    flex: 0 0 30%;
+}
+
+ul{
+    padding: 0;
+    list-style: none;
+}
+
+ul li{
+    margin: 0.7rem 0;
+}

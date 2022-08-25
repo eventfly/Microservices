@@ -1,14 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+
 import FormInput from "../components/Form/FormInput";
 import FormTitle from "../components/Form/FormTitle";
 import FormButton from "../components/Form/FormButton";
 import FormSelect from "../components/Form/FormSelect";
 import { useState } from 'react'
-import axios from 'axios';
 import ErrorPopup from "../components/ErrorPopup";
+import {getOrgApi} from '../api/axiosHook'
 
 import '../styles/Form.css'
 
-const Signup = () => {
+const Signup = ({setHeaderLoading}) => {
+
+    const navigate = useNavigate();
 
     let accTypeOptions = [
         {
@@ -24,10 +28,11 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [accType, setAccType] = useState('');
+    const [accType, setAccType] = useState('Organizer');
 
-    const [show, setShow] = useState(false);
-    const [error, setError] = useState('');
+    // const [show, setShow] = useState(false);
+    const [error, setError] = useState(null);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,20 +49,23 @@ const Signup = () => {
         console.log(account)
 
 
-        axios.post('/api/org/', account).then(res => {
-            console.log(res)
-
+        getOrgApi('').post('/', account).then(res => {
+            localStorage.setItem('token', res.data.token);
+            window.sessionStorage.setItem('auth', JSON.stringify(res.data.user));
+            setHeaderLoading(false)
+            navigate('/profile/account')
+        
         }).catch(err => {
             console.log(err)
-
-            setShow(true);
-            //setError(res.data.errors[0].message);
+            // setShow(true);
+            if (err.response.data.errors) {
+                setError(err.response.data.errors[0].message);
+            } else {
+                setError('Unhandled Error!');
+            }
+                
         })
 
-        // setName('')
-        // setEmail('')
-        // setPassword('')
-        // setAccType('')
     }
 
 
@@ -104,7 +112,11 @@ const Signup = () => {
 
             </form>
 
-            <ErrorPopup show={show} setShow={setShow} error={error} />
+            {
+                error != null ? (
+                    <ErrorPopup error={error} setError={setError} />
+                ) : (<></>)
+            }
 
 
         </div>

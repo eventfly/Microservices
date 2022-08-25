@@ -1,11 +1,32 @@
 // import {Link} from 'react-router-dom'
-import CoverImage from './CoverImage'
+import CoverImage from '../Event/CoverImage'
 
 import FormInput from '../Form/FormInput'
 import FormButton from '../Form/FormButton';
+import AutoComplete from '../AutoComplete';
+import { useState, useEffect } from "react";
 
 
-const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage}) => {
+const CreateEventStage1 = ({name, setName, tags, multiSelections, setMultiSelections, uploadImage, nextStage}) => {
+
+    const [tagOptions, setTagOptions] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+
+        if(loading == false || tagOptions.length == 0){
+
+            for(let i = 0; i < tags.length; i++){
+                tagOptions[i] = tags[i].name
+            }
+
+            setTagOptions([...tagOptions])
+            setLoading(true)
+            //console.log("tagoptions", tagOptions)
+        }
+    
+    }, [tagOptions, loading])
+
     return ( 
 
         <>
@@ -27,16 +48,19 @@ const CreateEventStage1 = ({name, setName, tags, setTags, uploadImage, nextStage
 
                 <br />
 
-                <CoverImage uploadImage={uploadImage} />
+                <CoverImage uploadImage={uploadImage} height={'500px'} />
                 <br />
 
-                <FormInput id="tag"
-                    inputType="text"
-                    label="Event Tags"
-                    placeholder="Event Tags"
-                    bgColor={'#e5e5e5'}
-                    value={tags}
-                    onChange={setTags}
+
+                <AutoComplete
+                    label={'Event Tags'}
+                    placeholder={'Choose several tags'}
+                    options={tagOptions}
+                    setOptions={setTagOptions}
+                    multiSelections={multiSelections}
+                    setMultiSelections={setMultiSelections}
+                    isNewItemsAllowed={true}
+                    isMultiple={true} 
                 />
 
                 <br /><br />

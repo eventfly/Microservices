@@ -1,15 +1,26 @@
 
 import mongoose, { ConnectOptions } from 'mongoose';
 import { app } from './app';
+import { EventEditedListener } from './listeners/event-edited-listener';
+import { StaffRemovedFromEventListener } from './listeners/staff-removed-from-event-listener';
+import { OtpVerifiedListener } from './listeners/otp-verified-listener';
+import { StaffAssignedListener } from './listeners/staff-assigned-listener';
+import { EventRoleRemovedListener } from './listeners/event-role-removed';
 import { natsWrapper } from './nats-wrapper';
+import { OrderPaidListener } from './listeners/order-paid-listener';
+
+// import {runScript} from './analytics/runScript.js'
+
+// import { exec, execFile, fork, spawn } from "child_process";
+
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined')
   }
 
-  if (!process.env.MONGO_URI) {
-    throw new Error('MONGO_URI must be defined')
+  if (!process.env.MONGO_URI_ORG) {
+    throw new Error('MONGO_URI_ORG must be defined')
   }
 
   if (!process.env.NATS_URL) {
@@ -26,9 +37,11 @@ const start = async () => {
 
 
   try {
-    await natsWrapper.connect(process.env.NATS_CLUSTER_ID,
+    await natsWrapper.connect(
+      process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL)
+      process.env.NATS_URL
+    )
 
     natsWrapper.client.on('close', () => {
       // console.log('NATS connection closed');
@@ -38,7 +51,14 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    await mongoose.connect(`${process.env.MONGO_URI}`, {
+    new EventEditedListener(natsWrapper.client).listen();
+    new StaffRemovedFromEventListener(natsWrapper.client).listen();
+    new OtpVerifiedListener(natsWrapper.client).listen();
+    new StaffAssignedListener(natsWrapper.client).listen();
+    new EventRoleRemovedListener(natsWrapper.client).listen();
+    new OrderPaidListener(natsWrapper.client).listen();
+
+    await mongoose.connect(`${process.env.MONGO_URI_ORG}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     } as ConnectOptions);

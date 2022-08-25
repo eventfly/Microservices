@@ -1,19 +1,10 @@
-import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react'
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import { useEffect, useState, useCallback} from 'react'
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
 import EventList from './screens/EventList';
 import PopularEvents from './screens/PopularEvents';
-
-import EventProfile from './screens/EventProfile';
-import EventFeed from './screens/EventFeed';
-import EventStatistics from './screens/EventStatistics';
-import EventStaff from './screens/EventStaff';
-import AddStaff from './screens/AddStaff';
 
 import CreateEvent from './screens/CreateEvent';
 import Signup from './screens/signup';
@@ -21,6 +12,13 @@ import Login from './screens/login';
 
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
+import {getAuthApi} from './api/axiosHook'
+
+import Subscription from './screens/Subscription';
+import EventPage from './screens/EventPage';
+import Profile from './screens/Profile';
+import PopupModal from './components/PopupModal';
+import BillingDetails from './components/Profile/OrgProfileMenu/BillingDetails';
 
 
 // Your web app's Firebase configuration
@@ -37,59 +35,58 @@ const firebaseConfig = {
 
 function App() {
 
-  // const [currentUser, setCurrentUser] = useState('');
-  let currentUser = null
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [headerLoading, setHeaderLoading] = useState(false);
 
-  useEffect(async () => {
-
-    console.log(currentUser)
-
-    const res = await axios.get("/api/auth/org/currentuser")
-    console.log(res.data.currentUser)
-    currentUser = res.data.currentUser
-
-    //setCurrentUser(res.data.currentUser.name)
-
-    // axios.get("/api/auth/org/currentuser").then(res => {
-    //   console.log(res.data.currentUser)
-    //   setCurrentUser(res.data)
-    // }).catch(err => {
-    //   console.log(err)
-    // })
-
-    console.log(currentUser)
+  let auth = sessionStorage.getItem('auth')
+  if (auth) {
+      auth = JSON.parse(auth);
+  }
 
 
-  }, []);
+  useEffect(()=>{
+      async function fetchCurrentUser(){
+        if(auth == null && (loading == false || currentUser == null)){
+
+          getAuthApi(localStorage.getItem('token')).get('/org/currentuser').then((res)=>{
+            console.log(res.data.currentUser)
+            setCurrentUser(res.data.currentUser)
+            setLoading(true)
+            window.sessionStorage.setItem('auth', JSON.stringify(res.data.currentUser));
+          }).catch((err)=>{
+            console.log(err.response.data.errors)
+            window.localStorage.clear()
+          })
+
+        }
+      }
+
+      fetchCurrentUser()
+
+  },[currentUser, loading])
 
 
   return (
+    
     <Router>
-      <Header />
+      <Header loading={headerLoading} setLoading={setHeaderLoading} />
 
       <div className='main_content'>
 
         <Routes>
+
           <Route path="/" element={<EventList />} />
-          {/* <Route path="/" element={currentUser != null ? <EventList /> : <Navigate to='/login' />} /> */}
           <Route path="/popular" element={<PopularEvents />} />
-          {/* <Route path="/detail" element={<EventDetail />} /> */}
 
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup setHeaderLoading={setHeaderLoading} />} />
+          <Route path="/login" element={<Login setHeaderLoading={setHeaderLoading} />} />
           <Route path="/create" element={<CreateEvent />} />
-          {/* <Route path="/create" element={currentUser != null ? <CreateEvent /> : <Navigate to='/login' />} /> */}
 
-
-          {/* <Route path="product">
-                  <Route path=":id" element={<ProductScreen />}/>
-                </Route> */}
-
-          <Route path="/detail/profile" element={<EventProfile />}/>
-          <Route path="/detail/discussion" element={<EventFeed />}/>
-          <Route path="/detail/statistics" element={<EventStatistics />}/>
-          <Route path="/detail/staff/add" element={<AddStaff />}/>
-          <Route path="/detail/staff" element={<EventStaff />}/>
+          <Route path="/sub" element={<Subscription />}/>
+          <Route path="/event/:eventId/*" element={<EventPage />}/>
+          <Route path="/profile/*" element={<Profile />}/>
+          <Route path="/profile/billing" element={<BillingDetails />}/>
 
 
         </Routes>
@@ -98,6 +95,7 @@ function App() {
 
       <Footer />
     </Router>
+    
   );
 }
 

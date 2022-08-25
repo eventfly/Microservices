@@ -57,8 +57,16 @@ const handler = (x) => {
                             "&:hover": {
                                 backgroundColor: "pink"
                             },
-                        }}> + Add New Event</button>
+                            display: props.canCreateEvent
+                        
+                        }}> 
+
+                        + Add New Event
+                        
+                        </button>
+                    
                     </Link>
+                
                 </li>
             </ul>
             

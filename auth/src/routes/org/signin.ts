@@ -24,9 +24,11 @@ router.post('/api/auth/org/signin',
 
         const existingUser = await Organizer.findOne({ email })
 
+
         if (!existingUser) {
-            throw new BadRequestError('Organizer doesn\'t exist')
-        }
+            throw new BadRequestError('Organizer or Staff doesn\'t exist')
+        } 
+
 
         const passwordMatch = await Password.compare(existingUser.password, password)
 
@@ -34,12 +36,20 @@ router.post('/api/auth/org/signin',
             throw new BadRequestError('Invalid credentials')
         }
 
-        //Generate JWT
-        const userJwt = jwt.sign({
+
+        let userData = {
             id: existingUser.id,
             email: existingUser.email,
-            name: existingUser.name
-        }, process.env.JWT_KEY!)
+            name: existingUser.name,
+            role: existingUser.role,
+            ref_id: existingUser.ref_id,
+            permissions: existingUser.permissions
+        }
+
+        //Generate JWT
+        const userJwt = jwt.sign(userData, process.env.JWT_KEY!, {
+            expiresIn: 60*1000000
+        })
 
         //Store it on session object
 
@@ -47,7 +57,7 @@ router.post('/api/auth/org/signin',
             jwt: userJwt
         }
 
-        res.status(201).send({ existingUser })
+        res.status(200).send({ existingUser, token: userJwt })
 
 
     })

@@ -1,4 +1,23 @@
-import mongoose from "mongoose";
+import mongoose, {Types} from "mongoose";
+
+import {ObjectId} from 'bson';
+
+
+interface TagDoc {
+    name: string;
+    id: ObjectId;
+}
+
+
+
+interface TicketDoc extends mongoose.Document {
+    class: string;
+    price: number;
+    quantity: number;
+    tokens: Types.DocumentArray<string>;
+}
+
+
 
 
 interface EventAttrs {
@@ -6,17 +25,23 @@ interface EventAttrs {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: string[];
+    tags?: Types.DocumentArray<any>;
     description: string;
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    ref_id: ObjectId;
+    staffs?: Types.DocumentArray<any>;
+    zoom_link?: string;
+    roles?: Types.DocumentArray<any>;
+    tickets?: any | Types.DocumentArray<TicketDoc>;
+    location?: number[]
 }
 
 interface EventDoc extends mongoose.Document {
@@ -24,17 +49,23 @@ interface EventDoc extends mongoose.Document {
     banner_url?: string;
     start_date: string;
     end_date: string;
-    tags?: string[];
+    tags?: Types.DocumentArray<any>;
     description: string;
     rating?: number;
     parent_id?: string;
     sub_events?: string[];
     type: string;
-    organizer: string;
+    organizer: ObjectId;
     filter?: string[];
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
+    ref_id: ObjectId;
+    staffs?: Types.DocumentArray<any>;
+    zoom_link?: string;
+    roles?: Types.DocumentArray<any>;
+    tickets?: Types.DocumentArray<any>;
+    location?: number[]
 }
 
 interface EventModel extends mongoose.Model<EventDoc> {
@@ -74,10 +105,19 @@ const eventSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    tags: {
-        type: [String],
-        required: false
-    },
+    tags: [
+        {
+            name: {
+                type: String,
+                required: false
+            },     
+            tagId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Tag",
+                required: false
+            }   
+        }
+    ],
     mailList: {
         type: [String],
         required: false
@@ -100,6 +140,85 @@ const eventSchema = new mongoose.Schema({
         type: Number,
         required: false
 
+    },
+    privacy: {
+        type: String,
+        required: true
+    }, 
+    ref_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
+
+    staffs: [{
+        email:{
+            type: String,
+            required: true
+        },
+        name:{
+            type: String,
+            required: true
+        },
+        otp:{
+            type: String,
+            required: false
+        },
+        role:{
+            type: String,
+            required: true
+        },
+        profile_pic:{
+            type: String,
+            required: false
+        },
+        ref_id:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Staff',
+        }
+    }],
+    zoom_link: {
+        type: String,
+        required: false
+    },
+
+    roles: [{
+        name:{
+            type: String,
+            required: true
+            // unique: true
+        },
+        permissions: {
+            type: [String],
+            default: 'Read Only',
+            required: false
+        }
+    }],
+    tickets: [{
+        class: {
+            type: String,
+            required: false
+        },
+        price: {
+            type: Number,
+            required: false
+        },
+        quantity: {
+            type: Number,
+            required: false
+        },
+        tokens: [{
+            type: String,
+            required: false
+        }],
+        available: {
+            type: Number,
+            required: false
+        }
+    }],
+
+    location: {
+        type: [Number],
+        required: false
     }
 
     //TODO: Add Venue
@@ -117,6 +236,10 @@ const eventSchema = new mongoose.Schema({
 
 eventSchema.statics.build = (attrs: EventAttrs) => {
     return new Event(attrs);
+}
+
+eventSchema.statics.findByRefId = async (refId: string) => {
+    return await Event.findOne({ref_id: refId});
 }
 
 const Event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);
