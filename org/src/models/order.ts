@@ -23,6 +23,7 @@ const orderSchema = new mongoose.Schema({
     created_at: {
         type: Date,
         required: false,
+        default: Date.now
     },
     total_price: {
         type: Number,
