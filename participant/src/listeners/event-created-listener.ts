@@ -16,6 +16,7 @@ export class EventCreatedListener extends Listener {
 
 
         const event = Event.build({
+            _id: new ObjectId(data.id),
             name: data.name,
             organizer: data.organizer,
             start_date: data.start_date,
@@ -30,7 +31,6 @@ export class EventCreatedListener extends Listener {
             banner_url: data.banner_url,
             filter: data.filter,
             ticket_price: data.ticket_price,
-            ref_id: new ObjectId(data.id),
             privacy: data.privacy,
             zoom_link: data.zoom_link
         })

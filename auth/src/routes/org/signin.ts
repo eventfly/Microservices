@@ -48,7 +48,7 @@ router.post('/api/auth/org/signin',
 
         //Generate JWT
         const userJwt = jwt.sign(userData, process.env.JWT_KEY!, {
-            expiresIn: 60*100
+            expiresIn: 60*1000000
         })
 
         //Store it on session object
