@@ -11,7 +11,7 @@ export class TicketAddedListener extends Listener {
 
         const {tickets, ref_id} = data;
 
-        const event = await Event.findOne({ref_id: new ObjectId(ref_id)});
+        const event = await Event.findById(ref_id);
         
         if (!event) {
             throw new Error('Event not found');

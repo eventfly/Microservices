@@ -10,6 +10,7 @@ interface TagDoc {
 
 
 interface EventAttrs {
+    _id: ObjectId;
     name: string;
     banner_url?: string;
     start_date: string;
@@ -25,7 +26,6 @@ interface EventAttrs {
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
-    ref_id: ObjectId;
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
@@ -48,7 +48,6 @@ interface EventDoc extends mongoose.Document {
     privacy?: string;
     mailList?: string[];
     ticket_price?: number;
-    ref_id: ObjectId;
     staffs?: Types.DocumentArray<any>;
     zoom_link?: string;
     roles?: Types.DocumentArray<any>;
@@ -131,10 +130,6 @@ const eventSchema = new mongoose.Schema({
     },
     privacy: {
         type: String,
-        required: true
-    }, 
-    ref_id: {
-        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     zoom_link: {

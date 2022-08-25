@@ -35,7 +35,7 @@ router.post('/api/participant/order',
         */
 
         const user_id = req.currentUser!.ref_id;
-        const event = await Event.findOne({ref_id: eventId});
+        const event = await Event.findById(eventId);
 
         if (!event) {
             throw new Error('Event not found');
@@ -51,6 +51,7 @@ router.post('/api/participant/order',
                 throw new Error('Ticket not found');
             }
             total_price += tkt.price * ticket.quantity;
+            ticket.price = tkt.price;
         })
 
         //Check if there are enough tickets

@@ -89,7 +89,7 @@ export class OrderPaidListener extends Listener {
         msg.ack();
 
         natsWrapper.client.publish('event:participant:added', JSON.stringify({
-            event_id: event!.ref_id,
+            event_id: event!.id,
             participant_id: order.user_id
         }));
 
