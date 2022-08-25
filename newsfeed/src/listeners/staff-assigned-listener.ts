@@ -17,7 +17,7 @@ export class StaffAssignedListener extends Listener {
 
             const user = User.build({
                 _id : staff.ref_id,
-                roles: ['Staff'],
+                role: staff.role || 'Staff',
                 email: staff.email,
                 avatar: staff.profile_pic,
                 name: staff.name

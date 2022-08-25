@@ -30,6 +30,8 @@ services:
       networks:
         - isolation-network
       restart: always
+      logging:
+        driver: none
     auth:
       build: ./auth
       container_name: auth

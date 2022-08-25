@@ -22,7 +22,9 @@ export class EventCreatedListener extends Listener {
             description: data.description,
             banner_url: data.banner_url,
             _id: new ObjectId(data.id), 
-        })
+        });
+
+        event.followers.push(new ObjectId(event.organizer));
 
         await event.save();
 
