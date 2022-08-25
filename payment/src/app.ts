@@ -27,8 +27,10 @@ app.use((req,res,next)=>{
 // app.set('trust proxy', true)
 app.use(json());
 
-app.use(createPaymentRouter);
+
 app.use(createPaymentOrgRouter);
+app.use(createPaymentRouter);
+
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

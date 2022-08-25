@@ -13,7 +13,7 @@ import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-router.post('/api/payment/', currentUser, requireAuth, async (req: Request, res: Response) => {
+router.post('/api/payment/participant', currentUser, requireAuth, async (req: Request, res: Response) => {
     const {token, order_id} = req.body;
 
     const order = await Order.findById(order_id);

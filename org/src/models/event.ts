@@ -1,5 +1,4 @@
 import mongoose, {Types} from "mongoose";
-import {OrgDoc} from './organizer';
 
 import {ObjectId} from 'bson';
 

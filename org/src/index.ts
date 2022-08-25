@@ -7,6 +7,7 @@ import { OtpVerifiedListener } from './listeners/otp-verified-listener';
 import { StaffAssignedListener } from './listeners/staff-assigned-listener';
 import { EventRoleRemovedListener } from './listeners/event-role-removed';
 import { natsWrapper } from './nats-wrapper';
+import { OrderPaidListener } from './listeners/order-paid-listener';
 
 // import {runScript} from './analytics/runScript.js'
 
@@ -55,6 +56,7 @@ const start = async () => {
     new OtpVerifiedListener(natsWrapper.client).listen();
     new StaffAssignedListener(natsWrapper.client).listen();
     new EventRoleRemovedListener(natsWrapper.client).listen();
+    new OrderPaidListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_ORG}`, {
       useNewUrlParser: true,

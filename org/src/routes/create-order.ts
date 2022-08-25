@@ -16,16 +16,16 @@ const router = express.Router();
 
 router.post('/api/org/order',
  [
-    body('tickets').isArray().withMessage('Tickets must be an array')
+    body('package_id').not().isEmpty().withMessage('Package id is required'),
  ],
     validateRequest,
     currentUser,
     requireAuth,
     errorHandler,
     async (req: Request, res: Response) => {
-        const {packageId} = req.body;
+        const {package_id} = req.body;
 
-        const pkg = await Package.findById(packageId);
+        const pkg = await Package.findById(package_id);
 
         if (!pkg) {
             throw Error('Package not found');
@@ -33,7 +33,7 @@ router.post('/api/org/order',
 
         const order = Order.build({
             organizer_id: req.currentUser!.ref_id,
-            package_id: packageId,
+            package_id: package_id,
             expiration_date: new Date(new Date().getTime() + (1000 * 60 * 15)),
             total_price: pkg!.price
         });
@@ -43,7 +43,7 @@ router.post('/api/org/order',
 
         await natsWrapper.client.publish('order:created:org', JSON.stringify({
             id: order._id,
-            organizer: order.organizer_id,
+            organizer_id: order.organizer_id,
             package_id: order.package_id,
             expiration_date: order.expiration_date,
             created_at: order.created_at,

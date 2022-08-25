@@ -10,8 +10,8 @@ export class OrderCreatedOrgListener extends Listener {
         console.log('Order added for processing! Data: ', data);
 
         const order = OrgOrder.build({
-            id: data._id,
-            organizer: data.organizer_id,
+            _id: new ObjectId(data.id),
+            organizer_id: data.organizer_id,
             package_id: data.package_id,
             expiration_date: data.expiration_date,
             created_at: data.created_at,

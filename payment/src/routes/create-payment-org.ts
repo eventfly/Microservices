@@ -13,7 +13,7 @@ import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
-router.post('/api/payment/org/', currentUser, requireAuth, async (req: Request, res: Response) => {
+router.post('/api/payment/org', currentUser, requireAuth, async (req: Request, res: Response) => {
     const {token, order_id} = req.body;
 
     const order = await OrgOrder.findById(order_id);
@@ -26,9 +26,6 @@ router.post('/api/payment/org/', currentUser, requireAuth, async (req: Request, 
         throw new Error('Order already paid');
     }
 
-    if (order.user_id !== req.currentUser!.ref_id) {
-        throw new Error('Order not found');
-    }
 
     const charge = await stripe.charges.create({
         currency: 'usd',
