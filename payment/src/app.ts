@@ -7,6 +7,7 @@ import { errorHandler } from './middlewares/error-handler';
 
 import { NotFoundError } from './errors/not-found-error';
 import { createPaymentRouter } from './routes/create-payment';
+import { createPaymentOrgRouter } from './routes/create-payment-org';
 
 
 
@@ -27,6 +28,7 @@ app.use((req,res,next)=>{
 app.use(json());
 
 app.use(createPaymentRouter);
+app.use(createPaymentOrgRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
