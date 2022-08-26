@@ -26,7 +26,20 @@ const packageSchema = new mongoose.Schema({
         type: Number,
         required: false,
         default: 10
-    }
+    },
+    max_participants: {
+        type: Number,
+        required: false,
+        default: 1000
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    perks: [{
+        type: String,
+        required: false
+    }]
 
 });
 

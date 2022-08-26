@@ -9,7 +9,7 @@ import { Package } from '../models/package';
 const router = express.Router();
 
 router.post('/api/org/package', [], validateRequest, async (req: Request, res: Response) => {
-    const { name, description, price, duration, boost_factor, max_events } = req.body;
+    const { name, description, price, duration, boost_factor, max_events, perks } = req.body;
 
     const pkg = Package.build({
         name,
@@ -17,7 +17,8 @@ router.post('/api/org/package', [], validateRequest, async (req: Request, res: R
         price,
         duration,
         boost_factor,
-        max_events
+        max_events,
+        perks
     });
 
     await pkg.save();
