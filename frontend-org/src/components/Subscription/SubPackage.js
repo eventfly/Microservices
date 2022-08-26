@@ -7,14 +7,14 @@ import SubscriptionModal from './SubscriptionModal';
 
 
 
-function SubPackage({headerColor,isBuyOptionAvailable}) {
+function SubPackage({headerColor,isBuyOptionAvailable, pkgData}) {
 
 
   return (
     <Card className="text-center subpackage">
-      <Card.Header className="subpackage-header" style={{backgroundColor: `${headerColor}`}}>100 BDT/month</Card.Header>
+      <Card.Header className="subpackage-header" style={{backgroundColor: `${headerColor}`}}>{pkgData.name}</Card.Header>
       <Card.Body>
-        <Card.Title>Gold Package</Card.Title>
+        <Card.Title> <strong> {pkgData.price} BDT/month </strong></Card.Title>
 
         <ul>
         <Card.Text>
@@ -35,7 +35,7 @@ function SubPackage({headerColor,isBuyOptionAvailable}) {
         
 
         {
-          isBuyOptionAvailable ? <SubscriptionModal />
+          isBuyOptionAvailable ? <SubscriptionModal pkgData={pkgData} />
           : <></>
         }
        

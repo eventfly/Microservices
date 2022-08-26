@@ -14,9 +14,13 @@ const OrgPackage = () => {
                 <div className="left-column">
                     
                     <> You're currently subscribed to</>
-                    <SubPackage headerColor={'navy'} isBuyOptionAvailable={false} />
+                    <SubPackage 
+                        headerColor={'navy'} 
+                        isBuyOptionAvailable={false}
+                        pkgData={{'name': 'Default', 'price': 100}} 
+                    />
 
-                    <Link to='/sub'>
+                    <Link to='/subscription'>
                         {/* <Button variant="primary"  block style={{
                             backgroundColor:'white',
                             color:'blue',

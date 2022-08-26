@@ -177,7 +177,10 @@ const EventPage = () => {
                                         
                                         
                                         location.includes('tickets') ? (
-                                            <EventTicket setEvent={setEvent} />
+                                            <EventTicket
+                                                event={event} 
+                                                setEvent={setEvent} 
+                                            />
                                         ) :
 
                                         (<></>)

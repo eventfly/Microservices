@@ -83,7 +83,7 @@ function App() {
           <Route path="/login" element={<Login setHeaderLoading={setHeaderLoading} />} />
           <Route path="/create" element={<CreateEvent />} />
 
-          <Route path="/sub" element={<Subscription />}/>
+          <Route path="/subscription" element={<Subscription />}/>
           <Route path="/event/:eventId/*" element={<EventPage />}/>
           <Route path="/profile/*" element={<Profile />}/>
           <Route path="/profile/billing" element={<BillingDetails />}/>

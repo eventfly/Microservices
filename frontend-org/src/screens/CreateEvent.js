@@ -8,6 +8,7 @@ import CreateEventStage3 from "../components/CreateEvent/Stage3";
 import "../styles/CreateEvent.css"
 import {getOrgApi} from '../api/axiosHook'
 import ErrorPopup from "../components/ErrorPopup";
+import {v4 as uuid} from 'uuid'
 
 
 const CreateEvent = () => {
@@ -79,10 +80,23 @@ const CreateEvent = () => {
 
 
     const uploadImage = (e) => {
-        const file = e.target.files[0];
+        // const file = e.target.files[0];
+        // const storage = getStorage();
+        // const storageRef = ref(storage, file.name);
+        // const uploadTask = uploadBytesResumable(storageRef, file);
+
+        const avatarImageFile = e.target.files[0];
+        const fileNameParts = avatarImageFile.name.split(".");
+        const fileExtension = fileNameParts[fileNameParts.length - 1];
+
+        const randomUUID = uuid();
+        const avatarImageFileName = `${randomUUID}.${fileExtension}`;
+        console.log(avatarImageFileName);
+
         const storage = getStorage();
-        const storageRef = ref(storage, file.name);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        const baseRef = ref(storage, "events");
+        const storageRef = ref(baseRef, avatarImageFileName);
+        const uploadTask = uploadBytesResumable(storageRef, avatarImageFile);
 
         uploadTask.on("state_changed",
             (snapshot) => {

@@ -10,7 +10,7 @@ import { ObjectId } from 'bson';
 
 const router = express.Router();
 
-router.get('/api/org/:staffId', 
+router.get('/api/org/staff/:staffId', 
 currentUser, requireAuth,
  errorHandler, async (req: Request, res: Response) => {
     const { staffId } = req.params;

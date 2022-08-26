@@ -8,10 +8,11 @@ import {useState} from 'react';
 
 import FormInput from '../Form/FormInput';
 import PopupModal from '../PopupModal';
+import {getOrgApi, getPaymentApi} from '../../api/axiosHook'
 
 
 
-const SubscriptionModal = () => {
+const SubscriptionModal = ({pkgData}) => {
 
     //useState for modal
     const [modalShow, setModalShow] = useState(false);
@@ -21,6 +22,39 @@ const SubscriptionModal = () => {
 
     const handleBuy = () => {
         console.log('bought');
+
+        if(pkgData){
+
+            getOrgApi(localStorage.getItem('token')).post('/order', {package_id: pkgData._id}).then((res)=>{
+                console.log(res.data.order)
+
+                let order = res.data.order
+
+
+                getPaymentApi(localStorage.getItem('token')).post('/org', {
+                    token: 'tok_visa',
+                    order_id: order._id
+                })
+                .then((res)=>{
+                    console.log(res.data)
+
+                    setModalShow(false)
+        
+                }).catch((err)=>{
+                    alert('Your stripe token is invalid')
+                    console.log(err)
+                })
+
+
+            }).catch((err)=>{
+                console.log(err)
+                alert('Your order is failed')
+            })
+        }
+        
+        else{
+            console.log('package id null')
+        }
     }
 
     const subscriptionJSX = (
@@ -48,12 +82,10 @@ const SubscriptionModal = () => {
             <Col xs={{ span: 6, offset: 1 }}>
             <ListGroup >
                 <ListGroup.Item active>Pricing Details</ListGroup.Item>
-                <ListGroup.Item>Package Price: </ListGroup.Item>
-                <ListGroup.Item>Discount: </ListGroup.Item>
-                <ListGroup.Item>Total: </ListGroup.Item>
-                {/* <ListGroup.Item style={{textAlign:'center'}}>
-                    <Button variant="success">Checkout</Button>
-                </ListGroup.Item> */}
+                <ListGroup.Item> <strong> Package Price: </strong> {pkgData.price} </ListGroup.Item>
+                <ListGroup.Item><strong>Discount: </strong> 0 </ListGroup.Item>
+                <ListGroup.Item><strong>Total: </strong> {pkgData.price} </ListGroup.Item>
+
             </ListGroup>
             </Col>
           </Row>
@@ -71,7 +103,7 @@ const SubscriptionModal = () => {
                 bodyComponent={subscriptionJSX}
                 saveButtonText={"Checkout"}
                 size="lg"
-                saveBUttonAction={handleBuy}
+                saveButtonAction={handleBuy}
             />
 
         </>

@@ -10,8 +10,9 @@ import { useState, useEffect } from 'react'
 import {getOrgApi} from '../../api/axiosHook'
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-
+import {v4 as uuid} from 'uuid'
 import "../../styles/Profile.css"
+
 
 
 const StaffProfile = () => {
@@ -50,7 +51,7 @@ const StaffProfile = () => {
 
             console.log(auth.ref_id)
 
-            getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}`).then((res)=>{
+            getOrgApi(localStorage.getItem('token')).get(`/staff/${auth.ref_id}`).then((res)=>{
                 console.log(res.data)
                 setProfileImage(res.data.existingUser.profile_pic)
 
@@ -79,10 +80,18 @@ const StaffProfile = () => {
     }, [auth, email, loading, profileImage])
 
     const uploadImage = (e) => {
-        const file = e.target.files[0];
+        const avatarImageFile = e.target.files[0];
+        const fileNameParts = avatarImageFile.name.split(".");
+        const fileExtension = fileNameParts[fileNameParts.length - 1];
+
+        const randomUUID = uuid();
+        const avatarImageFileName = `${randomUUID}.${fileExtension}`;
+        console.log(avatarImageFileName);
+
         const storage = getStorage();
-        const storageRef = ref(storage, file.name);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        const baseRef = ref(storage, "profile");
+        const storageRef = ref(baseRef, avatarImageFileName);
+        const uploadTask = uploadBytesResumable(storageRef, avatarImageFile);
 
         uploadTask.on("state_changed",
             (snapshot) => {
