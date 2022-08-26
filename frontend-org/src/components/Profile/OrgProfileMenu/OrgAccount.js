@@ -65,8 +65,8 @@ const OrgAccount = ({orgData}) => {
         console.log(avatarImageFileName);
 
         const storage = getStorage();
-        const baseRef = ref(storage, avatarImageFileName);
-        const storageRef = ref(baseRef, "profile");
+        const baseRef = ref(storage, "profile");
+        const storageRef = ref(baseRef, avatarImageFileName);
         const uploadTask = uploadBytesResumable(storageRef, avatarImageFile);
 
         uploadTask.on("state_changed",

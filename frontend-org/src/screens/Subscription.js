@@ -33,11 +33,9 @@ const Subscription = () => {
     return ( 
         <div className="sub-container">
             <div className="text-container">
-                <h2>Packages</h2>
-                <p style={{marginTop: "1.4rem"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius orci non eros convallis auctor. Nam aliquam tortor a justo mattis, in efficitur justo vestibulum. Ut tem</p>
+                <h1>Packages</h1>
             </div>
             <div className="package-container">
-
 
                 {
                     packages && packages.length > 0 ? 
@@ -47,6 +45,7 @@ const Subscription = () => {
                                 key={index} 
                                 headerColor="salmon" 
                                 isBuyOptionAvailable={true}
+                                pkgData={pkg}
                             />
                         )
                     })  : (<></>)

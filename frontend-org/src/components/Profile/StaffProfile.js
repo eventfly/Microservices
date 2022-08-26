@@ -51,7 +51,7 @@ const StaffProfile = () => {
 
             console.log(auth.ref_id)
 
-            getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}`).then((res)=>{
+            getOrgApi(localStorage.getItem('token')).get(`/staff/${auth.ref_id}`).then((res)=>{
                 console.log(res.data)
                 setProfileImage(res.data.existingUser.profile_pic)
 
@@ -89,8 +89,8 @@ const StaffProfile = () => {
         console.log(avatarImageFileName);
 
         const storage = getStorage();
-        const baseRef = ref(storage, avatarImageFileName);
-        const storageRef = ref(baseRef, "profile");
+        const baseRef = ref(storage, "profile");
+        const storageRef = ref(baseRef, avatarImageFileName);
         const uploadTask = uploadBytesResumable(storageRef, avatarImageFile);
 
         uploadTask.on("state_changed",
