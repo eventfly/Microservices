@@ -5,14 +5,7 @@ import { useState, useEffect } from 'react'
 const Searchbar = ({searchText, setSearchText}) => {
 
     return ( 
-        // <Form className="d-flex">
-        //     <Form.Control
-        //         type="search"
-        //         placeholder="Search" 
-        //         className="me-2 my-3 py-2 px-3"
-        //         aria-label="Search"
-        //     />
-        // </Form>
+
         <FormInput
             id="search"
             inputType="text"

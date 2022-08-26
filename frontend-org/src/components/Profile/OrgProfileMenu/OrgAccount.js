@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react'
 
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import DatePicker from '../../Event/DatePicker';
-
+import {v4 as uuid} from 'uuid'
 import {getOrgApi} from '../../../api/axiosHook'
 
 
@@ -56,10 +56,18 @@ const OrgAccount = ({orgData}) => {
     const [profileImage, setProfileImage] = useState('');
 
     const uploadImage = (e) => {
-        const file = e.target.files[0];
+        const avatarImageFile = e.target.files[0];
+        const fileNameParts = avatarImageFile.name.split(".");
+        const fileExtension = fileNameParts[fileNameParts.length - 1];
+
+        const randomUUID = uuid();
+        const avatarImageFileName = `${randomUUID}.${fileExtension}`;
+        console.log(avatarImageFileName);
+
         const storage = getStorage();
-        const storageRef = ref(storage, file.name);
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        const baseRef = ref(storage, avatarImageFileName);
+        const storageRef = ref(baseRef, "profile");
+        const uploadTask = uploadBytesResumable(storageRef, avatarImageFile);
 
         uploadTask.on("state_changed",
             (snapshot) => {
