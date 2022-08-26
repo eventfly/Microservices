@@ -7,7 +7,7 @@ const [lineColor, setLineColor ] = useState(['grey','grey','grey','blue']);
 const [fontColor, setFontColor ] = useState(['grey','grey','grey','black']);
 
 const handler = (x) => {
-    console.log(x);
+    // console.log(x);
     if(x===0) {
         setLineColor(['blue','grey','grey','grey']);
         setFontColor(['black','grey','grey','grey']);
@@ -44,6 +44,8 @@ const handler = (x) => {
                         borderBottom: `2px solid ${lineColor[3]}`,
                         color: `${fontColor[3]}`
                     }}> All </li>
+
+                
                 <li>
                     <Link to={`/create`}>
                         <button  style={{
@@ -68,6 +70,7 @@ const handler = (x) => {
                     </Link>
                 
                 </li>
+            
             </ul>
             
         </div>

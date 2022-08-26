@@ -35,6 +35,62 @@ const EventList = () => {
     //     setLoading(false)
     // })
 
+    // let currentTime = new Date('2022-09-23T14:52:00.000Z').getTime()
+
+
+    const getOngoingEvents = () => {
+        if(events && events.length > 0){
+
+            let currentTime = new Date().getTime()
+
+            let temp = events.filter((event)=>{
+                let start = new Date(event.start_date).getTime()
+                let end = new Date(event.end_date).getTime()
+
+                return (currentTime <= end && currentTime >= start)
+            })
+
+            return temp
+        }
+
+        return []
+    }
+
+    const getUpcomingEvents = () => {
+        if(events && events.length > 0){
+
+            let currentTime = new Date().getTime()
+
+            let temp = events.filter((event)=>{
+                let start = new Date(event.start_date).getTime()
+
+                return (currentTime < start)
+            })
+
+            return temp
+        }
+
+        return []
+    }
+
+    const getFinishedEvents = () => {
+        if(events && events.length > 0){
+
+            let currentTime = new Date().getTime()
+
+            let temp = events.filter((event)=>{
+                let end = new Date(event.end_date).getTime()
+
+                return (currentTime > end)
+            })
+
+            return temp
+        }
+
+        return []
+    }
+
+
     useEffect(() => {
         async function fetchEvent(){
             if (auth && auth.ref_id && (loading == false)) {
@@ -73,12 +129,24 @@ const EventList = () => {
     
     }, [auth, events, loading])
 
-    // tab = 0 => ongoing, tab = 1 => past, tab = 2 => upcoming, tab = 3 => all
+
     function getTab(tab) {
-        if (tab === 0) setEvents(alldata.data["ongoing_events"])
-        else if (tab === 1) setEvents(alldata.data["past_events"]);
-        else if (tab === 2) setEvents(alldata.data["upcoming_events"]);
-        else setEvents(alldata.data["all_events"]);
+
+        if (tab == 0) {
+            setEventSubset([...getOngoingEvents()])
+        }
+
+        else if (tab == 1) {
+            setEventSubset([...getFinishedEvents()])
+        }
+
+        else if (tab == 2){
+            setEventSubset([...getUpcomingEvents()])
+        }
+        
+        else{
+            setEventSubset([...events])
+        }
     }
 
     const isPageEditable = () => {
@@ -99,8 +167,8 @@ const EventList = () => {
         else {
             subset = events.filter((event) => {
                 return event.name.toLowerCase().includes(searchText.toLowerCase())
-            }
-            )
+            })
+
             console.log(subset, subset.length)
             setEventSubset([...subset])
         }
@@ -111,21 +179,10 @@ const EventList = () => {
         auth && <div className='EventList'>
             <Searchbar searchText={searchText} setSearchText={setSearchText} />
             <SlidingNav getData={getTab} canCreateEvent={isPageEditable() ? 'block' : 'none'} />
+            
             <h2>Event List</h2>
+            
             <div className='event-container'>
-                {/* {
-                    (events != null && events.length > 0) ? (
-                        events.map(event => {
-                            return (
-                                <EventPreview key={event.id} event={event} />
-
-                            );
-                        })
-                    ) : 
-                    (
-                        <p>No events</p>
-                    )
-                } */}
 
                 {
                     (eventSubset != null && eventSubset.length > 0) ? (

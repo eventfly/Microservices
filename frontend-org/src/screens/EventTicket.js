@@ -5,8 +5,14 @@ import Row from 'react-bootstrap/Row'
 import TicketModal from "../components/Ticket/TicketModal";
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const EventTicket = ({setEvent}) => {
+import { useState, useEffect } from "react";
+// import {getEventApi} from '../api/axiosHook'
 
+
+const EventTicket = ({setEvent, event}) => {
+
+    const [ticketClasses, setTicketClasses] = useState([]);
+    const [loading, setLoading] = useState(false);
     
     let ticketClassOptions = [
         {
@@ -23,32 +29,68 @@ const EventTicket = ({setEvent}) => {
         }
     ]
 
+
+    useEffect(()=>{
+
+        if(loading == false && event){
+            setLoading(true)
+            setTicketClasses([...event.tickets])
+        }
+
+    }, [loading, event, ticketClasses])
+
+
     return ( 
 
         <>
 
             <Col xs={{ span: 2, offset: 10 }} className="py-3">
-                <TicketModal setEvent={setEvent} />
+                <TicketModal 
+                    setEvent={setEvent} 
+                    existedClasses={event ? event.tickets : []}
+                    setEventTicketLoading={setLoading} 
+                />
             </Col>
+
+            <div style={{marginBottom: '50px'}}></div>
+
             <Row xs={1} md={3} className="g-4">
-      {
-            ticketClassOptions.map((_, idx) => (
-                <Col>
-                    <Card className="text-center">
-                    <Card.Header className="fs-3" style={{backgroundColor:'salmon'}}>ticket class</Card.Header>
-                        <Card.Body>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item>Ticket Price: 80</ListGroup.Item>
-                                <ListGroup.Item>Quantity: </ListGroup.Item>
-                                <ListGroup.Item>Sold: </ListGroup.Item>
-                                <ListGroup.Item>Remaining: </ListGroup.Item>
-                                <ListGroup.Item>Tokens: </ListGroup.Item>
-                            </ListGroup>
-                        </Card.Body>
-                    </Card>
-                </Col>
-        ))
-      }
+
+                {
+                    ticketClasses && ticketClasses.map((ticketClass, idx) => (
+                        <Col key={idx}>
+                            <Card className="text-center">
+                            <Card.Header className="fs-3" style={{backgroundColor:'salmon'}}>{ticketClass.class}</Card.Header>
+                                <Card.Body>
+                                    <ListGroup variant="flush">
+                                        <ListGroup.Item><strong>Ticket Price:</strong> {ticketClass.price}</ListGroup.Item>
+                                        <ListGroup.Item><strong>Quantity:</strong> {ticketClass.quantity}</ListGroup.Item>
+                                        <ListGroup.Item><strong>Sold:</strong> {ticketClass.quantity-ticketClass.available}</ListGroup.Item>
+                                        <ListGroup.Item><strong>Remaining:</strong> {ticketClass.available}</ListGroup.Item>
+                                        
+                                        <ListGroup.Item>
+                                        <strong>Tokens:</strong>
+                                            <ul>
+                                                {
+                                                    ticketClass.tokens.map((token, index)=>{
+                                                        return(
+                                                            <li key={index}>
+                                                                {token}
+                                                            </li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+
+                                        </ListGroup.Item>
+                                    
+                                    
+                                    </ListGroup>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))
+                }
             </Row>
             
         </>

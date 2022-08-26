@@ -5,7 +5,7 @@ const EventPreview = ({event}) => {
     // url(https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg)`,
 
     return (
-       
+        <>
         
         <Link to={`/event/${event.id}/profile`}> 
             <div className="event-preview" style={{
@@ -39,6 +39,8 @@ const EventPreview = ({event}) => {
                 </span>
             </div>
         </Link>
+
+        </>
      );
 }
  

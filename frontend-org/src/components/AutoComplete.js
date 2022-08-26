@@ -16,8 +16,18 @@ const AutoComplete = ({label, placeholder, options, setOptions, multiSelections,
             let temp = e.target.value
             typeaheadRef.current.clear()
 
+            // let isValueExists = options.filter((opt)=>{
+            //     console.log(opt, temp)
+            //     return opt == temp
+            // })
+
+            // console.log(isValueExists)
+
+            // if(isValueExists.length == 0){
+
             setOptions(options => [...options, temp])
             setMultiSelections(multiSelections => [...multiSelections, temp]);
+            // }
         }
 
     
