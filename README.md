@@ -59,6 +59,7 @@
 /api/participant/:id/edit               PUT
 /api/participant/:id/profile            GET
 /api/participant/search?query=          GET
+/api/participant/event/:id              GET (Get event profile)
 ```
 
 ### NEWSFEED Service
