@@ -72,6 +72,7 @@
 /api/newsfeed/feed                      GET  (Get newsfeed)
 /api/newsfeed/post/:postId              GET  (Get post data)
 /api/newsfeed/:id/events                GET  (Get all events of an user)
+/api/newsfeed/edit-like                 GET  (Like/Unlike a post)
 ```
 
 ### PAYMENT Service
