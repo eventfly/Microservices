@@ -146,6 +146,13 @@ const postSchema = new mongoose.Schema({
     image: {
         type: String,
         required: false
+    },
+
+    post_type: {
+        type: String,
+        required: false,
+        default: 'text',
+        enum: ['text', 'image', 'video', 'poll', 'quiz']
     }
 
 });
