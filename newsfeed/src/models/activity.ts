@@ -18,11 +18,6 @@ const activitySchema = new mongoose.Schema({
         required: false,
         default: false
     },
-    is_commented: {
-        type: Boolean,
-        required: false,
-        default: false
-    },
     answers: [{
         answer_index: {
             type: Number,
@@ -39,6 +34,11 @@ const activitySchema = new mongoose.Schema({
         required: false,
         default: Date.now
     },
+    updated_at: {
+        type: Date,
+        required: false,
+        default: Date.now
+    },
     poll_options: [{
         option_index: {
             type: Number,
@@ -50,6 +50,10 @@ const activitySchema = new mongoose.Schema({
             default: false
         }
     }],
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+    }]
 
 });
 
@@ -71,7 +75,7 @@ activitySchema.statics.findTotalLikesByPostId = async (postId: string) => {
     return await Activity.count({post_id: postId, is_liked: true});
 }
 
-const Activity = mongoose.model('Activity', activitySchema);
+const Activity = mongoose.model<any, any>('Activity', activitySchema);
 
 
 

@@ -53,19 +53,26 @@ router.post('/api/newsfeed/:eventId/post',
             content,
             poll_options,
             questions,
-            // title,
             created_at: new Date(),
             updated_at: new Date(),
             image: image
         });
 
-        await post.save();
+        
 
         // Add post to event
 
 
         const event = await Event.findById(eventId);
+        
+        if (!event) {
+            throw new Error('Event not found');
+        }
+
         event.posts.push(post._id);
+
+
+        await post.save();
         await event.save();
 
         const followers = event.followers;
@@ -76,7 +83,7 @@ router.post('/api/newsfeed/:eventId/post',
             
             await Feed.addPost(follower, post._id);
             
-        })
+        });
 
 
         res.status(201).send({post});
