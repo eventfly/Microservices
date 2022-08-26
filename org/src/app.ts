@@ -25,6 +25,7 @@ import { getOrgDataRouter } from './routes/get-org-data';
 import { getOrgRolesRouter } from './routes/get-org-roles';
 import { createPackageRouter } from './routes/create-package';
 import { createOrderRouter } from './routes/create-order';
+import { getPackagesRouter } from './routes/get-packages';
 
 const app = express()
 app.use(cors({origin: '*'}));
@@ -59,8 +60,9 @@ app.use(getAllStaffsRouter)
 app.use(getOrgDataRouter)
 app.use(getOrgRolesRouter)
 
-app.use(createPackageRouter);
-app.use(createOrderRouter);
+app.use(createPackageRouter)
+app.use(createOrderRouter)
+app.use(getPackagesRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
