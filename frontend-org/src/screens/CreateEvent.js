@@ -94,8 +94,8 @@ const CreateEvent = () => {
         console.log(avatarImageFileName);
 
         const storage = getStorage();
-        const baseRef = ref(storage, avatarImageFileName);
-        const storageRef = ref(baseRef, "events");
+        const baseRef = ref(storage, "events");
+        const storageRef = ref(baseRef, avatarImageFileName);
         const uploadTask = uploadBytesResumable(storageRef, avatarImageFile);
 
         uploadTask.on("state_changed",

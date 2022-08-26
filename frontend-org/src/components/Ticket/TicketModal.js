@@ -11,12 +11,10 @@ import { useState, useEffect } from "react";
 import {useParams} from 'react-router-dom'
 import {getEventApi} from '../../api/axiosHook'
 
-const TicketModal = ({setEvent}) => {
+const TicketModal = ({setEvent, existedClasses, setEventTicketLoading}) => {
 
     const [ticketModalShow, setTicketModalShow] = useState(false);
-
     const [ticketPrice, setTicketPrice] = useState(0);
-    const [ticketClass, setTicketClass] = useState('General');
     const [quantity, setQuantity] = useState(0);
     const [tokens, setTokens] = useState([]);
 
@@ -24,60 +22,80 @@ const TicketModal = ({setEvent}) => {
 
     const [tokenOptions, setTokenOptions] = useState(['Food', 'T-Shirt', 'Bag', 'VIP Seat'])
 
+    const [newClassOptions, setNewClassOptions] = useState([]);
+    const [newClass, setNewClass] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    let ticketClassOptions = [
-        {
-            'id': 1,
-            'name': 'General'
-        },
-        {
-            'id': 2,
-            'name': 'Business'
-        },
-        {
-            'id': 3,
-            'name': 'Premium'
+    let ticketClassOptions = ['General', 'Business', 'Premium']
+
+
+    useEffect(()=>{
+
+        if(loading == false){
+            setLoading(true)
+            setNewClassOptions([...ticketClassOptions])
         }
-    ]
+
+    }, [loading, newClassOptions])
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setTicketModalShow(false)
 
-        let ticket = {
-            class: ticketClass,
+        let tickets = [{
+            class: newClass[0],
             price: ticketPrice,
             quantity: quantity,
             tokens: tokens
+        }]
+
+        console.log(tickets)
+
+        let existedTickets = existedClasses.filter((item)=>{
+            return item.class == tickets[0].class
+        })
+
+        if(existedTickets.length != 0){
+            alert("Your selected ticket class already exists")
         }
 
-        let tickets =[ticket]
+        else{
 
-        console.log(ticket)
-        console.log("event id: ", eventId)
+            getEventApi(localStorage.getItem('token')).post(`/${eventId}/ticket`, {tickets})
+            .then(res => {
 
-        getEventApi(localStorage.getItem('token')).post(`/${eventId}/ticket`, {tickets})
-        .then(res => {
-            console.log(res.data.event)
-            setEvent(res.data.event)
-            alert("Ticket added")
+                setTicketModalShow(false)
+                console.log(res.data.event)
+                setEvent(res.data.event)
+                setEventTicketLoading(false)
 
-        }).catch(err => {
-            console.log(err)
-        })
+            }).catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     const ticketJSX = (
         <>
             <form onSubmit={handleSubmit} className="tickets-form-body">
 
-                <FormSelect id="TicketClass"
+                {/* <FormSelect id="TicketClass"
                     label="TicketClass"
                     options={ticketClassOptions}
                     onChange={setTicketClass}
+                /> */}
+
+                <AutoComplete
+                    label={'Ticket Class'}
+                    placeholder={'Choose a class'}
+                    options={newClassOptions ? newClassOptions: []}
+                    setOptions={setNewClassOptions}
+                    multiSelections={newClass}
+                    setMultiSelections={setNewClass}
+                    isNewItemsAllowed={true}
+                    isMultiple={false} 
                 />
 
-                <div style={{marginBottom: '40px'}}></div>
+                <div style={{marginBottom: '30px'}}></div>
 
                 <FormInput id="ticket"
                     inputType="number"
@@ -87,7 +105,7 @@ const TicketModal = ({setEvent}) => {
                     onChange={setTicketPrice}
                 />
 
-                <div style={{marginBottom: '40px'}}></div>
+                <div style={{marginBottom: '30px'}}></div>
 
                 <FormInput id="quantity"
                     inputType="number"
@@ -97,7 +115,7 @@ const TicketModal = ({setEvent}) => {
                     onChange={setQuantity}
                 />
 
-                <div style={{marginBottom: '40px'}}></div>
+                <div style={{marginBottom: '30px'}}></div>
 
                 <AutoComplete
                     label={'Tokens'}
@@ -106,15 +124,11 @@ const TicketModal = ({setEvent}) => {
                     setOptions={setTokenOptions}
                     multiSelections={tokens}
                     setMultiSelections={setTokens}
+                    isNewItemsAllowed={true}
+                    isMultiple={true} 
                 />
 
-                <div style={{marginBottom: '10px'}}></div>
-
-                <FormButton 
-                    type="submit" 
-                    buttonText="Submit"
-                    bgColor={'#009F02'}
-                />
+                <div style={{marginBottom: '30px'}}></div>
 
             </form>
         </>
