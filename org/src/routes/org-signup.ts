@@ -31,7 +31,8 @@ router.post('/api/org', [
             password, 
             name, 
             role,
-            permission: 'Admin' 
+            permission: 'Admin',
+            current_package: '6308de171c34b09bc4fd5235' 
         })
 
         await user.save()
