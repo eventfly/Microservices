@@ -3,75 +3,6 @@ import mongoose, {Types} from "mongoose";
 import {ObjectId} from 'bson';
 
 
-interface TagDoc {
-    name: string;
-    id: ObjectId;
-}
-
-
-
-interface TicketDoc extends mongoose.Document {
-    class: string;
-    price: number;
-    quantity: number;
-    tokens: Types.DocumentArray<string>;
-}
-
-
-
-
-interface EventAttrs {
-    name: string;
-    banner_url?: string;
-    start_date: string;
-    end_date: string;
-    tags?: Types.DocumentArray<any>;
-    description: string;
-    rating?: number;
-    parent_id?: string;
-    sub_events?: string[];
-    type: string;
-    organizer: ObjectId;
-    filter?: string[];
-    privacy?: string;
-    mailList?: string[];
-    ticket_price?: number;
-    ref_id: ObjectId;
-    staffs?: Types.DocumentArray<any>;
-    zoom_link?: string;
-    roles?: Types.DocumentArray<any>;
-    tickets?: any | Types.DocumentArray<TicketDoc>;
-    location?: number[]
-}
-
-interface EventDoc extends mongoose.Document {
-    name: string;
-    banner_url?: string;
-    start_date: string;
-    end_date: string;
-    tags?: Types.DocumentArray<any>;
-    description: string;
-    rating?: number;
-    parent_id?: string;
-    sub_events?: string[];
-    type: string;
-    organizer: ObjectId;
-    filter?: string[];
-    privacy?: string;
-    mailList?: string[];
-    ticket_price?: number;
-    ref_id: ObjectId;
-    staffs?: Types.DocumentArray<any>;
-    zoom_link?: string;
-    roles?: Types.DocumentArray<any>;
-    tickets?: Types.DocumentArray<any>;
-    location?: number[]
-}
-
-interface EventModel extends mongoose.Model<EventDoc> {
-    build(attrs: EventAttrs): EventDoc;
-}
-
 const eventSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -213,7 +144,11 @@ const eventSchema = new mongoose.Schema({
         available: {
             type: Number,
             required: false
-        }
+        },
+        perks: [{
+            type: String,
+            required: false
+        }]
     }],
 
     location: {
@@ -234,7 +169,7 @@ const eventSchema = new mongoose.Schema({
     }
 })
 
-eventSchema.statics.build = (attrs: EventAttrs) => {
+eventSchema.statics.build = (attrs: any) => {
     return new Event(attrs);
 }
 
@@ -242,7 +177,7 @@ eventSchema.statics.findByRefId = async (refId: string) => {
     return await Event.findOne({ref_id: refId});
 }
 
-const Event = mongoose.model<EventDoc, EventModel>('Event', eventSchema);
+const Event = mongoose.model<any, any>('Event', eventSchema);
 
 
 export { Event };

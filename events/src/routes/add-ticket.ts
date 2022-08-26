@@ -30,7 +30,8 @@ router.post('/api/event/:id/ticket',
                 price: ticket.price,
                 quantity: ticket.quantity,
                 tokens: ticket.tokens,
-                available: ticket.quantity
+                available: ticket.quantity,
+                perks: ticket.perks
             });
     
         })

@@ -172,7 +172,11 @@ const eventSchema = new mongoose.Schema({
             required: false,
             default: 0,
             min: 0
-        }
+        },
+        perks: [{
+            type: String,
+            required: false
+        }]
     }]
 
     //TODO: Add Venue
