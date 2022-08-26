@@ -5,19 +5,19 @@ import {Link} from 'react-router-dom';
 
 import ChangeBillingDay from './ChangeBillingDay';
 
-const OrgPackage = () => {
+const OrgPackage = ({orgPackage}) => {
     return ( 
         <>
             <FormTitle title="Package" />
             <div className="profile_flexbox">
 
                 <div className="left-column">
-                    
-                    <> You're currently subscribed to</>
+                    <div style={{marginBottom: '40px'}} />
+
                     <SubPackage 
                         headerColor={'navy'} 
                         isBuyOptionAvailable={false}
-                        pkgData={{'name': 'Default', 'price': 100}} 
+                        pkgData={orgPackage} 
                     />
 
                     <Link to='/subscription'>
@@ -33,6 +33,7 @@ const OrgPackage = () => {
                 </div>
 
                 <div className="right-column">
+                    <div style={{marginBottom: '40px'}} />
                     <ListGroup variant="flush">
                         <ListGroup.Item><Link to='/'>Manage payment info</Link></ListGroup.Item>
                         <ListGroup.Item><Link to='/'>Add backup payment method</Link></ListGroup.Item>

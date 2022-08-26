@@ -18,17 +18,21 @@ function SubPackage({headerColor,isBuyOptionAvailable, pkgData}) {
 
         <ul>
         <Card.Text>
-            <li>
-                <i className="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
-            </li>
 
-            <li>
-                <i className="fa-solid fa-check"></i> With supporting text below as a natural lead-in to additional content.
-            </li>
+            {
+              pkgData && pkgData.perks.map((item, index)=>{
+                return(
 
-            <li>
-                <i className="fa-solid fa-xmark"></i> With supporting textd-in to additional content.
-            </li>
+                  <li key={index}>
+                      <i className="fa-solid fa-check" style={{
+                        marginRight: '2%'
+                      }}></i> 
+                      {item}
+                  </li>
+
+                )
+              })
+            }
             
         </Card.Text>
         </ul>
