@@ -55,6 +55,7 @@
 /api/participant/:id/tickets            GET
 /api/participant/checkin                PUT
 /api/participant/:id/events             GET
+/api/participant/:id/edit               PUT
 ```
 
 ### NEWSFEED Service
