@@ -9,6 +9,8 @@ import { requireAuth } from '../middlewares/require-auth';
 import { errorHandler } from '../middlewares/error-handler';
 import { validateRequest } from '../middlewares/validate-request';
 
+import { Activity } from '../models/activity';
+
 const router = express.Router();
 
 router.post('/api/newsfeed/post/:postId/comment', [
@@ -20,6 +22,21 @@ router.post('/api/newsfeed/post/:postId/comment', [
 
         const user = await User.findById(req.currentUser!.ref_id);
         const post = await Post.findById(postId);
+
+        var activity = await Activity.findOne({
+            post_id: postId,
+            user_id: req.currentUser!.ref_id
+        });
+        
+        if (!activity) {
+            activity = Activity.build({
+                user_id: req.currentUser!.ref_id,
+                post_id: postId,
+            });
+
+            await activity.save();
+        }
+
 
         if (!post) {
             throw new Error('Post not found');
@@ -34,10 +51,14 @@ router.post('/api/newsfeed/post/:postId/comment', [
             created_at: new Date(),
             updated_at: new Date()
         });
-        await comment.save();
+        
 
         post.comments!.push(comment._id);
+        activity.comments!.push(comment._id);
+        
+        await comment.save();
         await post.save();
+        await activity.save();
 
         res.status(201).send({ post });
     }

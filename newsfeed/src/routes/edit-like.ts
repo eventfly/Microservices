@@ -19,11 +19,11 @@ router.put('/api/newsfeed/edit-like',
     async (req: Request, res: Response) => {
         const { post_id } = req.body;
 
-        let activity = await Activity.find({
+        var activity = await Activity.findOne({
             post_id: post_id,
             user_id: req.currentUser!.ref_id
         });
-
+        
         if (!activity) {
             activity = Activity.build({
                 user_id: req.currentUser!.ref_id,
@@ -31,6 +31,7 @@ router.put('/api/newsfeed/edit-like',
             });
 
             await activity.save();
+
         }
 
         activity.is_liked = !activity.is_liked;
