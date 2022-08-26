@@ -12,6 +12,7 @@ import { createOrderRouter } from './routes/create-order';
 import { getTicketsRouter } from './routes/get-tickets';
 import { addCheckinRouter } from './routes/add-checkin';
 import { getEventListRouter } from './routes/get-event-list';
+import { editProfileRouter } from './routes/edit-profile';
 
 
 const app = express()
@@ -36,6 +37,7 @@ app.use(createOrderRouter);
 app.use(getTicketsRouter);
 app.use(getEventListRouter);
 app.use(addCheckinRouter);
+app.use(editProfileRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
