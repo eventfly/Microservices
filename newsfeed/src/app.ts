@@ -11,6 +11,7 @@ import { getCommentRouter } from './routes/get-comment';
 import { getAllPostsRouter } from './routes/get-all-posts';
 import { getFeedRouter } from './routes/get-feed';
 import { getPostRouter } from './routes/get-post';
+import { getAllEventsRouter } from './routes/get-all-events';
 
 
 const app = express()
@@ -38,6 +39,7 @@ app.use(addPostRouter);
 app.use(addCommentRouter);
 app.use(getCommentRouter);
 app.use(getAllPostsRouter);
+app.use(getAllEventsRouter);
 
 
 //

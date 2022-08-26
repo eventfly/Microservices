@@ -66,9 +66,12 @@
 /api/newsfeed/post/:postId/comment      GET  (Get all comments under a post)
 /api/newsfeed/feed                      GET  (Get newsfeed)
 /api/newsfeed/post/:postId              GET  (Get post data)
+/api/newsfeed/:id/events                GET  (Get all events of an user)
 ```
 
 ### PAYMENT Service
 ```
-/api/payment/                           POST
+/api/payment/participant                POST
+/api/payment/org                        POST
+
 ```
