@@ -45,6 +45,7 @@
 ```
 /api/org/
         /:staffId             GET
+        /:id/profile          GET
 ```
 
 ### PARTICIPANT Service
