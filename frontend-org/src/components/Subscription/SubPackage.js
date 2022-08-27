@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from 'react';
 
 import SubscriptionModal from './SubscriptionModal';
+import StripePaymentModal from './StripePaymentModal';
 
 
 
@@ -38,8 +39,13 @@ function SubPackage({headerColor,isBuyOptionAvailable, pkgData}) {
         </ul>
         
 
-        {
+        {/* {
           isBuyOptionAvailable ? <SubscriptionModal pkgData={pkgData} />
+          : <></>
+        } */}
+
+        {
+          isBuyOptionAvailable ? <StripePaymentModal pkgData={pkgData} />
           : <></>
         }
        
