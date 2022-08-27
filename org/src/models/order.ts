@@ -28,6 +28,10 @@ const orderSchema = new mongoose.Schema({
     total_price: {
         type: Number,
         required: false
+    },
+    transaction_id: {
+        type: String,
+        required: false
     }
 
 

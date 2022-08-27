@@ -16,6 +16,7 @@ const Subscription = () => {
 
             getOrgApi(localStorage.getItem('token')).get('/package').then((res)=>{
                 console.log(res.data.packages)
+                res.data.packages.pop()
 
                 setPackages([...res.data.packages])
 

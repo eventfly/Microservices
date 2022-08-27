@@ -5,39 +5,47 @@ import {Link} from 'react-router-dom';
 
 import ChangeBillingDay from './ChangeBillingDay';
 
-const OrgPackage = () => {
+const OrgPackage = ({orgPackage}) => {
     return ( 
         <>
             <FormTitle title="Package" />
             <div className="profile_flexbox">
 
                 <div className="left-column">
-                    
-                    <> You're currently subscribed to</>
+                    <div style={{marginBottom: '40px'}} />
+
                     <SubPackage 
                         headerColor={'navy'} 
                         isBuyOptionAvailable={false}
-                        pkgData={{'name': 'Default', 'price': 100}} 
+                        pkgData={orgPackage} 
                     />
 
                     <Link to='/subscription'>
-                        {/* <Button variant="primary"  block style={{
-                            backgroundColor:'white',
-                            color:'blue',
-                            border:'none'
-                        }}> */}
-                            Browser More Packages
-                        {/* </Button> */}
+                        Browser More Packages
                     </Link>
 
                 </div>
 
                 <div className="right-column">
+                    <div style={{marginBottom: '40px'}} />
                     <ListGroup variant="flush">
                         <ListGroup.Item><Link to='/'>Manage payment info</Link></ListGroup.Item>
-                        <ListGroup.Item><Link to='/'>Add backup payment method</Link></ListGroup.Item>
-                        <ListGroup.Item><Link to='/profile/billing'>Billing details</Link></ListGroup.Item>
-                        <ListGroup.Item><ChangeBillingDay /></ListGroup.Item>
+                        
+                        <ListGroup.Item>
+                            
+                            <Link 
+                                to='/profile/billing'
+                                // state={{
+                                //     orgPackage: orgPackage
+                                // }}
+                            >
+                                
+                                Billing details
+                                
+                            </Link>
+                        
+                        </ListGroup.Item>
+                        
                     </ListGroup>
                 </div>
            </div> 

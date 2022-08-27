@@ -119,9 +119,7 @@ const Role = ({orgId, setData, roleType, permissions, members, displayEditModal,
                             to={`/profile/staff/add`}
                             state={{ 
                                 roleType: roleType != 'Default' ? roleType.slice(0, -1) : roleType,
-                                permissions: permissions,
-                                // setStaffs: setStaffs ,
-                                // orgId: orgId 
+                                permissions: permissions
                             }}
                         >
                             <MdOutlinePersonAdd className="add-member-icon" />

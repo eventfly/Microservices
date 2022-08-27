@@ -14,7 +14,7 @@ router.get('/api/org/:orgId/data',
 currentUser, requireAuth,
  errorHandler, async (req: Request, res: Response) => {
 
-    const existingUser = await Organizer.findById(req.params.orgId);
+    const existingUser = await Organizer.findById(req.params.orgId).populate('current_package')
     res.status(201).send({ existingUser })
 })
 
