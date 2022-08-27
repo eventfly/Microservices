@@ -17,6 +17,8 @@ import { getProfileRouter } from './routes/get-profile';
 import { getEventRouter } from './routes/get-event';
 import { getAllOrdersRouter } from './routes/get-all-orders';
 import { getOrderRouter } from './routes/get-order-info';
+import { createFeedbackRouter } from './routes/add-feedback';
+import { getEventFeedbacksRouter } from './routes/get-event-feedback';
 
 
 const app = express()
@@ -46,6 +48,8 @@ app.use(getProfileRouter);
 app.use(getEventRouter);
 app.use(getAllOrdersRouter);
 app.use(getOrderRouter);
+app.use(createFeedbackRouter);
+app.use(getEventFeedbacksRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
