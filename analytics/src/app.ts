@@ -9,7 +9,7 @@ import { errorHandler } from './middlewares/error-handler';
 import { currentUser } from './middlewares/current-user';
 
 import { NotFoundError } from './errors/not-found-error';
-// import { getEventsRouter } from './routes/get-events';
+import { orderedEventsRouter } from './routes/ordered-events';
 
 const app = express()
 app.use(cors({origin: '*'}));
@@ -34,7 +34,7 @@ app.use(
     })
 )
 app.use(currentUser);
-// app.use(getEventsRouter);
+app.use(orderedEventsRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

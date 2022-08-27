@@ -1,38 +1,8 @@
 const mongoose = require('mongoose')
-const express = require('express')
 const {spawn} = require('child_process');
-
-const cors = require('cors')
-const cookieSession = require('cookie-session')
-const { json } = require('body-parser')
 
 const {Event} = require('./event')
 const {Ticket} = require('./ticket')
-
-
-
-const app = express()
-app.use(cors({origin: '*'}));
-
-app.use((req,res,next)=>{
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Expose-Headers', 'Access-Token, Uid')
-
-    next(); 
-})
-
-
-app.set('trust proxy', true) // trust first proxy
-app.use(json())
-app.use(
-    cookieSession({
-        signed: false,
-        secure: true
-    })
-)
 
 
 
