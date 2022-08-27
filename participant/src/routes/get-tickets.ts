@@ -13,6 +13,8 @@ router.get('/api/participant/:id/tickets', async (req: Request, res: Response) =
         "participant.id": req.params.id
     });
 
+    console.log(tickets);
+
     res.status(200).send(tickets);
 
     

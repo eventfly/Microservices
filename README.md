@@ -45,6 +45,7 @@
 ```
 /api/org/
         /:staffId             GET
+        /:id/profile          GET
 ```
 
 ### PARTICIPANT Service
@@ -57,6 +58,8 @@
 /api/participant/:id/events             GET
 /api/participant/:id/edit               PUT
 /api/participant/:id/profile            GET
+/api/participant/search?query=          GET
+/api/participant/event/:id              GET (Get event profile)
 ```
 
 ### NEWSFEED Service
@@ -69,6 +72,8 @@
 /api/newsfeed/feed                      GET  (Get newsfeed)
 /api/newsfeed/post/:postId              GET  (Get post data)
 /api/newsfeed/:id/events                GET  (Get all events of an user)
+/api/newsfeed/edit-like                 PUT  (Like/Unlike a post)
+/api/newsfeed/post/:id/answer           PUT  (Answer a quiz/ Vote on a poll)
 ```
 
 ### PAYMENT Service
