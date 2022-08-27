@@ -14,6 +14,7 @@ import { getPostRouter } from './routes/get-post';
 import { getAllEventsRouter } from './routes/get-all-events';
 import { editLikeRouter } from './routes/edit-like';
 import { answerPostRouter } from './routes/edit-answer';
+import { deletePostRouter } from './routes/delete-post';
 
 
 const app = express()
@@ -44,6 +45,8 @@ app.use(getAllPostsRouter);
 app.use(getAllEventsRouter);
 app.use(editLikeRouter);
 app.use(answerPostRouter);
+
+app.use(deletePostRouter);
 
 
 //

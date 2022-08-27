@@ -60,6 +60,8 @@
 /api/participant/:id/profile            GET
 /api/participant/search?query=          GET
 /api/participant/event/:id              GET (Get event profile)
+/api/participant/:id/orders             GET (Get all orders under a participant)
+api/participant/order/:id               GET (Get order info by order_id)
 ```
 
 ### NEWSFEED Service
@@ -74,6 +76,7 @@
 /api/newsfeed/:id/events                GET  (Get all events of an user)
 /api/newsfeed/edit-like                 PUT  (Like/Unlike a post)
 /api/newsfeed/post/:id/answer           PUT  (Answer a quiz/ Vote on a poll)
+/api/newsfeed/post/:id                  DELETE (Delete a post)
 ```
 
 ### PAYMENT Service
