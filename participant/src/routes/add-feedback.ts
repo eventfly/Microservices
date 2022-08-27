@@ -42,8 +42,12 @@ router.post('/api/participant/feedback', [
         await event.save();
 
 
-        await natsWrapper.client.publish('feedback:created', JSON.stringify({
-            feedback
+        await natsWrapper.client.publish('feedback:added', JSON.stringify({
+            id: feedback.id,
+            user_id: feedback.user_id,
+            event_id: feedback.event_id,
+            rating: feedback.rating,
+            comment: feedback.comment
         }));
 
         res.status(201).send(feedback);
