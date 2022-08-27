@@ -76,6 +76,7 @@ api/participant/order/:id               GET (Get order info by order_id)
 /api/newsfeed/:id/events                GET  (Get all events of an user)
 /api/newsfeed/edit-like                 PUT  (Like/Unlike a post)
 /api/newsfeed/post/:id/answer           PUT  (Answer a quiz/ Vote on a poll)
+/api/newsfeed/post/:id                  DELETE (Delete a post)
 ```
 
 ### PAYMENT Service
