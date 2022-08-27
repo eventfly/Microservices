@@ -21,13 +21,7 @@ const OrgPackage = ({orgPackage}) => {
                     />
 
                     <Link to='/subscription'>
-                        {/* <Button variant="primary"  block style={{
-                            backgroundColor:'white',
-                            color:'blue',
-                            border:'none'
-                        }}> */}
-                            Browser More Packages
-                        {/* </Button> */}
+                        Browser More Packages
                     </Link>
 
                 </div>
@@ -36,9 +30,22 @@ const OrgPackage = ({orgPackage}) => {
                     <div style={{marginBottom: '40px'}} />
                     <ListGroup variant="flush">
                         <ListGroup.Item><Link to='/'>Manage payment info</Link></ListGroup.Item>
-                        <ListGroup.Item><Link to='/'>Add backup payment method</Link></ListGroup.Item>
-                        <ListGroup.Item><Link to='/profile/billing'>Billing details</Link></ListGroup.Item>
-                        <ListGroup.Item><ChangeBillingDay /></ListGroup.Item>
+                        
+                        <ListGroup.Item>
+                            
+                            <Link 
+                                to='/profile/billing'
+                                // state={{
+                                //     orgPackage: orgPackage
+                                // }}
+                            >
+                                
+                                Billing details
+                                
+                            </Link>
+                        
+                        </ListGroup.Item>
+                        
                     </ListGroup>
                 </div>
            </div> 

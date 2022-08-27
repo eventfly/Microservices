@@ -23,8 +23,6 @@ const StripePaymentModal = ({pkgData}) => {
             })
             .then((res)=>{
                 console.log(res.data)
-
-                setModalShow(false)
     
             }).catch((err)=>{
                 alert('Your stripe token is invalid')

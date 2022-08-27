@@ -9,6 +9,7 @@ import {useLocation, useNavigate} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import {getOrgApi} from '../../api/axiosHook'
 import AddStaff from "../../screens/AddStaff";
+import BillingDetails from "./OrgProfileMenu/BillingDetails";
 
 
 
@@ -86,7 +87,8 @@ function OrgProfile() {
                         />
                     )
                     : location.includes('statistics') ? < OrgStatistics />
-                    : location.includes('staff/add') ? <AddStaff />
+                    : location.includes('staff/add') ? <AddStaff /> 
+                    : location.includes('/billing') ? <BillingDetails orgPackage={orgData ? orgData.current_package : null} /> 
                     : <>    </>
                 }
                 </div>
