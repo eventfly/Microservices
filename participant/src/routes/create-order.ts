@@ -40,6 +40,22 @@ router.post('/api/participant/order',
         if (!event) {
             throw new Error('Event not found');
         }
+        
+        //Check if the user already has a pending order for this event
+
+        const previous_orders = await Order.find({ user_id, event_id: eventId });
+        var is_pending = false;
+
+
+        previous_orders.forEach(order => {
+            if (order.status === 'pending') {
+                is_pending = true;
+            }
+        });
+
+        if (is_pending) {
+            throw new Error('You have an order pending for this event, please complete them first');
+        }
 
 
         //Calculate the total price

@@ -15,6 +15,7 @@ import { getEventListRouter } from './routes/get-event-list';
 import { editProfileRouter } from './routes/edit-profile';
 import { getProfileRouter } from './routes/get-profile';
 import { getEventRouter } from './routes/get-event';
+import { getAllOrdersRouter } from './routes/get-all-orders';
 
 
 const app = express()
@@ -42,6 +43,7 @@ app.use(addCheckinRouter);
 app.use(editProfileRouter);
 app.use(getProfileRouter);
 app.use(getEventRouter);
+app.use(getAllOrdersRouter);
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()

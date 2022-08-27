@@ -60,6 +60,7 @@
 /api/participant/:id/profile            GET
 /api/participant/search?query=          GET
 /api/participant/event/:id              GET (Get event profile)
+/api/participant/:id/orders             GET (Get all orders under a participant)
 ```
 
 ### NEWSFEED Service
