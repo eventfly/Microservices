@@ -59,24 +59,6 @@ const EventStatistics = () => {
                 </Table>
                 
             </div>
-
-
-            {/* <div className="stats-container">
-                <ul className="info-container">
-
-                    <li>
-                        <div>
-                            <h4>
-                                Net Balance
-                            </h4>
-                            <h4>
-                                BDT. 82000
-                            </h4>
-                        </div>
-                    </li>
-                </ul>
-
-            </div> */}
         
         </>
         

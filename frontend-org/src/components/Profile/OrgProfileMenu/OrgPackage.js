@@ -20,9 +20,9 @@ const OrgPackage = ({orgPackage}) => {
                         pkgData={orgPackage} 
                     />
 
-                    <Link to='/subscription'>
+                    {/* <Link to='/subscription'>
                         Browser More Packages
-                    </Link>
+                    </Link> */}
 
                 </div>
 
@@ -31,20 +31,9 @@ const OrgPackage = ({orgPackage}) => {
                     <ListGroup variant="flush">
                         <ListGroup.Item><Link to='/'>Manage payment info</Link></ListGroup.Item>
                         
-                        <ListGroup.Item>
-                            
-                            <Link 
-                                to='/profile/billing'
-                                // state={{
-                                //     orgPackage: orgPackage
-                                // }}
-                            >
-                                
-                                Billing details
-                                
-                            </Link>
-                        
-                        </ListGroup.Item>
+                        <ListGroup.Item><Link to='/profile/billing'> Billing details</Link></ListGroup.Item>
+
+                        <ListGroup.Item><Link to='/subscription'>Browser More Packages</Link></ListGroup.Item>
                         
                     </ListGroup>
                 </div>
