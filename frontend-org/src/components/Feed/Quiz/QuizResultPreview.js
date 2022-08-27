@@ -2,7 +2,8 @@ import { LeafPoll, Result } from 'react-leaf-polls'
 import 'react-leaf-polls/dist/index.css'
 import '../Post/Post.css'
 import {Container, Row, Col} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
+
 
 // Persistent data array (typically fetched from the server)
 const resData = [
@@ -45,6 +46,8 @@ const quizStyle = {
 }
 
 const QuizResultPreview = () => {
+  const { eventId } = useParams(); 
+
   return (
     <div className='quiz-result' style={quizStyle}>
         <LeafPoll
@@ -58,7 +61,7 @@ const QuizResultPreview = () => {
         <Container>
             <Row>
                 <Col xs={{offset:9, span:3}}>
-                  <Link to='/event/5/discussion/quiz/6'>
+                  <Link to={`/event/${eventId}/discussion/quiz/676`}>
                     View Details
                   </Link>
                 </Col>

@@ -26,10 +26,7 @@ const QuizModal = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-                quizset.quizTopic = quizTopic;
-
-        console.log(quizset)
-        console.log(quizset[0])
+        
 
         for(let i = 0; i < quizset.length; i++){
             if(quizset[i].question === ''){
@@ -60,6 +57,35 @@ const QuizModal = () => {
         }   
 
         setQuizModalShow(false);
+
+        
+
+        let questions = [];
+
+        quizset.forEach(quiz => {
+            questions.push({
+                question: quiz.question,
+                answers: []
+            })
+            quiz.answerList.forEach(answer => {
+                questions[questions.length-1].answers.push({
+                    answer: answer.answer,
+                    is_correct: answer.radioValue === '1'? false : true
+                })
+            })
+        })
+
+        const newPost = {
+            image: '',
+            poll_options: '',
+            questions: questions,
+            content: quizTopic,
+        }
+
+
+        console.log(newPost)
+        setQuizset([{question:'', answerList:[{answer:'', radioValue:'1'}]}])
+        setQuizTopic('')
 
         
     }
