@@ -66,6 +66,7 @@
 /api/participant/order/:id              GET (Get order info by order_id)
 /api/participant/feedback               POST
 /api/participant/event/:id/feedbacks    GET
+/api/participant/event/:id/statistics   GET (Get statistics of an event)
 ```
 
 ### NEWSFEED Service
