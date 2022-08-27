@@ -14,6 +14,7 @@ export class OrderPaidListener extends Listener {
         
         const order = await Order.findById(data.order_id);
         order.status = 'paid';
+        order.transaction_id = data.payment.stripe_id
         await order.save();
 
         const organizer = await Organizer.findById(order.organizer_id);
