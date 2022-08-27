@@ -22,9 +22,11 @@ router.get('/api/participant/event/:id', [],
         if (!event) {
             throw new Error('Event not found');
         }
+        var average_rating = 5;
 
-        const average_rating = event.total_rating / event.feedbacks.length;
-
+        if (event.feedbacks.length > 0)
+            average_rating = event.total_rating / event.feedbacks.length;
+        
         res.status(200).send({
             ...event._doc,
             average_rating

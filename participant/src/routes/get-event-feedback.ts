@@ -8,7 +8,7 @@ import { Event } from '../models/event';
 
 const router = express.Router();
 
-router.get('/api/event/:id/feedbacks', [], 
+router.get('/api/participant/event/:id/feedbacks', [], 
     validateRequest, currentUser, 
     requireAuth, errorHandler, 
     async (req: Request, res: Response) => {

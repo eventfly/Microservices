@@ -37,6 +37,7 @@ router.post('/api/participant/feedback', [
         });
 
         event.feedbacks.push(feedback);
+        event.total_rating = event.total_rating + rating;
 
         await feedback.save();
         await event.save();

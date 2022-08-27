@@ -129,7 +129,13 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Feedback',
         required: false
-    }]
+    }],
+
+    total_rating: {
+        type: Number,
+        required: false,
+        default: 0
+    }
 
     //TODO: Add Venue
 
