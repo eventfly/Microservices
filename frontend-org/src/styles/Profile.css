@@ -10,6 +10,15 @@
   }
 
 
+.stat_info_flexbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
 .profile_flexbox{
     display: flex;
     flex-direction: row;

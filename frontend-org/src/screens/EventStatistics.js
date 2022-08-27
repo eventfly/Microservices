@@ -1,6 +1,6 @@
-import EventSidebar from "../components/EventSidebar";
 import '../styles/EventStatistics.css'
 import { Table } from 'react-bootstrap';
+import StatCard from '../components/Profile/OrgProfileMenu/StatCard';
 
 
 const EventStatistics = () => {
@@ -11,95 +11,73 @@ const EventStatistics = () => {
     return ( 
         <>
 
-            {/* <div className="detail_flexbox">
+            <div className="info-flexbox">
 
-                <div className="left-column">
-                    <EventSidebar/>
-                </div>
+                <StatCard header={'Participants checked in'} body={'543/4556'} />
+                <StatCard header={'Ticket Price'} body={'450'} />
+                <StatCard header={'Ticket Sale'} body={'BDT. 86000'} />
 
-                <div className="right-column"> */}
+            </div>
 
-                    <div className="stats-container">
-                        <ul className="info-container">
-                            <li>
-                                <div>
-                                    <h4>
-                                        Participants checked in
-                                    </h4>
-                                    <h4>
-                                        543/4556
-                                    </h4>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <h4>
-                                        Ticket Price
-                                    </h4>
-                                    <h4>
-                                        450
-                                    </h4>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <h4>
-                                        Ticket Sale
-                                    </h4>
-                                    <h4>
-                                        BDT. 86000
-                                    </h4>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <h4>
-                                        Net Balance
-                                    </h4>
-                                    <h4>
-                                        BDT. 82000
-                                    </h4>
-                                </div>
-                            </li>
-                        </ul>
+            <div style={{marginBottom: '30px'}} />
 
-                        <div className="table-container">
-                            <h2>Latest Sales Info</h2>
-                            <Table style ={{ textAlign: "center"}} striped bordered hover >
-                            <thead>
-                                <tr>
-                                <th>Full Name</th>
-                                <th>Purchase Date</th>
-                                <th>Transaction ID</th>
-                                <th>E-mail</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                (
-                                    events.map(event =>{
-                                        console.log(event);
-                                        return (
-                                            <tr>
-                                                <td>Lorem ipsum dolor sit amet.</td>
-                                                <td>17 July, 2022</td>
-                                                <td>Lordolorsitametconsectetuelit.</td>
-                                                <td>Loremipsum@gmail.com</td>
-                                            </tr>
+            <div className="table-container">
 
-                                            );
-                                    })
-                                ) 
-                            }
-                            </tbody>
-                        </Table>
+                <h4 style ={{ textAlign: "center", fontWeight: 'bold'}}>Latest Sales Info</h4>
+                <div style={{marginBottom: '40px'}} />
+
+                <Table style ={{ textAlign: "center"}} striped bordered hover >
+
+                    <thead>
+                        <tr>
+                        <th>Full Name</th>
+                        <th>Purchase Date</th>
+                        <th>Transaction ID</th>
+                        <th>E-mail</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {
+                        (
+                            events.map(event =>{
+                                console.log(event);
+                                return (
+                                    <tr>
+                                        <td>Lorem ipsum dolor sit amet.</td>
+                                        <td>17 July, 2022</td>
+                                        <td>Lordolorsitametconsectetuelit.</td>
+                                        <td>Loremipsum@gmail.com</td>
+                                    </tr>
+
+                                    );
+                            })
+                        ) 
+                    }
+                    </tbody>
+                
+                </Table>
+                
+            </div>
+
+
+            {/* <div className="stats-container">
+                <ul className="info-container">
+
+                    <li>
+                        <div>
+                            <h4>
+                                Net Balance
+                            </h4>
+                            <h4>
+                                BDT. 82000
+                            </h4>
                         </div>
-
-                    </div>
-
-                {/* </div>
+                    </li>
+                </ul>
 
             </div> */}
+        
         </>
         
      );

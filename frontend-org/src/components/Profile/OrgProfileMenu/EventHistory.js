@@ -1,14 +1,14 @@
-import EventTable from "../components/EventTable";
+import EventTable from "../../EventTable";
 import { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { getOrgApi } from "../api/axiosHook";
+import { getOrgApi } from "../../../api/axiosHook";
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Col, Container, Row } from "react-bootstrap";
 
-const PopularEvents = () => {
+const EventHistory = () => {
 
     const navigate = useNavigate();
 
@@ -23,45 +23,30 @@ const PopularEvents = () => {
     const [sortedEvent, setSortedEvent] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    let alldata = '';
-
-    window.addEventListener('pageshow', (e)=>{
-        setLoading(false)
-    })
 
     useEffect(() => {
-        async function fetchEvent(){
-            if (auth && auth.ref_id && (loading == false || events.length == 0)) {
-                
-                getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
-                    console.log(res.data)
 
-                    for(let i = 0; i < res.data.length; i++){
-                        events[i] = res.data[i]
-                    }
-
-                    setEvents([...events])
-                    setSortedEvent([...events])
-                    setLoading(true)
-
-                    console.log('events: ', events);
-                }).catch((err)=>{
-                    console.log(err.response.data.errors)
-                })
-            }
+        if (auth && auth.ref_id && loading == false) {
             
-        }
+            getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
 
-        if(!auth && !token){
-            navigate('/login')
-        }
+                setEvents([...res.data])
+                setSortedEvent([...res.data])
 
-        fetchEvent()
-    
-    }, [auth, events, loading])
+                console.log('events: ', res.data);
+            }).catch((err)=>{
+                console.log(err.response.data.errors)
+            })
+
+            setLoading(true)
+        }
+            
+    }, [auth, loading])
 
     const handleSort = (sortBy) => {
-        let newarr = [...events]
+
+        let newarr = events
+
         if(sortBy == 'name'){
             newarr.sort((a,b)=>{
                 if(a.name < b.name){
@@ -108,11 +93,9 @@ const PopularEvents = () => {
 
     return ( 
         <div className='PopularEvents'>
-            <Container style={{border:'none', marginLeft:'5%', marginRight:'5%', marginTop:'5%'}}>
+            <Container style={{border:'none', marginLeft:'5%', marginRight:'5%', marginTop:'20px'}}>
                 <Row style={{alignItems:'center'}}>
-                    {/* <Col xs={{span:5}}>
-                        <h1>Popular Events</h1>
-                    </Col> */}
+
                     <Col xs={{offset:10, span:2}}>
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -129,17 +112,23 @@ const PopularEvents = () => {
                             </Dropdown.Menu>
                         </Dropdown>
                     </Col>
+                
                 </Row>
             </Container>
+
+            <div style={{marginBottom: '30px'}} />
             
-            {events.length > 0 ? (
-                <EventTable events={sortedEvent} />
-                ) : (
-                <p>No events</p>
-                )}
+            {events.length > 0 ? 
+                (
+                    <EventTable events={sortedEvent} />
+                ) : 
+                (
+                    <p>No events</p>
+                )
+            }
         </div>
 
      );
 }
  
-export default PopularEvents;
+export default EventHistory;

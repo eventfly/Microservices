@@ -6,8 +6,8 @@ const EventTable = ({events}) => {
             <thead>
                 <tr>
                 <th>Name</th>
-                <th>Event Start Date</th>
-                <th>Event End Date</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 <th>Rating</th>
                 <th>Revenue</th>
                 <th>Attendance</th>
@@ -16,10 +16,9 @@ const EventTable = ({events}) => {
             <tbody>
             {
                 (
-                    events.map(event =>{
-                        console.log(event);
+                    events.map((event, index) =>{
                         return (
-                            <tr>
+                            <tr key={index}>
                                 <td>{event.name}</td>
                                 <td>{new Date(event.start_date).toString()}</td>
                                 <td>{new Date(event.end_date).toString()}</td>

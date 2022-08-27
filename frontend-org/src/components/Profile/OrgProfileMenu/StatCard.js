@@ -4,8 +4,8 @@ const StatCard = ({header, body}) => {
     return ( 
         <Card>
             <Card.Body className='d-flex flex-column align-items-center '>
-                <Card.Subtitle className="mb-2">{header}</Card.Subtitle>
-                <Card.Text className="h2">
+                <Card.Subtitle className="mb-2"><strong>{header}</strong></Card.Subtitle>
+                <Card.Text className="h3">
                 {body}
                 </Card.Text>
             </Card.Body>

@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback} from 'react'
 import Header from './components/Header';
 import Footer from './components/Footer';
 import EventList from './screens/EventList';
-import PopularEvents from './screens/PopularEvents';
 
 import CreateEvent from './screens/CreateEvent';
 import Signup from './screens/signup';
@@ -76,7 +75,6 @@ function App() {
         <Routes>
 
           <Route path="/" element={<EventList />} />
-          <Route path="/popular" element={<PopularEvents />} />
 
           <Route path="/signup" element={<Signup setHeaderLoading={setHeaderLoading} />} />
           <Route path="/login" element={<Login setHeaderLoading={setHeaderLoading} />} />
