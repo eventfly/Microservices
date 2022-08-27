@@ -154,10 +154,19 @@ const eventSchema = new mongoose.Schema({
     location: {
         type: [Number],
         required: false
+    },
+
+    feedbacks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Feedback',
+        required: false
+    }],
+
+    total_rating: {
+        type: Number,
+        required: false,
+        default: 0
     }
-
-    //TODO: Add Venue
-
 
 
 }, {
@@ -176,6 +185,7 @@ eventSchema.statics.build = (attrs: any) => {
 eventSchema.statics.findByRefId = async (refId: string) => {
     return await Event.findOne({ref_id: refId});
 }
+
 
 const Event = mongoose.model<any, any>('Event', eventSchema);
 
