@@ -12,7 +12,7 @@ export class OrderPaidListener extends Listener {
     async onMessage(data: any, msg: Message) {
         console.log('Order paid! Data: ', data);
         
-        const order = await Order.findById(data.order_id);
+        const order = await Order.findById(data.order_id).populate('package_id');
         order.status = 'paid';
         order.transaction_id = data.payment.stripe_id
         await order.save();
@@ -24,6 +24,14 @@ export class OrderPaidListener extends Listener {
         await organizer.save();
 
         msg.ack();
+
+
+        natsWrapper.client.publish('org:subscription:added', JSON.stringify({
+            org_id: order.organizer_id,
+            package_name: order.package_id.name,
+            boost_factor: order.package_id.boost_factor
+        }));
+
     }
 
 }

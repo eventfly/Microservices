@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 import { errorHandler } from '../middlewares/error-handler';
 import { Event } from '../models/event';
 import { Participant } from '../models/participant';
+// import { Organizer } from '../models/organizer';
 import { BadRequestError } from '../errors/bad-request-error';
 // import { runPythonScript } from '../services/runScript'
 import {spawn} from 'child_process';
@@ -22,7 +23,7 @@ async (req: Request, res:Response) => {
     
     let {participantId, participantLng, participantLat} = req.body;
 
-    const events = await Event.find({ });
+    const events = await Event.find({ }).populate('organizer')
     console.log(events.length)
 
     const participant = await Participant.find({_id: participantId})

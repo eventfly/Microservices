@@ -96,6 +96,14 @@ def computeFeatures():
         
     # print(pastEvents)
 
+    boostScores = []
+
+    for i, event in dfEvent.iterrows():
+        org = event['organizer']
+        boostScores.append(org['boost_factor'])
+
+    # print(boostScores)
+
     distanceInfos = []
     participantLocation = [participantLng, participantLat]
 
@@ -145,6 +153,7 @@ def computeFeatures():
     for idx, item in enumerate(sim_scores_final):
 
         score = 0.7 * (item[1] / len(sim_scores_aggregated)) + 0.3 * (1 - distanceInfos[idx])
+        score = score * boostScores[idx]
         sim_scores_final[idx] = (idx, score)
     
 
