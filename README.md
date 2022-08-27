@@ -90,3 +90,26 @@
 /api/payment/org                        POST
 
 ```
+
+
+### ANALYTICS Service (port 3006. Run it separately.)
+```
+/api/analytics/events                   POST
+request payload:
+{
+    "participantId": "630a3262044e45a64cb73e17",
+    "participantLng": 90.4331,
+    "participantLat": 23.7619
+},
+
+response:{
+    "events": [
+        "6308f258b31c4f5574fd7c75",
+        "63078e4c93391fe597df659e",
+        "6307909693391fe597df65ad",
+        "630790cd93391fe597df65b1",
+        "63078fcc93391fe597df65a2"
+    ]
+}
+
+```

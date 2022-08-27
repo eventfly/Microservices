@@ -16,7 +16,7 @@ export class EventCreatedListener extends Listener {
 
 
         const event = new Event({
-            _id: data._id,
+            _id: data.id,
             name: data.name,
             organizer: data.organizer,
             start_date: data.start_date,
