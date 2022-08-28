@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
 import { useNavigate} from 'react-router-dom';
 
-import {getOrgApi} from '../api/axiosHook'
+import {getOrgApi, getAnalyticsApi, getEventApi} from '../api/axiosHook'
 
 import Spinner from '../components/Spinner';
 
@@ -127,7 +127,7 @@ const EventList = () => {
 
         fetchEvent()
     
-    }, [auth, events, loading])
+    }, [auth, events, loading, eventSubset])
 
 
     function getTab(tab) {
@@ -158,26 +158,63 @@ const EventList = () => {
 
 
     let subset = [];
-    useEffect(() => {
-        console.log(searchText)
-        if (searchText.length === 0) {
-            subset = events
-            setEventSubset([...subset])
-        }
-        else {
-            subset = events.filter((event) => {
-                return event.name.toLowerCase().includes(searchText.toLowerCase())
+    // useEffect(() => {
+
+
+        // if (searchText.length === 0) {
+        //     subset = events
+        //     setEventSubset([...subset])
+        // }
+        // else {
+        //     subset = events.filter((event) => {
+        //         return event.name.toLowerCase().includes(searchText.toLowerCase())
+        //     })
+
+        //     console.log(subset, subset.length)
+        //     setEventSubset([...subset])
+        // }
+    // }, [searchText, loading])
+
+
+    const handleKeyDown = async (e) => {
+        if(e.key === 'Enter'){
+
+            const res = await getAnalyticsApi(localStorage.getItem('token')).post('/search/query', {
+                query: searchText
+            })
+            console.log(res.data.events)
+
+            let searchResult = []
+
+            res.data.events.map(async(ev_id)=>{
+                const event_data = await getEventApi(localStorage.getItem('token')).get(`/${ev_id}`)
+
+                event_data.data.id = event_data.data.ref_id
+                delete event_data.data.ref_id
+                searchResult.push(event_data.data)
+
+                if(res.data.events.length == searchResult.length){
+                    setEventSubset([...searchResult])
+                    console.log(searchResult)
+                }
             })
 
-            console.log(subset, subset.length)
-            setEventSubset([...subset])
+
         }
-    }, [searchText])
+    }
 
 
     return (
         auth && <div className='EventList'>
-            <Searchbar searchText={searchText} setSearchText={setSearchText} />
+
+            <div onKeyDown={handleKeyDown}>
+                <Searchbar 
+                    searchText={searchText} 
+                    setSearchText={setSearchText} 
+                />
+            </div>
+
+
             <SlidingNav getData={getTab} canCreateEvent={isPageEditable() ? 'block' : 'none'} />
             
             <h2>Event List</h2>
@@ -188,7 +225,11 @@ const EventList = () => {
                     (eventSubset != null && eventSubset.length > 0) ? (
                         eventSubset.map(event => {
                             return (
-                                <EventPreview key={event.id} event={event} />
+                                <EventPreview 
+                                    key={event.id} 
+                                    event={event} 
+                                    eventId={event.id} 
+                                />
 
                             );
                         })

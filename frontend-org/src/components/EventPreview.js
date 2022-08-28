@@ -1,13 +1,13 @@
 import {Link} from 'react-router-dom';
 
-const EventPreview = ({event}) => {
+const EventPreview = ({event, eventId}) => {
    
     // url(https://cdn.pixabay.com/photo/2019/07/16/20/48/dolomiti-4342572_960_720.jpg)`,
 
     return (
         <>
         
-        <Link to={`/event/${event.id}/profile`}> 
+        <Link to={`/event/${eventId}/profile`}> 
             <div className="event-preview" style={{
                 backgroundImage:
                     `linear-gradient(

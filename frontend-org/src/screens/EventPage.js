@@ -48,7 +48,13 @@ const EventPage = () => {
     const [loadingMember, setLoadingMember] = useState(false);
     const [loadingProfile, setLoadingProfile] = useState(false);
 
+    const [isSelf, setIsSelf] = useState(false)
+
+
     const isPageEditable = () => {
+        if(!isSelf){
+            return false
+        }
         if(auth.role == 'Organizer' || auth.role == 'Manager'){
             return true
         }
@@ -82,24 +88,33 @@ const EventPage = () => {
                 })
 
                 getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
-                    console.log(res.data.event)
-                    setEvent(res.data.event)
-                
-                    getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/staffs`).then((res)=>{
-                        console.log(res.data.event.staffs)
-                        setOrgStaffs([...res.data.event.staffs])
-                    
-                    }).catch((err)=>{
-                        console.log(err)
-                    })
+                    console.log(res.data)
+                    setEvent(res.data)
 
-                    getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/roles`).then((res)=>{
-                        console.log(res.data.event.roles)
-                        setOrgRoles([...res.data.event.roles])
-                    
-                    }).catch((err)=>{
-                        console.log(err)
-                    })
+                    if(auth.ref_id == res.data.organizer){
+
+                        setIsSelf(true)
+                
+                        getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/staffs`).then((res)=>{
+                            console.log(res.data.staffs)
+                            setOrgStaffs([...res.data.staffs])
+                        
+                        }).catch((err)=>{
+                            console.log(err)
+                        })
+
+                        getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/roles`).then((res)=>{
+                            console.log(res.data.roles)
+                            setOrgRoles([...res.data.roles])
+                        
+                        }).catch((err)=>{
+                            console.log(err)
+                        })
+                    }
+
+                    else{
+                        setIsSelf(false)
+                    }
                 
                 
                 }).catch((err)=>{
@@ -125,7 +140,9 @@ const EventPage = () => {
             <div className="detail_flexbox">
 
                 <div className="left-column">
-                    <EventSidebar eventId={eventId} />
+                    {
+                        isSelf ? <EventSidebar eventId={eventId} /> : <></>
+                    }
                 </div>
 
                 <div className="right-column">

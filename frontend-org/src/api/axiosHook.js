@@ -86,4 +86,35 @@ const getPaymentApi = (token) => {
 }
 
 
-export {getAuthApi, getOrgApi, getEventApi, getNewsfeedApi, getParticipantApi, getPaymentApi}
+const getAnalyticsApi = (token) => {
+  const api = axios.create({
+    baseURL: `http://localhost:3006/api/analytics`,
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+      'withCredentials': true
+    },
+    timeout: 5000
+  })
+
+  return api
+}
+
+const getMailApi = (token) => {
+  const api = axios.create({
+    baseURL: `http://localhost:8000`,
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json'
+    },
+    timeout: 5000
+  })
+
+  return api
+}
+
+
+
+
+export {getAuthApi, getOrgApi, getEventApi, getNewsfeedApi, getParticipantApi, getPaymentApi, getAnalyticsApi, getMailApi}
+
