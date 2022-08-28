@@ -9,11 +9,6 @@ import { Activity } from '../models/activity';
 const router = express.Router();
 
 router.get('/api/newsfeed/post/:id/activity', [
-    body('user_id').not().isEmpty().
-    withMessage('user_id is required'),
-    body('post_id').
-    not().isEmpty().
-    withMessage('post_id is required')
 ], 
     validateRequest, 
     currentUser, 
