@@ -7,10 +7,6 @@ import { useParams } from 'react-router-dom';
 
 
 const EventStatistics = () => {
-    let events=[]
-    for(let i=0; i<10; i++){
-        events.push(i)
-    }
 
     const [loading, setLoading] = useState(false);
     const [eventsStats, setEventsStats] = useState(null);

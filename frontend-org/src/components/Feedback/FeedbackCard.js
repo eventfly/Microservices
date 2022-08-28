@@ -2,7 +2,19 @@ import { Col,Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Rating from './Rating';
 
-const FeedbackCard = () => {
+const FeedbackCard = ({feedbackData}) => {
+
+    const getCreationDate = (dateISO) =>{
+        let date = new Date(dateISO)
+        let dateStr = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear()
+        dateStr = dateStr + '\n' + 
+                    (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + 
+                    (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':' + 
+                    (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+
+        return dateStr
+    }
+
     return ( 
         <>
             <Card 
@@ -14,21 +26,20 @@ const FeedbackCard = () => {
                 className="mx-4"
             >
                 <Card.Body>
-                    <Rating rating={4} />
-                    <Card.Title className = "fw-bolder fs-3">Goodmovie</Card.Title>
+                    <Rating rating={feedbackData.rating} />
+                    <Card.Title className = "fw-bolder"> {feedbackData.user_id.name} </Card.Title>
                     <Card.Subtitle >
                         <Row>
                             <Col xs={{span:4}} className="fs-6">
-                                jawad
+                                {feedbackData.user_id.email}
                             </Col>
                             <Col className="mb-2 text-muted fs-6" xs={{offset:2 , span:4}}>
-                                28 aguut 2099
+                            {getCreationDate(feedbackData.created_at)}
                             </Col>
                         </Row>
                     </Card.Subtitle>
                     <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
+                        {feedbackData.comment}
                     </Card.Text>
                 </Card.Body>
             </Card>
