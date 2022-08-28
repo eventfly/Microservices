@@ -40,10 +40,9 @@ const EventStatistics = () => {
                     <tbody>
                     {
                         (
-                            events.map(event =>{
-                                console.log(event);
+                            events.map((event, index) =>{
                                 return (
-                                    <tr>
+                                    <tr key={index}>
                                         <td>Lorem ipsum dolor sit amet.</td>
                                         <td>17 July, 2022</td>
                                         <td>Lordolorsitametconsectetuelit.</td>
