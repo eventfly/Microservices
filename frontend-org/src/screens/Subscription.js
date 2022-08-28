@@ -2,6 +2,7 @@ import "../styles/Subscription.css";
 import SubPackage from "../components/Subscription/SubPackage";
 import { useState, useEffect } from 'react';
 import {getOrgApi} from '../api/axiosHook'
+import ColorList from "../constants/Color";
 
 
 const Subscription = () => {
@@ -44,7 +45,7 @@ const Subscription = () => {
                         return(
                             <SubPackage
                                 key={index} 
-                                headerColor="salmon" 
+                                headerColorClass={ColorList[pkg.color]} 
                                 isBuyOptionAvailable={true}
                                 pkgData={pkg}
                             />

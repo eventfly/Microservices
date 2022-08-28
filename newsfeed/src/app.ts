@@ -15,6 +15,7 @@ import { getAllEventsRouter } from './routes/get-all-events';
 import { editLikeRouter } from './routes/edit-like';
 import { answerPostRouter } from './routes/edit-answer';
 import { deletePostRouter } from './routes/delete-post';
+import { getActivityRouter } from './routes/get-activity';
 
 
 const app = express()
@@ -37,6 +38,7 @@ app.use((req,res,next)=>{
 app.use(json())
 
 app.use(getFeedRouter);
+app.use(getActivityRouter);
 app.use(getPostRouter);
 app.use(addPostRouter);
 app.use(addCommentRouter);
@@ -47,6 +49,7 @@ app.use(editLikeRouter);
 app.use(answerPostRouter);
 
 app.use(deletePostRouter);
+
 
 
 //

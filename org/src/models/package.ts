@@ -39,7 +39,11 @@ const packageSchema = new mongoose.Schema({
     perks: [{
         type: String,
         required: false
-    }]
+    }],
+    color: {
+        type: String,
+        required: false
+    }
 
 });
 
