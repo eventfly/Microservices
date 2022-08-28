@@ -24,7 +24,7 @@ router.delete('/api/participant',
         id: participant._id
     }));
 
-    res.status(204).send({message: "Participant deleted"});
+    res.status(200).send({message: "Participant deleted"});
 });
 
 export { router as deleteParticipantRouter };
