@@ -13,7 +13,7 @@ router.delete('/api/participant',
     currentUser, 
     requireAuth, 
     async (req: Request, res: Response) => {
-    const id  = req.currentUser!.id;
+    const id  = req.currentUser!.ref_id;
     const participant = await Participant.findByIdAndDelete(id);
 
     if (!participant) {
@@ -25,4 +25,6 @@ router.delete('/api/participant',
     }));
 
     res.status(204).send({message: "Participant deleted"});
-})
+});
+
+export { router as deleteParticipantRouter };
