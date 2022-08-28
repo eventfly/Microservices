@@ -8,12 +8,7 @@ import { Activity } from '../models/activity';
 
 const router = express.Router();
 
-router.get('/api/newsfeed/activity', [
-    body('user_id').not().isEmpty().
-    withMessage('user_id is required'),
-    body('post_id').
-    not().isEmpty().
-    withMessage('post_id is required')
+router.get('/api/newsfeed/post/:id/activity', [
 ], 
     validateRequest, 
     currentUser, 
@@ -21,9 +16,10 @@ router.get('/api/newsfeed/activity', [
     errorHandler, 
     async (req: Request, res:Response) => {
 
-        const {post_id, user_id} = req.body;
+        const {id} = req.params;
+        const user_id = req.currentUser!.ref_id;
 
-        const activity = await Activity.findOne({ post_id, user_id });
+        const activity = await Activity.findOne({ post_id: id, user_id });
 
         res.status(200).send(activity);
 

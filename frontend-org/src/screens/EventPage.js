@@ -82,28 +82,28 @@ const EventPage = () => {
                 })
 
                 getEventApi(localStorage.getItem('token')).get(`/${eventId}`).then((res)=>{
-                    console.log(res.data)
-                    setEvent(res.data)
+                    console.log(res.data.event)
+                    setEvent(res.data.event)
                 
-                    getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/staffs`).then((res)=>{
-                        console.log(res.data.staffs)
-                        setOrgStaffs([...res.data.staffs])
+                    getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/staffs`).then((res)=>{
+                        console.log(res.data.event.staffs)
+                        setOrgStaffs([...res.data.event.staffs])
                     
                     }).catch((err)=>{
-                        console.log(err.response.data.errors)
+                        console.log(err)
                     })
 
-                    getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/roles`).then((res)=>{
-                        console.log(res.data.roles)
-                        setOrgRoles([...res.data.roles])
+                    getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/roles`).then((res)=>{
+                        console.log(res.data.event.roles)
+                        setOrgRoles([...res.data.event.roles])
                     
                     }).catch((err)=>{
-                        console.log(err.response.data.errors)
+                        console.log(err)
                     })
                 
                 
                 }).catch((err)=>{
-                    console.log(err.response.data.errors)
+                    console.log(err)
                 })
 
                 setLoading(true)
