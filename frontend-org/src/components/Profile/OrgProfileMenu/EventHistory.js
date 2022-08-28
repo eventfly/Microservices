@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { getOrgApi } from "../../../api/axiosHook";
 
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Col, Container, Row } from "react-bootstrap";
 
 const EventHistory = () => {

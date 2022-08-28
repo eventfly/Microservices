@@ -12,6 +12,7 @@ import EventMember from "./EventMember";
 import AddStaff from "./AddStaff";
 import EventThumbnail from "../components/Event/EventThumbnail";
 import EventTicket from "./EventTicket";
+import EventFeedback from "./EventFeedback";
 
 import FormTitle from "../components/Form/FormTitle";
 
@@ -29,7 +30,8 @@ const EventPage = () => {
                     (location.includes('statistics') ? 'Statistics' :
                     (location.includes('members') ? 'Members' :
                     (location.includes('tickets') ? 'Tickets' :
-                    (location.includes('staff/add') ? 'Add Staff' : '' ))))) 
+                    (location.includes('feedback') ? 'Feedback' :
+                    (location.includes('staff/add') ? 'Add Staff' : '' ))))))
 
     let auth = sessionStorage.getItem('auth')
     if (auth) {
@@ -181,9 +183,15 @@ const EventPage = () => {
                                                 event={event} 
                                                 setEvent={setEvent} 
                                             />
-                                        ) :
+                                        ) : 
 
-                                        (<></>)
+                                        (
+                                            location.includes('feedback') ? (
+                                                <EventFeedback />
+                                            ) : 
+
+                                            (<></>)
+                                        )
                                     
                                     )
                                 )
