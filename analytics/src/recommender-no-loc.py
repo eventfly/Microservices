@@ -20,9 +20,6 @@ warnings.filterwarnings('ignore')
 eventsData = sys.argv[1]
 participantData = sys.argv[2]
 
-participantLng = sys.argv[3]
-participantLat = sys.argv[4]
-
 dfEvent = pd.read_json(eventsData)
 dfParticipant = pd.read_json(participantData)
 
@@ -69,24 +66,6 @@ def getEventTfidfVector():
 
 
 
-def calculateProximity(participantLocation, eventLocation):
-    eventLng = eventLocation[0]
-    eventLat = eventLocation[1]
-
-    participantLng = participantLocation[0]
-    participantLat = participantLocation[1]
-
-    # print(eventLng, eventLat, participantLng, participantLat) 
-
-    eventCoordinates = (eventLat, eventLng)
-    participantCoordinates = (participantLat, participantLng)
-
-    distance = geodesic(participantCoordinates, eventCoordinates).km
-    # print("distance: ", distance)
-    return distance
-
-
-
 def computeFeatures():
 
     pastEvents = []
@@ -104,19 +83,6 @@ def computeFeatures():
 
     # print(boostScores)
 
-    distanceInfos = []
-    participantLocation = [participantLng, participantLat]
-
-    for i, event in dfEvent.iterrows():
-        dist = calculateProximity(participantLocation, event['location'])
-        distanceInfos.append(dist)
-
-    distanceSum = sum(distanceInfos)
-
-    for idx, item in enumerate(distanceInfos):
-        distanceInfos[idx] = item / distanceSum
-
-    # print(distanceInfos)
 
     eventsTfidfVector = getEventTfidfVector()
     cosine_sim = linear_kernel(eventsTfidfVector, eventsTfidfVector)
@@ -138,7 +104,7 @@ def computeFeatures():
     
     
     sim_scores_final = sim_scores_aggregated[0]
-    # print(sim_scores_final)
+    # print(sim_scores_aggregated)
 
     itr = 1
 
@@ -151,14 +117,17 @@ def computeFeatures():
         itr = itr + 1
 
 
+    # print(sim_scores_final)
+
     for idx, item in enumerate(sim_scores_final):
 
-        score = 0.7 * (item[1] / len(sim_scores_aggregated)) + 0.3 * (1 - distanceInfos[idx])
+        score = item[1] / len(sim_scores_aggregated)
         score = score * boostScores[idx]
         sim_scores_final[idx] = (idx, score)
     
 
     sim_scores_final = sorted(sim_scores_final, key=lambda x: x[1], reverse=True)
+    # print(sim_scores_final)
     # sim_scores_final = sim_scores_final[0:5]
     event_indices = [i[0] for i in sim_scores_final]
     # print(event_indices)
