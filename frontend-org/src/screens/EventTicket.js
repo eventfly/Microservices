@@ -8,6 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { useState, useEffect } from "react";
 // import {getEventApi} from '../api/axiosHook'
 
+import ColorList from '../constants/Color';
 
 const EventTicket = ({setEvent, event}) => {
 
