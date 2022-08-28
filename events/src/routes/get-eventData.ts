@@ -13,12 +13,7 @@ router.get('/api/event/:id', [], currentUser, requireAuth, errorHandler, async (
     if (event.feedbacks.length > 0)
         average_rating = event.total_rating / event.feedbacks.length;
 
-    res.status(200).send({
-        event : {
-            ...event._doc,
-            average_rating
-        }
-    });
+    res.status(200).send(event);
 });
 
 export { router as getEventDataRouter };
