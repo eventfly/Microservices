@@ -23,7 +23,7 @@ const FeedbackCard = ({feedbackData}) => {
                     backgroundColor:'#FFFCFC',
                     
                 }}
-                className="mx-4"
+                className="mx-4 my-4"
             >
                 <Card.Body>
                     <Rating rating={feedbackData.rating} />
