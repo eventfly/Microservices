@@ -8,7 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { useState, useEffect } from "react";
 // import {getEventApi} from '../api/axiosHook'
 
-import ColorList from '../constants/Color';
+import {ColorArray} from '../constants/Color';
 
 const EventTicket = ({setEvent, event}) => {
 
@@ -59,9 +59,9 @@ const EventTicket = ({setEvent, event}) => {
 
                 {
                     ticketClasses && ticketClasses.map((ticketClass, idx) => (
-                        <Col key={idx}>
+                        <Col key={idx} style={{marginRight:'2rem'}}>
                             <Card className="text-center">
-                            <Card.Header className="fs-3" style={{backgroundColor:'salmon'}}>{ticketClass.class}</Card.Header>
+                            <Card.Header className={`fs-3 ${ColorArray[idx%ticketClasses.length]}`}>{ticketClass.class}</Card.Header>
                                 <Card.Body>
                                     <ListGroup variant="flush">
                                         <ListGroup.Item><strong>Ticket Price:</strong> {ticketClass.price}</ListGroup.Item>
