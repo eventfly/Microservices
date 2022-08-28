@@ -18,7 +18,8 @@ router.get('/api/participant/event/:id/statistics', currentUser, requireAuth, as
         return res.status(404).send({ error: 'Event not found' });
     }
 
-    const orders = await Order.find({ event_id: event._id });
+    const orders = await Order.find({ event_id: event._id }).populate('user_id', '_id name email', 'Participant');
+
 
     var total_income = 0;
     var total_participant = 0;
@@ -28,6 +29,11 @@ router.get('/api/participant/event/:id/statistics', currentUser, requireAuth, as
             total_participant += order.tickets[0].quantity;
         }
               
+    });
+
+    var total_tickets = 0;
+    event.tickets.forEach((ticket:any) => {
+        total_tickets += ticket.quantity;
     });
 
    
@@ -49,13 +55,18 @@ router.get('/api/participant/event/:id/statistics', currentUser, requireAuth, as
     });
 
 
+
+
     res.send({
         ...event._doc,
+        total_tickets,
         total_income,
         total_participant,
         average_rating,
-        total_attendance
+        total_attendance,
+        orders
     });
+
 
 
 });
