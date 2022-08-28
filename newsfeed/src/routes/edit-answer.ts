@@ -58,26 +58,20 @@ router.put('/api/newsfeed/post/:id/answer',
                 } else {
                     activity.poll_options.push({
                         index,
-                        is_selected
+                       is_selected
                     });
                 }
             });
 
-            await activity.save();
 
             
         } else if (quiz_answers) {
-            const { question_index, answers } = quiz_answers;
             
-            answers.forEach(async (answer : any) => {
-                const { index, is_selected } = answer;
-                const quiz_option = activity.quiz_options[index];
-                quiz_option.is_selected = is_selected;
-                quiz_option.index = index;
-            });
-
-            await activity.save();
+            activity.quiz_answers = quiz_answers;
+            
         }
+
+        await activity.save();
 
         res.status(200).send(activity);
 
