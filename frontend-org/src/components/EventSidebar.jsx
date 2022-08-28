@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {FaHome, FaCommentAlt, FaChartLine, FaUserNurse} from 'react-icons/fa'
-import {MdGeneratingTokens} from 'react-icons/md'
+import {MdGeneratingTokens, MdFeedback} from 'react-icons/md'
 import './sidebar.scss';
 
 const EventSidebar = ({eventId}) => {
@@ -36,6 +36,12 @@ const EventSidebar = ({eventId}) => {
             icon: <MdGeneratingTokens className='sidebar-icons-md' style={{color: 'black'}} />,
             to: `/event/${eventId}/tickets`,
             section: 'tickets'
+        },
+        {
+            display: 'Feedback',
+            icon: <MdFeedback className='sidebar-icons-md' style={{color: 'black'}} />,
+            to: `/event/${eventId}/feedback`,
+            section: 'feedback'
         },
     ]
 

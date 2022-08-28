@@ -6,7 +6,10 @@ const ticketSchema = new mongoose.Schema({
         required: false
     },
     participant: {
-        id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Participant',
+        required: true
+        /*id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Participant",
             required: true
@@ -18,7 +21,7 @@ const ticketSchema = new mongoose.Schema({
         email: {
             type: String,
             required: true
-        }
+        }*/
     },
     order_id: {
         type: mongoose.Schema.Types.ObjectId,

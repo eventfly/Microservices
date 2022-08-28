@@ -96,6 +96,11 @@ def computeFeatures():
             sim_scores_aggregated.append(sim_scores)
     
     
+    if len(sim_scores_aggregated) == 0:
+        event_indices = []
+        print(dfEvent['id'].iloc[event_indices])
+        return
+
     sim_scores_final = sim_scores_aggregated[0]
     # print(sim_scores_final)
 

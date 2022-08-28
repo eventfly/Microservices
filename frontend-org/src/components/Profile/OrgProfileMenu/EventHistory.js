@@ -1,51 +1,30 @@
 import EventTable from "../../EventTable";
 import { useState, useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-import { getOrgApi } from "../../../api/axiosHook";
-
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Col, Container, Row } from "react-bootstrap";
 
-const EventHistory = () => {
+const EventHistory = ({eventsStats}) => {
 
-    const navigate = useNavigate();
-
-    let auth = sessionStorage.getItem('auth')
-    if (auth) {
-        auth = JSON.parse(auth);
-    }
-
-    let token = localStorage.getItem('token')
-
-    const [events, setEvents] = useState([]);
     const [sortedEvent, setSortedEvent] = useState([]);
     const [loading, setLoading] = useState(false);
 
-
     useEffect(() => {
 
-        if (auth && auth.ref_id && loading == false) {
-            
-            getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
-
-                setEvents([...res.data])
-                setSortedEvent([...res.data])
-
-                console.log('events: ', res.data);
-            }).catch((err)=>{
-                console.log(err.response.data.errors)
-            })
-
+        if(loading == false || eventsStats.length > 0){
             setLoading(true)
+
+            if(eventsStats.length > 0){
+                setSortedEvent([...eventsStats])
+            }
         }
-            
-    }, [auth, loading])
+
+    }, [loading, eventsStats])
+
 
     const handleSort = (sortBy) => {
 
-        let newarr = events
+        let newarr = eventsStats
 
         if(sortBy == 'name'){
             newarr.sort((a,b)=>{
@@ -61,7 +40,6 @@ const EventHistory = () => {
         }
 
         else if(sortBy == 'startDate'){
-            let newarr = [...events]
             newarr.sort((a,b)=>{
                 if(a.start_date < b.start_date){
                     return -1
@@ -76,12 +54,63 @@ const EventHistory = () => {
         }
 
         else if(sortBy == 'endDate'){
-            let newarr = [...events]
             newarr.sort((a,b)=>{
                 if(a.end_date < b.end_date){
                     return -1
                 }
                 if(a.end_date > b.end_date){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+        }
+
+        else if(sortBy == 'rating'){
+            newarr.sort((a,b)=>{
+                if(a.total_rating > b.total_rating){
+                    return -1
+                }
+                if(a.total_rating < b.total_rating){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+        }
+
+        else if(sortBy == 'revenue'){
+            newarr.sort((a,b)=>{
+                if(a.total_income > b.total_income){
+                    return -1
+                }
+                if(a.total_income < b.total_income){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+        }
+
+        else if(sortBy == 'participants'){
+            newarr.sort((a,b)=>{
+                if(a.total_participant > b.total_participant){
+                    return -1
+                }
+                if(a.total_participant < b.total_participant){
+                    return 1
+                }
+                return 0
+            })
+            setSortedEvent([...newarr])
+        }
+
+        else if(sortBy == 'attendance'){
+            newarr.sort((a,b)=>{
+                if(a.total_attendance > b.total_attendance){
+                    return -1
+                }
+                if(a.total_attendance < b.total_attendance){
                     return 1
                 }
                 return 0
@@ -108,6 +137,7 @@ const EventHistory = () => {
                                 <Dropdown.Item onClick={() => handleSort('endDate')}>End Date</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleSort('rating')}>Rating</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleSort('revenue')}>Revenue</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleSort('participants')}>Participants</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleSort('attendance')}>Attendance</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
@@ -118,7 +148,7 @@ const EventHistory = () => {
 
             <div style={{marginBottom: '30px'}} />
             
-            {events.length > 0 ? 
+            {eventsStats.length > 0 ? 
                 (
                     <EventTable events={sortedEvent} />
                 ) : 

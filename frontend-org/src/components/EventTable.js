@@ -10,6 +10,7 @@ const EventTable = ({events}) => {
                 <th>End Date</th>
                 <th>Rating</th>
                 <th>Revenue</th>
+                <th>Participants</th>
                 <th>Attendance</th>
                 </tr>
             </thead>
@@ -22,9 +23,10 @@ const EventTable = ({events}) => {
                                 <td>{event.name}</td>
                                 <td>{new Date(event.start_date).toString()}</td>
                                 <td>{new Date(event.end_date).toString()}</td>
-                                <td>{event.rating}</td>
-                                <td>{event.revenue}</td>
-                                <td>{event.attendance}</td>
+                                <td>{event.total_rating}</td>
+                                <td>{event.total_income}</td>
+                                <td>{event.total_participant}</td>
+                                <td>{event.total_attendance}</td>
                             </tr>
     
                             );

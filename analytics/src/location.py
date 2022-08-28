@@ -112,6 +112,12 @@ def computeFeatures():
         else:
             distanceInfos[idx] = 1
     
+    
+    if len(sim_scores_aggregated) == 0:
+        event_indices = []
+        print(dfEvent['id'].iloc[event_indices])
+        return
+    
     sim_scores_final = sim_scores_aggregated[0]
 
     itr = 1

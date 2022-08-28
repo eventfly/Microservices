@@ -75,11 +75,7 @@ export class OrderPaidListener extends Listener {
                 },
                 tokens: tokens,
                 created_at: new Date(),
-                participant: {
-                    id: order.user_id,
-                    name: participant!.name,
-                    email: participant!.email
-                },
+                participant: order.user_id,
                 order_id: order._id
             });
             

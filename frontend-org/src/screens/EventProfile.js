@@ -75,7 +75,7 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
     useEffect(() => {
         console.log("isEditable: ", isEditable)
 
-        if(event){
+        if(event && event.tags){
             console.log('event is fetching...', event);
 
             setName(event.name)
@@ -199,8 +199,8 @@ const EventProfile = ({event, allTags, setLoading, isEditable}) => {
                     <div style={{ marginBottom: '40px' }} />
 
                     <MapBox 
-                        defaultLat={event.location[1]} 
-                        defaultLng={event.location[0]} 
+                        defaultLat={event && event.location ? event.location[1] : 23.8} 
+                        defaultLng={event && event.location ? event.location[0] : 90.4} 
                         onDrag={onDragMarker}
                         displayType={isEditable ? 'block' : 'none'}
                         displayMarker={'block'}
