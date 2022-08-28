@@ -101,8 +101,8 @@
 request payload:
 {
     "participantId": "630a3262044e45a64cb73e17",
-    "participantLng": 90.4331,
-    "participantLat": 23.7619
+    "participantLng": 90.4331, #participantLng means participant's location's lng
+    "participantLat": 23.7619  #participantLat means participant's location's lat
 },
 
 response:{
@@ -141,8 +141,8 @@ response:{
 request payload:
 {
     "participantId": "630a3262044e45a64cb73e17",
-    "participantLng": 90.4331,
-    "participantLat": 23.7619
+    "participantLng": 90.4331, #participantLng means participant provided lng (not participant's location's lng) 
+    "participantLat": 23.7619  #participantLat means participant provided lat (not participant's location's lat)
 },
 
 response:{

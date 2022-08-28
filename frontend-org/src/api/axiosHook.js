@@ -56,6 +56,21 @@ const getNewsfeedApi = (token) => {
   return api
 }
 
+
+const getParticipantApi = (token) => {
+  const api = axios.create({
+    baseURL: `http://localhost:3004/api/participant`,
+    headers: {
+      'Authorization': token,
+      'Content-Type': 'application/json',
+      'withCredentials': true
+    },
+    timeout: 5000
+  })
+
+  return api
+}
+
 const getPaymentApi = (token) => {
   const api = axios.create({
     baseURL: `http://localhost:3005/api/payment`,
@@ -71,4 +86,4 @@ const getPaymentApi = (token) => {
 }
 
 
-export {getAuthApi, getOrgApi, getEventApi, getNewsfeedApi, getPaymentApi}
+export {getAuthApi, getOrgApi, getEventApi, getNewsfeedApi, getParticipantApi, getPaymentApi}

@@ -83,7 +83,7 @@ const EventPage = () => {
                     console.log(res.data)
                     setEvent(res.data)
                 
-                    getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/staffs`).then((res)=>{
+                    getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/staffs`).then((res)=>{
                         console.log(res.data.staffs)
                         setOrgStaffs([...res.data.staffs])
                     
@@ -91,7 +91,7 @@ const EventPage = () => {
                         console.log(err.response.data.errors)
                     })
 
-                    getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/roles`).then((res)=>{
+                    getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/roles`).then((res)=>{
                         console.log(res.data.roles)
                         setOrgRoles([...res.data.roles])
                     
@@ -101,7 +101,7 @@ const EventPage = () => {
                 
                 
                 }).catch((err)=>{
-                    console.log(err.response.data.errors)
+                    console.log(err)
                 })
 
                 setLoading(true)
