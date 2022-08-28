@@ -82,6 +82,7 @@
 /api/newsfeed/edit-like                 PUT  (Like/Unlike a post)
 /api/newsfeed/post/:id/answer           PUT  (Answer a quiz/ Vote on a poll)
 /api/newsfeed/post/:id                  DELETE (Delete a post)
+/api/newsfeed/activity                  GET (Get a activity by post_id, user_id)
 ```
 
 ### PAYMENT Service
