@@ -7,12 +7,14 @@ import { Button } from 'react-bootstrap';
 import React, { useState } from 'react';
 import QuizAnswer from './QuizAnswer';
 import Carousel from "./Carousel";
-import SubscriptionModal from "../../Subscription/SubscriptionModal";
+import {getNewsfeedApi} from '../../../api/axiosHook'
+import { useParams } from "react-router-dom";
 
 
 
 
-const QuizModal = () => {
+const QuizModal = ({setAllPosts}) => {
+    const { eventId } = useParams();
 
     const [quizModalShow, setQuizModalShow] = useState(false);
     const [question, setQuestion] = useState('');
@@ -77,7 +79,7 @@ const QuizModal = () => {
 
         const newPost = {
             image: '',
-            poll_options: '',
+            poll_options: [],
             questions: questions,
             content: quizTopic,
         }
@@ -87,8 +89,15 @@ const QuizModal = () => {
         setQuizset([{question:'', answerList:[{answer:'', radioValue:'1'}]}])
         setQuizTopic('')
 
-        
+        getNewsfeedApi(localStorage.getItem('token')).post(`${eventId}/post`, newPost).then((res)=>{
+            console.log(res.data)
+            setAllPosts(allPosts => [...allPosts, res.data.post])
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
+
 
     const quizJSX = (
         <Stack gap={5}>
