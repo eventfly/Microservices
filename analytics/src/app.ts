@@ -10,6 +10,8 @@ import { currentUser } from './middlewares/current-user';
 
 import { NotFoundError } from './errors/not-found-error';
 import { orderedEventsRouter } from './routes/ordered-events';
+import { searchByLocationRouter } from './routes/search-by-location';
+import { searchByQueryRouter } from './routes/search-by-query';
 
 const app = express()
 app.use(cors({origin: '*'}));
@@ -35,6 +37,8 @@ app.use(
 )
 app.use(currentUser);
 app.use(orderedEventsRouter);
+app.use(searchByLocationRouter)
+app.use(searchByQueryRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
