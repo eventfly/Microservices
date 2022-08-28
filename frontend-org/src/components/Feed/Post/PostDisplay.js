@@ -5,13 +5,15 @@ import Comment from './Comment';
 
 // Icons
 import { Avatar } from '@material-ui/core';
-import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined } from '@material-ui/icons';
+import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined, Delete} from '@material-ui/icons';
+
 import {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import parse from 'html-react-parser'
 import { getNewsfeedApi } from '../../../api/axiosHook';
+import DeleteModal from '../DeleteModal';
 
-const PostDisplay = ({ profilePic, image, username, timestamp, message, post_id}) => {
+const PostDisplay = ({ profilePic, image, username, timestamp, message, post_id, allPosts, setAllPosts}) => {
     console.log(post_id);
 
     const [commentDisplayType, setCommentDisplayType] = useState('none');
@@ -115,10 +117,9 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message, post_id}
                     Comment
                 </div>
                 
-                <div className="postOption">
-                    <AccountCircle />
-                    <ExpandMoreOutlined />
-                </div>
+                
+                <DeleteModal post_id={post_id} setAllPosts={setAllPosts}/>
+
             </div>
             <Comment 
                 displayType={commentDisplayType}

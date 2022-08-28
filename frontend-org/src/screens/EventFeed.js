@@ -77,6 +77,7 @@ const EventFeed = () => {
                                             }
                                         })
                                     } 
+                                    poll_id = {post._id}
                                 />
                             )
                         }
@@ -97,6 +98,8 @@ const EventFeed = () => {
                                     timestamp={post.created_at}
                                     image={post.image} 
                                     post_id = {post._id}
+                                    allPosts={allPosts}
+                                    setAllPosts={setAllPosts}
                                     // image='https://i.redd.it/xmr50tmyqjh91.jpg'
                                 />
                             )
