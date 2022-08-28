@@ -5,12 +5,10 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import {useState} from 'react';
 import FormTextArea from '../../Form/FormTextArea';
+import {getNewsfeedApi} from '../../../api/axiosHook';
 
 
-const  Comment= ({displayType}) => {
-
-
-
+const  Comment= ({displayType, commentList, setCommentList, post_id}) => {
     const commentBoxStyle = {
         width: '100%',
         border: 'none',
@@ -23,30 +21,27 @@ const  Comment= ({displayType}) => {
     const handleEnter = (e) => {
         if(e.key === 'Enter' && !e.shiftKey){
             console.log(myComment);
-            setCommentList([{body: myComment, username: 'You'}, ...commentList]);
             setTimeout(() => {
                 setMyComment('');
             },100);
 
+            let comment = {
+                content: myComment,
+            }
+
+            getNewsfeedApi(localStorage.getItem('token')).post(`post/${post_id}/comment`,comment).then((res)=>{
+                setCommentList([...commentList, res.data.resp])
+                console.log(commentList)
+            })
+            .catch((err)=>{
+                console.log(err.response.data.errors)
+            })
+
+            
         }
     }
 
-    const comments = [
-        {
-            username: 'John Doe',
-            body: 'all the late night bargains have been struck',
-        },
-        {
-            username: 'John Doe',
-            body: 'all the late night bargains have been struck',
-        },
-        {
-            username: 'John Doe',
-            body: 'all the late night bargains have been struck',
-        },
-    ]
 
-    const [commentList, setCommentList] = useState(comments);
 
     return ( 
         <>
@@ -62,19 +57,19 @@ const  Comment= ({displayType}) => {
                         />
                     </ListGroup.Item>
                     {
-                        commentList.map((comment, index) => {
+                     commentList.map((comment, index) => {
                             return (
                                 <ListGroup.Item key={index}>
                                     <Card style={commentBoxStyle}>
                                         <Card.Header className='comment-header'>
-                                            <Avatar  className="postAvatar" />
+                                            <Avatar className="postAvatar" />
 
                                             <div className="postTopInfo">
-                                                <h3>{comment.username}</h3>
+                                                {comment.creator? <h3>{comment.creator.id.name}</h3> : <h3>Anonymous</h3>}
                                             </div>
                                         </Card.Header>
                                         <Card.Body>
-                                            {comment.body}
+                                            {comment.content}
                                         </Card.Body>
                                     </Card>
                                 </ListGroup.Item>
