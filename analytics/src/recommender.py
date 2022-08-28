@@ -136,6 +136,12 @@ def computeFeatures():
             sim_scores = list(enumerate(cosine_sim[idx]))
             sim_scores_aggregated.append(sim_scores)
     
+
+    if len(sim_scores_aggregated) == 0:
+        for index, event in dfEvent.iterrows():
+            sim_scores = list(enumerate(cosine_sim[index]))
+            sim_scores_aggregated.append(sim_scores)
+    
     
     sim_scores_final = sim_scores_aggregated[0]
     # print(sim_scores_final)
