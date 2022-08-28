@@ -23,21 +23,9 @@ const activitySchema = new mongoose.Schema({
             type: Number,
             required: false
         },
-        answers: [{
-            index: {
-                type: Number,
-                required: false
-            },
-            is_selected: {
-                type: Boolean,
-                required: false,
-                default: false
-            }
-        }],
-        time: {
-            type: Date,
-            required: false,
-            default: Date.now
+        answer_index: {
+            type: Number,
+            required: false
         },
         is_correct: {
             type: Boolean,

@@ -127,7 +127,7 @@ const EventList = () => {
 
         fetchEvent()
     
-    }, [auth, events, loading])
+    }, [auth, events, loading, eventSubset])
 
 
     function getTab(tab) {
@@ -158,21 +158,22 @@ const EventList = () => {
 
 
     let subset = [];
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (searchText.length === 0) {
-            subset = events
-            setEventSubset([...subset])
-        }
-        else {
-            subset = events.filter((event) => {
-                return event.name.toLowerCase().includes(searchText.toLowerCase())
-            })
 
-            // console.log(subset, subset.length)
-            setEventSubset([...subset])
-        }
-    }, [searchText])
+        // if (searchText.length === 0) {
+        //     subset = events
+        //     setEventSubset([...subset])
+        // }
+        // else {
+        //     subset = events.filter((event) => {
+        //         return event.name.toLowerCase().includes(searchText.toLowerCase())
+        //     })
+
+        //     console.log(subset, subset.length)
+        //     setEventSubset([...subset])
+        // }
+    // }, [searchText, loading])
 
 
     const handleKeyDown = async (e) => {
@@ -183,11 +184,22 @@ const EventList = () => {
             })
             console.log(res.data.events)
 
+            let searchResult = []
+
             res.data.events.map(async(ev_id)=>{
                 const event_data = await getEventApi(localStorage.getItem('token')).get(`/${ev_id}`)
 
-                console.log(event_data.data.event)
+                event_data.data.id = event_data.data.ref_id
+                delete event_data.data.ref_id
+                searchResult.push(event_data.data)
+
+                if(res.data.events.length == searchResult.length){
+                    setEventSubset([...searchResult])
+                    console.log(searchResult)
+                }
             })
+
+
         }
     }
 
@@ -213,7 +225,11 @@ const EventList = () => {
                     (eventSubset != null && eventSubset.length > 0) ? (
                         eventSubset.map(event => {
                             return (
-                                <EventPreview key={event.id} event={event} />
+                                <EventPreview 
+                                    key={event.id} 
+                                    event={event} 
+                                    eventId={event.id} 
+                                />
 
                             );
                         })

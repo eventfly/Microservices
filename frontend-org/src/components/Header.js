@@ -1,6 +1,7 @@
 import Nav from 'react-bootstrap/Nav';
 import {LinkContainer} from 'react-router-bootstrap';
 import { useEffect, useState } from "react";
+import logo from '../images/eventfly.png'
 
 const Header = ({loading, setLoading}) => {
 
@@ -27,9 +28,18 @@ const Header = ({loading, setLoading}) => {
         <header>
             {(sessionStorage.getItem('auth') != null) ?
                 <Nav className="justify-content-end px-3 py-2">
+
                     <LinkContainer to="/">
-                        <Nav.Link><i className="fa-solid fa-bell"></i></Nav.Link>
+                        
+                        <Nav.Link>
+                            {/* <i className="fa-solid fa-bell"></i> */}
+
+                            <img src={logo} className="header-logo"></img>
+
+                        </Nav.Link>
+                    
                     </LinkContainer>
+                    
                     
                     
                     <LinkContainer to="/profile/account">
@@ -49,6 +59,14 @@ const Header = ({loading, setLoading}) => {
                 
                 : (
                     <Nav className="justify-content-end px-3 py-2">
+                        <LinkContainer to="/">
+                            
+                            <Nav.Link>
+                                <img src={logo} className="header-logo"></img>
+                            </Nav.Link>
+                        
+                        </LinkContainer>
+
                         <LinkContainer to="/login" onClick={ () => {
 
                             setLoading(false)

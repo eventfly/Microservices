@@ -51,4 +51,8 @@ a{
   text-decoration: none;
 }
 
-
+.header-logo{
+  transform: translate(-1525%, -10px);
+  width: 70px;
+  height: 50px;
+}
