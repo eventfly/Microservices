@@ -6,7 +6,7 @@ import CreateEventStage2 from "../components/CreateEvent/Stage2";
 import CreateEventStage3 from "../components/CreateEvent/Stage3";
 
 import "../styles/CreateEvent.css"
-import {getOrgApi} from '../api/axiosHook'
+import {getOrgApi, getMailApi} from '../api/axiosHook'
 import ErrorPopup from "../components/ErrorPopup";
 import {v4 as uuid} from 'uuid'
 
@@ -125,6 +125,7 @@ const CreateEvent = () => {
     }
 
     const createEvent = () => {
+        console.log("create event called");
 
         let event = {
             type: type,
@@ -151,6 +152,27 @@ const CreateEvent = () => {
         console.log(event)
 
         getOrgApi(localStorage.getItem('token')).post('/event', event).then(res => {
+
+            let data = {
+                data: {
+                    title: name,
+                    description: desc,
+                    banner: bannerImage,
+                    link: `http://localhost:3006/event/${res.data.event.id}`,
+                    emails: event.mailList
+                }
+            }
+
+            getMailApi(localStorage.getItem('token')).post('', data).then(res => {
+                console.log("Sent request to backend for promoting event to " + event.mailList)
+                console.log("Mail response:")
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+                // setError(err.response.data.errors[0].message);
+            })
+
+            console.log("Org response:")
             console.log(res)
             navigate('/')
 
