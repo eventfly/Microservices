@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import "../styles/EventList.css"
 import { useNavigate} from 'react-router-dom';
 
-import {getOrgApi} from '../api/axiosHook'
+import {getOrgApi, getAnalyticsApi, getEventApi} from '../api/axiosHook'
 
 import Spinner from '../components/Spinner';
 
@@ -159,7 +159,7 @@ const EventList = () => {
 
     let subset = [];
     useEffect(() => {
-        console.log(searchText)
+
         if (searchText.length === 0) {
             subset = events
             setEventSubset([...subset])
@@ -169,15 +169,40 @@ const EventList = () => {
                 return event.name.toLowerCase().includes(searchText.toLowerCase())
             })
 
-            console.log(subset, subset.length)
+            // console.log(subset, subset.length)
             setEventSubset([...subset])
         }
     }, [searchText])
 
 
+    const handleKeyDown = async (e) => {
+        if(e.key === 'Enter'){
+
+            const res = await getAnalyticsApi(localStorage.getItem('token')).post('/search/query', {
+                query: searchText
+            })
+            console.log(res.data.events)
+
+            res.data.events.map(async(ev_id)=>{
+                const event_data = await getEventApi(localStorage.getItem('token')).get(`/${ev_id}`)
+
+                console.log(event_data.data.event)
+            })
+        }
+    }
+
+
     return (
         auth && <div className='EventList'>
-            <Searchbar searchText={searchText} setSearchText={setSearchText} />
+
+            <div onKeyDown={handleKeyDown}>
+                <Searchbar 
+                    searchText={searchText} 
+                    setSearchText={setSearchText} 
+                />
+            </div>
+
+
             <SlidingNav getData={getTab} canCreateEvent={isPageEditable() ? 'block' : 'none'} />
             
             <h2>Event List</h2>
