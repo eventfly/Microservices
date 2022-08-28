@@ -68,6 +68,7 @@
 /api/participant/event/:id/feedbacks    GET
 /api/participant/event/:id/statistics   GET (Get statistics of an event)
 /api/participant                        DELETE
+/api/participant/:id/feedbacks          GET (Get all feedbacks of a participant)
 ```
 
 ### NEWSFEED Service
