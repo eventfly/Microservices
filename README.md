@@ -118,7 +118,7 @@ response:{
 
 #### Recommendation without location
 ```
-/api/analytics/events                   POST
+/api/analytics/events/no-loc            POST
 request payload:
 {
     "participantId": "630a3262044e45a64cb73e17"
