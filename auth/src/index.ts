@@ -9,6 +9,7 @@ import { StaffPermissionEditedListener} from './listeners/staff-permission-edite
 import { StaffRoleEditedListener} from './listeners/staff-role-edited-listener';
 import { natsWrapper } from './nats-wrapper';
 import { ParticipantCreatedListener } from './listeners/participant-created-listener';
+import { ParticipantDeletedListener } from './listeners/participant-deleted-listener';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -56,6 +57,7 @@ const start = async () => {
     new StaffRemovedListener(natsWrapper.client).listen();
     new StaffPermissionEditedListener(natsWrapper.client).listen();
     new StaffRoleEditedListener(natsWrapper.client).listen();
+    new ParticipantDeletedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_AUTH}`, {
       useNewUrlParser: true,
