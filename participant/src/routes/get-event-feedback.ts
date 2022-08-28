@@ -13,7 +13,15 @@ router.get('/api/participant/event/:id/feedbacks', [],
     requireAuth, errorHandler, 
     async (req: Request, res: Response) => {
         const { id } = req.params;
-        const event = await Event.findById(id).populate('feedbacks');
+
+        const event = await Event.findById(id).populate({
+            path: 'feedbacks',
+            populate: {
+                'path': 'user_id',
+                'model' : 'Participant',
+                'select': '_id name role avatar email'
+            }
+        });
         
         if (!event) {
             throw new Error('Event not found');
