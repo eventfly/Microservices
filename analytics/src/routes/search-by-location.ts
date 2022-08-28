@@ -3,14 +3,13 @@ import { requireAuth } from '../middlewares/require-auth';
 import express, { Request, Response } from 'express';
 import { errorHandler } from '../middlewares/error-handler';
 import { Event } from '../models/event';
-import { Participant } from '../models/participant';
 import { BadRequestError } from '../errors/bad-request-error';
 import {spawn} from 'child_process';
 import {cwd} from 'process'
 
 const router = express.Router();
 
-router.post('/api/analytics/events', [
+router.post('/api/analytics/search/location', [
 
 ], 
 currentUser, 
@@ -19,21 +18,17 @@ errorHandler,
 
 async (req: Request, res:Response) => {
     
-    let {participantId, participantLng, participantLat} = req.body;
+    let {participantLng, participantLat} = req.body;
 
     const events = await Event.find({ }).populate('organizer')
     console.log(events.length)
 
-    const participant = await Participant.find({_id: participantId})
-
-    console.log(participant.length)
     console.log("running py script... ")
 
     let dataToSend : any;
     const python = spawn('python3', [
-        `${cwd()}/src/recommender.py`, 
-        JSON.stringify(events), 
-        JSON.stringify(participant),
+        `${cwd()}/src/location.py`, 
+        JSON.stringify(events),
         participantLng,
         participantLat
     ]);
@@ -70,4 +65,4 @@ async (req: Request, res:Response) => {
 
 });
 
-export { router as orderedEventsRouter };
+export { router as searchByLocationRouter };

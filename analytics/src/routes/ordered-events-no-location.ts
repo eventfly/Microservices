@@ -10,7 +10,7 @@ import {cwd} from 'process'
 
 const router = express.Router();
 
-router.post('/api/analytics/events', [
+router.post('/api/analytics/events/no-loc', [
 
 ], 
 currentUser, 
@@ -19,7 +19,7 @@ errorHandler,
 
 async (req: Request, res:Response) => {
     
-    let {participantId, participantLng, participantLat} = req.body;
+    let {participantId} = req.body;
 
     const events = await Event.find({ }).populate('organizer')
     console.log(events.length)
@@ -31,11 +31,9 @@ async (req: Request, res:Response) => {
 
     let dataToSend : any;
     const python = spawn('python3', [
-        `${cwd()}/src/recommender.py`, 
+        `${cwd()}/src/recommender-no-loc.py`, 
         JSON.stringify(events), 
-        JSON.stringify(participant),
-        participantLng,
-        participantLat
+        JSON.stringify(participant)
     ]);
 
     python.stdout.on('data', function (data : any) {
@@ -70,4 +68,4 @@ async (req: Request, res:Response) => {
 
 });
 
-export { router as orderedEventsRouter };
+export { router as orderedEventsNoLocationRouter };

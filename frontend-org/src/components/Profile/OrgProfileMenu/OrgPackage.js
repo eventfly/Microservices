@@ -4,6 +4,7 @@ import SubPackage from "../../Subscription/SubPackage";
 import {Link} from 'react-router-dom';
 
 import ChangeBillingDay from './ChangeBillingDay';
+import ColorList from "../../../constants/Color";
 
 const OrgPackage = ({orgPackage}) => {
     return ( 
@@ -15,7 +16,7 @@ const OrgPackage = ({orgPackage}) => {
                     <div style={{marginBottom: '40px'}} />
 
                     <SubPackage 
-                        headerColor={'navy'} 
+                        headerColorClass={orgPackage? ColorList[orgPackage.color]:ColorList['default']}
                         isBuyOptionAvailable={false}
                         pkgData={orgPackage} 
                     />

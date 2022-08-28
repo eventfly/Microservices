@@ -18,22 +18,9 @@ warnings.filterwarnings('ignore')
 
 
 eventsData = sys.argv[1]
-participantData = sys.argv[2]
-
-participantLng = sys.argv[3]
-participantLat = sys.argv[4]
+query = sys.argv[2]
 
 dfEvent = pd.read_json(eventsData)
-dfParticipant = pd.read_json(participantData)
-
-# print(participantLat, participantLng)
-
-# for index, event in dfEvent.iterrows():
-#     print(event['id'])
-
-# for i, row in dfParticipant.iterrows():
-#     pastEvents = row['events']
-#     print(pastEvents)
 
 
 def getVector(eventDesc):
@@ -69,32 +56,8 @@ def getEventTfidfVector():
 
 
 
-def calculateProximity(participantLocation, eventLocation):
-    eventLng = eventLocation[0]
-    eventLat = eventLocation[1]
-
-    participantLng = participantLocation[0]
-    participantLat = participantLocation[1]
-
-    # print(eventLng, eventLat, participantLng, participantLat) 
-
-    eventCoordinates = (eventLat, eventLng)
-    participantCoordinates = (participantLat, participantLng)
-
-    distance = geodesic(participantCoordinates, eventCoordinates).km
-    # print("distance: ", distance)
-    return distance
-
-
 
 def computeFeatures():
-
-    pastEvents = []
-
-    for i, row in dfParticipant.iterrows():
-        pastEvents = row['events']
-        
-    # print(pastEvents)
 
     boostScores = []
 
@@ -104,29 +67,25 @@ def computeFeatures():
 
     # print(boostScores)
 
-    distanceInfos = []
-    participantLocation = [participantLng, participantLat]
-
-    for i, event in dfEvent.iterrows():
-        dist = calculateProximity(participantLocation, event['location'])
-        distanceInfos.append(dist)
-
-    distanceSum = sum(distanceInfos)
-
-    for idx, item in enumerate(distanceInfos):
-        distanceInfos[idx] = item / distanceSum
-
-    # print(distanceInfos)
-
     eventsTfidfVector = getEventTfidfVector()
     cosine_sim = linear_kernel(eventsTfidfVector, eventsTfidfVector)
 
     sim_scores_aggregated = []
 
-    for pastEvent in pastEvents:
+    queryParams = query.split(' ')
+
+    for item in queryParams:
         idx = -1
         for index, event in dfEvent.iterrows():
-            if event['id'] == pastEvent:
+
+            tags = ''
+            for tag in event['tags']:
+                tags = tags + ' ' + tag['name']
+
+            item = item.lower()
+            tags = tags.lower()
+
+            if ((item in event['name'].lower()) or (item in event['description'].lower()) or (item in tags)):
                 idx = index
                 break
 
@@ -153,12 +112,16 @@ def computeFeatures():
 
     for idx, item in enumerate(sim_scores_final):
 
-        score = 0.7 * (item[1] / len(sim_scores_aggregated)) + 0.3 * (1 - distanceInfos[idx])
+        score = item[1] / len(sim_scores_aggregated)
         score = score * boostScores[idx]
         sim_scores_final[idx] = (idx, score)
     
 
     sim_scores_final = sorted(sim_scores_final, key=lambda x: x[1], reverse=True)
+    sim_scores_final = [a for a in sim_scores_final if a[1] > 0.000001]
+
+    # print(sim_scores_final)
+
     # sim_scores_final = sim_scores_final[0:5]
     event_indices = [i[0] for i in sim_scores_final]
     # print(event_indices)

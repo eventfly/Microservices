@@ -18,22 +18,12 @@ warnings.filterwarnings('ignore')
 
 
 eventsData = sys.argv[1]
-participantData = sys.argv[2]
 
-participantLng = sys.argv[3]
-participantLat = sys.argv[4]
+participantLng = sys.argv[2]
+participantLat = sys.argv[3]
 
 dfEvent = pd.read_json(eventsData)
-dfParticipant = pd.read_json(participantData)
 
-# print(participantLat, participantLng)
-
-# for index, event in dfEvent.iterrows():
-#     print(event['id'])
-
-# for i, row in dfParticipant.iterrows():
-#     pastEvents = row['events']
-#     print(pastEvents)
 
 
 def getVector(eventDesc):
@@ -89,56 +79,40 @@ def calculateProximity(participantLocation, eventLocation):
 
 def computeFeatures():
 
-    pastEvents = []
-
-    for i, row in dfParticipant.iterrows():
-        pastEvents = row['events']
-        
-    # print(pastEvents)
-
     boostScores = []
 
     for i, event in dfEvent.iterrows():
         org = event['organizer']
         boostScores.append(org['boost_factor'])
 
-    # print(boostScores)
-
-    distanceInfos = []
     participantLocation = [participantLng, participantLat]
-
-    for i, event in dfEvent.iterrows():
-        dist = calculateProximity(participantLocation, event['location'])
-        distanceInfos.append(dist)
-
-    distanceSum = sum(distanceInfos)
-
-    for idx, item in enumerate(distanceInfos):
-        distanceInfos[idx] = item / distanceSum
-
-    # print(distanceInfos)
 
     eventsTfidfVector = getEventTfidfVector()
     cosine_sim = linear_kernel(eventsTfidfVector, eventsTfidfVector)
 
     sim_scores_aggregated = []
+    distanceInfos = []
 
-    for pastEvent in pastEvents:
-        idx = -1
-        for index, event in dfEvent.iterrows():
-            if event['id'] == pastEvent:
-                idx = index
-                break
+    for index, event in dfEvent.iterrows():
+        eventLocation = event['location']
+        dist = calculateProximity(participantLocation, event['location'])
+        distanceInfos.append(dist)
 
-        # print(idx)
-
-        if(idx != -1):
-            sim_scores = list(enumerate(cosine_sim[idx]))
+        if(dist <= 10):
+            sim_scores = list(enumerate(cosine_sim[index]))
             sim_scores_aggregated.append(sim_scores)
+
     
+    
+    distanceSum = sum(distanceInfos)
+
+    for idx, item in enumerate(distanceInfos):
+        if item <= 10:
+            distanceInfos[idx] = item / distanceSum
+        else:
+            distanceInfos[idx] = 1
     
     sim_scores_final = sim_scores_aggregated[0]
-    # print(sim_scores_final)
 
     itr = 1
 
@@ -153,14 +127,17 @@ def computeFeatures():
 
     for idx, item in enumerate(sim_scores_final):
 
-        score = 0.7 * (item[1] / len(sim_scores_aggregated)) + 0.3 * (1 - distanceInfos[idx])
+        score = 1 - distanceInfos[idx]
         score = score * boostScores[idx]
         sim_scores_final[idx] = (idx, score)
     
 
     sim_scores_final = sorted(sim_scores_final, key=lambda x: x[1], reverse=True)
-    # sim_scores_final = sim_scores_final[0:5]
+    sim_scores_final = [a for a in sim_scores_final if a[1] > 0.000001]
+
     event_indices = [i[0] for i in sim_scores_final]
+
+    # print(sim_scores_final)
     # print(event_indices)
 
     # print(dfEvent['name'].iloc[event_indices])
