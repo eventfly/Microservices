@@ -69,6 +69,7 @@
 /api/participant/event/:id/statistics   GET (Get statistics of an event)
 /api/participant                        DELETE
 /api/participant/:id/feedbacks          GET (Get all feedbacks of a participant)
+/api/participant/event/:id/status       GET (Get a boolean indicating whether the user is registered)
 ```
 
 ### NEWSFEED Service
