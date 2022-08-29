@@ -40,7 +40,9 @@ const OrgAccount = ({orgData}) => {
             setEmail(orgData.email)
             setName(orgData.name)
             setAccType(orgData.role)
-            setDate(orgData.created_at.split(':')[0]+':'+orgData.created_at.split(':')[1])
+            if(orgData.created_at){
+                setDate(orgData.created_at.split(':')[0]+':'+orgData.created_at.split(':')[1])
+            }
             setProfileImage(orgData.profile_pic)
         }
     } , [orgData])
@@ -174,8 +176,17 @@ const OrgAccount = ({orgData}) => {
                         onChange={setAccType}
                     />
 
-                    <DatePicker label="Joined On" onChange={setDate} isDisabled={true} defaultDate={date}/>
-
+                    {
+                        auth.role != 'Manager' ? (
+                            <DatePicker 
+                                label="Joined On" 
+                                onChange={setDate} 
+                                isDisabled={true} 
+                                defaultDate={date}
+                            />
+                        ) : ( <></>)
+                    }
+                    
                     <br/>
 
                     <FormButton type="submit" buttonText="Save" />

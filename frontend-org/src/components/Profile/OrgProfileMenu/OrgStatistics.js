@@ -28,7 +28,13 @@ const OrgStatistics = () => {
 
         if (auth && auth.ref_id && loading == false) {
             
-            getOrgApi(localStorage.getItem('token')).get(`/event/${auth.ref_id}`).then((res)=>{
+            let orgId = auth.ref_id
+
+            if(auth.role == 'Manager'){
+                orgId = auth.parentOrg
+            }
+
+            getOrgApi(localStorage.getItem('token')).get(`/event/${orgId}`).then((res)=>{
 
                 console.log('events: ', res.data);
 
