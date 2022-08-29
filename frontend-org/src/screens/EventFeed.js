@@ -55,9 +55,7 @@ const EventFeed = () => {
             <FeedHeader setAllPosts={setAllPosts} />  
 
             <div className='feed-container'>
-                
-                <QuizResultPreview />
-
+                    
                 {
                     allPosts &&
                     allPosts.map((post, index)=>{
@@ -82,10 +80,15 @@ const EventFeed = () => {
                             )
                         }
 
-                        // else if(post.questions.length > 0){
-                        //     return(
-                        //         <QuizResultPreview
-                        //             key={index}
+                        else if(post.questions.length > 0){
+                            return(
+                                <QuizResultPreview
+                                    key={index}
+                                    quizTopic={post.content}
+                                    post_id={post._id}
+                                />
+                            )
+                        }
 
 
                         else{

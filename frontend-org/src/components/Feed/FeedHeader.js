@@ -65,7 +65,7 @@ function FeedHeader({setAllPosts}) {
                 </Row>
             </Container>
 
-            <Tabs
+            {/* <Tabs
                 style={headerStyle}
                 defaultActiveKey="all"
                 id="fill-tab-example"
@@ -86,7 +86,7 @@ function FeedHeader({setAllPosts}) {
                     hmm3
                 </Tab>
                 <Button variant="primary" className="event-feed-header-button"> sdflj </Button>
-            </Tabs>
+            </Tabs> */}
             
         </>
   );

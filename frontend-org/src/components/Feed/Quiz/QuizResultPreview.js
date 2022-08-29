@@ -11,17 +11,6 @@ const resData = [
   { id: 1, text: 'Correct', votes: 30 },
 ]
 
-const quizTopic = (
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  }}
-  >
-    <p>A quiz about Nothing</p>
-    <p style={{fontSize: 'small',color: 'gray'}}>17/8/22</p>
-  </div>
-)
 
 // Object keys may vary on the poll type (see the 'Theme options' table below)
 const customTheme = {
@@ -45,24 +34,41 @@ const quizStyle = {
     // height: auto;
 }
 
-const QuizResultPreview = () => {
+const QuizResultPreview = ({quizTopic,post_id}) => {
   const { eventId } = useParams(); 
 
   return (
     <div className='quiz-result' style={quizStyle}>
-        <LeafPoll
+        {/* <LeafPoll
             type='multiple'
             question={quizTopic}
             results={resData}
             theme={customTheme}
             //   onVote={vote}
             isVoted={true}
-        />
+        /> */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+        }}
+        >
+          <p>{quizTopic}</p>
+          {/* <p style={{fontSize: 'small',color: 'gray'}}>17/8/22</p> */}
+        </div>
+
         <Container>
             <Row>
-                <Col xs={{offset:9, span:3}}>
-                  <Link to={`/event/${eventId}/discussion/quiz/676`}>
-                    View Details
+                <Col xs={{offset:8, span:4}}>
+                  <Link 
+                    to={`/event/${eventId}/discussion/quiz`}
+                    state={{
+                      quizTopic: {quizTopic},
+                      post_id: {post_id}
+
+                    }}
+                  >
+                    View Quiz Details
                   </Link>
                 </Col>
             </Row>
