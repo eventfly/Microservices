@@ -66,7 +66,8 @@ const MdPostModal = ({setAllPosts}) => {
             content: content,
             image: postImage,
             poll_options: [],
-            questions: []
+            questions: [],
+            post_type: 'text'
         }
 
         console.log(post)
