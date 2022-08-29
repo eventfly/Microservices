@@ -7,6 +7,7 @@ import { EventCreatedListener } from './listeners/event-created-listener';
 import { EventParticipantAddedListener } from './listeners/event-participant-added-listener';
 import { ParticipantCreatedListener } from './listeners/participant-created-listener';
 import { StaffAssignedListener } from './listeners/staff-assigned-listener';
+import { ParticipantUpdatedListener } from './listeners/participant-updated-listener';
 import { natsWrapper } from './nats-wrapper';
 
 const start = async () => {
@@ -51,6 +52,7 @@ const start = async () => {
     new StaffAssignedListener(natsWrapper.client).listen();
     new EventParticipantAddedListener(natsWrapper.client).listen();
     new OrgCreatedListener(natsWrapper.client).listen();
+    new ParticipantUpdatedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_NEWSFEED}`, {
       useNewUrlParser: true,
