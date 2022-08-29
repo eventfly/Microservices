@@ -20,7 +20,6 @@ const EventFeed = () => {
     const location = useLocation().pathname;
     const { eventId } = useParams();
 
-    const mess = 'sdfkjfsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhff sdjfnajkebfkjsdfasdf a sdufhak ad asduifhae uhffsdjfnajkeb fkjsdfasdf a sdufhak ad asduifhaeuhffsdjfnajkebfkjsdfasdf a sdufhak ad asduifhaeuhfa kdfcicch9eurf a efifh389 fu uiefh8e'
     const [allPosts, setAllPosts] = useState(null);
     const [loading, setLoading] = useState(false);
     const [eventFeed, setEventFeed] = useState(null);
@@ -31,6 +30,7 @@ const EventFeed = () => {
 
             if(loading == false){
                 getNewsfeedApi(localStorage.getItem('token')).get(`${eventId}/post`).then((res)=>{
+                    console.log(res)
                     console.log(res.data.event)
                     setEventFeed(res.data.event)
                     setAllPosts([...res.data.event.posts])
@@ -55,12 +55,7 @@ const EventFeed = () => {
             <FeedHeader setAllPosts={setAllPosts} />  
 
             <div className='feed-container'>
-
-                {/* {
-                                location.includes('quiz') ? <QuizResultDetails />:<EventFeed /> 
-
-                } */}
-                {/* <PollResult pollData={[]} /> */}
+                
                 <QuizResultPreview />
 
                 {
@@ -82,18 +77,29 @@ const EventFeed = () => {
                                             }
                                         })
                                     } 
+                                    poll_id = {post._id}
                                 />
                             )
                         }
+
+                        // else if(post.questions.length > 0){
+                        //     return(
+                        //         <QuizResultPreview
+                        //             key={index}
+
 
                         else{
                             return(
                                 <PostDisplay
                                     key={index} 
+                                    profilePic={post.creator.avatar}
                                     message={post.content} 
                                     username={post.creator.name} 
                                     timestamp={post.created_at}
                                     image={post.image} 
+                                    post_id = {post._id}
+                                    allPosts={allPosts}
+                                    setAllPosts={setAllPosts}
                                     // image='https://i.redd.it/xmr50tmyqjh91.jpg'
                                 />
                             )
@@ -101,10 +107,6 @@ const EventFeed = () => {
                     })
                 }
 
-                {/* <PostDisplay message={mess} username='jawad' timestamp='14/8/2022' image='https://i.redd.it/xmr50tmyqjh91.jpg'/>
-                <PostDisplay message={mess} username='jawad' timestamp='14/8/2022' image='https://i.redd.it/4diyr90qddg91.jpg'/>
-                <PostDisplay message={mess} username='jawad' timestamp='14/8/2022' image='https://i.redd.it/d6kybhyceqh91.jpg'/>
-                <PostDisplay message={mess} username='jawad' timestamp='14/8/2022'image='https://i.redd.it/tfur3uql6fh91.jpg'/> */}
 
             </div>
           

@@ -101,7 +101,7 @@ const EventFeedback = () => {
 
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={()=>handleSort("rating")}>Rating</Dropdown.Item>
-                                    <Dropdown.Item onClick={()=>handleSort("newest")} >Newest</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>handleSort("newest")}>Newest</Dropdown.Item>
                                     <Dropdown.Item onClick={()=>handleSort("oldest")}>Oldest</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

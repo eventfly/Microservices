@@ -2,7 +2,7 @@ import "../styles/Subscription.css";
 import SubPackage from "../components/Subscription/SubPackage";
 import { useState, useEffect } from 'react';
 import {getOrgApi} from '../api/axiosHook'
-import ColorList from "../constants/Color";
+import {ColorList} from "../constants/Color";
 
 
 const Subscription = () => {
