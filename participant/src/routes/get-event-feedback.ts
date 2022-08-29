@@ -19,7 +19,7 @@ router.get('/api/participant/event/:id/feedbacks', [],
             populate: {
                 'path': 'user_id',
                 'model' : 'Participant',
-                'select': '_id name role avatar email'
+                'select': '_id name avatar email'
             }
         });
         

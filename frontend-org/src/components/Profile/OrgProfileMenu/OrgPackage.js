@@ -4,7 +4,7 @@ import SubPackage from "../../Subscription/SubPackage";
 import {Link} from 'react-router-dom';
 
 import ChangeBillingDay from './ChangeBillingDay';
-import ColorList from "../../../constants/Color";
+import {ColorList} from "../../../constants/Color";
 
 const OrgPackage = ({orgPackage}) => {
     return ( 

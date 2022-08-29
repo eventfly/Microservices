@@ -60,7 +60,15 @@ router.post('/api/newsfeed/post/:postId/comment', [
         await post.save();
         await activity.save();
 
-        res.status(201).send({ post });
+        let resp = {
+            content: content,
+            creator: {
+                id: {
+                    name: user!.name,
+                }
+            },
+        }
+        res.status(201).send({ resp });
     }
 )
 

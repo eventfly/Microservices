@@ -5,14 +5,23 @@ import Comment from './Comment';
 
 // Icons
 import { Avatar } from '@material-ui/core';
-import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined } from '@material-ui/icons';
-import {useState} from 'react';
+import { ThumbUp, ChatBubbleOutline, AccountCircle, NearMe, ExpandMoreOutlined, Delete} from '@material-ui/icons';
+
+import {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import parse from 'html-react-parser'
+import { getNewsfeedApi } from '../../../api/axiosHook';
+import DeleteModal from '../DeleteModal';
 
-const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
+const PostDisplay = ({ profilePic, image, username, timestamp, message, post_id, allPosts, setAllPosts}) => {
+    console.log(post_id);
 
     const [commentDisplayType, setCommentDisplayType] = useState('none');
+
+    const [commentList, setCommentList] = useState([]);
+
+    const [loading, setLoading] = useState(false);
+
 
     const dateFormatter = (time) => {
         let date = time.split('T')[0]
@@ -36,6 +45,31 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
             setCommentDisplayType('none');
         }
     }
+
+    useEffect(() =>{
+
+        async function fetchComments(){
+
+            if(loading == false){
+                //if(commentDisplayType === 'none'){
+                    getNewsfeedApi(localStorage.getItem('token')).get(`post/${post_id}/comment`).then((res)=>{
+                        console.log(res)
+                        console.log(res.data.post.comments)
+                        setCommentList([...res.data.post.comments])
+                    })
+                    .catch((err)=>{
+                        console.log(err.response.data.errors)
+                    })
+
+                    setLoading(true)
+                }
+            }
+      //  }
+
+        fetchComments()
+
+
+    }, [loading, commentDisplayType, commentList])
 
     const [buttonDisplay, setButtonDisplay] = useState(message.length > 300 ? 'inline' : 'none');
     const [shownMessage, setShownMessage] = useState(message.substring(0, 300));
@@ -83,12 +117,16 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message }) => {
                     Comment
                 </div>
                 
-                <div className="postOption">
-                    <AccountCircle />
-                    <ExpandMoreOutlined />
-                </div>
+                
+                <DeleteModal post_id={post_id} setAllPosts={setAllPosts}/>
+
             </div>
-            <Comment  displayType={commentDisplayType} />
+            <Comment 
+                displayType={commentDisplayType}
+                commentList={commentList} 
+                setCommentList={setCommentList}
+                post_id={post_id}
+            />
         </div>
     )
 }
