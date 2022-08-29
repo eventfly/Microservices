@@ -27,8 +27,9 @@ const DeleteModal = ({post_id, allPosts, setAllPosts}) => {
 
 
         getNewsfeedApi(localStorage.getItem('token')).delete(`post/${post_id}`).then((res)=>{
-            setAllPosts( allPosts => allPosts.filter(post => post.id !== post_id) )
-            console.log(res)
+            let newArr = [...allPosts.filter(post => post._id != post_id)]
+            setAllPosts(newArr)
+            //console.log(res)
         })
         .catch((err)=>{
             console.log(err)

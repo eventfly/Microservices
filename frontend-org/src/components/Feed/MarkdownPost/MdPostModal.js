@@ -132,7 +132,7 @@ const MdPostModal = ({setAllPosts}) => {
 
     return ( 
         <>
-            <Button variant="contained" color="primary" onClick={ () => setPostModalShow(true)}> Add Md post</Button>    
+            <Button variant="contained" color="primary" onClick={ () => setPostModalShow(true)}> Add Post</Button>    
 
             <PopupModal
                 show={postModalShow}
