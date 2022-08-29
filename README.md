@@ -86,6 +86,7 @@
 /api/newsfeed/post/:id/answer           PUT  (Answer a quiz/ Vote on a poll)
 /api/newsfeed/post/:id                  DELETE (Delete a post)
 /api/newsfeed/post/:id/activity         GET (Get a activity by post_id)
+/api/newsfeed/post/:id/activity/all     GET (Get all activities under a post sorted by quiz_score)
 ```
 
 ### PAYMENT Service

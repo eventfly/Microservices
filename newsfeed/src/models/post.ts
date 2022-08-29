@@ -65,6 +65,11 @@ const postSchema = new mongoose.Schema({
             is_correct: {
                 type: Boolean,
                 required: false
+            },
+            count: {
+                type: Number,
+                required: false,
+                default: 0
             }
         }]
     }],
@@ -76,6 +81,11 @@ const postSchema = new mongoose.Schema({
         description: {
             type: String,
             required: false
+        },
+        count: {
+            type: Number,
+            required: false,
+            default: 0
         }
     }],
     mentions: [{

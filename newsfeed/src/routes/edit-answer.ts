@@ -68,10 +68,23 @@ router.put('/api/newsfeed/post/:id/answer',
         } else if (quiz_answers) {
             
             activity.quiz_answers = quiz_answers;
+
+            activity.quiz_answers.forEach( (answer : any) => {
+                const { question_index, answer_index } = answer;
+
+                post.questions[question_index].answers[answer_index].count += 1;
+
+                if (post.questions[question_index].answers[answer_index].is_correct) {
+                    activity.quiz_score += 1;
+                    answer.is_correct = true;
+                }
+
+            });
             
         }
 
         await activity.save();
+        await post.save();
 
         res.status(200).send(activity);
 

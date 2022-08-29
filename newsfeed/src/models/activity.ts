@@ -35,11 +35,13 @@ const activitySchema = new mongoose.Schema({
     }],
     quiz_score: {
         type: Number,
-        required: false
+        required: false,
+        default: 0
     },
     is_quiz_completed: {
         type: Boolean,
-        required: false
+        required: false,
+        default: false
     },
     total_time: {
         type: Number,

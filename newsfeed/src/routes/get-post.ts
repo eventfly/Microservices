@@ -27,7 +27,7 @@ router.get('/api/newsfeed/post/:postId', currentUser, requireAuth, errorHandler,
     const activities = await Activity.find({post_id: id});
         
     let poll_options = post.poll_options;
-    
+
     console.log(post.poll_options);
 
     if (post.poll_options.length > 0) {
@@ -43,6 +43,8 @@ router.get('/api/newsfeed/post/:postId', currentUser, requireAuth, errorHandler,
 
         })
     }
+
+    
 
 
     res.status(200).send({ post });
