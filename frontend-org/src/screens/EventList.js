@@ -157,25 +157,6 @@ const EventList = () => {
     }
 
 
-    let subset = [];
-    // useEffect(() => {
-
-
-        // if (searchText.length === 0) {
-        //     subset = events
-        //     setEventSubset([...subset])
-        // }
-        // else {
-        //     subset = events.filter((event) => {
-        //         return event.name.toLowerCase().includes(searchText.toLowerCase())
-        //     })
-
-        //     console.log(subset, subset.length)
-        //     setEventSubset([...subset])
-        // }
-    // }, [searchText, loading])
-
-
     const handleKeyDown = async (e) => {
         if(e.key === 'Enter'){
 

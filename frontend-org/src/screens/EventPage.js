@@ -91,11 +91,20 @@ const EventPage = () => {
                     console.log(res.data)
                     setEvent(res.data)
 
-                    if(auth.ref_id == res.data.organizer){
+                    let isStaffAssigned = []
+
+                    if(auth.role != 'Organizer' && auth.role != 'Manager'){
+                        isStaffAssigned = auth.events.filter((event)=>{
+                            return event.eventId == eventId
+                        })
+                    }
+
+                    if(auth.ref_id == res.data.organizer || 
+                        (auth.parentOrg == res.data.organizer && isStaffAssigned.length == 1)){
 
                         setIsSelf(true)
                 
-                        getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/staffs`).then((res)=>{
+                        getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/staffs`).then((res)=>{
                             console.log(res.data.staffs)
                             setOrgStaffs([...res.data.staffs])
                         
@@ -103,7 +112,7 @@ const EventPage = () => {
                             console.log(err)
                         })
 
-                        getOrgApi(localStorage.getItem('token')).get(`/${auth.ref_id}/roles`).then((res)=>{
+                        getOrgApi(localStorage.getItem('token')).get(`/${res.data.organizer}/roles`).then((res)=>{
                             console.log(res.data.roles)
                             setOrgRoles([...res.data.roles])
                         
