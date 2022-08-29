@@ -6,6 +6,8 @@ import { errorHandler } from '../middlewares/error-handler';
 
 import { Event } from '../models/event';
 
+import { Activity } from '../models/activity';
+
 const router = express.Router();
 
 router.get('/api/newsfeed/:eventId/post', 
@@ -23,6 +25,7 @@ router.get('/api/newsfeed/:eventId/post',
         if (!event) {
             throw new Error('Event not found');
         }
+
 
         res.status(200).send({ event });
 

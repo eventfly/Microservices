@@ -5,6 +5,7 @@ import { currentUser } from '../middlewares/current-user';
 import { requireAuth } from '../middlewares/require-auth';
 import { validateRequest } from '../middlewares/validate-request';
 import { Participant } from '../models/participant';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -29,6 +30,10 @@ router.put('/api/participant/:id/edit', [
         if (email) user.email = email;
         if (password) user.password = password;
         if (avatar) user.avatar = avatar;
+
+        natsWrapper.client.publish('participant:updated', JSON.stringify({
+            user
+        }));
 
         user.updatedAt = new Date();
         await user.save();

@@ -37,7 +37,8 @@ router.post('/api/newsfeed/:eventId/post',
             content,
             image,
             poll_options,
-            questions
+            questions,
+            post_type
         } = req.body;
 
         //Add a post to the database
@@ -55,7 +56,8 @@ router.post('/api/newsfeed/:eventId/post',
             questions,
             created_at: new Date(),
             updated_at: new Date(),
-            image: image
+            image: image,
+            post_type
         });
 
         

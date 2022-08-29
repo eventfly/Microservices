@@ -7,6 +7,7 @@ import { EventCreatedListener } from './listeners/event-created-listener';
 import { EventParticipantAddedListener } from './listeners/event-participant-added-listener';
 import { ParticipantCreatedListener } from './listeners/participant-created-listener';
 import { StaffAssignedListener } from './listeners/staff-assigned-listener';
+import { ParticipantUpdatedListener } from './listeners/participant-updated-listener';
 import { ManagerCreatedListener } from './listeners/manager-created-listener';
 import { StaffRemovedListener } from './listeners/staff-removed-listener';
 import { StaffProfileEditedListener } from './listeners/staffProfile-edited-listener';
@@ -55,6 +56,7 @@ const start = async () => {
     new StaffAssignedListener(natsWrapper.client).listen();
     new EventParticipantAddedListener(natsWrapper.client).listen();
     new OrgCreatedListener(natsWrapper.client).listen();
+    new ParticipantUpdatedListener(natsWrapper.client).listen();
     new ManagerCreatedListener(natsWrapper.client).listen();
     new StaffRemovedListener(natsWrapper.client).listen();
     new StaffProfileEditedListener(natsWrapper.client).listen();

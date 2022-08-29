@@ -12,7 +12,7 @@ router.get('/api/newsfeed/feed', currentUser, requireAuth, errorHandler, async (
     var {start, count} = req.query;
 
 
-    const feed = await Feed.find(
+    const feed = await Feed.findOne(
         {
             user_id: new ObjectId(req.currentUser!.ref_id)
         }
