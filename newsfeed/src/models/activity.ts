@@ -64,6 +64,11 @@ const activitySchema = new mongoose.Schema({
             type: Boolean,
             required: false,
             default: false
+        },
+        count: {
+            type: Number,
+            required: false,
+            default: 0
         }
     }],
     comments: [{
