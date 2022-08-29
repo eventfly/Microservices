@@ -39,6 +39,12 @@ export class EventParticipantAddedListener extends Listener {
             await feed.save();
         }
 
+        event.posts.forEach(( post: any ) => {
+            feed.posts.push(post._id);
+        });
+
+        await feed.save();
+    
         msg.ack();
 
         

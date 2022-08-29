@@ -1,5 +1,6 @@
 import { Listener } from '@thr_org/common'
 import { Message } from 'node-nats-streaming'
+import { Feed } from '../models/feed';
 import { User } from '../models/user';
 
 export class ParticipantCreatedListener extends Listener {
@@ -20,7 +21,19 @@ export class ParticipantCreatedListener extends Listener {
         })
 
         await user.save();
+
+        var feed = await Feed.findOne({
+            user_id: data._id
+        });
         
+        if (!feed) {
+            feed = Feed.build({
+                user_id: user._id
+            });
+
+            await feed.save();
+        }
+
         msg.ack();
     }
 
