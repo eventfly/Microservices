@@ -6,6 +6,8 @@ import { currentUser } from '../middlewares/current-user';
 import { errorHandler } from '../middlewares/error-handler';
 import { validateRequest } from '../middlewares/validate-request';
 import { Post } from '../models/post';
+import { Activity } from '../models/activity';
+
 
 const router = express.Router();
 
@@ -17,6 +19,34 @@ router.get('/api/newsfeed/post/:postId', currentUser, requireAuth, errorHandler,
     if (!post) {
         throw new Error('Post not found');
     }
+
+
+    const id = post._id;
+
+    const activities = await Activity.find({post_id: id});
+        
+    let poll_options = post.poll_options;
+
+    post.poll_options = poll_options.map( (obj:any) => {
+        return {...obj, count: 0}
+    });
+
+    console.log(poll_options);
+
+    if (post.poll_options.length > 0) {
+        activities.forEach( async ( activity : any) => {
+            const poll_answers = activities.poll_options;
+
+            poll_answers.forEach( (element:any) => {
+                if (element.is_selected) {
+                    poll_options[element.index].count += 1;
+                }
+                
+            })
+
+        })
+    }
+    
 
     res.status(200).send({ post });
 });

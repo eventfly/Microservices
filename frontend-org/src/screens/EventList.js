@@ -100,6 +100,9 @@ const EventList = () => {
                 if(auth.role != 'Organizer' && auth.role != 'Manager'){
                     route = `/event/staff/${auth.ref_id}`
                 }
+                else if(auth.role == 'Manager'){
+                    route = `/event/${auth.parentOrg}`
+                }
                 
                 getOrgApi(localStorage.getItem('token')).get(route).then((res)=>{
                     console.log(res.data)

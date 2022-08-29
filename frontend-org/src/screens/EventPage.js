@@ -99,7 +99,8 @@ const EventPage = () => {
                         })
                     }
 
-                    if(auth.ref_id == res.data.organizer || 
+                    if((auth.ref_id == res.data.organizer || 
+                        (auth.role == 'Manager' && auth.parentOrg == res.data.organizer )) || 
                         (auth.parentOrg == res.data.organizer && isStaffAssigned.length == 1)){
 
                         setIsSelf(true)

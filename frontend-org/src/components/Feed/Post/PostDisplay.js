@@ -118,7 +118,7 @@ const PostDisplay = ({ profilePic, image, username, timestamp, message, post_id,
                 </div>
                 
                 
-                <DeleteModal post_id={post_id} setAllPosts={setAllPosts}/>
+                <DeleteModal post_id={post_id} setAllPosts={setAllPosts} allPosts={allPosts}/>
 
             </div>
             <Comment 

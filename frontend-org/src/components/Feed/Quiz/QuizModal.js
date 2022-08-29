@@ -82,6 +82,7 @@ const QuizModal = ({setAllPosts}) => {
             poll_options: [],
             questions: questions,
             content: quizTopic,
+            post_type: 'quiz'
         }
 
 

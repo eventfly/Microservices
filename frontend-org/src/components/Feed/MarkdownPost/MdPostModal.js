@@ -58,15 +58,14 @@ const MdPostModal = ({setAllPosts}) => {
         //     return;
         // }
         // setContent(html);
-        console.log(html)
-        console.log(content)
         setPostModalShow(false);
 
         let post = {
             content: content,
             image: postImage,
             poll_options: [],
-            questions: []
+            questions: [],
+            post_type: 'text'
         }
 
         console.log(post)
@@ -89,7 +88,7 @@ const MdPostModal = ({setAllPosts}) => {
 
     // Finish!
     function handleEditorChange({ html, text }) {
-        console.log('handleEditorChange\n',"html:\n", html,"\ntext:\n", text);
+        // console.log('handleEditorChange\n',"html:\n", html,"\ntext:\n", text);
         setHtml(html);
         setContent(html);
     }
@@ -132,7 +131,7 @@ const MdPostModal = ({setAllPosts}) => {
 
     return ( 
         <>
-            <Button variant="contained" color="primary" onClick={ () => setPostModalShow(true)}> Add Md post</Button>    
+            <Button variant="contained" color="primary" onClick={ () => setPostModalShow(true)}> Add Post</Button>    
 
             <PopupModal
                 show={postModalShow}

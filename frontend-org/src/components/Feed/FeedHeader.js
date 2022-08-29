@@ -54,7 +54,7 @@ function FeedHeader({setAllPosts}) {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                 <div className="feed-dropdown-item"> <PostModal setAllPosts={setAllPosts} /> </div>  
+                                 {/* <div className="feed-dropdown-item"> <PostModal setAllPosts={setAllPosts} /> </div>   */}
                                  <div className="feed-dropdown-item"> <PollModal setAllPosts={setAllPosts} /> </div> 
                                  <div className="feed-dropdown-item"> <QuizModal setAllPosts={setAllPosts} /> </div> 
                                  <div className="feed-dropdown-item"> <MdPostModal setAllPosts={setAllPosts}/> </div>
