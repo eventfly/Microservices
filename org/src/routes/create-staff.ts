@@ -73,6 +73,19 @@ router.post('/api/org/staff', [
                 }
             ));
 
+            if(role == 'Manager'){
+                natsWrapper.client.publish('manager:created', JSON.stringify(
+                    { 
+                        name: staff.name,
+                        email: staff.email, 
+                        role: staff.role,
+                        ref_id: staff.id, 
+                        password: staff.otp!,
+                        permissions: staff.permissions!
+                    }
+                ));
+            }
+
 
             const url = encodeURIComponent(`http://localhost:3005/login?email=${staff.email}&password=${staff.otp}`)
             console.log(url);

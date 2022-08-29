@@ -58,8 +58,6 @@ const MdPostModal = ({setAllPosts}) => {
         //     return;
         // }
         // setContent(html);
-        console.log(html)
-        console.log(content)
         setPostModalShow(false);
 
         let post = {
@@ -89,7 +87,7 @@ const MdPostModal = ({setAllPosts}) => {
 
     // Finish!
     function handleEditorChange({ html, text }) {
-        console.log('handleEditorChange\n',"html:\n", html,"\ntext:\n", text);
+        // console.log('handleEditorChange\n',"html:\n", html,"\ntext:\n", text);
         setHtml(html);
         setContent(html);
     }
