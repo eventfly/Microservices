@@ -11,11 +11,16 @@ export class ParticipantUpdatedListener extends Listener {
         
         console.log('Participant Updated! Data: ', data);
 
-        const user = await User.findByIdAndUpdate(data._id, {
-            name: data.name,
-            email: data.email,
-            avatar: data.avatar
+        const user = await User.findByIdAndUpdate(data.user._id, {
+            name: data.user.name,
+            email: data.user.email,
+            avatar: data.user.avatar
+        }, {
+            new: true,
+            runValidators: true
         });
+
+        console.log(user)
 
         msg.ack();
     }

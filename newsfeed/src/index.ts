@@ -11,6 +11,7 @@ import { ParticipantUpdatedListener } from './listeners/participant-updated-list
 import { ManagerCreatedListener } from './listeners/manager-created-listener';
 import { StaffRemovedListener } from './listeners/staff-removed-listener';
 import { StaffProfileEditedListener } from './listeners/staffProfile-edited-listener';
+import { OrgProfileEditedListener } from './listeners/orgProfile-edited-listener';
 
 import { natsWrapper } from './nats-wrapper';
 
@@ -60,6 +61,7 @@ const start = async () => {
     new ManagerCreatedListener(natsWrapper.client).listen();
     new StaffRemovedListener(natsWrapper.client).listen();
     new StaffProfileEditedListener(natsWrapper.client).listen();
+    new OrgProfileEditedListener(natsWrapper.client).listen();
 
     await mongoose.connect(`${process.env.MONGO_URI_NEWSFEED}`, {
       useNewUrlParser: true,
