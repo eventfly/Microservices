@@ -55,7 +55,6 @@ const EventFeed = () => {
 
             <div className='feed-container'>
                 
-                <QuizResultPreview />
 
                 {
                     allPosts &&
