@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 import DeleteRoleModal from "./DeleteRoleModal";
 import EditRoleModal from "./EditRoleModal";
 import AssignRoleModal from "./AssignRoleModal";
+import image from '../../images/avatar.png'
 
 
 // setData is either event or staffs
@@ -165,8 +166,10 @@ const Role = ({orgId, setData, roleType, permissions, members, displayEditModal,
                                         }}
                                     />
 
+{/* "https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg" */}
+
                                     <div className="person-info-body">
-                                        <img src={member.profile_pic ? member.profile_pic : "https://i.kym-cdn.com/photos/images/original/001/884/907/c86.jpg"} alt="" />
+                                        <img src={member.profile_pic ? member.profile_pic : image} alt="" />
                                         <div className="person-info-text">
                                             <h5 className="person-name"> {member.name} </h5>
                                             <p className="person-email"> {member.email} </p>

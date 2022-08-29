@@ -56,6 +56,8 @@ const StaffProfile = () => {
                 setProfileImage(res.data.existingUser.profile_pic)
 
                 auth.profile_pic = res.data.existingUser.profile_pic
+                auth.parentOrg = res.data.existingUser.organizer
+                auth.events = res.data.existingUser.events
                 window.sessionStorage.setItem('auth', JSON.stringify(auth));
 
             }).catch((err)=>{
