@@ -32,7 +32,8 @@ export class EventCreatedListener extends Listener {
             filter: data.filter,
             ticket_price: data.ticket_price,
             privacy: data.privacy,
-            zoom_link: data.zoom_link
+            zoom_link: data.zoom_link,
+            location: data.location
         })
 
         await event.save();

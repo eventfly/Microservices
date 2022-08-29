@@ -135,6 +135,11 @@ const eventSchema = new mongoose.Schema({
         type: Number,
         required: false,
         default: 0
+    },
+
+    location: {
+        type: [Number],
+        required: false
     }
 
     //TODO: Add Venue
