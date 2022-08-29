@@ -32,7 +32,8 @@ const PollModal = ({setAllPosts}) => {
                     option: item.choice
                 }
             }),
-            questions: []
+            questions: [],
+            post_type: 'poll',
         }
 
         console.log(post)

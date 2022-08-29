@@ -64,7 +64,8 @@ const MdPostModal = ({setAllPosts}) => {
             content: content,
             image: postImage,
             poll_options: [],
-            questions: []
+            questions: [],
+            post_type: 'text'
         }
 
         console.log(post)
@@ -130,7 +131,7 @@ const MdPostModal = ({setAllPosts}) => {
 
     return ( 
         <>
-            <Button variant="contained" color="primary" onClick={ () => setPostModalShow(true)}> Add Md post</Button>    
+            <Button variant="contained" color="primary" onClick={ () => setPostModalShow(true)}> Add Post</Button>    
 
             <PopupModal
                 show={postModalShow}
