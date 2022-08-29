@@ -69,7 +69,7 @@ const PollResult = ({pollData, pollQuestion, timeStamp}) => {
 
   return (
     <div className='poll-result' style={pollStyle}>
-      {console.log("time => ", timeStamp)}
+      {/* {console.log("time => ", timeStamp)} */}
 
         <LeafPoll
           type='multiple'

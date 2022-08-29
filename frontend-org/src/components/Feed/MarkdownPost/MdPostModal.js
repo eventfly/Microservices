@@ -16,7 +16,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import {getNewsfeedApi} from '../../../api/axiosHook'
 
 
-const MdPostModal = ({setAllPosts}) => {
+const MdPostModal = ({setAllPosts, setLoading}) => {
 
     const [postModalShow, setPostModalShow] = useState(false);
 
@@ -71,7 +71,9 @@ const MdPostModal = ({setAllPosts}) => {
         console.log(post)
 
         getNewsfeedApi(localStorage.getItem('token')).post(`${eventId}/post`, post).then((res)=>{
-            setAllPosts(allPosts => [...allPosts, res.data.post])
+            // setAllPosts(allPosts => [...allPosts, res.data.post])
+            // setLoading(false)
+            window.location.reload(false);
         })
         .catch((err)=>{
             console.log(err.response.data.errors)

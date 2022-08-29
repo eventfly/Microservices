@@ -30,16 +30,15 @@ const EventFeed = () => {
 
             if(loading == false){
                 getNewsfeedApi(localStorage.getItem('token')).get(`${eventId}/post`).then((res)=>{
-                    console.log(res)
                     console.log(res.data.event)
                     setEventFeed(res.data.event)
                     setAllPosts([...res.data.event.posts])
+                    setLoading(true)
                 })
                 .catch((err)=>{
-                    console.log(err.response.data.errors)
+                    console.log(err)
                 })
 
-                setLoading(true)
             }
         }
 
@@ -52,10 +51,12 @@ const EventFeed = () => {
     return ( 
 
         <>
-            <FeedHeader setAllPosts={setAllPosts} />  
+            <FeedHeader setAllPosts={setAllPosts} setLoading={setLoading} />  
 
             <div className='feed-container'>
-                    
+                
+                <QuizResultPreview />
+
                 {
                     allPosts &&
                     allPosts.map((post, index)=>{
@@ -103,6 +104,8 @@ const EventFeed = () => {
                                     post_id = {post._id}
                                     allPosts={allPosts}
                                     setAllPosts={setAllPosts}
+                                    setLoadingFeed={setLoading}
+                                    loadingFeed={loading}
                                     // image='https://i.redd.it/xmr50tmyqjh91.jpg'
                                 />
                             )
