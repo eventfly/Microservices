@@ -1,18 +1,22 @@
 import QuizResultSummary from "./QuizResultSummary";
 import QuizResultIndividual from "./QuizResultIndividual";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {Container, Row, Col, Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import {useLocation} from 'react-router-dom'
+
+import { getNewsfeedApi } from "../../../api/axiosHook";
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import Leaderboard from "./Leaderboard";
 
 const QuizResultDetails = () => {
 
-    const questions = []
-    for (let i = 0; i < 3; i++) {
-        questions.push('summary')
-    }
+
+    const location = useLocation()
+    const { quizTopic, post_id } = location.state
+    console.log(post_id)
+
+    const [questions, setQuestions] = useState([])
 
     const [viewType, setViewType] = useState([...questions])
     const [showLeaderboard, setShowLeaderboard] = useState(false)
@@ -23,13 +27,40 @@ const QuizResultDetails = () => {
         setViewType(newArr)
     }
 
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() =>{
+
+        async function fetchQuizData(){
+
+            if(loading == false){
+                    getNewsfeedApi(localStorage.getItem('token')).get(`post/${post_id.post_id}`).then((res)=>{
+                        console.log(res)
+                        setQuestions([...res.data.post.questions])
+                    })
+                    .catch((err)=>{
+                        console.log(err.response.data.errors)
+                    })
+
+                    setLoading(true)
+                }
+            }
+      
+
+        fetchQuizData()
+
+
+    }, [loading])
+
+    const [Correct, setCorrect] = useState('')
+
     return ( 
         <>
             <div className="d-flex justify-content-between my-4">
                 <Col>
                     <Row>
                         <h3>
-                            Quiztopic
+                            {quizTopic.quizTopic}
                         </h3>
                         </Row>
                         <Row>
@@ -42,7 +73,8 @@ const QuizResultDetails = () => {
                 <div onClick={() => setShowLeaderboard(true)}>
                     {
                         showLeaderboard===false ? 
-                            <Button>Click To View Leaderboard</Button> : null
+                            // <Button>Click To View Leaderboard</Button> : null
+                            null:null
                     }
                 </div>
             </div>
@@ -51,9 +83,10 @@ const QuizResultDetails = () => {
                     showLeaderboard==true ? <Leaderboard setShowLeaderboard={setShowLeaderboard}/> : 
                     (
                         
-                            questions.map((question, index) => {
+                            questions && questions.map((question, index) => {
+                                // setCorrect(question.answers.filter(answer => answer.is_correct === true)[0].answer)
                                 return (
-                                    
+
                                         <div className="quiz-result-single-container" key={index}> 
                                             <Container>
                                                 <Row>
@@ -61,15 +94,16 @@ const QuizResultDetails = () => {
                                                         <Row>
                                                         <h3>
                                                             Question {index + 1}
+                                                            {/* {question.question} */}
                                                         </h3>
                                                         </Row>
                                                         <Row>
                                                         <h6 className="text-muted">
-                                                            Correct: corAns
+                                                            {/* {question.question} */}
                                                         </h6>
                                                         </Row>
                                                     </Col>
-                                                    <Col xs={{offset:5}}>
+                                                    {/* <Col xs={{offset:5}}>
                                                         <Dropdown>
                                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                 View By
@@ -80,11 +114,12 @@ const QuizResultDetails = () => {
                                                                 <div className="feed-dropdown-item" onClick={() => viewBy('individual',index)}> <Button variant="contained" color="primary">Individual</Button> </div> 
                                                             </Dropdown.Menu>
                                                         </Dropdown> 
-                                                    </Col>
+                                                    </Col> */}
                                                 </Row>
                                             </Container>
                                             {
-                                                viewType[index] === 'summary' ? <QuizResultSummary /> : <QuizResultIndividual />
+                                                // viewType[index] === 'summary' ? <QuizResultSummary /> : <QuizResultIndividual />
+                                                <QuizResultSummary question={question} />
                                             }
                                             
                                         </div>       

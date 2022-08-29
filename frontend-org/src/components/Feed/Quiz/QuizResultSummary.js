@@ -6,21 +6,9 @@ import { Link } from 'react-router-dom';
 import { BorderBottom } from '@material-ui/icons';
 
 // Persistent data array (typically fetched from the server)
-const resData = [
-  { id: 0, text: 'option 1', votes: 50 },
-  { id: 1, text: 'option 2', votes: 30 },
-]
 
-const quizTopic = (
-  <div style={{
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  }}
-  >
-    <p>What was the question?</p>
-  </div>
-)
+
+
 
 // Object keys may vary on the poll type (see the 'Theme options' table below)
 const customTheme = {
@@ -44,7 +32,38 @@ const quizStyle = {
     // height: auto;
 }
 
-const QuizResultSummary = () => {
+const QuizResultSummary = (question) => {
+  console.log(question);
+  console.log(question.question);
+
+  const quizTopic = (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    }}
+    >
+      <p>{question.question.question}</p>
+    </div>
+  )
+
+  const ressData = [
+    { id: 0, text: 'option 1', votes: 50 },
+    { id: 1, text: 'option 2', votes: 30 },
+  ]
+
+  const resData =[]
+  for(let i=0; i<question.question.answers.length; i++){
+    // question.question.answers[i].count = question.question.answers[i].count + 10
+    console.log(question.question.answers[i].count);
+    resData.push({
+      id: i, 
+      text: question.question.answers[i].answer, 
+      votes: question.question.answers[i].count
+    })
+  }
+  
+
   return (
         <div className='quiz-result' style={quizStyle}>
             <LeafPoll

@@ -14,7 +14,7 @@ import PostModal from './Post/PostModal';
 import PollModal from './Poll/PollModal';
 import MdPostModal from './MarkdownPost/MdPostModal';
 
-function FeedHeader({setAllPosts}) {
+function FeedHeader({setAllPosts, setLoading}) {
     const headerStyle = {
         // backgroundColor: 'red'
     }
@@ -57,7 +57,12 @@ function FeedHeader({setAllPosts}) {
                                  {/* <div className="feed-dropdown-item"> <PostModal setAllPosts={setAllPosts} /> </div>   */}
                                  <div className="feed-dropdown-item"> <PollModal setAllPosts={setAllPosts} /> </div> 
                                  <div className="feed-dropdown-item"> <QuizModal setAllPosts={setAllPosts} /> </div> 
-                                 <div className="feed-dropdown-item"> <MdPostModal setAllPosts={setAllPosts}/> </div>
+                                 <div className="feed-dropdown-item"> 
+                                    <MdPostModal 
+                                        setAllPosts={setAllPosts}
+                                        setLoading={setLoading}    
+                                    /> 
+                                 </div>
                                 
                             </Dropdown.Menu>
                         </Dropdown> 
@@ -65,7 +70,7 @@ function FeedHeader({setAllPosts}) {
                 </Row>
             </Container>
 
-            <Tabs
+            {/* <Tabs
                 style={headerStyle}
                 defaultActiveKey="all"
                 id="fill-tab-example"
@@ -86,7 +91,7 @@ function FeedHeader({setAllPosts}) {
                     hmm3
                 </Tab>
                 <Button variant="primary" className="event-feed-header-button"> sdflj </Button>
-            </Tabs>
+            </Tabs> */}
             
         </>
   );

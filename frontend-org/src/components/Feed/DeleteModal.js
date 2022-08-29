@@ -15,7 +15,7 @@ import Form from 'react-bootstrap/Form';
 import {getNewsfeedApi} from '../../api/axiosHook'
 
 
-const DeleteModal = ({post_id, allPosts, setAllPosts}) => {
+const DeleteModal = ({post_id, allPosts, setAllPosts, setLoading}) => {
 
     const [deleteModalShow, setDeleteModalShow] = useState(false);
 
@@ -27,9 +27,12 @@ const DeleteModal = ({post_id, allPosts, setAllPosts}) => {
 
 
         getNewsfeedApi(localStorage.getItem('token')).delete(`post/${post_id}`).then((res)=>{
-            let newArr = [...allPosts.filter(post => post._id != post_id)]
-            setAllPosts(newArr)
+            // let newArr = [...allPosts.filter(post => post._id != post_id)]
+            // setAllPosts([...newArr])
+            // setLoading(false)
             //console.log(res)
+
+            window.location.reload(false);
         })
         .catch((err)=>{
             console.log(err)

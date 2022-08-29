@@ -56,7 +56,8 @@ router.put('/api/org/edit-profile', [
             natsWrapper.client.publish('profile:edited', JSON.stringify(
                 {
                     name: existingUser!.name,
-                    ref_id: existingUser!.id
+                    ref_id: existingUser!.id,
+                    profile_pic: existingUser!.profile_pic
                 }
             ), () => {
                 console.log('Edited Profile published to auth')

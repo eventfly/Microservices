@@ -5,7 +5,7 @@ import { User } from '../models/user';
 
 export class StaffProfileEditedListener extends Listener {
     subject = 'staffProfile:edited';
-    queueGroupName = 'staffProfile-edited';
+    queueGroupName = 'staffProfile-edited-newsfeed';
     
     async onMessage(data: any, msg: Message) {
 
@@ -13,12 +13,11 @@ export class StaffProfileEditedListener extends Listener {
 
         let {name, profile_pic, events, staffId} = data;
 
-        events.forEach(async (event: any) => {
+        // events.forEach(async (event: any) => {
             
             
             const user = await User.findOneAndUpdate({
-                _id: staffId,
-                role: 'Staff'
+                _id: staffId
             }, {
                 name,
                 avatar: profile_pic
@@ -27,9 +26,10 @@ export class StaffProfileEditedListener extends Listener {
                 runValidators: true
             });
 
+            console.log(user)
         
             
-        })
+        // })
 
         msg.ack();
     }
