@@ -130,3 +130,19 @@ services:
         - variables.env
       depends_on:
         - nats_server
+    analytics:
+      build: ./analytics
+      container_name: analytics
+      ports:
+        - "3006:3000"
+      volumes:
+        - ./analytics:/var/lib/analytics
+      networks:
+        - isolation-network
+      restart: always
+      environment:
+        - NATS_CLIENT_ID=analytics
+      env_file:
+        - variables.env
+      depends_on:
+        - nats_server
