@@ -6,10 +6,10 @@ import { EventParticipantAddedListener } from './listeners/event-participant-add
 import { OrgSubscriptionAddedListener } from './listeners/org-subscription-added-listener';
 
 import { natsWrapper } from './nats-wrapper';
-import dotenv from 'dotenv'
+// import dotenv from 'dotenv'
 
 
-dotenv.config();
+// dotenv.config();
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -20,7 +20,7 @@ const start = async () => {
     throw new Error('MONGO_URI_ANALYTICS must be defined')
   }
 
-  if (!process.env.NATS_URL_ANALYTICS) {
+  if (!process.env.NATS_URL) {
     throw new Error('NATS_CLUSTER_ID must be defined')
   }
 
@@ -36,7 +36,7 @@ const start = async () => {
   try {
     await natsWrapper.connect(process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL_ANALYTICS)
+      process.env.NATS_URL)
 
     natsWrapper.client.on('close', () => {
       // console.log('NATS connection closed');
@@ -61,8 +61,8 @@ const start = async () => {
     console.error(err)
   }
 
-  app.listen(3006, () => {
-    console.log('Listening on port 3006!!!!!!!!');
+  app.listen(3000, () => {
+    console.log('Listening on port 3000!!!!!!!!');
   });
 
 }

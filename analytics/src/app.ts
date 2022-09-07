@@ -28,15 +28,15 @@ app.use((req,res,next)=>{
 })
 
 
-app.set('trust proxy', true) // trust first proxy
+// app.set('trust proxy', true) // trust first proxy
 app.use(json())
-app.use(
-    cookieSession({
-        signed: false,
-        secure: true
-    })
-)
-app.use(currentUser);
+// app.use(
+//     cookieSession({
+//         signed: false,
+//         secure: true
+//     })
+// )
+// app.use(currentUser);
 app.use(orderedEventsRouter);
 app.use(searchByLocationRouter)
 app.use(searchByQueryRouter)
